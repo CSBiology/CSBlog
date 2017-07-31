@@ -156,7 +156,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a{
   font-family: "PT Sans", Helvetica, Arial, sans-serif;
   font-size: .875rem; /* 15px */
   color: rgba(255,255,255,.6);
-  background-color: #202020;
+  background-color: #212d30;
   -webkit-transition: all .3s ease-in-out;
           transition: all .3s ease-in-out;
 }
@@ -182,11 +182,19 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a{
 .sidebar-nav {
   border-bottom: 1px solid rgba(255,255,255,.1);
 }
-.sidebar-nav-item {
+.sidebar-nav-item{
   display: block;
   padding: .5rem 1rem;
   border-top: 1px solid rgba(255,255,255,.1);
 }
+
+a.sidebar-nav-item-inv {
+  display: block;
+  padding: .5rem 1rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  color:#212d30;
+}
+
 .sidebar-nav-item.active,
 a.sidebar-nav-item:hover,
 a.sidebar-nav-item:focus {
