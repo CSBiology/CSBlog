@@ -172,7 +172,7 @@ Target "KeepRunning" (fun _ ->
     watcher.Dispose()
 )
 
-Target "ReleaseLocal" (fun _ ->
+Target "Local" (fun _ ->
     let tempDocsDir = "local"
     CreateDir tempDocsDir
     CleanDir tempDocsDir
@@ -225,7 +225,7 @@ Target "All" DoNothing
 
 "GenerateReferenceDocs"
   ==> "All"
-  ==> "ReleaseLocal"
+  ==> "Local"
 
 "GenerateReferenceDocs"
   ==> "All"

@@ -17,6 +17,7 @@
 /*
  * Contents
  *
+ * Paragraph layout
  * Global resets
  * Masthead
  * Sidebar
@@ -26,6 +27,16 @@
  * Reverse layout
  * Themes
  */
+
+/*
+ * Paragraph layout
+ */
+
+p {
+    text-align: justify
+}
+
+}
 
 
 /*
