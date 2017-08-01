@@ -70,40 +70,45 @@
               
 <h1><a name="Creating-a-Documentation" class="anchor" href="#Creating-a-Documentation">Creating a Documentation</a></h1>
 <h2><a name="Introduction" class="anchor" href="#Introduction">Introduction</a></h2>
-<p>This documentation is aimed at people of the CSB team who want to document their stuff by using the FSharp.Formatting formatter. There of course is an <a href="http://fsprojects.github.io/FSharp.Formatting/">in depth documentation of how to use FSharp.Formatting by the creators</a>. Also there's a good overview of the different mark down commands on <a href="https://de.wikipedia.org/wiki/Markdown">wikipedia</a>. Those things can be very cryptical at the beginning though. therefore with this tutorial I want to give a quick and structured introduction into this topic. For further information check out the aforementioned websites.
+<p>This documentation is aimed at people of the CSB team who want to document their stuff by using the FSharp.Formatting formatter.
+There of course is an <a href="http://fsprojects.github.io/FSharp.Formatting/">in depth documentation of how to use FSharp.Formatting by the creators</a>.
+Also there's a good overview of the different mark down commands on <a href="https://de.wikipedia.org/wiki/Markdown">wikipedia</a>.
+Those things can be very cryptical at the beginning though.
+Therefore with this tutorial I want to give a quick and structured introduction into this topic.
+For further information check out the aforementioned websites.<br />
 The basic structure is as follows:</p>
 <ul>
 <li><a href="documentation.html#PS">At the start I want to introduce you to the <strong>ProjectScaffold</strong></a></li>
-<li><a href="documentation.html#Basics">Afterwards I'll explain <strong>how the formatting works</strong> and where to find what</a></li>
-<li><a href="documentation.html#What">Then I'll give a little introduction on <strong>how you should document</strong> your code in general</a></li>
-<li><a href="documentation.html#Legend">I also include a small overview over the <strong>different features</strong> you have with markdown language</a></li>
+<li><a href="documentation.html#Basics">Afterwards I'll explain <strong>how to get started</strong> and where to find what</a></li>
+<li><a href="documentation.html#What">Then I'll give a little introduction on <strong>how you should write the documentian</strong> for your code</a></li>
+<li><a href="documentation.html#Legend">I also include a small overview over the <strong>different features</strong> you have with markdown language and the formatted F#</a></li>
 <li><a href="documentation.html#Testing">At the end I'll explain <strong>how to test your documentation</strong></a></li>
 </ul>
 <a name="PS"></a>
 <h2><a name="What-is-Project-Scaffold" class="anchor" href="#What-is-Project-Scaffold">What is Project Scaffold?</a></h2>
 <p>The libraries of the CSBiology organization are built using the <a href="https://github.com/fsprojects/ProjectScaffold">ProjectScaffold</a>. In principle, this is a blueprint project to make creating and maintaining a F# project easier.
-Besides many other features, this includes automatic Documentation via the <a href="https://github.com/fsprojects/FSharp.Formatting">FSharpFormattin</a> formatter.
+Besides many other features, this includes automatic Documentation via the <a href="https://github.com/fsprojects/FSharp.Formatting">FSharp.Formatting</a> formatter.
 This formatter is called when one executes the <strong>build.cmd</strong> which is located in the project folder. Opening this build.cmd does not only compile the project, it also formats the <b>.fsx</b>(FSharp script file) documents to <b>.html</b> documents by using the FSharpFormatting formatter, besides other things.
 The script files which are formatted have to be placed in "..<em>project name</em>\docs\content". The formatted html files are then automatically placed in "..<em>project name</em>\docs\output". Keep in mind that by using the build.cmd, those files are built and stored only locally.</p>
 <p>Now that that's covered let's get to the important questions:</p>
 <a name="Basics"></a>
 <h2><a name="Where-to-put-what" class="anchor" href="#Where-to-put-what">Where to put what?</a></h2>
-<p>Let's say you want to write a documentation about the topic <code>topic</code>
-short:</p>
+<p>Let's say you want to write a documentation about the topic <code>topic</code></p>
 <ul>
+<li><p>Place <code>topic.fsx</code> in "..<em>project name</em>\docs\content"</p></li>
 <li>
-<p>place <code>topic.fsx</code> in "..<em>project name</em>\docs\content"</p>
-<p><code>(*** hide ***)</code> in front of helpful library calls, those won't be formatted<br />
-put text into a comment as follows: (<em></em> text *). This text will be formatted by markdown<br />
+<p>Write the documentation in this <code>topic.fsx</code> as follows</p>
+<p><code>(*** hide ***)</code> in front of helpful library calls; Those won't be formatted.<br />
+Put text into a comment as follows: /(/<em>/</em> text /*/s). This text will be formatted by markdown<br />
 Everything outside those brackets will be formatted as an F#-snippet</p>
 </li>
 <li>
 <p>In the template.cshtml: Put a link to the html using the following line in the place you want your link to be created:</p>
-<p><code>&lt;li&gt;&lt;a href="@Root/topic.html"&gt;Topic&lt;/a&gt;&lt;/li&gt;</code></p>
+<p><code>&lt;li&gt;&lt;a href="@Root/topic.html"&gt;Topic&lt;/a&gt;&lt;/li&gt;</code>
+If you have some experience with HTML, how to do this comes quite naturally. If not, you can either do it via <a href="documentation.html#Testing">Trial and Error</a> or even easier: just ask.</p>
 </li>
+<li>Commit your changes and create a pull request to the upstream repository. The added htmls will be included in the next release</li>
 </ul>
-<p>Done
-In depth guide coming soon</p>
 <a name="What"></a>
 <h2><a name="What-should-I-write-about" class="anchor" href="#What-should-I-write-about">What should I write about?</a></h2>
 <p>Good question! But all good questions of course also have good answers (unfortunately not really).
@@ -129,7 +134,7 @@ As you can see this function takes an int and a string and multiplies every lett
         | <span class="k">false</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs9', 21)" onmouseover="showTip(event, 'fs9', 21)" class="i">l</span>
     <span onmouseout="hideTip(event, 'fs8', 22)" onmouseover="showTip(event, 'fs8', 22)" class="f">loop</span> []
     <span class="o">|&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">chars</span> <span class="k">-&gt;</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs5', 24)" onmouseover="showTip(event, 'fs5', 24)" class="t">string</span> [|<span class="k">for</span> <span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">c</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="i">chars</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="i">c</span>|]
-    
+  
 </code></pre></td>
 </tr>
 </table>
@@ -167,26 +172,27 @@ Of course also delivering an explanation of the background of your implementatio
 <p>You can easily link external websites or internal documents.</p>
 <p>The basic command for this is
 <br>
-... [text](link)
+<code>\[text](link)</code>
 <br>
 The text you insert into the square brackets will be formatted to a clickable text. When you click it, the link will be opened. What you link to is your choice. You could for example link to external websites:<br />
-... [Wikipedia](/<a href="https://de.wikipedia.org/wiki/Wikipedia)">https://de.wikipedia.org/wiki/Wikipedia)</a> will be <a href="https://de.wikipedia.org/wiki/Wikipedia">Wikipedia</a>.<br />
+<code>\[Wikipedia](/https://de.wikipedia.org/wiki/Wikipedia)</code> will be <a href="https://de.wikipedia.org/wiki/Wikipedia">Wikipedia</a>.<br />
 On the other hand you can link local files:<br />
-... [index](index.html) will be <a href="index.html">index</a></p>
+<code>\[index](index.html)</code> will be <a href="index.html">index</a></p>
 <a name="Images"></a>
 <h3><a name="Images" class="anchor" href="#Images">Images</a></h3>
 <p>Images are included similarly to normal links, but with a "!" in front of them. So instead of "[text](link)" you use<br />
-...!<a href="image link">image name</a><br />
+<code>!\[image name](image link)</code><br />
 Again you can link external images with a full url:<br />
-![Marshmallow](\<a href="https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)">https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)</a> will be<br />
+<code>!\[Marshmallow](\https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)</code> will be<br />
 <br>
 <img src="https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg" alt="Marshmallow" /></p>
 <p>On the other hand you can link local files:<br />
-...![logo](img/logo.png) will be <img src="img/logo.png" alt="logo" />
-Make sure that the image you want to reference is located at "..<em>project name</em>/docs/files/img". Also as is only <strong>.png</strong>s can be used for local referencing because only those are copied to the gh-pages in the building process.</p>
+<code>!\[logo](img/logo.png)</code> will be <img src="img/logo.png" alt="logo" />
+Make sure that the image you want to reference is located at "..<em>project name</em>/docs/files/img". Also at the moment only <strong>.png</strong>s can be used for local referencing because only those are copied to the gh-pages in the building process.</p>
 <a name="ConsoleOutput"></a>
 <h3><a name="Console-Output" class="anchor" href="#Console-Output">Console Output</a></h3>
 <p>With the FSharp.Formatting you can not only include stylized code snippets, but also include console output of the F# interactive.</p>
+<p><code>Fixing under way</code></p>
 <a name="Plots"></a>
 <h3><a name="Plots" class="anchor" href="#Plots">Plots</a></h3>
 <a name="Testing"></a>
@@ -216,7 +222,8 @@ To bring everything in good form. A new buildtarget "<strong>releaseLocal</stron
 <p><strong>First try it in the way described above for VS2015. In VS2017 you might have problems with the </strong>build<em></em> process. To circumvent this:</p>
 <p>Still in the command prompt:<br />
 run <code>.paket\paket.exe update</code><br />
-This should update the packages in your project folder. Afterwards try again the <a href="documentation.html#With VS2015">aforementioned workflow</a></p>
+This should update the packages in your project folder. Afterwards try again the <a href="documentation.html#With VS2015">aforementioned workflow</a>
+<br><br><br></p>
 
 <div class="tip" id="fs1">val multiplyLetters : count:int -&gt; word:string -&gt; string<br /><br />Full name: Documentation.multiplyLetters</div>
 <div class="tip" id="fs2">val count : int</div>
