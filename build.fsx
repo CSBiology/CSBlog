@@ -51,7 +51,7 @@ let testAssemblies = "tests/**/bin" </> configuration </> "*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "HLWeil"
+let gitOwner = "CSBiology"
 let gitHome = sprintf "%s/%s" "https://github.com" gitOwner
 
 // The name of the project on GitHub
@@ -182,7 +182,18 @@ Target "ReleaseLocal" (fun _ ->
             yield "href=\"/" + project + "/","href=\""
             yield "src=\"/" + project + "/","src=\""}) 
         ((filesInDirMatching "*.html" (directoryInfo tempDocsDir)) |> Array.map (fun x -> tempDocsDir + "/" + x.Name))
-)   
+)
+
+Target "Release" (fun _ ->
+    let tempDocsDir = "temp/gh-pages"
+    CleanDir tempDocsDir
+    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+
+    CopyRecursive "docs" tempDocsDir true |> tracefn "%A"
+    StageAll tempDocsDir
+    Git.Commit.Commit tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
+    Branches.push tempDocsDir
+)
 
 let createIndexFsx lang =
     let content = """(*** hide ***)
@@ -215,6 +226,10 @@ Target "All" DoNothing
 "GenerateReferenceDocs"
   ==> "All"
   ==> "ReleaseLocal"
+
+"GenerateReferenceDocs"
+  ==> "All"
+  ==> "Release"
 
 "GenerateHelpDebug"
   ==> "KeepRunning"
