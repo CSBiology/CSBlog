@@ -10,7 +10,7 @@
 
     <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
     <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+   <!-- <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> -->
 
     <!-- CSS -->
     <link type="text/css" rel="stylesheet" href="/CSBlog/content/poole.css" />
@@ -36,8 +36,8 @@
           <nav class="sidebar-nav">
               <a class="sidebar-nav-item" href="/CSBlog/index.html">Home</a>
               <a class="sidebar-nav-item-inv">Empty</a>
-              <a class="sidebar-nav-item" href="/CSBlog/blog.html">BlogPosts</a>
-              <a class="sidebar-nav-item" id="hot">Newest Posts</a>
+              <a class="sidebar-nav-item" href="/CSBlog/blog.html">Blog Posts</a>
+              <a class="sidebar-nav-item" href="/CSBlog/internal.html">Internal Posts</a>
               <a class="sidebar-nav-item" href="/CSBlog/documentation.html">Intro to Documentation</a>
               <a class="sidebar-nav-item-inv">Empty</a>
               <a class="sidebar-nav-item" href="https://github.com/CSBiology">CSB on GitHub</a>
@@ -198,7 +198,7 @@ Make sure that the image you want to reference is located at "..<em>project name
 <a name="Testing"></a>
 <h2><a name="How-can-I-test-my-formatted-documentation" class="anchor" href="#How-can-I-test-my-formatted-documentation">How can I test my formatted documentation?</a></h2>
 <p>You can play around with the markdown text in an online tool like <a href="http://dillinger.io/">dillinger.io</a>.<br />
-This is not really helpful though, if you want to test how the formattet site will look like on the project website. <a href="documentation.html#How">As stated above</a>, the build.cmd will create the <strong>htmls</strong>s of the <strong>fsx</strong> which are located at "..<em>project name</em>\docs\content" and put them into "..<em>project name</em>\docs\output" together with all other needed files.
+This is not really helpful though, if you want to test how the formattet site will look like on the project website. <a href="documentation.html#How">As stated above</a>, the build.cmd will create the <code>htmls</code>s of the <code>fsx</code>s which are located at "..<em>project name</em>\docs\content" and automatically put them into "..<em>project name</em>\docs\output" together with all other needed files.
 You can access the htmls there after building, but the references to the css styling files and all other ressources won't work. Therefore you will get a very plain looking, unstyled website.<br />
 To bring everything in good form. A new buildtarget "<strong>releaseLocal</strong>" was included in the CSB-projects. To access this target:</p>
 <h3><a name="With-VS2015" class="anchor" href="#With-VS2015">With VS2015</a></h3>
