@@ -10,7 +10,6 @@
 
     <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
     <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
-   <!-- <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> -->
 
     <!-- CSS -->
     <link type="text/css" rel="stylesheet" href="/CSBlog/content/poole.css" />
@@ -99,7 +98,7 @@ The script files which are formatted have to be placed in "..<em>project name</e
 <li>
 <p>Write the documentation in this <code>topic.fsx</code> as follows</p>
 <p><code>(*** hide ***)</code> in front of helpful library calls; Those won't be formatted.<br />
-Put text into a comment as follows: /(/<em>/</em> text /*/s). This text will be formatted by markdown<br />
+Put text into a comment as follows: <code>(** text *)</code>. This text will be formatted by markdown<br />
 Everything outside those brackets will be formatted as an F#-snippet</p>
 </li>
 <li>
@@ -115,7 +114,7 @@ If you have some experience with HTML, how to do this comes quite naturally. If 
 The people who will read your tutorial are of course the ones who want to use your functions. So your task in the tutorial is basically to tell them <b>how to use</b> it, not necessarily how it works.
 The core of your documentation therefore should be code snippets of the function being applied with real values, not snippets of the function definition:</p>
 <b class="redText"> Bad Snippet: </b>
-As you can see this function takes an int and a string and multiplies every letter in the string by using an enumerator...
+"As you can see this function takes an int and a string and multiplies every letter in the string by using an enumerator..."
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -140,7 +139,7 @@ As you can see this function takes an int and a string and multiplies every lett
 </table>
 <p>Showing the definition will just result in the reader to lose a lot of time deciphering your code. The snippet should only show how to apply the function, so that the user can pick it up quick and apply it to his values. What the function does behind the screens should be explained separately.</p>
 <b class="greenText"> Good Snippet: </b>
-As you can see this function takes an int and a string and multiplies the number of every letter in the string by the int
+"As you can see this function takes an int and a string and multiplies the number of every letter in the string by the int"
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -158,37 +157,61 @@ Of course also delivering an explanation of the background of your implementatio
 <li><a href="https://de.wikipedia.org/wiki/Markdown">quick intro by wikipedia</a></li>
 <li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">very in-depth list by adam-p</a></li>
 </ul>
-<p>For the matter of completion I'll still give a little overview on the different markdown-commands. What's more important here though are the extra features of FSharp.Formatting, which are a bit hard to find otherwise. This includes using <a href="documentation.html#ConsoleOutput">f# interactive output</a> and <a href="documentation.html#Plots">Plots by FSharp.Plotly</a>.</p>
-<a name="Headers"></a>
+<p>For the matter of completion I'll still give a little overview on the different markdown-commands:</p>
+<ul>
+<li><a href="documentation.html#Headers">Headers</a></li>
+<li>Highlighting</li>
+<li><a href="documentation.html#Links">Links</a></li>
+<li><a href="documentation.html#Images">Images</a></li>
+<li>Lists</li>
+<li><a href="documentation.html#[Escaping-Markdown">Escaping Markdown</a></li>
+</ul>
+<p>What's more important here though are the extra features of FSharp.Formatting, which are a bit hard to find otherwise:</p>
+<ul>
+<li>Highlighting</li>
+<li><a href="documentation.html#ConsoleOutput">f# interactive output</a></li>
+<li><a href="documentation.html#Plots">Plots by FSharp.Plotly</a></li>
+</ul>
 <h3><a name="Headers" class="anchor" href="#Headers">Headers</a></h3>
-<p>For headers, you can just put a number of '#' at the start of the line, the header gets smaller, the more '#' you use:</p>
+<p>For headers, you can just put a number of '#' at the start of the line, the header gets smaller, the more '#' you use:<br />
+<code># One hashtag</code> will be</p>
 <h1><a name="One-hashtag" class="anchor" href="#One-hashtag">One hashtag</a></h1>
+<p><code>## Two hashtags</code> will be</p>
 <h2><a name="Two-hashtags" class="anchor" href="#Two-hashtags">Two hashtags</a></h2>
+<p><code>### Three hashtags</code> will be</p>
 <h3><a name="Three-hashtags" class="anchor" href="#Three-hashtags">Three hashtags</a></h3>
+<p><code>#### Four hashtags</code> will be</p>
 <h4><a name="Four-hashtags" class="anchor" href="#Four-hashtags">Four hashtags</a></h4>
 <br>
-<a name="Links"></a>
 <h3><a name="Links" class="anchor" href="#Links">Links</a></h3>
 <p>You can easily link external websites or internal documents.</p>
 <p>The basic command for this is
 <br>
-<code>\[text](link)</code>
+<code>[text](link)</code>
 <br>
 The text you insert into the square brackets will be formatted to a clickable text. When you click it, the link will be opened. What you link to is your choice. You could for example link to external websites:<br />
-<code>\[Wikipedia](/https://de.wikipedia.org/wiki/Wikipedia)</code> will be <a href="https://de.wikipedia.org/wiki/Wikipedia">Wikipedia</a>.<br />
+<code>[Wikipedia](https://de.wikipedia.org/wiki/Wikipedia)</code> will be <a href="https://de.wikipedia.org/wiki/Wikipedia">Wikipedia</a>.<br />
 On the other hand you can link local files:<br />
-<code>\[index](index.html)</code> will be <a href="index.html">index</a></p>
-<a name="Images"></a>
+<code>[index](index.html)</code> will be <a href="index.html">index</a></p>
 <h3><a name="Images" class="anchor" href="#Images">Images</a></h3>
 <p>Images are included similarly to normal links, but with a "!" in front of them. So instead of "[text](link)" you use<br />
-<code>!\[image name](image link)</code><br />
+<code>![image name](image link)</code><br />
 Again you can link external images with a full url:<br />
-<code>!\[Marshmallow](\https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)</code> will be<br />
+<code>![Marshmallow](\https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)</code> will be<br />
 <br>
 <img src="https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg" alt="Marshmallow" /></p>
 <p>On the other hand you can link local files:<br />
-<code>!\[logo](img/logo.png)</code> will be <img src="img/logo.png" alt="logo" />
+<code>![logo](img/logo.png)</code> will be <img src="img/logo.png" alt="logo" />
 Make sure that the image you want to reference is located at "..<em>project name</em>/docs/files/img". Also at the moment only <strong>.png</strong>s can be used for local referencing because only those are copied to the gh-pages in the building process.</p>
+<h3><a name="Escaping-Markdown" class="anchor" href="#Escaping-Markdown">Escaping Markdown</a></h3>
+<p>Sometimes you need to use characters for your documentation, which also are used by markdown.
+This can lead to weird outcomes where characters are missing.
+To circumvent this, you can use a <code>\</code> (backslash) infront of those characters.<br />
+E.g.:</p>
+<ul>
+<li><code>There were two ** in the night sky</code> will be <code>There were two in the night sky</code></li>
+<li><code>There were two \*\* in the night sky</code> will be <code>There were two ** in the night sky</code></li>
+</ul>
 <a name="ConsoleOutput"></a>
 <h3><a name="Console-Output" class="anchor" href="#Console-Output">Console Output</a></h3>
 <p>With the FSharp.Formatting you can not only include stylized code snippets, but also include console output of the F# interactive.</p>
