@@ -35,7 +35,7 @@ let summary = "The blog about all things CSB"
 let description = "The official Blog of the Computational Systems Biology workgroup of the TU Kaiserslautern"
 
 // List of author names (for NuGet package)
-let authors = [ "HLWeil" ]
+let authors = ["HLWeil"]
 
 // Tags for your project (for NuGet package)
 let tags = "Blog CSB CSBiology TUKL FSharp F# BioFSharp Webblog CSBlog"
@@ -194,22 +194,6 @@ Target "Release" (fun _ ->
     Git.Commit.Commit tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
     Branches.push tempDocsDir
 )
-
-let createIndexFsx lang =
-    let content = """(*** hide ***)
-// This block of code is omitted in the generated HTML documentation. Use
-// it to define helpers that you do not want to show in the documentation.
-#I "../../../bin"
-
-(**
-F# Project Scaffold ({0})
-=========================
-*)
-"""
-    let targetDir = "docsrc/content" </> lang
-    let targetFile = targetDir </> "index.fsx"
-    ensureDirectory targetDir
-    System.IO.File.WriteAllText(targetFile, System.String.Format(content, lang))
 
 // --------------------------------------------------------------------------------------
 // Release Scripts

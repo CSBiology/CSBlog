@@ -35,7 +35,7 @@ Let's say you want to write a documentation about the topic `topic`
 * Write the documentation in this `topic.fsx` as follows
 
    `(*** hide ***)` in front of helpful library calls; Those won't be formatted.  
-   Put text into a comment as follows: /(/*/* text /*/s). This text will be formatted by markdown  
+   Put text into a comment as follows: `(** text *)`. This text will be formatted by markdown  
    Everything outside those brackets will be formatted as an F#-snippet  
 
 * In the template.cshtml: Put a link to the html using the following line in the place you want your link to be created:
@@ -54,7 +54,7 @@ The people who will read your tutorial are of course the ones who want to use yo
 The core of your documentation therefore should be code snippets of the function being applied with real values, not snippets of the function definition:
 
 <b class="redText"> Bad Snippet: </b>
-As you can see this function takes an int and a string and multiplies every letter in the string by using an enumerator...
+"As you can see this function takes an int and a string and multiplies every letter in the string by using an enumerator..."
 *)
 
 let multiplyLetters (count:int) (word:string) = 
@@ -70,7 +70,7 @@ let multiplyLetters (count:int) (word:string) =
 Showing the definition will just result in the reader to lose a lot of time deciphering your code. The snippet should only show how to apply the function, so that the user can pick it up quick and apply it to his values. What the function does behind the screens should be explained separately.
 
 <b class="greenText"> Good Snippet: </b>
-As you can see this function takes an int and a string and multiplies the number of every letter in the string by the int
+"As you can see this function takes an int and a string and multiplies the number of every letter in the string by the int"
 *)
 
 let originalString = "Hello!"
@@ -94,42 +94,74 @@ As already mentioned, there are already many lists for the standard mark down co
 * [quick intro by wikipedia](https://de.wikipedia.org/wiki/Markdown)
 * [very in-depth list by adam-p](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-For the matter of completion I'll still give a little overview on the different markdown-commands. What's more important here though are the extra features of FSharp.Formatting, which are a bit hard to find otherwise. This includes using [f# interactive output](documentation.html#ConsoleOutput) and [Plots by FSharp.Plotly](documentation.html#Plots).
+For the matter of completion I'll still give a little overview on the different markdown-commands:  
 
-<a name="Headers"></a>
+* [Headers](documentation.html#Headers) 
+* Highlighting
+* [Links](documentation.html#Links) 
+* [Images](documentation.html#Images) 
+* Lists
+* [Escaping Markdown](documentation.html#[Escaping-Markdown) 
+
+What's more important here though are the extra features of FSharp.Formatting, which are a bit hard to find otherwise:
+
+* Highlighting
+* [f# interactive output](documentation.html#ConsoleOutput) 
+* [Plots by FSharp.Plotly](documentation.html#Plots)
+
+
 ###Headers
-For headers, you can just put a number of '#' at the start of the line, the header gets smaller, the more '#' you use:
-# One hashtag
-## Two hashtags
-### Three hashtags
-#### Four hashtags
+For headers, you can just put a number of '#' at the start of the line, the header gets smaller, the more '#' you use:  
+#One hashtag
+`# One hashtag`
+
+##Two hashtags
+`## Two hashtags`
+
+###Three hashtag
+`### Three hashtags`
+
+####Four hashtags
+`#### Four hashtags`
+
 <br>
-<a name="Links"></a>
+
 ###Links
 You can easily link external websites or internal documents.
 
 The basic command for this is
 <br>
- `\[text](link)`
+ `[text](link)`
 <br>
 The text you insert into the square brackets will be formatted to a clickable text. When you click it, the link will be opened. What you link to is your choice. You could for example link to external websites:  
-`\[Wikipedia](/https://de.wikipedia.org/wiki/Wikipedia)` will be [Wikipedia](https://de.wikipedia.org/wiki/Wikipedia).  
+`[Wikipedia](https://de.wikipedia.org/wiki/Wikipedia)` will be [Wikipedia](https://de.wikipedia.org/wiki/Wikipedia).  
 On the other hand you can link local files:  
-`\[index](index.html)` will be [index](index.html)
+`[index](index.html)` will be [index](index.html)
 
-<a name="Images"></a>
+
 ###Images
 
-Images are included similarly to normal links, but with a "!" in front of them. So instead of "\[text](link)" you use  
-`!\[image name](image link)`  
+Images are included similarly to normal links, but with a `!` in front of them. So instead of "\[text](link)" you use  
+`![image name](image link)`  
 Again you can link external images with a full url:  
-`!\[Marshmallow](\https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)` will be  
+`![Marshmallow](\https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)` will be  
 <br>
 ![Marshmallow](https://www.sammobile.com/wp-content/uploads/2015/12/android-marshmallow.jpg)
 
 On the other hand you can link local files:  
-`!\[logo](img/logo.png)` will be ![logo](img/logo.png) 
+`![logo](img/logo.png)` will be ![logo](img/logo.png) 
 Make sure that the image you want to reference is located at "..*project name*/docs/files/img". Also at the moment only **.png**s can be used for local referencing because only those are copied to the gh-pages in the building process.
+
+
+###Escaping Markdown
+
+Sometimes you need to use characters for your documentation, which also are used by markdown. 
+This can lead to weird outcomes where characters are missing. 
+To circumvent this, you can use a `\` (backslash) infront of those characters.  
+E.g.:
+
+* `There were two ** in the night sky` will be `There were two in the night sky`  
+* `There were two \*\* in the night sky` will be `There were two ** in the night sky`
 
 <a name="ConsoleOutput"></a>
 ###Console Output

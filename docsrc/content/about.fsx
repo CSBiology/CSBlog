@@ -11,6 +11,7 @@ Contact: hl.weil@t-online.de
 GitHub: https://github.com/HLWeil
 
 ##Technical Information about this Blog
-This blog was set up using [ProjectScaffold](https://github.com/fsprojects/ProjectScaffold). ProjectScaffold is a .NET solution which can be used as a backbone for F#-projects. It comes equiped with FSharp.Formatting, which was quite handy for this blog.
+This blog was set up using [ProjectScaffold](https://github.com/fsprojects/ProjectScaffold). It comes equiped with FSharp.Formatting, which was used for the formatting.  
 The Style of the Website is based on [Lanyon](https://github.com/poole/lanyon).
+
 *)
