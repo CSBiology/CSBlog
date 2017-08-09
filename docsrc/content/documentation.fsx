@@ -94,20 +94,20 @@ As already mentioned, there are already many lists for the standard mark down co
 * [quick intro by wikipedia](https://de.wikipedia.org/wiki/Markdown)
 * [very in-depth list by adam-p](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-For the matter of completion I'll still give a little overview on the different markdown-commands:  
+For the matter of completion I'll still give a little overview on the different `markdown-commands`:  
 
 * [Headers](documentation.html#Headers) 
 * Highlighting
 * [Links](documentation.html#Links) 
 * [Images](documentation.html#Images) 
-* Lists
+* [Lists](documentation.html#Lists) 
 * [Escaping Markdown](documentation.html#[Escaping-Markdown) 
 
-What's more important here though are the extra features of FSharp.Formatting, which are a bit hard to find otherwise:
+What's more important here though are the extra `features of FSharp.Formatting`, which are a bit hard to find otherwise:
 
 * Highlighting
 * [f# interactive output](documentation.html#ConsoleOutput) 
-* [Plots by FSharp.Plotly](documentation.html#Plots)
+* [Plots by FSharp.Plotly](documentation.html#Plots)  
 
 
 ###Headers
@@ -151,6 +151,53 @@ Again you can link external images with a full url:
 On the other hand you can link local files:  
 `![logo](img/logo.png)` will be ![logo](img/logo.png) 
 Make sure that the image you want to reference is located at "..*project name*/docs/files/img". Also at the moment only **.png**s can be used for local referencing because only those are copied to the gh-pages in the building process.
+
+###Lists
+
+There are unnumbered and numbered lists. For unnumbered lists, do a break and write consecutive lines with `*` at the beginning. 
+For numbered lists, do the same but with numbers+dot instead.
+Unnumbered Lists:  
+
+`* Entry1`  
+`* Entry2`  
+`* Entry3 also I include a piece of text so you get the idea of how the text will align when it reaches the end of the line.`  
+
+will be  
+
+* Entry1
+* Entry2
+* Entry3 also I include a piece of text so you get the idea of how the text will align when it reaches the end of the line.
+
+Numbered Lists:  
+
+`1. Entry1`  
+`2. Entry2`  
+`3. Entry3 also I include a piece of text so you get the idea of how the text will align when it reaches the end of the line.`  
+
+will be  
+
+1. Entry1
+2. Entry2
+3. Entry3 also I include a piece of text so you get the idea of how the text will align when it reaches the end of the line.  
+
+When you want to write **indented paragraphs** for one bullet point, 
+after writing the text which is supposed to stick to the bulletpoint, do: break, leave a line, tap space 3 times and write the text.  
+`* Entry1`  
+`* Entry2 this is the text which sticks to this point, after this text I'll do the aforementioned things for an indented paragraph  `  
+``  
+`   This is the next paragraph of this bulletpoint  `  
+``  
+`* Entry3`  
+
+will be  
+
+* Entry1
+* Entry2 this is the text which sticks to this point, after this text I'll do the aforementioned things for an indented paragraph  
+
+   This is the next paragraph of this bulletpoint  
+
+* Entry3
+
 
 
 ###Escaping Markdown
