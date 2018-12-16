@@ -2,15 +2,78 @@
 // FAKE build script
 // --------------------------------------------------------------------------------------
 
-#r @"packages/build/FAKE/tools/FakeLib.dll"
-open Fake
-open Fake.Git
-open Fake.ReleaseNotesHelper
+#r "paket: groupref FakeBuild //"
 
+#load "./.fake/build.fsx/intellisense.fsx"
 
-open System
 open System.IO
-open System.Diagnostics
+open Fake.Core
+open Fake.Core.TargetOperators
+open Fake.DotNet
+open Fake.IO
+open Fake.IO.FileSystemOperators
+open Fake.IO.Globbing
+open Fake.IO.Globbing.Operators
+open Fake.DotNet.Testing
+open Fake.Tools
+open Fake.Api
+open Fake.Tools.Git
+
+[<AutoOpen>]
+module TemporaryDocumentationHelpers =
+
+    type LiterateArguments =
+        { ToolPath : string
+          Source : string
+          OutputDirectory : string 
+          Template : string
+          ProjectParameters : (string * string) list
+          LayoutRoots : string list 
+          FsiEval : bool }
+
+
+    let private run toolPath command = 
+        if 0 <> Process.execSimple ((fun info ->
+                { info with
+                    FileName = toolPath
+                    Arguments = command }) >> Process.withFramework) System.TimeSpan.MaxValue
+
+        then failwithf "FSharp.Formatting %s failed." command
+
+    let createDocs p =
+        let toolPath = Tools.findToolInSubPath "fsformatting.exe" (Directory.GetCurrentDirectory() @@ "lib/Formatting")
+
+        let defaultLiterateArguments =
+            { ToolPath = toolPath
+              Source = ""
+              OutputDirectory = ""
+              Template = ""
+              ProjectParameters = []
+              LayoutRoots = [] 
+              FsiEval = false }
+
+        let arguments = (p:LiterateArguments->LiterateArguments) defaultLiterateArguments
+        let layoutroots =
+            if arguments.LayoutRoots.IsEmpty then []
+            else [ "--layoutRoots" ] @ arguments.LayoutRoots
+        let source = arguments.Source
+        let template = arguments.Template
+        let outputDir = arguments.OutputDirectory
+        let fsiEval = if arguments.FsiEval then [ "--fsieval" ] else []
+
+        let command = 
+            arguments.ProjectParameters
+            |> Seq.map (fun (k, v) -> [ k; v ])
+            |> Seq.concat
+            |> Seq.append 
+                   (["literate"; "--processdirectory" ] @ layoutroots @ [ "--inputdirectory"; source; "--templatefile"; template; 
+                      "--outputDirectory"; outputDir] @ fsiEval @ [ "--replacements" ])
+            |> Seq.map (fun s -> 
+                   if s.StartsWith "\"" then s
+                   else sprintf "\"%s\"" s)
+            |> String.separated " "
+        run arguments.ToolPath command
+        printfn "Successfully generated docs for %s" source
 
 // --------------------------------------------------------------------------------------
 // START TODO: Provide project-specific details below
@@ -32,13 +95,13 @@ let summary = "The blog about all things CSB"
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "The official Blog of the Computational Systems Biology workgroup of the TU Kaiserslautern"
+let description = "The blog about all things CSB"
 
 // List of author names (for NuGet package)
-let authors = ["HLWeil"]
+let author = "HLWeil"
 
 // Tags for your project (for NuGet package)
-let tags = "Blog CSB CSBiology TUKL FSharp F# BioFSharp Webblog CSBlog"
+let tags = ""
 
 // File system information
 let solutionFile  = "CSBlog.sln"
@@ -46,8 +109,8 @@ let solutionFile  = "CSBlog.sln"
 // Default target configuration
 let configuration = "Release"
 
-// Pattern specifying assemblies to be tested using NUnit
-let testAssemblies = "tests/**/bin" </> configuration </> "*Tests*.dll"
+// Pattern specifying assemblies to be tested using Expecto
+let testAssemblies = "tests/**/bin" </> configuration </> "**" </> "*Tests.exe"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
@@ -58,164 +121,142 @@ let gitHome = sprintf "%s/%s" "https://github.com" gitOwner
 let gitName = "CSBlog"
 
 // The url for the raw files hosted
-let gitRaw = environVarOrDefault "gitRaw" "https://raw.githubusercontent.com/HLWeil"
+let gitRaw = Environment.environVarOrDefault "gitRaw" "https://raw.githubusercontent.com/CSBiology"
+
+let website = "/CSBlog"
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
-
 // Read additional information from the release notes document
-let release = LoadReleaseNotes "RELEASE_NOTES.md"
-
-// Helper active pattern for project types
-let (|Fsproj|Csproj|Vbproj|Shproj|) (projFileName:string) =
-    match projFileName with
-    | f when f.EndsWith("fsproj") -> Fsproj
-    | f when f.EndsWith("csproj") -> Csproj
-    | f when f.EndsWith("vbproj") -> Vbproj
-    | f when f.EndsWith("shproj") -> Shproj
-    | _                           -> failwith (sprintf "Project file %s not supported. Unknown project type." projFileName)
-
+let release = ReleaseNotes.load "RELEASE_NOTES.md"
 
 // --------------------------------------------------------------------------------------
 // Clean build results
 
-let vsProjProps = 
-#if MONO
-    [ ("DefineConstants","MONO"); ("Configuration", configuration) ]
-#else
-    [ ("Configuration", configuration); ("Platform", "Any CPU") ]
-#endif
+let buildConfiguration = DotNet.Custom <| Environment.environVarOrDefault "configuration" configuration
 
-Target "Clean" (fun _ ->
-    !! solutionFile |> MSBuildReleaseExt "" vsProjProps "Clean" |> ignore
-    CleanDirs [ "docs"]
+Target.create "Clean" (fun _ ->
+    Shell.cleanDirs ["bin"; "temp"]
 )
 
+Target.create "CleanDocs" (fun _ ->
+    Shell.cleanDirs ["docs"]
+)
 
 // --------------------------------------------------------------------------------------
 // Generate the documentation
 
+// Paths with template/source/output locations
+let content    = __SOURCE_DIRECTORY__ @@ "docsrc/content"
+let output     = __SOURCE_DIRECTORY__ @@ "docs"
+let files      = __SOURCE_DIRECTORY__ @@ "docsrc/files"
+let templates  = __SOURCE_DIRECTORY__ @@ "docsrc/tools/templates"
+let formatting = __SOURCE_DIRECTORY__ @@ "docsrc/tools"
+let docTemplate = "docpage.cshtml"
 
-let fakePath = "packages" </> "build" </> "FAKE" </> "tools" </> "FAKE.exe"
-let fakeStartInfo script workingDirectory args fsiargs environmentVars =
-    (fun (info: ProcessStartInfo) ->
-        info.FileName <- System.IO.Path.GetFullPath fakePath
-        info.Arguments <- sprintf "%s --fsiargs -d:FAKE %s \"%s\"" args fsiargs script
-        info.WorkingDirectory <- workingDirectory
-        let setVar k v =
-            info.EnvironmentVariables.[k] <- v
-        for (k, v) in environmentVars do
-            setVar k v
-        setVar "MSBuild" msBuildExe
-        setVar "GIT" Git.CommandHelper.gitPath
-        setVar "FSI" fsiPath)
+let github_release_user = Environment.environVarOrDefault "github_release_user" gitOwner
+let githubLink = sprintf "https://github.com/%s/%s" github_release_user gitName
 
-/// Run the given buildscript with FAKE.exe
-let executeFAKEWithOutput workingDirectory script fsiargs envArgs =
-    let exitCode =
-        ExecProcessWithLambdas
-            (fakeStartInfo script workingDirectory "" fsiargs envArgs)
-            TimeSpan.MaxValue false ignore ignore
-    System.Threading.Thread.Sleep 1000
-    exitCode
+// Specify more information about your project
+let info =
+  [ "project-name", "CSBlog"
+    "project-author", "Heinrich Lukas Weil"
+    "project-summary", "The blog about all things CSB"
+    "project-github", githubLink
+    "project-nuget", "http://nuget.org/packages/CSBlog" ]
 
-// Documentation
-let buildDocumentationTarget fsiargs target =
-    trace (sprintf "Building documentation (%s), this could take some time, please wait..." target)
-    let exit = executeFAKEWithOutput "docsrc/tools" "generate.fsx" fsiargs ["target", target]
-    if exit <> 0 then
-        failwith "generating reference documentation failed"
-    ()
+let root = website
 
-Target "GenerateReferenceDocs" (fun _ ->
-    CreateDir "docs"
-    CleanDir "docs"
-    buildDocumentationTarget "-d:RELEASE -d:REFERENCE" "Default"
-)
+let layoutRootsAll = new System.Collections.Generic.Dictionary<string, string list>()
+layoutRootsAll.Add("en",[   templates;
+                            formatting @@ "templates"
+                            formatting @@ "templates/reference" ])
 
-let generateHelp' fail debug =
-    let args =
-        if debug then "--define:HELP"
-        else "--define:RELEASE --define:HELP"
-    try
-        buildDocumentationTarget args "Default"
-        traceImportant "Help generated"
-    with
-    | e when not fail ->
-        traceImportant "generating help documentation failed"
+let copyFiles () =
+    Shell.copyRecursive files output true
+    |> Trace.logItems "Copying file: "
+    Directory.ensure (output @@ "content")
+    Shell.copyRecursive (formatting @@ "styles") (output @@ "content") true
+    |> Trace.logItems "Copying styles and scripts: "
 
-let generateHelp fail =
-    generateHelp' fail false
+Target.create "Docs" (fun _ ->
+    File.delete "docsrc/content/release-notes.md"
+    Shell.copyFile "docsrc/content/" "RELEASE_NOTES.md"
+    Shell.rename "docsrc/content/release-notes.md" "docsrc/content/RELEASE_NOTES.md"
 
-Target "GenerateHelpDebug" (fun _ ->
-    DeleteFile "docsrc/content/release-notes.md"
-    CopyFile "docsrc/content/" "RELEASE_NOTES.md"
-    Rename "docsrc/content/release-notes.md" "docsrc/content/RELEASE_NOTES.md"
+    File.delete "docsrc/content/license.md"
+    Shell.copyFile "docsrc/content/" "LICENSE.txt"
+    Shell.rename "docsrc/content/license.md" "docsrc/content/LICENSE.txt"
 
-    DeleteFile "docsrc/content/license.md"
-    CopyFile "docsrc/content/" "LICENSE.txt"
-    Rename "docsrc/content/license.md" "docsrc/content/LICENSE.txt"
 
-    generateHelp' true true
-)
+    DirectoryInfo.getSubDirectories (DirectoryInfo.ofPath templates)
+    |> Seq.iter (fun d ->
+                    let name = d.Name
+                    if name.Length = 2 || name.Length = 3 then
+                        layoutRootsAll.Add(
+                                name, [templates @@ name
+                                       formatting @@ "templates"
+                                       formatting @@ "templates/reference" ]))
+    copyFiles ()
 
-Target "KeepRunning" (fun _ ->
-    use watcher = !! "docsrc/content/**/*.*" |> WatchChanges (fun changes ->
-         generateHelp' true true
-    )
+    for dir in  [ content; ] do
+        let langSpecificPath(lang, path:string) =
+            path.Split([|'/'; '\\'|], System.StringSplitOptions.RemoveEmptyEntries)
+            |> Array.exists(fun i -> i = lang)
+        let layoutRoots =
+            let key = layoutRootsAll.Keys |> Seq.tryFind (fun i -> langSpecificPath(i, dir))
+            match key with
+            | Some lang -> layoutRootsAll.[lang]
+            | None -> layoutRootsAll.["en"] // "en" is the default language
 
-    traceImportant "Waiting for help edits. Press any key to stop."
-
-    System.Console.ReadKey() |> ignore
-
-    watcher.Dispose()
-)
-
-Target "Local" (fun _ ->
-    let tempDocsDir = "local"
-    CreateDir tempDocsDir
-    CleanDir tempDocsDir
-    CopyRecursive "docs" tempDocsDir true |> tracefn "%A"
-    ReplaceInFiles 
-        (seq {
-            yield "href=\"/" + project + "/","href=\""
-            yield "src=\"/" + project + "/","src=\""}) 
-        ((filesInDirMatching "*.html" (directoryInfo tempDocsDir)) |> Array.map (fun x -> tempDocsDir + "/" + x.Name))
-)
-
-Target "Release" (fun _ ->
-    let tempDocsDir = "temp/gh-pages"
-    CleanDir tempDocsDir
-    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
-
-    CopyRecursive "docs" tempDocsDir true |> tracefn "%A"
-    StageAll tempDocsDir
-    Git.Commit.Commit tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
-    Branches.push tempDocsDir
+        createDocs (fun args ->
+            { args with
+                Source = content
+                OutputDirectory = output
+                LayoutRoots = layoutRoots
+                ProjectParameters  = ("root", root)::info
+                Template = docTemplate 
+                FsiEval = true
+                } )
 )
 
 // --------------------------------------------------------------------------------------
 // Release Scripts
 
-#load "paket-files/build/fsharp/FAKE/modules/Octokit/Octokit.fsx"
-open Octokit
+//#load "paket-files/fsharp/FAKE/modules/Octokit/Octokit.fsx"
+//open Octokit
+Target.create "ReleaseDocs" (fun _ ->
+    let tempDocsDir = "temp/gh-pages"
+    Shell.cleanDir tempDocsDir |> ignore
+    Git.Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+    Shell.copyRecursive "docs" tempDocsDir true |> printfn "%A"
+    Git.Staging.stageAll tempDocsDir
+    Git.Commit.exec tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
+    Git.Branches.push tempDocsDir
+)
 
+Target.create "ReleaseLocal" (fun _ ->
+    let tempDocsDir = "temp/local"
+    Shell.cleanDir tempDocsDir |> ignore
+    Shell.copyRecursive "docs" tempDocsDir true  |> printfn "%A"
+    Shell.replaceInFiles 
+        (seq {
+            yield "href=\"/" + project + "/","href=\""
+            yield "src=\"/" + project + "/","src=\""}) 
+        (Directory.EnumerateFiles tempDocsDir |> Seq.filter (fun x -> x.EndsWith(".html")))
+)
+
+Target.create "GenerateDocs" ignore
 
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
-Target "All" DoNothing
 
-"GenerateReferenceDocs"
-  ==> "All"
-  ==> "Local"
+"Clean"
+  ==> "CleanDocs"
+  ==> "Docs"
+  ==> "ReleaseLocal"
+  ==> "ReleaseDocs"
 
-"GenerateReferenceDocs"
-  ==> "All"
-  ==> "Release"
-
-"GenerateHelpDebug"
-  ==> "KeepRunning"
-
-RunTargetOrDefault "All"
+Target.runOrDefaultWithArguments "ReleaseLocal"
