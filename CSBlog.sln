@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8E6D
 		docsrc\content\index.fsx = docsrc\content\index.fsx
 		docsrc\content\internal.fsx = docsrc\content\internal.fsx
 		docsrc\content\tutorial.fsx = docsrc\content\tutorial.fsx
+		docsrc\content\WorkshopSeries_3_plotly.fsx = docsrc\content\WorkshopSeries_3_plotly.fsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{078A9C52-DDC1-46F4-9235-9E6C89C87AFD}"
