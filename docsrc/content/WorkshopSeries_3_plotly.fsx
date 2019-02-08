@@ -15,15 +15,21 @@ let sinChart =
 
 
 (**
-
 ![HeaderPicture](img/Plotly_HeadPic.png)
 
 #Introduction to Data visualization using FSharp.Plotly
-_Kevin Schneider_
+_[Kevin Schneider](https://github.com/kMutagene)_
+
+##Table of contents 
+ * [Plotly.js](#Plotly.js)
+ * [FSharp.Plotly](#FSharp.Plotly)
+ * [Chart functions](#Chart functions)
+ * [Rendering Charts](#Rendering Charts)
+ * [Styling your Charts](#Styling your Charts)
+ * [Multicharts](#Multicharts)
 
 In the scope of this post, I will shortly introduce Plotly.js and our FSharp counterpart FSharp.Plotly.
-I will go over the basic workflow to generate charts from data and how to style and combine charts. Afterwards we will use
-the library to visualize the results we got so far during the course of re-investigating the data of the [paper](https://www.ncbi.nlm.nih.gov/pubmed/25277243).
+I will go over the basic workflow to generate charts from data and how to style and combine charts.
 
 </br>
 
@@ -50,12 +56,16 @@ Plotly does not only generate your charts. It provides a service to change style
 
 ##FSharp.Plotly
 
-[FSharp.Plotly](https://github.com/muehlhaus/FSharp.Plotly) is a FSharp wrapper for Plotly.js. It supports various programming styles
-Something morte about it .... SOOOS
+[FSharp.Plotly](https://github.com/muehlhaus/FSharp.Plotly) is a FSharp wrapper for Plotly.js. The library provides a complete mapping for the configuration options of 
+the underlying library but empowers you to use multiple programming styles (object oriented, functional, mixtures). So you get a nice F# interface support with the full power of Plotly.
 
 </br>
 
 ##Chart functions
+
+In general, the Chart functions are a mapping from any kind of data to a GenericChart type:
+
+![chart functions](img/ChartFunctions.png)
 
 All chart functions (Point,Line,Heatmap,etc.) are provided as static methods of the `Chart` Class. All of them take the input data and map
 to a `GenericChart` type. Creating a chart can be as easy as this:
@@ -80,7 +90,12 @@ let cosChart = Chart.Point(xVals,yVals)
 ##Rendering Charts
 
 All cool and good, but how to actually render a chart? This is pretty easy. We simply use the `Chart.Show` function, which can take any
-`GenericChart`, generate the respective html file, and display it in your default browser:
+`GenericChart`, generate the respective html file, and display it in your default browser.
+
+In general, the Chart.Show function maps from the GenericChart type to unit, and rendering the html file as a side effect:
+
+![Chart.Show](img/ChartShow.png)
+
 
 *)
 (***do-not-eval***)
@@ -138,10 +153,12 @@ let sinChart2 =
 
 (**
 I am a fan of mirrored axis. There is no option to do that in `Chart.withX_AxisStyle`.
-To have even more control over the Axis, we can initialize custom axis:
+To have even more control over the Axis, we can initialize custom axis. This has to be implemented as a 
+function because of the axis object may be mutated by styling functions when used in different charts. 
+We can prevent this by using a function that for every chart returns a new Axis.
 *)
 
-let myXAxis = 
+let myXAxis () = 
     Axis.LinearAxis.init(
         Title   = "x",
         Showgrid= false,
@@ -153,7 +170,7 @@ let myXAxis =
         Ticks   = StyleParam.TickOptions.Inside
         )
 
-let myYAxis = 
+let myYAxis () = 
     Axis.LinearAxis.init(
         Title   = "y",
         Showgrid= false,
@@ -168,27 +185,80 @@ let mirroredSinChart =
     Chart.Point(xVals,yVals)
     |> Chart.withMarkerStyle(Size=1,Color=(Table.Office.darkBlue |> toWebColor),Symbol=StyleParam.Symbol.Square)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_Axis(myXAxis)
-    |> Chart.withY_Axis(myYAxis)
+    |> Chart.withX_Axis(myXAxis())
+    |> Chart.withY_Axis(myYAxis())
     |> Chart.withSize(750.,750.)
 
 (***include-value:mirroredSinChart***)
 
 (**
 
-
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 </br>
 
-##Multicharts - Combined Charts
+##Multicharts
 
-</br>
+To leverage the full power of data visualization, we often want to display multiple data series in the same plot. There are basically
+two options: Combining charts in a single plot or displaying them side-by-side in a stacked chart. Both functions map from a GenericChart collection to a single GenericChart:
 
-##Multicharts - Stacked Charts
+![MultiCharts](img/MultiCharts.png)
 
-</br>
+### Combining charts
 
-#Visualizing our data
-
-
+The `Chart.Combine` function creates a single plot with the same axis from a collection of charts:
 
 *)
+
+let combinedChart = 
+    [
+        Chart.Spline(xVals,xVals |> List.map sin, Name="sin(x)")
+
+        Chart.Spline(xVals,xVals |> List.map cos,Name="cos(x)")
+    ]
+    |> Chart.Combine
+    |> Chart.withTitle("sin(x) and cos(x)")
+    |> Chart.withX_Axis(myXAxis())
+    |> Chart.withY_Axis(myYAxis())
+    |> Chart.withSize(750.,750.)
+
+(***include-value:combinedChart***)
+
+(**
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+### Stacking charts
+
+The `Chart.Stack` function creates a multichart with the contents in a given collection of charts.
+All subplots keep their own axis.
+
+*)
+
+let stackedChart = 
+    [
+        Chart.Spline(xVals,xVals |> List.map sin)
+        |> Chart.withTraceName(Name="sin(x)")
+        |> Chart.withY_Axis(myYAxis())
+        |> Chart.withX_Axis(myXAxis())
+
+        Chart.Spline(xVals,xVals |> List.map cos)
+        |> Chart.withTraceName(Name="sin(x)")
+        |> Chart.withY_Axis(myYAxis())
+        |> Chart.withX_Axis(myXAxis())
+    ]
+    |> Chart.Stack(1,0.1)
+
+(***include-value:stackedChart***)

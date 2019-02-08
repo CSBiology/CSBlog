@@ -1,6 +1,6 @@
 (** 
 #BlogPosts
 
-Nothing here yet.
+* February 8, 2019: [Introduction to Data visualization using FSharp.Plotly]() by [Kevin Schneider](https://github.com/kMutagene)
 
 *)
