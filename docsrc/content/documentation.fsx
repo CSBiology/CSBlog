@@ -1,3 +1,7 @@
+(*** hide ***)
+#r @"E:\Users\Lukas\Source\Repos\CSBlog\lib\Formatting\FSharp.Plotly.dll"
+open FSharp.Plotly
+
 (**
 #Creating a Documentation
 ##Introduction
@@ -22,7 +26,7 @@ The basic structure is as follows:
 The libraries of the CSBiology organization are built using the [ProjectScaffold](https://github.com/fsprojects/ProjectScaffold). In principle, this is a blueprint project to make creating and maintaining a F# project easier.
 Besides many other features, this includes automatic Documentation via the [FSharp.Formatting](https://github.com/fsprojects/FSharp.Formatting) formatter. 
 This formatter is called when one executes the **build.cmd** which is located in the project folder. Opening this build.cmd does not only compile the project, it also formats the <b>.fsx</b>(FSharp script file) documents to <b>.html</b> documents by using the FSharpFormatting formatter, besides other things. 
-The script files which are formatted have to be placed in "..*project name*\docs\content". The formatted html files are then automatically placed in "..*project name*\docs\output". Keep in mind that by using the build.cmd, those files are built and stored only locally.
+The script files which are formatted have to be placed in "..*project name*\docsrc\content". The formatted html files are then automatically placed in "..*project name*\docs". Keep in mind that by using the build.cmd, those files are built and stored only locally.
 
 Now that that's covered let's get to the important questions:
 *)
@@ -31,19 +35,19 @@ Now that that's covered let's get to the important questions:
 ##Where to put what?
 Let's say you want to write a documentation about the topic `topic`
 
-* Place `topic.fsx` in "..*project name*\docs\content"
+* Place `topic.fsx` in "..*project name*\docsrc\content"
 * Write the documentation in this `topic.fsx` as follows
 
    `(*** hide ***)` in front of helpful library calls; Those won't be formatted.  
-   Put text into a comment as follows: `(** text *)`. This text will be formatted by markdown  
+   Put text into a comment as follows: `(** text *)`. This text will be formatted by markdown.  
    Everything outside those brackets will be formatted as an F#-snippet  
 
-* In the template.cshtml: Put a link to the html using the following line in the place you want your link to be created:
+* In the "..*project name*docsrc\tools\templates\template.cshtml": Put a link to the html using the following line in the place you want your link to be created:
 
    `<li><a href="@Root/topic.html">Topic</a></li>`
    If you have some experience with HTML, how to do this comes quite naturally. If not, you can either do it via [Trial and Error](documentation.html#Testing) or even easier: just ask.
 
-* Commit your changes and create a pull request to the upstream repository. The added htmls will be included in the next release  
+* Commit your changes and create a pull request to the upstream repository. The added htmls will be included in the next release.
 
 
 <a name="What"></a>
@@ -214,48 +218,59 @@ E.g.:
 ###Console Output
 With the FSharp.Formatting you can not only include stylized code snippets, but also include console output of the F# interactive. 
 
-`Fixing under way`
+For this, just put (\*\*\* include-value:*ValueName* \*\*\*\) at the position in your document where you want your output to end up. The *ValueName* is the name to which a value has to be bound.
+
+E.g.:
+<pre>
+let whatAGreatName = 4 + 5
+
+(\*\*\* include-value:whatAGreatName \*\*\*\) 
+</pre>
+will be
 
 *)
+
+let whatAGreatName = 4 + 5
+
+(*** include-value:whatAGreatName ***) 
 
 (**
 <a name="Plots"></a>
 ###Plots
+For an in depth FSharp.Plotly tutorial, look [here](http://muehlhaus.github.io/FSharp.Plotly/).
+
+Plots can also be included via the same procedure:
+<pre>
+let myChart = Array.init 10 id |> Array.indexed |> Chart.Point
+
+(\*\*\* include-value:myChart \*\*\*\) 
+</pre>
+will be
 *)
+
+let myChart = Array.init 10 id |> Array.indexed |> Chart.Point
+
+(*** include-value:myChart ***) 
 
 (**
 <a name="Testing"></a>
 ##How can I test my formatted documentation?
 You can play around with the markdown text in an online tool like [dillinger.io](http://dillinger.io/).  
-This is not really helpful though, if you want to test how the formattet site will look like on the project website. [As stated above](documentation.html#How), the build.cmd will create the `htmls`s of the `fsx`s which are located at "..*project name*\docs\content" and automatically put them into "..*project name*\docs\output" together with all other needed files.
+This is not really helpful though, if you want to test how the formattet site will look like on the project website. [As stated above](documentation.html#How), the build.cmd will create the `htmls`s of the `fsx`s which are located at "..*project name*\docsrc\content" and automatically put them into "..*project name*\docs" together with all other needed files.
 You can access the htmls there after building, but the references to the css styling files and all other ressources won't work. Therefore you will get a very plain looking, unstyled website.  
 To bring everything in good form. A new buildtarget "**releaseLocal**" was included in the CSB-projects. To access this target:
 
-###With VS2015
+###With VS2017
 
 * you have to **open your windows command prompt**
-* afterwards **navigate to the repository** with the `cd` command
+* afterwards **navigate to the repository** 
 
    e.g. `cd C:\Users\*ExampleUser*\Source\Repos\*project name*`
 
-* run "**build**"
+* run "**build -t releaselocal**"
 
-   Besides compiling the repository, this will create the html files. Be sure you already compiled (built) the repository in visual studio.
+   Besides compiling the repository, this will create the html files and copy everything from "..*project name*\docs" to "..*project name*\temp\localDocs". 
 
-* When the build process is finished, run `**build releaselocal**`
+When this is done, you can just open the "temp/localDocs" folder and browse the htmls in a stylized form.
 
-   This will copy everything from "..*project name*\docs\output" to "..*project name*\docs\local" and change the references in the html files.
-
-When this is done, you can just open the html files in the "local" folder and check your formatting.
-
-
-
-###With VS2017
-
-**First try it in the way described above for VS2015. In VS2017 you might have problems with the **build** process. To circumvent this:
-
-Still in the command prompt:  
-run `.paket\paket.exe update`  
-This should update the packages in your project folder. Afterwards try again the [aforementioned workflow](documentation.html#With VS2015)
-<br><br><br>
 *)
