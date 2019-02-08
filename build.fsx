@@ -237,7 +237,7 @@ Target.create "ReleaseDocs" (fun _ ->
 )
 
 Target.create "ReleaseLocal" (fun _ ->
-    let tempDocsDir = "temp/local"
+    let tempDocsDir = "temp/localDocs"
     Shell.cleanDir tempDocsDir |> ignore
     Shell.copyRecursive "docs" tempDocsDir true  |> printfn "%A"
     Shell.replaceInFiles 
