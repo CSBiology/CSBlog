@@ -1,7 +1,7 @@
 (*** hide ***)
-#r @"E:\Users\Lukas\Source\Repos\CSBlog\lib\Formatting\FSharp.Plotly.dll"
+#I @"../../packages"
+#r @"../../lib/Formatting/FSharp.Plotly.dll"
 open FSharp.Plotly
-
 (**
 #Creating a Documentation
 ##Introduction
