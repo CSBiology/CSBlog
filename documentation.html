@@ -5,8 +5,8 @@
     <title>Creating a Documentation
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta name="description" content="The blog about all things CSB" />
-    <meta name="author" content="Heinrich Lukas Weil" />
+    <meta name="description" content="The Blog about all things CSB" />
+    <meta name="author" content="Kevin Schneider, Heinrich Lukas Weil" />
 
     <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
     <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
@@ -15,9 +15,9 @@
     <style>
     </style>
     <!-- CSS -->
-    <link type="text/css" rel="stylesheet" href="/CSBlog/content/poole.css" />
-    <link type="text/css" rel="stylesheet" href="/CSBlog/content/lanyon.css" />
-    <link type="text/css" rel="stylesheet" href="/CSBlog/content/snippets.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/styles/poole.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/styles/lanyon.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/styles/snippets.css" />
     <script type="text/javascript" src="/CSBlog/content/tips.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -70,8 +70,7 @@
               </div>
           </div>
           <div class="container content">
-              
-<h1><a name="Creating-a-Documentation" class="anchor" href="#Creating-a-Documentation">Creating a Documentation</a></h1>
+              <h1><a name="Creating-a-Documentation" class="anchor" href="#Creating-a-Documentation">Creating a Documentation</a></h1>
 <h2><a name="Introduction" class="anchor" href="#Introduction">Introduction</a></h2>
 <p>This documentation is aimed at people of the CSB team who want to document their stuff by using the FSharp.Formatting formatter.
 There of course is an <a href="http://fsprojects.github.io/FSharp.Formatting/">in depth documentation of how to use FSharp.Formatting by the creators</a>.
@@ -282,15 +281,16 @@ let myChart = Array.init 10 id |&gt; Array.indexed |&gt; Chart.Point</p>
 will be</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="id">myChart</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 36)" onmouseover="showTip(event, 'fs23', 36)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 37)" onmouseover="showTip(event, 'fs24', 37)" class="id">init</span> <span class="n">10</span> <span onmouseout="hideTip(event, 'fs25', 38)" onmouseover="showTip(event, 'fs25', 38)" class="fn">id</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="id">indexed</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 41)" onmouseover="showTip(event, 'fs27', 41)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="id">Point</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="id">myChart</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 36)" onmouseover="showTip(event, 'fs23', 36)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 37)" onmouseover="showTip(event, 'fs24', 37)" class="id">init</span> <span class="n">10</span> <span onmouseout="hideTip(event, 'fs25', 38)" onmouseover="showTip(event, 'fs25', 38)" class="fn">id</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 40)" onmouseover="showTip(event, 'fs26', 40)" class="id">indexed</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 41)" onmouseover="showTip(event, 'fs27', 41)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 42)" onmouseover="showTip(event, 'fs28', 42)" class="id">Point</span> 
 </code></pre></td>
 </tr>
 </table>
-<div id="579c5daa-7bb6-4fce-8d4d-b3cdbe0afe94" style="width: 700px; height: 500px;"><!-- Plotly chart will be drawn inside this DIV --></div>        
+<div id="d7d72ad7-1547-4341-9e18-9da5c12f7801" style="width: 700px; height: 500px;"><!-- Plotly chart will be drawn inside this DIV --></div>
   <script>
     var data = [{"type":"scatter","x":[0,1,2,3,4,5,6,7,8,9],"y":[0,1,2,3,4,5,6,7,8,9],"mode":"markers","marker":{}}];
     var layout = {};
-    Plotly.newPlot('579c5daa-7bb6-4fce-8d4d-b3cdbe0afe94', data, layout);
+    var config = {};
+    Plotly.newPlot('d7d72ad7-1547-4341-9e18-9da5c12f7801', data, layout, config);
   </script>
 <a name="Testing"></a>
 <h2><a name="How-can-I-test-my-formatted-documentation" class="anchor" href="#How-can-I-test-my-formatted-documentation">How can I test my formatted documentation?</a></h2>
@@ -324,10 +324,10 @@ To bring everything in good form. A new buildtarget "<strong>releaseLocal</stron
 <div class="tip" id="fs10">val loop : (char list -&gt; char list)</div>
 <div class="tip" id="fs11">val l : char list</div>
 <div class="tip" id="fs12">System.CharEnumerator.MoveNext() : bool</div>
-<div class="tip" id="fs13">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;&#160;&#160;interface IReadOnlyList&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IReadOnlyCollection&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IEnumerable<br />&#160;&#160;&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;&#160;&#160;member Head : &#39;T<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;&#160;&#160;member Length : int<br />&#160;&#160;&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;&#160;&#160;...</div>
+<div class="tip" id="fs13">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;&#160;&#160;interface IReadOnlyList&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IReadOnlyCollection&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;interface IEnumerable<br />&#160;&#160;&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;&#160;&#160;member GetReverseIndex : rank:int * offset:int -&gt; int<br />&#160;&#160;&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;&#160;&#160;member Head : &#39;T<br />&#160;&#160;&#160;&#160;member IsEmpty : bool<br />&#160;&#160;&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;&#160;&#160;member Length : int<br />&#160;&#160;&#160;&#160;...</div>
 <div class="tip" id="fs14">val init : length:int -&gt; initializer:(int -&gt; &#39;T) -&gt; &#39;T list</div>
 <div class="tip" id="fs15">val i : int</div>
-<div class="tip" id="fs16">property System.CharEnumerator.Current: char</div>
+<div class="tip" id="fs16">property System.CharEnumerator.Current: char with get</div>
 <div class="tip" id="fs17">val chars : char list</div>
 <div class="tip" id="fs18">val c : char</div>
 <div class="tip" id="fs19">val originalString : string</div>
