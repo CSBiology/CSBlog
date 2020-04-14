@@ -124,5 +124,10 @@ let buildLocalDocs =
             (Directory.EnumerateFiles tempDocsDir |> Seq.filter (fun x -> x.EndsWith(".html")))
     }
 
+let checkOutLocalDocs =
+    BuildTask.create "checkOutLocalDocs" [buildLocalDocs] {
+        let psi = new System.Diagnostics.ProcessStartInfo(FileName = (__SOURCE_DIRECTORY__ </> "temp/localDocs/output/index.html"), UseShellExecute = true)
+        System.Diagnostics.Process.Start(psi) |> ignore
+    }
 
-BuildTask.runOrDefaultWithArguments buildLocalDocs
+BuildTask.runOrDefaultWithArguments checkOutLocalDocs
