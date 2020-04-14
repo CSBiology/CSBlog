@@ -116,7 +116,7 @@ let buildLocalDocs =
     BuildTask.create "buildLocalDocs" [generateLocalDocumentation] {
         let tempDocsDir = "temp/localDocs"
         Shell.cleanDir tempDocsDir |> ignore
-        Shell.copyRecursive "docs" tempDocsDir true  |> printfn "%A"
+        Shell.copyRecursive "docs/output" tempDocsDir true  |> printfn "%A"
         Shell.replaceInFiles 
             (seq {
                 yield "href=\"/" + project + "/","href=\""
