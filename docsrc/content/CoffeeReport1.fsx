@@ -1,5 +1,6 @@
 (*** hide ***)
-#r @"..\..\packages\FSharp.Plotly\lib\net45\FSharp.Plotly.dll"
+#I @"../../packages"
+#r @"FSharp.Plotly/lib/netstandard2.0/FSharp.Plotly.dll"
 open FSharp.Plotly
 (**
 #CSBar Report 1

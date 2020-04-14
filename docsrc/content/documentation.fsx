@@ -1,6 +1,7 @@
 (*** hide ***)
 #I @"../../packages"
-#r @"../../lib/Formatting/FSharp.Plotly.dll"
+#r @"FSharp.Plotly/lib/netstandard2.0/FSharp.Plotly.dll"
+#r @"C:\Users\kevin\source\repos\CSBiology\CSBlog\packages\Newtonsoft.Json\lib\netstandard2.0\Newtonsoft.Json.dll"
 open FSharp.Plotly
 (**
 #Creating a Documentation
@@ -248,7 +249,7 @@ let myChart = Array.init 10 id |> Array.indexed |> Chart.Point
 will be
 *)
 
-let myChart = Array.init 10 id |> Array.indexed |> Chart.Point
+let myChart = Array.init 10 id |> Array.indexed |> Chart.Point 
 
 (*** include-value:myChart ***) 
 

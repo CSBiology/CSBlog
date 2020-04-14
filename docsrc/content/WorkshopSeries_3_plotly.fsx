@@ -1,7 +1,7 @@
 ﻿(***hide***)
 #I @"../../packages"
-#r @"../../lib/Formatting/FSharp.Plotly.dll"
-#r @"FSharpAux/lib/net47/FSharpAux.dll"
+#r @"FSharp.Plotly/lib/netstandard2.0/FSharp.Plotly.dll"
+#r @"FSharpAux/lib/netstandard2.0/FSharpAux.dll"
 open FSharp.Plotly
 open FSharpAux
 
