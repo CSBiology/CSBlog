@@ -72,12 +72,12 @@
           <div class="container content">
               <h1><a name="Dotnet-project-scaffolding-in-turmoil" class="anchor" href="#Dotnet-project-scaffolding-in-turmoil">Dotnet project scaffolding in turmoil</a></h1>
 <p><em>or how I updated our buildchains with alot of trial and error</em></p>
-<p>It all started with young and naive me browsing FsProjects libraries like we all sometimes do, and <em>BAM</em>, there was it in all of its glory:</p>
+<p>It all started with young and naive me browsing FsProjects libraries like we all sometimes do, and <em><em>BAM</em></em>, there it was in all of its glory:</p>
 <p><img src="img/revelation.png" alt="revelation" /></p>
 <p>No big announcements on  FSharp.Formatting, no big update to project scaffold, just this commit using a preview version of FSharp.Formatting that did what we all want to do since late 2018.</p>
 <p>So i went ahead and copied everything like a good programmer, ran in a lot of errors on the way and finally made it so that you dont have to.</p>
 <p>On the way I also upped our game of FAKE 5.</p>
-<p>So here it is, a current (mid April 2020) summary of the dotnet core buildchain.
+<p>So here it is, a current (mid April 2020) summary of the dotnet core buildchain for F# projects.
 <br></p>
 <h2><a name="Moving-to-local-tools-and-pinning-dotnet-sdk-versions" class="anchor" href="#Moving-to-local-tools-and-pinning-dotnet-sdk-versions">Moving to local tools and pinning dotnet sdk versions</a></h2>
 <p>This is a rather simple one. using a tool manifest for local dotnet cli tools, we can make sure that the much needed
@@ -183,8 +183,8 @@ So this results in basically 3 build processes, one for netfx, one for netstanda
 </code></pre></td>
 </tr>
 </table>
-<p>Which means that you cant create alternate dependency trees starting from the "Build1" target without running everything else.</p>
-<p>As a direct consequence of that, you have to create A LOT of dummy targets when you want to create different dependency trees and/or use the confusing <code>?=&gt;</code> operator. This creates an sheer endless amount of strings on the end of the build.fsx file that is a nightmare to debug.</p>
+<p>Which means that you can't create alternate dependency trees starting from the "Build1" target without running everything else.</p>
+<p>As a direct consequence of that, you have to create A LOT of dummy targets when you want to create different dependency trees and/or use the confusing <code>?=&gt;</code> operator for soft dependencies. This creates an sheer endless amount of strings on the end of the build.fsx file that is a nightmare to debug.</p>
 <p>Enter <a href="https://github.com/vbfox/FoxSharp/blob/master/src/BlackFox.Fake.BuildTask/Readme.md">BlackFox.Fake.BuildTask</a>, a strongly typed Target alternative for FAKE.</p>
 <p>Targets are now typed (so you have intellisense and autocompletion for them) and you have a much clearer structure enforce in your <code>build.fsx</code> as you have to write BuildTasks below the ones they depend on.
 Soft dependencies can be created using the <code>IfNeeded</code> field of the BuildTask, which means that <em>When y is in the build chain, x has to be executed before it, if x is also in the chain</em> :</p>
