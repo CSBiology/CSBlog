@@ -34,7 +34,7 @@ open FSharp.Formatting.Razor
 
 _or how I updated our buildchains with alot of trial and error_
 
-It all started with young and naive me browsing FsProjects libraries like we all sometimes do, and _BAM_, there was it in all of its glory:
+It all started with young and naive me browsing FsProjects libraries like we all sometimes do, and _*BAM*_, there it was in all of its glory:
 
 ![revelation](img/revelation.png)
 
@@ -44,7 +44,7 @@ So i went ahead and copied everything like a good programmer, ran in a lot of er
 
 On the way I also upped our game of FAKE 5.
 
-So here it is, a current (mid April 2020) summary of the dotnet core buildchain.
+So here it is, a current (mid April 2020) summary of the dotnet core buildchain for F# projects.
 <br>
 
 ##Moving to local tools and pinning dotnet sdk versions
@@ -130,9 +130,9 @@ Is the same as
 
 (**
 
-Which means that you cant create alternate dependency trees starting from the "Build1" target without running everything else.
+Which means that you can't create alternate dependency trees starting from the "Build1" target without running everything else.
 
-As a direct consequence of that, you have to create A LOT of dummy targets when you want to create different dependency trees and/or use the confusing `?=>` operator. This creates an sheer endless amount of strings on the end of the build.fsx file that is a nightmare to debug.
+As a direct consequence of that, you have to create A LOT of dummy targets when you want to create different dependency trees and/or use the confusing `?=>` operator for soft dependencies. This creates an sheer endless amount of strings on the end of the build.fsx file that is a nightmare to debug.
 
 Enter [BlackFox.Fake.BuildTask](https://github.com/vbfox/FoxSharp/blob/master/src/BlackFox.Fake.BuildTask/Readme.md), a strongly typed Target alternative for FAKE. 
 
