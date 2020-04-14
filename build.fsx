@@ -106,9 +106,9 @@ let releaseDocsToGhPages =
         let tempDocsDir = "temp/gh-pages"
         Shell.cleanDir tempDocsDir |> ignore
         Git.Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
-        Shell.copyRecursive "docs" tempDocsDir true |> printfn "%A"
+        Shell.copyRecursive "docs/output" tempDocsDir true |> printfn "%A"
         Git.Staging.stageAll tempDocsDir
-        Git.Commit.exec tempDocsDir (sprintf "[%s]: Fresh content" (System.DateTime.UtcNow.ToShortDateString()))
+        Git.Commit.exec tempDocsDir (sprintf "[%s:%s]: Fresh content" (System.DateTime.UtcNow.ToShortDateString()) (System.DateTime.UtcNow.ToShortTimeString()))
         Git.Branches.push tempDocsDir
     }
 
