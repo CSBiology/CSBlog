@@ -171,18 +171,33 @@ Where in case of buildChainA the running order is:
 
 And for buildChainB:
 
-1.`z` (It needs to be run before `build` as a hard dependency, note that `y` is not run as it is not in the chain)
-2.`build`
-3.`buildChainB` (our dummy target for the chain)
+1. `z` (It needs to be run before `build` as a hard dependency, note that `y` is not run as it is not in the chain)
+2. `build`
+3. `buildChainB` (our dummy target for the chain)
 
 ##Moving doc generation to .NET Core
 
 This is the big one. Just as back in the old days, we are able to generate docs using two [FSharp.Formatting]() scripts (instead of the command line tool): 
  - `generate.fsx` which contains the logic how to build documentation
- - `formatters.fsx` which contains custom formatters on how to formfor specific constructs (We use this for displaying Plotly Charts).
+ - `formatters.fsx` which contains custom formatters on how to format specific constructs (We use this for displaying Plotly Charts).
 
-The BuildTask to run these scripts starts a fsi instance that executes these scripts.
+The BuildTask to run these scripts starts a fsi instance that executes these scripts:
+*)
 
+(***do-not-eval***)
+let generateLocalDocumentation = 
+    BuildTask.create "generateLocalDocumentation" [cleanDocs] {
+        let result =
+            DotNet.exec
+                (fun p -> { p with WorkingDirectory = __SOURCE_DIRECTORY__ @@ "docsrc" @@ "tools" })
+                "fsi"
+                "--define:REFERENCE --define:HELP --exec generate.fsx"
+
+        if not result.OK then 
+            failwith "error generating docs" 
+    }
+
+(**
 Here is a quick walkthrough:
 
 ### `formatters.fsx`
@@ -209,14 +224,14 @@ let createFsiEvaluator root output =
       fsiEvaluator
 
 (**
-### `formatters.fsx`
+### `generate.fsx`
 
 This script is a little more complex. You define a lot of metadata about the project and then execute this function:
 
 *)
 
 (***do-not-eval***)
-// Build documentation from `fsx` and `md` files in `docs/content`
+// Build documentation from `fsx` and `md` files in `docsrc/content`
 let buildDocumentation () =
     printfn "building docs..."
     let subdirs = [ content, docTemplate ]
