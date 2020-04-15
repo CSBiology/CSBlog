@@ -34,6 +34,8 @@ open FSharp.Formatting.Razor
 
 _or how I updated our buildchains with alot of trial and error_
 
+_Kevin Schneider, 4/15/2020_
+
 It all started with young and naive me browsing FsProjects libraries like we all sometimes do, and _*BAM*_, there it was in all of its glory:
 
 ![revelation](img/revelation.png)
