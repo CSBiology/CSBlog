@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Introduction to Data visualization using FSharp.Plotly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/CSBlog//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-tips.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/init.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/CSBlog/">
+                        <figure class="image is-128x128 container">
+                            <img src="/CSBlog/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">CSBlog</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">
+  Overview
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/about.html">
+    About
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/blogposts_overview.html">
+    BlogPosts
+  </a>
+</li>             
+<li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/documentation.html">
+    Creating a Documentation
+  </a>
+</li>             
+<li class="nav-header">
+  Visualization
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/WorkshopSeries_3_plotly.html">
+    Introduction to Data visualization using FSharp.Plotly
+  </a>
+</li>             
+<li class="nav-header">
+  Implementation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/0_how2JSONSchema.html">
+    How to develop and use a JSON Schema
+  </a>
+</li>             
+<li class="nav-header">
+  CSBar Reports
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/CoffeeReport1.html">
+    CSBar Report 1
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<p><img src="../img/Plotly_HeadPic.png" alt="HeaderPicture" /></p>
+<h1><a name="Introduction-to-Data-visualization-using-FSharp-Plotly" class="anchor" href="#Introduction-to-Data-visualization-using-FSharp-Plotly">Introduction to Data visualization using FSharp.Plotly</a></h1>
+<p><em><a href="https://github.com/kMutagene">Kevin Schneider</a></em></p>
+<h2><a name="Table-of-contents" class="anchor" href="#Table-of-contents">Table of contents</a></h2>
+<ul>
+<li><a href="#Plotly.js">Plotly.js</a></li>
+<li><a href="#FSharp.Plotly">FSharp.Plotly</a></li>
+<li><a href="#Chart functions">Chart functions</a></li>
+<li><a href="#Rendering Charts">Rendering Charts</a></li>
+<li><a href="#Styling your Charts">Styling your Charts</a></li>
+<li><a href="#Multicharts">Multicharts</a></li>
+</ul>
+<p>In the scope of this post, I will shortly introduce Plotly.js and our FSharp counterpart FSharp.Plotly.
+I will go over the basic workflow to generate charts from data and how to style and combine charts.</p>
+</br>
+<h2><a name="Plotly-js" class="anchor" href="#Plotly-js">Plotly.js</a></h2>
+<p><a href="https://plot.ly/javascript/">Plotly.js</a> is an open source charting library written in javascript.</p>
+<p><img src="../img/Plotly_1.png" alt="Plotly.js" /></p>
+<p>Various chart types are supported. From simple scatter and line plots over heatmaps and various 3D-plots to Map charts,
+you will find something fitting your needs for visualization.</p>
+<p>One of the coolest things about these charts is that all of them are interactive, as you can see in the example below. You can Zoom in and out,
+resize and move the axis, and much more.</p>
+<table class="pre"><tr><td><pre><code>Chart (Plotly.NET.Trace, Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+<p>Plotly does not only generate your charts. It provides a service to change style and data of your chart after generation, which is called the chart studio.
+Ýou can access the chart studio by clicking on the 'edit in chart studio' icon above the chart.</p>
+</br>
+<h2><a name="FSharp-Plotly" class="anchor" href="#FSharp-Plotly">FSharp.Plotly</a></h2>
+<p><a href="https://github.com/muehlhaus/FSharp.Plotly">FSharp.Plotly</a> is a FSharp wrapper for Plotly.js. The library provides a complete mapping for the configuration options of
+the underlying library but empowers you to use multiple programming styles (object oriented, functional, mixtures). So you get a nice F# interface support with the full power of Plotly.</p>
+</br>
+<h2><a name="Chart-functions" class="anchor" href="#Chart-functions">Chart functions</a></h2>
+<p>In general, the Chart functions are a mapping from any kind of data to a GenericChart type:</p>
+<p><img src="img/ChartFunctions.png" alt="chart functions" /></p>
+<p>All chart functions (Point,Line,Heatmap,etc.) are provided as static methods of the <code>Chart</code> Class. All of them take the input data and map
+to a <code>GenericChart</code> type. Creating a chart can be as easy as this:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 24)" onmouseover="showTip(event, 'fs1', 24)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 25)" onmouseover="showTip(event, 'fs2', 25)" class="id">NET</span>
+
+<span class="c">//Create some example data</span>
+
+<span class="c">///x values ranging from 0 to 4π</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="id">xVals</span> <span class="o">=</span> <span class="pn">[</span><span class="o">0.</span> <span class="o">..</span> <span class="n">0.01</span> <span class="o">..</span> <span class="pn">(</span><span class="n">4.</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 27)" onmouseover="showTip(event, 'fs5', 27)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 28)" onmouseover="showTip(event, 'fs6', 28)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 29)" onmouseover="showTip(event, 'fs7', 29)" class="id">PI</span><span class="pn">)</span><span class="pn">]</span>
+<span class="c">///cosine values from 0 to 4 π</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="id">yVals</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs18', 31)" onmouseover="showTip(event, 'fs18', 31)" class="id">xVals</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 32)" onmouseover="showTip(event, 'fs9', 32)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 33)" onmouseover="showTip(event, 'fs10', 33)" class="id">map</span> <span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="fn">cos</span>
+
+<span class="c">///GenericChart containing an X/Y scatter plot of the values above</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 35)" onmouseover="showTip(event, 'fs21', 35)" class="id">cosChart</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 36)" onmouseover="showTip(event, 'fs13', 36)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 37)" onmouseover="showTip(event, 'fs22', 37)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 38)" onmouseover="showTip(event, 'fs18', 38)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs19', 39)" onmouseover="showTip(event, 'fs19', 39)" class="id">yVals</span><span class="pn">)</span>
+</code></pre>
+</br>
+<h2><a name="Rendering-Charts" class="anchor" href="#Rendering-Charts">Rendering Charts</a></h2>
+<p>All cool and good, but how to actually render a chart? This is pretty easy. We simply use the <code>Chart.Show</code> function, which can take any
+<code>GenericChart</code>, generate the respective html file, and display it in your default browser.</p>
+<p>In general, the Chart.Show function maps from the GenericChart type to unit, and rendering the html file as a side effect:</p>
+<p><img src="../img/ChartShow.png" alt="Chart.Show" /></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">//Render the chart from the example above in your browser</span>
+<span onmouseout="hideTip(event, 'fs21', 40)" onmouseover="showTip(event, 'fs21', 40)" class="id">cosChart</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 41)" onmouseover="showTip(event, 'fs13', 41)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 42)" onmouseover="showTip(event, 'fs23', 42)" class="id">Show</span>
+</code></pre>
+<p>This will display the following chart in your browser:</p>
+<table class="pre"><tr><td><pre><code>Chart (Plotly.NET.Trace, Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+</br>
+<h2><a name="Styling-your-Charts" class="anchor" href="#Styling-your-Charts">Styling your Charts</a></h2>
+<p>I dont know about you, but i think this chart could look a little bit better.</p>
+<p>Styling charts with FSharp.Plotly can be done in multiple ways. We can use the optional parameters when initializing a chart:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 43)" onmouseover="showTip(event, 'fs3', 43)" class="id">FSharpAux</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 44)" onmouseover="showTip(event, 'fs24', 44)" class="m">Colors</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 45)" onmouseover="showTip(event, 'fs25', 45)" class="id">cosChart2</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs13', 46)" onmouseover="showTip(event, 'fs13', 46)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="id">Point</span>
+        <span class="pn">(</span>
+            <span onmouseout="hideTip(event, 'fs18', 48)" onmouseover="showTip(event, 'fs18', 48)" class="id">xVals</span><span class="pn">,</span>
+            <span onmouseout="hideTip(event, 'fs19', 49)" onmouseover="showTip(event, 'fs19', 49)" class="id">yVals</span><span class="pn">,</span>
+            <span class="fn">MarkerSymbol</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 50)" onmouseover="showTip(event, 'fs26', 50)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 51)" onmouseover="showTip(event, 'fs27', 51)" class="en">Symbol</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 52)" onmouseover="showTip(event, 'fs28', 52)" class="id">Square</span><span class="pn">,</span>
+            <span onmouseout="hideTip(event, 'fs29', 53)" onmouseover="showTip(event, 'fs29', 53)" class="fn">Color</span> <span class="o">=</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 54)" onmouseover="showTip(event, 'fs30', 54)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 55)" onmouseover="showTip(event, 'fs31', 55)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 56)" onmouseover="showTip(event, 'fs32', 56)" class="id">lightGreen</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 57)" onmouseover="showTip(event, 'fs33', 57)" class="fn">toWebColor</span><span class="pn">)</span><span class="pn">,</span>
+            <span class="fn">TextFont</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 58)" onmouseover="showTip(event, 'fs34', 58)" class="rt">Font</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 59)" onmouseover="showTip(event, 'fs35', 59)" class="id">init</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs26', 60)" onmouseover="showTip(event, 'fs26', 60)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 61)" onmouseover="showTip(event, 'fs36', 61)" class="rt">FontFamily</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 62)" onmouseover="showTip(event, 'fs37', 62)" class="id">Droid_Sans_Mono</span><span class="pn">)</span>
+        <span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>Chart (Plotly.NET.Trace, Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+<p>Or use a more functional style and pipe our chart into styling functions, which have even more control:
+We first apply a similar styling as in the example above, but then additionally take control over the axis stylings (title,line style, and grid display):</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 63)" onmouseover="showTip(event, 'fs38', 63)" class="id">sinChart2</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs13', 64)" onmouseover="showTip(event, 'fs13', 64)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 65)" onmouseover="showTip(event, 'fs22', 65)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 66)" onmouseover="showTip(event, 'fs18', 66)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs19', 67)" onmouseover="showTip(event, 'fs19', 67)" class="id">yVals</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 68)" onmouseover="showTip(event, 'fs13', 68)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs39', 69)" onmouseover="showTip(event, 'fs39', 69)" class="id">withMarkerStyle</span><span class="pn">(</span><span class="fn">Size</span><span class="o">=</span><span class="n">1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs29', 70)" onmouseover="showTip(event, 'fs29', 70)" class="fn">Color</span><span class="o">=</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 71)" onmouseover="showTip(event, 'fs30', 71)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 72)" onmouseover="showTip(event, 'fs31', 72)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 73)" onmouseover="showTip(event, 'fs40', 73)" class="id">darkBlue</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 74)" onmouseover="showTip(event, 'fs33', 74)" class="fn">toWebColor</span><span class="pn">)</span><span class="pn">,</span><span class="fn">Symbol</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs26', 75)" onmouseover="showTip(event, 'fs26', 75)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 76)" onmouseover="showTip(event, 'fs27', 76)" class="en">Symbol</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 77)" onmouseover="showTip(event, 'fs28', 77)" class="id">Square</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 78)" onmouseover="showTip(event, 'fs13', 78)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 79)" onmouseover="showTip(event, 'fs15', 79)" class="id">withTitle</span><span class="pn">(</span><span class="s">&quot;sin(x)&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 80)" onmouseover="showTip(event, 'fs13', 80)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 81)" onmouseover="showTip(event, 'fs16', 81)" class="id">withX_AxisStyle</span><span class="pn">(</span><span class="s">&quot;x&quot;</span><span class="pn">,</span><span class="fn">Showline</span><span class="o">=</span><span class="k">true</span><span class="pn">,</span><span class="fn">Showgrid</span><span class="o">=</span><span class="k">false</span><span class="pn">,</span><span class="fn">MinMax</span><span class="o">=</span><span class="pn">(</span><span class="n">0.</span><span class="pn">,</span><span class="pn">(</span><span class="n">4.</span><span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 82)" onmouseover="showTip(event, 'fs5', 82)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 83)" onmouseover="showTip(event, 'fs6', 83)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 84)" onmouseover="showTip(event, 'fs7', 84)" class="id">PI</span><span class="pn">)</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 85)" onmouseover="showTip(event, 'fs13', 85)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 86)" onmouseover="showTip(event, 'fs17', 86)" class="id">withY_AxisStyle</span><span class="pn">(</span><span class="s">&quot;y&quot;</span><span class="pn">,</span><span class="fn">Showline</span><span class="o">=</span><span class="k">true</span><span class="pn">,</span><span class="fn">Showgrid</span><span class="o">=</span><span class="k">false</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>Chart (Plotly.NET.Trace, Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+<p>I am a fan of mirrored axis. There is no option to do that in <code>Chart.withX_AxisStyle</code>.
+To have even more control over the Axis, we can initialize custom axis. This has to be implemented as a
+function because of the axis object may be mutated by styling functions when used in different charts.
+We can prevent this by using a function that for every chart returns a new Axis.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 87)" onmouseover="showTip(event, 'fs41', 87)" class="fn">myXAxis</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs42', 88)" onmouseover="showTip(event, 'fs42', 88)" class="m">Axis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 89)" onmouseover="showTip(event, 'fs43', 89)" class="rt">LinearAxis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 90)" onmouseover="showTip(event, 'fs44', 90)" class="id">init</span><span class="pn">(</span>
+        <span class="fn">Title</span>   <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="pn">,</span>
+        <span class="fn">Showgrid</span><span class="o">=</span> <span class="k">false</span><span class="pn">,</span>
+        <span class="fn">Showline</span><span class="o">=</span> <span class="k">true</span><span class="pn">,</span>
+        <span class="fn">Mirror</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 91)" onmouseover="showTip(event, 'fs26', 91)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 92)" onmouseover="showTip(event, 'fs45', 92)" class="rt">Mirror</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 93)" onmouseover="showTip(event, 'fs46', 93)" class="id">All</span><span class="pn">,</span>
+        <span class="fn">Range</span>   <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 94)" onmouseover="showTip(event, 'fs26', 94)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 95)" onmouseover="showTip(event, 'fs47', 95)" class="rt">Range</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 96)" onmouseover="showTip(event, 'fs48', 96)" class="id">MinMax</span> <span class="pn">(</span><span class="n">0.</span><span class="pn">,</span><span class="pn">(</span><span class="n">4.</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 97)" onmouseover="showTip(event, 'fs5', 97)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 98)" onmouseover="showTip(event, 'fs6', 98)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 99)" onmouseover="showTip(event, 'fs7', 99)" class="id">PI</span><span class="pn">)</span><span class="pn">)</span><span class="pn">,</span>
+        <span class="fn">Tickmode</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 100)" onmouseover="showTip(event, 'fs26', 100)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 101)" onmouseover="showTip(event, 'fs49', 101)" class="rt">TickMode</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 102)" onmouseover="showTip(event, 'fs50', 102)" class="id">Array</span><span class="pn">,</span>
+        <span class="fn">Tickvals</span> <span class="o">=</span> <span class="pn">(</span><span class="pn">[|</span><span class="o">0.</span> <span class="o">..</span> <span class="pn">(</span><span class="n">0.5</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 103)" onmouseover="showTip(event, 'fs5', 103)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 104)" onmouseover="showTip(event, 'fs6', 104)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 105)" onmouseover="showTip(event, 'fs7', 105)" class="id">PI</span><span class="pn">)</span> <span class="o">..</span> <span class="pn">(</span><span class="n">4.</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs5', 106)" onmouseover="showTip(event, 'fs5', 106)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 107)" onmouseover="showTip(event, 'fs6', 107)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 108)" onmouseover="showTip(event, 'fs7', 108)" class="id">PI</span><span class="pn">)</span><span class="pn">|]</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs51', 109)" onmouseover="showTip(event, 'fs51', 109)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 110)" onmouseover="showTip(event, 'fs52', 110)" class="id">map</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs53', 111)" onmouseover="showTip(event, 'fs53', 111)" class="fn">round</span> <span class="n">2</span><span class="pn">)</span><span class="pn">)</span><span class="pn">,</span>
+        <span class="fn">Ticks</span>   <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 112)" onmouseover="showTip(event, 'fs26', 112)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 113)" onmouseover="showTip(event, 'fs54', 113)" class="rt">TickOptions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 114)" onmouseover="showTip(event, 'fs55', 114)" class="id">Inside</span>
+        <span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs56', 115)" onmouseover="showTip(event, 'fs56', 115)" class="fn">myYAxis</span> <span class="pn">(</span><span class="pn">)</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs42', 116)" onmouseover="showTip(event, 'fs42', 116)" class="m">Axis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs43', 117)" onmouseover="showTip(event, 'fs43', 117)" class="rt">LinearAxis</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 118)" onmouseover="showTip(event, 'fs44', 118)" class="id">init</span><span class="pn">(</span>
+        <span class="fn">Title</span>   <span class="o">=</span> <span class="s">&quot;y&quot;</span><span class="pn">,</span>
+        <span class="fn">Showgrid</span><span class="o">=</span> <span class="k">false</span><span class="pn">,</span>
+        <span class="fn">Showline</span><span class="o">=</span> <span class="k">true</span><span class="pn">,</span>
+        <span class="fn">Mirror</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 119)" onmouseover="showTip(event, 'fs26', 119)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 120)" onmouseover="showTip(event, 'fs45', 120)" class="rt">Mirror</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs57', 121)" onmouseover="showTip(event, 'fs57', 121)" class="id">AllTicks</span><span class="pn">,</span>
+        <span class="fn">Range</span>   <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 122)" onmouseover="showTip(event, 'fs26', 122)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs47', 123)" onmouseover="showTip(event, 'fs47', 123)" class="rt">Range</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 124)" onmouseover="showTip(event, 'fs48', 124)" class="id">MinMax</span> <span class="pn">(</span><span class="o">-</span><span class="n">1.</span><span class="pn">,</span><span class="n">1.</span><span class="pn">)</span><span class="pn">,</span>
+        <span class="fn">Tickmode</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 125)" onmouseover="showTip(event, 'fs26', 125)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 126)" onmouseover="showTip(event, 'fs49', 126)" class="rt">TickMode</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs58', 127)" onmouseover="showTip(event, 'fs58', 127)" class="id">Auto</span><span class="pn">,</span>
+        <span class="fn">Ticks</span>   <span class="o">=</span> <span onmouseout="hideTip(event, 'fs26', 128)" onmouseover="showTip(event, 'fs26', 128)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 129)" onmouseover="showTip(event, 'fs54', 129)" class="rt">TickOptions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 130)" onmouseover="showTip(event, 'fs55', 130)" class="id">Inside</span>
+        <span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 131)" onmouseover="showTip(event, 'fs59', 131)" class="id">mirroredSinChart</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs13', 132)" onmouseover="showTip(event, 'fs13', 132)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 133)" onmouseover="showTip(event, 'fs22', 133)" class="id">Point</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 134)" onmouseover="showTip(event, 'fs18', 134)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs19', 135)" onmouseover="showTip(event, 'fs19', 135)" class="id">yVals</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 136)" onmouseover="showTip(event, 'fs13', 136)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs39', 137)" onmouseover="showTip(event, 'fs39', 137)" class="id">withMarkerStyle</span><span class="pn">(</span><span class="fn">Size</span><span class="o">=</span><span class="n">1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs29', 138)" onmouseover="showTip(event, 'fs29', 138)" class="fn">Color</span><span class="o">=</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 139)" onmouseover="showTip(event, 'fs30', 139)" class="m">Table</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 140)" onmouseover="showTip(event, 'fs31', 140)" class="m">Office</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 141)" onmouseover="showTip(event, 'fs40', 141)" class="id">darkBlue</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 142)" onmouseover="showTip(event, 'fs33', 142)" class="fn">toWebColor</span><span class="pn">)</span><span class="pn">,</span><span class="fn">Symbol</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs26', 143)" onmouseover="showTip(event, 'fs26', 143)" class="m">StyleParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 144)" onmouseover="showTip(event, 'fs27', 144)" class="en">Symbol</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 145)" onmouseover="showTip(event, 'fs28', 145)" class="id">Square</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 146)" onmouseover="showTip(event, 'fs13', 146)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 147)" onmouseover="showTip(event, 'fs15', 147)" class="id">withTitle</span><span class="pn">(</span><span class="s">&quot;sin(x)&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 148)" onmouseover="showTip(event, 'fs13', 148)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 149)" onmouseover="showTip(event, 'fs60', 149)" class="id">withX_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs41', 150)" onmouseover="showTip(event, 'fs41', 150)" class="fn">myXAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 151)" onmouseover="showTip(event, 'fs13', 151)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs61', 152)" onmouseover="showTip(event, 'fs61', 152)" class="id">withY_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 153)" onmouseover="showTip(event, 'fs56', 153)" class="fn">myYAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 154)" onmouseover="showTip(event, 'fs13', 154)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 155)" onmouseover="showTip(event, 'fs62', 155)" class="id">withSize</span><span class="pn">(</span><span class="n">750.</span><span class="pn">,</span><span class="n">750.</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>Chart (Plotly.NET.Trace, Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<h2><a name="Multicharts" class="anchor" href="#Multicharts">Multicharts</a></h2>
+<p>To leverage the full power of data visualization, we often want to display multiple data series in the same plot. There are basically
+two options: Combining charts in a single plot or displaying them side-by-side in a stacked chart. Both functions map from a GenericChart collection to a single GenericChart:</p>
+<p><img src="../img/MultiCharts.png" alt="MultiCharts" /></p>
+<h3><a name="Combining-charts" class="anchor" href="#Combining-charts">Combining charts</a></h3>
+<p>The <code>Chart.Combine</code> function creates a single plot with the same axis from a collection of charts:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs63', 156)" onmouseover="showTip(event, 'fs63', 156)" class="id">combinedChart</span> <span class="o">=</span> 
+    <span class="pn">[</span>
+        <span onmouseout="hideTip(event, 'fs13', 157)" onmouseover="showTip(event, 'fs13', 157)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 158)" onmouseover="showTip(event, 'fs14', 158)" class="id">Spline</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 159)" onmouseover="showTip(event, 'fs18', 159)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs18', 160)" onmouseover="showTip(event, 'fs18', 160)" class="id">xVals</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 161)" onmouseover="showTip(event, 'fs9', 161)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 162)" onmouseover="showTip(event, 'fs10', 162)" class="id">map</span> <span onmouseout="hideTip(event, 'fs11', 163)" onmouseover="showTip(event, 'fs11', 163)" class="fn">sin</span><span class="pn">,</span> <span class="fn">Name</span><span class="o">=</span><span class="s">&quot;sin(x)&quot;</span><span class="pn">)</span>
+
+        <span onmouseout="hideTip(event, 'fs13', 164)" onmouseover="showTip(event, 'fs13', 164)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 165)" onmouseover="showTip(event, 'fs14', 165)" class="id">Spline</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 166)" onmouseover="showTip(event, 'fs18', 166)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs18', 167)" onmouseover="showTip(event, 'fs18', 167)" class="id">xVals</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 168)" onmouseover="showTip(event, 'fs9', 168)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 169)" onmouseover="showTip(event, 'fs10', 169)" class="id">map</span> <span onmouseout="hideTip(event, 'fs20', 170)" onmouseover="showTip(event, 'fs20', 170)" class="fn">cos</span><span class="pn">,</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;cos(x)&quot;</span><span class="pn">)</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 171)" onmouseover="showTip(event, 'fs13', 171)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs64', 172)" onmouseover="showTip(event, 'fs64', 172)" class="id">Combine</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 173)" onmouseover="showTip(event, 'fs13', 173)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 174)" onmouseover="showTip(event, 'fs15', 174)" class="id">withTitle</span><span class="pn">(</span><span class="s">&quot;sin(x) and cos(x)&quot;</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 175)" onmouseover="showTip(event, 'fs13', 175)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 176)" onmouseover="showTip(event, 'fs60', 176)" class="id">withX_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs41', 177)" onmouseover="showTip(event, 'fs41', 177)" class="fn">myXAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 178)" onmouseover="showTip(event, 'fs13', 178)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs61', 179)" onmouseover="showTip(event, 'fs61', 179)" class="id">withY_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 180)" onmouseover="showTip(event, 'fs56', 180)" class="fn">myYAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 181)" onmouseover="showTip(event, 'fs13', 181)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 182)" onmouseover="showTip(event, 'fs62', 182)" class="id">withSize</span><span class="pn">(</span><span class="n">750.</span><span class="pn">,</span><span class="n">750.</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>MultiChart
+  ([Plotly.NET.Trace; Plotly.NET.Trace], Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<h3><a name="Stacking-charts" class="anchor" href="#Stacking-charts">Stacking charts</a></h3>
+<p>The <code>Chart.Stack</code> function creates a multichart with the contents in a given collection of charts.
+All subplots keep their own axis.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs65', 183)" onmouseover="showTip(event, 'fs65', 183)" class="id">stackedChart</span> <span class="o">=</span> 
+    <span class="pn">[</span>
+        <span onmouseout="hideTip(event, 'fs13', 184)" onmouseover="showTip(event, 'fs13', 184)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 185)" onmouseover="showTip(event, 'fs14', 185)" class="id">Spline</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 186)" onmouseover="showTip(event, 'fs18', 186)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs18', 187)" onmouseover="showTip(event, 'fs18', 187)" class="id">xVals</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 188)" onmouseover="showTip(event, 'fs9', 188)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 189)" onmouseover="showTip(event, 'fs10', 189)" class="id">map</span> <span onmouseout="hideTip(event, 'fs11', 190)" onmouseover="showTip(event, 'fs11', 190)" class="fn">sin</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 191)" onmouseover="showTip(event, 'fs13', 191)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs66', 192)" onmouseover="showTip(event, 'fs66', 192)" class="id">withTraceName</span><span class="pn">(</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;sin(x)&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 193)" onmouseover="showTip(event, 'fs13', 193)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs61', 194)" onmouseover="showTip(event, 'fs61', 194)" class="id">withY_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 195)" onmouseover="showTip(event, 'fs56', 195)" class="fn">myYAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 196)" onmouseover="showTip(event, 'fs13', 196)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 197)" onmouseover="showTip(event, 'fs60', 197)" class="id">withX_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs41', 198)" onmouseover="showTip(event, 'fs41', 198)" class="fn">myXAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+
+        <span onmouseout="hideTip(event, 'fs13', 199)" onmouseover="showTip(event, 'fs13', 199)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 200)" onmouseover="showTip(event, 'fs14', 200)" class="id">Spline</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs18', 201)" onmouseover="showTip(event, 'fs18', 201)" class="id">xVals</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs18', 202)" onmouseover="showTip(event, 'fs18', 202)" class="id">xVals</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 203)" onmouseover="showTip(event, 'fs9', 203)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs10', 204)" onmouseover="showTip(event, 'fs10', 204)" class="id">map</span> <span onmouseout="hideTip(event, 'fs20', 205)" onmouseover="showTip(event, 'fs20', 205)" class="fn">cos</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 206)" onmouseover="showTip(event, 'fs13', 206)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs66', 207)" onmouseover="showTip(event, 'fs66', 207)" class="id">withTraceName</span><span class="pn">(</span><span class="fn">Name</span><span class="o">=</span><span class="s">&quot;sin(x)&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 208)" onmouseover="showTip(event, 'fs13', 208)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs61', 209)" onmouseover="showTip(event, 'fs61', 209)" class="id">withY_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs56', 210)" onmouseover="showTip(event, 'fs56', 210)" class="fn">myYAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 211)" onmouseover="showTip(event, 'fs13', 211)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 212)" onmouseover="showTip(event, 'fs60', 212)" class="id">withX_Axis</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs41', 213)" onmouseover="showTip(event, 'fs41', 213)" class="fn">myXAxis</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 214)" onmouseover="showTip(event, 'fs13', 214)" class="rt">Chart</span><span class="pn">.</span><span class="id">Stack</span><span class="pn">(</span><span class="n">1</span><span class="pn">,</span><span class="n">0.1</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>MultiChart
+  ([Plotly.NET.Trace; Plotly.NET.Trace], Plotly.NET.Layout, Plotly.NET.Config)</code></pre></td></tr></table>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Plotly</div>
+<div class="fsdocs-tip" id="fs2">namespace Plotly.NET</div>
+<div class="fsdocs-tip" id="fs3">namespace FSharpAux</div>
+<div class="fsdocs-tip" id="fs4">val xSin : float list</div>
+<div class="fsdocs-tip" id="fs5">namespace System</div>
+<div class="fsdocs-tip" id="fs6">type Math =
+  static member Abs : value: decimal -&gt; decimal + 6 overloads
+  static member Acos : d: float -&gt; float
+  static member Acosh : d: float -&gt; float
+  static member Asin : d: float -&gt; float
+  static member Asinh : d: float -&gt; float
+  static member Atan : d: float -&gt; float
+  static member Atan2 : y: float * x: float -&gt; float
+  static member Atanh : d: float -&gt; float
+  static member BigMul : a: int * b: int -&gt; int64 + 2 overloads
+  static member BitDecrement : x: float -&gt; float
+  ...<br /><em>&lt;summary&gt;Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs7">field System.Math.PI: float = 3.14159265359<br /><em>&lt;summary&gt;Represents the ratio of the circumference of a circle to its diameter, specified by the constant, π.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs8">val ySin : float list</div>
+<div class="fsdocs-tip" id="fs9">Multiple items<br />module List
+
+from FSharpAux<br /><br />--------------------<br />module List
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.list`1&quot; /&gt;.&lt;/summary&gt;<br />&lt;namespacedoc&gt;&lt;summary&gt;Operations for collections such as lists, arrays, sets, maps and sequences. See also 
+    &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/fsharp-collection-types&quot;&gt;F# Collection Types&lt;/a&gt; in the F# Language Guide.
+ &lt;/summary&gt;&lt;/namespacedoc&gt;</em><br /><br />--------------------<br />type List&lt;&#39;T&gt; =
+  | ( [] )
+  | ( :: ) of Head: &#39;T * Tail: &#39;T list
+    interface IReadOnlyList&lt;&#39;T&gt;
+    interface IReadOnlyCollection&lt;&#39;T&gt;
+    interface IEnumerable
+    interface IEnumerable&lt;&#39;T&gt;
+    member GetReverseIndex : rank:int * offset:int -&gt; int
+    member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list
+    static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list
+    member Head : &#39;T
+    member IsEmpty : bool
+    member Item : index:int -&gt; &#39;T with get
+    ...<br /><em>&lt;summary&gt;The type of immutable singly-linked lists.&lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+ &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
+<div class="fsdocs-tip" id="fs10">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements from the input list.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The list of transformed elements.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs11">val sin : value:&#39;T -&gt; &#39;T (requires member Sin)<br /><em>&lt;summary&gt;Sine of the given number&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The sine of the input.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs12">val sinChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs13">type Chart =
+  static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:&#39;a2 -&gt; GenericChart + 1 overload
+  static member Bar : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart + 1 overload
+  static member BoxPlot : ?x:&#39;a0 * ?y:&#39;a1 * ?Name:string * ?Showlegend:bool * ?Color:string * ?Fillcolor:&#39;a2 * ?Opacity:float * ?Whiskerwidth:&#39;a3 * ?Boxpoints:Boxpoints * ?Boxmean:BoxMean * ?Jitter:&#39;a4 * ?Pointpos:&#39;a5 * ?Orientation:Orientation * ?Marker:Marker * ?Line:Line * ?Alignmentgroup:&#39;a6 * ?Offsetgroup:&#39;a7 * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart + 1 overload
+  static member Bubble : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * sizes:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart + 1 overload
+  static member Candlestick : open:seq&lt;#IConvertible&gt; * high:seq&lt;#IConvertible&gt; * low:seq&lt;#IConvertible&gt; * close:seq&lt;#IConvertible&gt; * x:seq&lt;#IConvertible&gt; * ?Increasing:Line * ?Decreasing:Line * ?WhiskerWidth:float * ?Line:Line * ?XCalendar:Calendar -&gt; GenericChart + 1 overload
+  static member ChoroplethMap : locations:seq&lt;string&gt; * z:seq&lt;#IConvertible&gt; * ?Text:seq&lt;#IConvertible&gt; * ?Locationmode:LocationFormat * ?Autocolorscale:bool * ?Colorscale:Colorscale * ?Colorbar:&#39;a2 * ?Marker:Marker * ?Zmin:&#39;a3 * ?Zmax:&#39;a4 -&gt; GenericChart
+  static member Column : keys:seq&lt;#IConvertible&gt; * values:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Color:&#39;a2 * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Marker:Marker -&gt; GenericChart + 1 overload
+  static member Contour : data:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?X:seq&lt;#IConvertible&gt; * ?Y:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Opacity:float * ?Colorscale:Colorscale * ?Showscale:&#39;a4 * ?zSmooth:SmoothAlg * ?Colorbar:&#39;a5 -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible)
+  static member Doughnut : values:&#39;a0 * ?Labels:seq&lt;string&gt; * ?Name:string * ?Showlegend:bool * ?Color:string * ?Hole:float * ?TextPosition:TextPosition * ?TextFont:Font * ?Hoverinfo:string * ?Textinfo:&#39;a1 * ?Opacity:float -&gt; GenericChart + 1 overload
+  static member Heatmap : data:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?ColNames:seq&lt;#IConvertible&gt; * ?RowNames:seq&lt;#IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?Opacity:float * ?Colorscale:Colorscale * ?Showscale:&#39;a4 * ?Xgap:&#39;a5 * ?Ygap:&#39;a6 * ?zSmooth:SmoothAlg * ?Colorbar:&#39;a7 -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible)
+  ...<br /><em>&lt;summary&gt;
+ Provides a set of static methods for creating charts.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">static member Chart.Spline : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;a2 * ?Smoothing:float * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Spline : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?Dash:StyleParam.DrawingStyle * ?Width:&#39;c * ?Smoothing:float * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs15">static member Chart.withTitle : title:string * ?Titlefont:Font -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs16">static member Chart.withX_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs17">static member Chart.withY_AxisStyle : title:string * ?MinMax:(float * float) * ?Showgrid:bool * ?Showline:bool * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Id:int * ?Domain:(float * float) * ?Position:float * ?Zeroline:bool * ?Anchor:StyleParam.AxisAnchorId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs18">val xVals : float list<br /><em>x values ranging from 0 to 4π</em></div>
+<div class="fsdocs-tip" id="fs19">val yVals : float list<br /><em>cosine values from 0 to 4 π</em></div>
+<div class="fsdocs-tip" id="fs20">val cos : value:&#39;T -&gt; &#39;T (requires member Cos)<br /><em>&lt;summary&gt;Cosine of the given number&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The cosine of the input.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">val cosChart : GenericChart.GenericChart<br /><em>GenericChart containing an X/Y scatter plot of the values above</em></div>
+<div class="fsdocs-tip" id="fs22">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?Showlegend:bool * ?MarkerSymbol:StyleParam.Symbol * ?Color:string * ?Opacity:float * ?Labels:seq&lt;string&gt; * ?TextPosition:StyleParam.TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:StyleParam.Orientation * ?GroupNorm:StyleParam.GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs23">static member Chart.Show : ch:GenericChart.GenericChart -&gt; unit</div>
+<div class="fsdocs-tip" id="fs24">module Colors
+
+from FSharpAux<br /><em>&lt;summary&gt;
+ Represents an ARGB (alpha, red, green, blue) color
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs25">val cosChart2 : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs26">module StyleParam
+
+from Plotly.NET</div>
+<div class="fsdocs-tip" id="fs27">type Symbol =
+  | Circle = 0
+  | Square = 1
+  | Diamond = 2
+  | Cross = 3
+  | X = 4
+  | TriangleUp = 5
+  | TriangleDown = 6
+  | TriangleLeft = 7
+  | TriangleRight = 8
+  | TriangleNE = 9
+  | TriangleSE = 10
+  | TriangleSW = 11
+  | TriangleNW = 12
+  | Pentagon = 13
+  | Hexagon = 14
+  | Hexagon2 = 15
+  | Octagon = 16
+  | Star = 17
+  | Hexagram = 18
+  | StarTriangleUp = 19
+  | StarTriangleDown = 20
+  | StarSquare = 21
+  | StarDiamond = 22
+  | DiamondTall = 23
+  | DiamondWide = 24
+  | Hourglass = 25
+  | Bowtie = 26
+  | CircleCross = 27
+  | CircleX = 28
+  | SquareCross = 29
+  | SquareX = 30
+  | DiamondCross = 31
+  | DiamondX = 32
+  | CrossThin = 33
+  | XThin = 34
+  | Asterisk = 35
+  | Hash = 36
+  | YUp = 37
+  | YDown = 38
+  | YLeft = 39
+  | YRight = 40
+  | LineEW = 41
+  | LineNS = 42
+  | LineNE = 43
+  | LineNW = 44</div>
+<div class="fsdocs-tip" id="fs28">StyleParam.Symbol.Square: StyleParam.Symbol = 1</div>
+<div class="fsdocs-tip" id="fs29">type Color =
+  { A: byte
+    R: byte
+    G: byte
+    B: byte }<br /><em>&lt;summary&gt;
+ Color structure
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs30">module Table
+
+from FSharpAux.Colors</div>
+<div class="fsdocs-tip" id="fs31">module Office
+
+from FSharpAux.Colors.Table<br /><em>&lt;summary&gt;
+ Color palette from Microsoft office 2016
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs32">val lightGreen : Color</div>
+<div class="fsdocs-tip" id="fs33">val toWebColor : c:Color -&gt; string<br /><em>&lt;summary&gt;
+ Gets the web color representataion (#FFFFFF)
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">Multiple items<br />type Font =
+  inherit DynamicObj
+  new : unit -&gt; Font
+  static member init : ?Family:FontFamily * ?Size:&#39;a * ?Color:&#39;b * ?Familysrc:&#39;c * ?Sizesrc:&#39;d * ?Colorsrc:&#39;e -&gt; Font
+  static member style : ?Family:FontFamily * ?Size:&#39;a0 * ?Color:&#39;a1 * ?Familysrc:&#39;a2 * ?Sizesrc:&#39;a3 * ?Colorsrc:&#39;a4 -&gt; (Font -&gt; Font)<br /><em>&lt;summary&gt;
+ Font type inherits from dynamic object
+&lt;/summary&gt;</em><br /><br />--------------------<br />new : unit -&gt; Font</div>
+<div class="fsdocs-tip" id="fs35">static member Font.init : ?Family:StyleParam.FontFamily * ?Size:&#39;a * ?Color:&#39;b * ?Familysrc:&#39;c * ?Sizesrc:&#39;d * ?Colorsrc:&#39;e -&gt; Font</div>
+<div class="fsdocs-tip" id="fs36">type FontFamily =
+  | Arial
+  | Balto
+  | Courier_New
+  | Consolas
+  | Droid_Sans
+  | Droid_Serif
+  | Droid_Sans_Mono
+  | Gravitas_One
+  | Old_Standard_TT
+  | Open_Sans
+  ...
+    static member convert : (FontFamily -&gt; obj)
+    static member toString : (FontFamily -&gt; string)<br /><em>&lt;summary&gt;
+ Names of installed font families
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs37">union case StyleParam.FontFamily.Droid_Sans_Mono: StyleParam.FontFamily</div>
+<div class="fsdocs-tip" id="fs38">val sinChart2 : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs39">static member Chart.withMarkerStyle : ?Size:int * ?Color:&#39;a * ?Symbol:StyleParam.Symbol * ?Opacity:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs40">val darkBlue : Color</div>
+<div class="fsdocs-tip" id="fs41">val myXAxis : unit -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs42">module Axis
+
+from Plotly.NET<br /><em>&lt;summary&gt;
+ Module containing plotly axis 
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs43">Multiple items<br />type LinearAxis =
+  inherit DynamicObj
+  new : unit -&gt; LinearAxis
+  static member init : ?AxisType:AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:AutoRange * ?Rangemode:RangeMode * ?Range:Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:TickOptions * ?Mirror:Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:ShowTickOption * ?Showexponent:ShowExponent * ?Exponentformat:ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:AxisAnchorId * ?Side:Side * ?Overlaying:AxisAnchorId * ?Domain:Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; LinearAxis
+  static member style : ?AxisType:AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:AutoRange * ?Rangemode:RangeMode * ?Range:Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:TickOptions * ?Mirror:Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:ShowTickOption * ?Showexponent:ShowExponent * ?Exponentformat:ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:AxisAnchorId * ?Side:Side * ?Overlaying:AxisAnchorId * ?Domain:Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; (LinearAxis -&gt; LinearAxis)<br /><em>&lt;summary&gt;
+ LinearAxis type inherits from dynamic object
+&lt;/summary&gt;</em><br /><br />--------------------<br />new : unit -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs44">static member Axis.LinearAxis.init : ?AxisType:StyleParam.AxisType * ?Title:string * ?Titlefont:Font * ?Autorange:StyleParam.AutoRange * ?Rangemode:StyleParam.RangeMode * ?Range:StyleParam.Range * ?RangeSlider:RangeSlider * ?Fixedrange:&#39;a * ?Tickmode:StyleParam.TickMode * ?nTicks:&#39;b * ?Tick0:&#39;c * ?dTick:&#39;d * ?Tickvals:&#39;e * ?Ticktext:&#39;f * ?Ticks:StyleParam.TickOptions * ?Mirror:StyleParam.Mirror * ?Ticklen:&#39;g * ?Tickwidth:&#39;h * ?Tickcolor:&#39;i * ?Showticklabels:&#39;j * ?Tickfont:Font * ?Tickangle:&#39;k * ?Tickprefix:&#39;l * ?Showtickprefix:StyleParam.ShowTickOption * ?Ticksuffix:&#39;m * ?Showticksuffix:StyleParam.ShowTickOption * ?Showexponent:StyleParam.ShowExponent * ?Exponentformat:StyleParam.ExponentFormat * ?Tickformat:&#39;n * ?Hoverformat:&#39;o * ?Showline:bool * ?Linecolor:&#39;p * ?Linewidth:&#39;q * ?Showgrid:bool * ?Gridcolor:&#39;r * ?Gridwidth:&#39;s * ?Zeroline:bool * ?Zerolinecolor:&#39;t * ?Zerolinewidth:&#39;a1 * ?Anchor:StyleParam.AxisAnchorId * ?Side:StyleParam.Side * ?Overlaying:StyleParam.AxisAnchorId * ?Domain:StyleParam.Range * ?Position:float * ?IsSubplotObj:&#39;a2 * ?Tickvalssrc:&#39;a3 * ?Ticktextsrc:&#39;a4 * ?Showspikes:&#39;a5 * ?Spikesides:&#39;a6 * ?Spikethickness:&#39;a7 * ?Spikecolor:&#39;a8 * ?Showbackground:&#39;a9 * ?Backgroundcolor:&#39;a10 * ?Showaxeslabels:&#39;a11 -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs45">type Mirror =
+  | True
+  | Ticks
+  | False
+  | All
+  | AllTicks
+    static member convert : (Mirror -&gt; obj)
+    static member toString : (Mirror -&gt; string)<br /><em>&lt;summary&gt;
+ Determines if the axis lines or/and ticks are mirrored to the opposite side of the plotting area. If &quot;true&quot;, the axis lines are mirrored. 
+ If &quot;ticks&quot;, the axis lines and ticks are mirrored. If &quot;false&quot;, mirroring is disable. If &quot;all&quot;, axis lines are mirrored on all shared-axes subplots. If &quot;allticks&quot;, axis lines and ticks are mirrored on all shared-axes subplots.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs46">union case StyleParam.Mirror.All: StyleParam.Mirror</div>
+<div class="fsdocs-tip" id="fs47">type Range =
+  | MinMax of float * float
+  | Values of float array
+    static member convert : (Range -&gt; obj)<br /><em>&lt;summary&gt;
+ Defines a Range between min and max value 
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs48">union case StyleParam.Range.MinMax: float * float -&gt; StyleParam.Range</div>
+<div class="fsdocs-tip" id="fs49">type TickMode =
+  | Auto
+  | Linear
+  | Array
+    static member convert : (TickMode -&gt; obj)
+    static member toString : (TickMode -&gt; string)<br /><em>&lt;summary&gt;
+ Sets the tick mode for this axis. If &quot;auto&quot;, the number of ticks is set via `nticks`. If &quot;linear&quot;, the placement of the ticks is determined by a starting position `tick0` and a tick step `dtick` (&quot;linear&quot; is the default value if `tick0` and `dtick` are provided). 
+ If &quot;array&quot;, the placement of the ticks is set via `tickvals` and the tick text is `ticktext`. (&quot;array&quot; is the default value if `tickvals` is provided).
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs50">union case StyleParam.TickMode.Array: StyleParam.TickMode</div>
+<div class="fsdocs-tip" id="fs51">Multiple items<br />module Array
+
+from FSharpAux<br /><br />--------------------<br />module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs52">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
+ to each of the elements of the array.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements of the array.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The array of transformed elements.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs53">val round : digits:int -&gt; x:float -&gt; float<br /><em>&lt;summary&gt;
+ Rounds a double-precision floating-point value to a specified number of fractional digits.  
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs54">type TickOptions =
+  | Outside
+  | Inside
+  | Empty
+    static member convert : (TickOptions -&gt; obj)
+    static member toString : (TickOptions -&gt; string)<br /><em>&lt;summary&gt;
+ Determines whether ticks are drawn or not. If &quot;&quot;, this axis&#39; ticks are not drawn. If &quot;outside&quot; (&quot;inside&quot;), this axis&#39; are drawn outside (inside) the axis lines.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs55">union case StyleParam.TickOptions.Inside: StyleParam.TickOptions</div>
+<div class="fsdocs-tip" id="fs56">val myYAxis : unit -&gt; Axis.LinearAxis</div>
+<div class="fsdocs-tip" id="fs57">union case StyleParam.Mirror.AllTicks: StyleParam.Mirror</div>
+<div class="fsdocs-tip" id="fs58">union case StyleParam.TickMode.Auto: StyleParam.TickMode</div>
+<div class="fsdocs-tip" id="fs59">val mirroredSinChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs60">static member Chart.withX_Axis : xAxis:Axis.LinearAxis * ?Id:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs61">static member Chart.withY_Axis : yAxis:Axis.LinearAxis * ?Id:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs62">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs63">val combinedChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs64">static member Chart.Combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs65">val stackedChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs66">static member Chart.withTraceName : ?Name:string * ?Showlegend:bool * ?Legendgroup:string * ?Visible:StyleParam.Visible -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/CSBlog/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+<footer>
+    <script>
+        bulmaCollapsible.attach('.is-collapsible');
+    </script>
+</footer>
+</html>
