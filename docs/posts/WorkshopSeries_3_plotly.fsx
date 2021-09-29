@@ -1,8 +1,18 @@
-﻿(***hide***)
-#I @"../../packages"
-#r @"FSharp.Plotly/lib/netstandard2.0/FSharp.Plotly.dll"
-#r @"FSharpAux/lib/netstandard2.0/FSharpAux.dll"
-open FSharp.Plotly
+﻿(**
+
+---
+title: Introduction to Data visualization using FSharp.Plotly
+category: BlogPosts
+categoryindex: 0
+index: 0
+---
+
+*)
+
+(***hide***)
+#r "nuget: Plotly.NET, 2.0.0-beta5"
+#r "nuget: FSharpAux, 1.0.0"
+open Plotly.NET
 open FSharpAux
 
 let xSin = [0. .. 0.01 .. (4. * System.Math.PI)]
@@ -17,10 +27,10 @@ let sinChart =
 (**
 ![HeaderPicture](img/Plotly_HeadPic.png)
 
-#Introduction to Data visualization using FSharp.Plotly
+# Introduction to Data visualization using FSharp.Plotly
 _[Kevin Schneider](https://github.com/kMutagene)_
 
-##Table of contents 
+## Table of contents 
  * [Plotly.js](#Plotly.js)
  * [FSharp.Plotly](#FSharp.Plotly)
  * [Chart functions](#Chart functions)
@@ -54,14 +64,14 @@ Plotly does not only generate your charts. It provides a service to change style
 
 </br>
 
-##FSharp.Plotly
+## FSharp.Plotly
 
 [FSharp.Plotly](https://github.com/muehlhaus/FSharp.Plotly) is a FSharp wrapper for Plotly.js. The library provides a complete mapping for the configuration options of 
 the underlying library but empowers you to use multiple programming styles (object oriented, functional, mixtures). So you get a nice F# interface support with the full power of Plotly.
 
 </br>
 
-##Chart functions
+## Chart functions
 
 In general, the Chart functions are a mapping from any kind of data to a GenericChart type:
 
@@ -71,7 +81,7 @@ All chart functions (Point,Line,Heatmap,etc.) are provided as static methods of 
 to a `GenericChart` type. Creating a chart can be as easy as this:
 *)
 
-open FSharp.Plotly
+open Plotly.NET
 
 //Create some example data
 
@@ -87,7 +97,7 @@ let cosChart = Chart.Point(xVals,yVals)
 
 </br>
 
-##Rendering Charts
+## Rendering Charts
 
 All cool and good, but how to actually render a chart? This is pretty easy. We simply use the `Chart.Show` function, which can take any
 `GenericChart`, generate the respective html file, and display it in your default browser.
@@ -114,7 +124,7 @@ This will display the following chart in your browser:
 
 </br>
 
-##Styling your Charts
+## Styling your Charts
 
 I dont know about you, but i think this chart could look a little bit better.
 
@@ -202,7 +212,7 @@ let mirroredSinChart =
 </br>
 </br>
 
-##Multicharts
+## Multicharts
 
 To leverage the full power of data visualization, we often want to display multiple data series in the same plot. There are basically
 two options: Combining charts in a single plot or displaying them side-by-side in a stacked chart. Both functions map from a GenericChart collection to a single GenericChart:

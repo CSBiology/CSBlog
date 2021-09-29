@@ -1,9 +1,21 @@
-(*** hide ***)
-#I @"../../packages"
-#r @"FSharp.Plotly/lib/netstandard2.0/FSharp.Plotly.dll"
-open FSharp.Plotly
 (**
-#CSBar Report 1
+
+---
+title: CSBar Report 1
+category: CSBar Reports
+categoryindex: 2
+index: 0
+---
+
+*)
+
+(*** hide ***)
+
+#r "nuget: Plotly.NET, 2.0.0-beta5"
+open Plotly.NET
+
+(**
+# CSBar Report 1
 _Kevin Schneider_
 
 ##Welcome to the first CSBar report! 
@@ -21,9 +33,9 @@ I divided the analysis in 3 parts:
 Analysis and plots where done by using the toolkits we develop. Feel free to take a look at our libraries at [Github](https://github.com/CSBiology), they are all open source and free to use.
 All the charts are interactive, meaning you can zoom in/out etc.
 
-##Summary stats
+## Summary stats
 
-###Time course of consumption
+### Time course of consumption
 The overall timecourse of the respective consumptions so far is not too suprising.
 Coffee consumption is high during all weekdays and almost not present on weekends. Interestingly, there always seems to be somebody working in the building at weekends who needs a nice cup of coffee to get work done.
 Beer consumption seems to be the highest on wednesdays (Bergfest!) and especially on fridays (weekend is coming, yay!). There also seem to be no parties in the social room at weekends, at least not with CSBar beer.
@@ -39,7 +51,7 @@ Beverage consumption peeks at Aug 28th, and the low consumption afterwards may b
 <br></br>
 <br></br>
 
-###Fractions
+### Fractions
 The total consumption consists of the following fractions:
 
  * 260 coffees
@@ -53,9 +65,9 @@ The total consumption consists of the following fractions:
     Plotly.newPlot('366cabba-b467-4f10-b2de-2c5992d6980c', data, layout);
   </script>
 
-##Consumption stats
+## Consumption stats
 
-###Distribution by team
+### Distribution by team
 Coffee consumption is by far the highest in the ITCrowd team. This may be due to the widely accepted rule that liquid coffee can be directly converted to code by our bodies using a pathway called "I will stay until this code works". Or maybe some caffeine addiction problems. Your call.
 
 The team with the next lower coffee consumption is the Mibis team. This is not surprising since ITCrowd and Mibis used the coffee machine together way before the move to the new building.
@@ -75,7 +87,7 @@ ITCrowd is also the top dog of other beverage consumption (did I mention that I 
 <br></br>
 <br></br>
 
-###Population distribution
+### Population distribution
 
 There seems to be only two types of coffee drinkers: Those that drink many cups, and those that drink a low amount of cups. A middle ground seems to be missing, but this could be due to the for us invisible amount of coffe from other machines that we cant register.
 This seems not to be the case for the other types of drinks, where the decay from high to low consumption looks much more linear. Further clustering analysis could be used to further test this observation.
@@ -90,7 +102,7 @@ This seems not to be the case for the other types of drinks, where the decay fro
 <br></br>
 <br></br>
 
-##Distance stats
+## Distance stats
 
 For this analysis, Venny and I chose the paths that we thought are most likely taken to walk to the coffee machine. If you feel like they are not adequate for your team, feel free to correct us.
 
@@ -118,7 +130,7 @@ As the distances and coffee consumption of the other teams are lower, the walked
 
 <br></br>
 <br></br>
-##Final remarks
+## Final remarks
 The main conclusion that can be drawn from this analysis is that the coffee machine is mainly used by the people which already used it before the move (ITCrowd and Mibis).
 The other teams mainly use the ticking system for either alcoholic or non alcoholic beverages, and are either no big coffee drinkers or still use their own coffee machines. 
 However, if you think this effect is due to problems using the new system, feel free to send me an email with your questions about the ticking system.
