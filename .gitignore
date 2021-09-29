@@ -350,5 +350,6 @@ MigrationBackup/
 .ionide/
 
 # FsDocs
+tmp/
 output/
 .fsdocs/
