@@ -2,9 +2,9 @@
 
 ---
 title: Creating a Documentation
-category: BlogPosts
-categoryindex: 0
-index: 1
+category: Documentation
+categoryindex: 1
+index: 0
 ---
 
 *)
@@ -12,9 +12,7 @@ index: 1
 (*** hide ***)
 
 #r "nuget: Plotly.NET, 2.0.0-beta5"
-#r "nuget: Newtonsoft.Json"
 open Plotly.NET
-open Newtonsoft.Json
 
 (**
 # Creating a Documentation

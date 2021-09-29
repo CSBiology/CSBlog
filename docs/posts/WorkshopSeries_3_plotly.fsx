@@ -2,8 +2,8 @@
 
 ---
 title: Introduction to Data visualization using FSharp.Plotly
-category: BlogPosts
-categoryindex: 0
+category: Visualization
+categoryindex: 2
 index: 0
 ---
 
@@ -25,7 +25,7 @@ let sinChart =
 
 
 (**
-![HeaderPicture](img/Plotly_HeadPic.png)
+![HeaderPicture](../img/Plotly_HeadPic.png)
 
 # Introduction to Data visualization using FSharp.Plotly
 _[Kevin Schneider](https://github.com/kMutagene)_
@@ -47,7 +47,7 @@ I will go over the basic workflow to generate charts from data and how to style 
 
 [Plotly.js](https://plot.ly/javascript/) is an open source charting library written in javascript.
 
-![Plotly.js](img/Plotly_1.png)
+![Plotly.js](../img/Plotly_1.png)
 
 Various chart types are supported. From simple scatter and line plots over heatmaps and various 3D-plots to Map charts, 
 you will find something fitting your needs for visualization. 
@@ -104,7 +104,7 @@ All cool and good, but how to actually render a chart? This is pretty easy. We s
 
 In general, the Chart.Show function maps from the GenericChart type to unit, and rendering the html file as a side effect:
 
-![Chart.Show](img/ChartShow.png)
+![Chart.Show](../img/ChartShow.png)
 
 
 *)
@@ -149,7 +149,7 @@ let cosChart2 =
 (** 
 
 Or use a more functional style and pipe our chart into styling functions, which have even more control:
-We first apply a similar styling as in the example above, but then additionally take control over the axis stylings(title,line style, and grid display):
+We first apply a similar styling as in the example above, but then additionally take control over the axis stylings (title,line style, and grid display):
 *)
 
 let sinChart2 =
@@ -217,7 +217,7 @@ let mirroredSinChart =
 To leverage the full power of data visualization, we often want to display multiple data series in the same plot. There are basically
 two options: Combining charts in a single plot or displaying them side-by-side in a stacked chart. Both functions map from a GenericChart collection to a single GenericChart:
 
-![MultiCharts](img/MultiCharts.png)
+![MultiCharts](../img/MultiCharts.png)
 
 ### Combining charts
 

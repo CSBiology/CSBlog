@@ -3,13 +3,9 @@
 ---
 title: How to develop and use a JSON Schema
 category: Implementation
-categoryindex: 1
+categoryindex: 3
 index: 0
 ---
-
-*)
-
-(**
 
 # How to develop and use a JSON Schema
 
