@@ -9,4 +9,4 @@ research, and other loosely related stuff.
 For more information about our research and our group in general, head to our [website](https://csb.bio.uni-kl.de/).
 If you want to take a look at our projects, head over to our [github page](https://github.com/CSBiology)
 
-Blog posts are accessible on the sidebar.
+BlogPosts are accessible on the sidebar.
