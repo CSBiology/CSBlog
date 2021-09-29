@@ -1,6 +1,8 @@
 name: build and deploy docs
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   build-and-deploy-docs:
