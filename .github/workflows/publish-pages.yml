@@ -1,5 +1,8 @@
-name: publish gh pages
-on: workflow_dispatch
+name: build and deploy docs
+
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   build-and-deploy-docs:
