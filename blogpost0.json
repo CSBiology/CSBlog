@@ -1,0 +1,19 @@
+{
+  "identifier": 0,
+  "title": "How to develop and use a JSON Schema",
+  "category": "Implementation",
+  "uploaded": true,
+  "tags": [ "implementation", "JSON", "standardization" ],
+  "authors": [
+    {
+      "name": "Oliver Maus",
+      "organization": "CSBiology"
+    }
+  ],
+  "license": {
+    "name": "Creative Commons Attribution 4.0 International Public License",
+    "version": "v4.0.0",
+    "author": "",
+    "date": ""
+  }
+}

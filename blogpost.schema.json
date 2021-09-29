@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omaus/CSBlogpost/main/blogpost.schema.json",
+  "title": "Blogpost entry",
+  "description": "An entry of our blogpost series, consisting of an identifier, a title, a category, the upload status, and some tags.",
+  "type": "object",
+  "properties": {
+    "identifier": {
+      "description": "The identifier of a blogpost entry, an integer.",
+      "type": "integer"
+    },
+    "title": {
+      "description": "The title of a blogpost entry.",
+      "type": "string"
+    },
+    "category": {
+      "description": "The category a blogpost entry belongs to.",
+      "type": "string"
+    },
+    "uploaded": {
+      "description": "A value that tells if a blogpost entry has been already uploaded to a repository or not.",
+      "type": "boolean"
+    },
+    "tags": {
+      "description": "A list of tags that help describing and categorizing a blogpost entry.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "authors": {
+      "description": "A list of all authors associated with a blogpost entry.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "license": {
+      "description": "The license used for a blogpost entry.",
+      "$ref": "https://raw.githubusercontent.com/omaus/CSBlogpost/main/license.schema.json"
+    }
+  },
+  "required": [ "identifier", "title", "category", "authors", "license" ]
+}

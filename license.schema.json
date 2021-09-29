@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omaus/CSBlogpost/main/license.schema.json",
+  "title": "Copyright license",
+  "description": "A license regarding copyright",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the license",
+      "type": "string"
+    },
+    "version": {
+      "description": "The version of this license in the form of \"v(Major).(Minor).(Patch)\".",
+      "type": "string"
+    },
+    "author": {
+      "description": "The name of the author of a license.",
+      "type": "string"
+    },
+    "date": {
+      "description": "The exact date when a license was published.",
+      "type": "string"
+    }
+  },
+  "required": [ "name", "version", "author", "date" ]
+}
