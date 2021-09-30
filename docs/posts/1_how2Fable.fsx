@@ -46,6 +46,15 @@ Target runtime is JavaScript! _All code execution will be done on a JavaScript l
 
 ## Fable Example
 
+The Fable application with the final code can be found in the root directory of the [CSBlog](https://github.com/CSBiology/CSBlog) repository.
+
+- Download `How2Fable.zip` (if you download the whole repo, you will need to move the zip out of it, or it will lead to depedency issues and it will not run)
+- Unzip it 
+- Open powershell/commandline in the unzipped `How2Fable` folder.
+- `npm install`
+- `npm start`
+- open browser at `localhost:8080`
+
 All further examples are based on the standard Fable template, which you can install as described [here](https://fable.io/docs/2-steps/your-first-fable-project.html).
 
 ### Fable Template
@@ -74,7 +83,7 @@ First to the important elements in the fable folder:
 ### Fable REPL code
 
 In the next step i added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
-This will result in a button (which can be found in the ``index.html``), which displays on click one drawn card.async
+This will result in a button (which can be found in the ``index.html``), which displays on-click one drawn card.
 
 <details>
 <summary>index.html code</summary>
