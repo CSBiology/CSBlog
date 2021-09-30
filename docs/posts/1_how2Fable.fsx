@@ -204,7 +204,7 @@ printfn $"{SearchMe.iAmAVeryLongAndEasilySearchableName}"
 ```
 
 `npm run build` will bundle all Fable-compiled JS files into `public\bundle.js`. This file will contain imports from `./src/.fable/`, 
-but also one for each F# source file. If we search it for *iAmAVeryLongAndEasilySearchableName* or *drawOneAndPrintCard* we will find the respective JS code.
+but also one for each F# source file. If we search it for `iAmAVeryLongAndEasilySearchableName` or `drawOneAndPrintCard` we will find the respective JS code.
 
 <br>
 
@@ -366,12 +366,14 @@ Dynamic casting relies on your understanding of the code. The `?` operator allow
 The following is taken from the official documentation. We want to access those functions with the `?` operator.
 
 ```javascript
+// shuffle documentation in JavaScript
 var Shuffle = require('shuffle');
 var deck = Shuffle.shuffle();
 var card = deck.draw();
 ```
 
 ```fsharp
+// Dynamic casting in F# 
 let shuffle: obj = importDefault "shuffle"
 let deck : obj = shuffle?shuffle()
 let card : obj = deck?draw()
@@ -393,6 +395,7 @@ toString: ƒ ()
 ```
 
 ```fsharp
+// F#
 console.log(card?toShortDisplayString())
 console.log(card?toString())
 ```
@@ -444,20 +447,20 @@ And it works! 🎉
 Rather than unsafely accessing the `shuffle` it would be better to use an interface 
 so that we can use the normal `.` notation to call methods on `shuffle`.
 
-1. Declare an interface type called `Shuffle`. This interface will have to be declared before:
+Declare an interface type called `Shuffle`. This interface will have to be declared before:
 
 ```fsharp
 let Shuffle: obj = importDefault "shuffle"
 ```
 
-2. The interface will need an ``abstract`` member called `shuffle` that is a function of type `unit -> obj`.
+The interface will need an ``abstract`` member called `shuffle` that is a function of type `unit -> obj`.
 
 ```fsharp
 type Shuffle =
     abstract member shuffle: unit -> obj
 ```
 
-3. Update the `shuffle` import to use the new type `Shuffle` rather than `obj`.
+Update the `shuffle` import to use the new type `Shuffle` rather than `obj`.
 
 ```diff
 --  let Shuffle: obj        = importDefault "shuffle"
@@ -515,8 +518,8 @@ myButton2.onclick <- fun _ ->
 ### Typesafety?
 
 JavaScript is not type safe and while we are writing F# we use the JS runtime to execute our code. This is best shown in the following example.
-The implemented Deck.putOnTopOfDeck uses a card as input. Sadly, the author of `shuffle` did not intend us to add more standard cards to the deck 
-and does *not* expose the create function for us to use in Fable. Altough there are some options on how to circumvent this.
+The implemented `deck.putOnTopOfDeck` if of type `Cards -> unit` or `Cards [] -> unit`. Sadly, the author of `shuffle` did not intend us to add more standard cards to the deck 
+and does **not** expose the create function for us to use in Fable. Altough there are some options on how to circumvent this.
 
 #### Goal
 
@@ -540,7 +543,7 @@ Add a button which puts a specific card on top of the deck with `deck.putOnTopOf
 
 </details>
 
-Use `deck.putOnTopOfDeck` (with the array parameter overload, as the single card version seems to be buggy and does *not* work), but we still need the new card.
+Use `deck.putOnTopOfDeck` (with the array parameter overload, as the single card version seems to be buggy and does **not** work), but we still need the new card.
 
 ```fsharp
 let myButton3 = document.querySelector(".my-button3") :?> Browser.Types.HTMLButtonElement
@@ -552,7 +555,7 @@ myButton3.onclick <- fun _ ->
 #### Option 1: Search and explicit import.
 
 It is possible to search through the JS library (`"\node_modules\shuffle\src\playingCard.js"`) to find the `card` creation and definition logic.
-And even though it is not exported to the main index.js we can access the exact file and use it to create `card`s.
+And even though it is not exported to the main `index.js` we can access the exact file and use it to create `Cards`.
 
 ```fsharp
 let playingCard : obj = importDefault ("../node_modules/shuffle/src/playingCard.js")
@@ -563,6 +566,7 @@ let newCard = createNew playingCard ("Heart", "Five", 5) :?> Cards
 This is only necessary because the author did not intend this behavior, instead we are meant to write our own card type, as shown in the following example from the docs.
 
 ```javascript
+// shuffle docs in JavaScript
 var Shuffle = require('shuffle');
 var goFish = [{color: 'red', number: 1}, {color: 'blue', number: 2}, ...];
 var deck = Shuffle.shuffle({deck: goFish});
@@ -578,14 +582,14 @@ We could imitate the JS `card` object with different options. Fable translates F
 let newCard : Cards = !!{|suit = "Heart"; description = "Five"; sort = 5|}
 ```
 
-Altough deck.putOnTopOfDeck is of type `Cards [] -> unit` we can handle the anonymous record as such, because of the `!!` operator. 
+Altough `deck.putOnTopOfDeck` is of type `Cards [] -> unit` we can handle the anonymous record as such, because of the `!!` operator. 
 It more or less tells the dotnet compiler to not worry about typesafety for whatever follows it. Therefore we can declare `newCard : Cards`.
 
 If we just add this card to the input array we will get an error, because we try to call the `toString()` method on the drawn cards and our anonymous record type has no such member.
 _But_ we can replace `drawnCard2.Value.toString()` with for example `drawnCard2.Value.suit` and it will work just fine! 🎉
-The Javascript compiler will try to access the `suit` member and both `Cards` as well as our anonymous record have this member and we could change the print output accordingly
+The Javascript compiler will try to access the `suit` member and both `Cards` as well as our anonymous record have this member and we can change the print command accordingly.
 
-Fable provides us with even more alternatives, which work just like the anonymous recordType as they *will not contain the `toString()` method*.
+Fable provides us with even more alternatives, which work just like the anonymous record type as they will **not** contain the `toString()` method.
 
 <details>
 <summary>Alternative 1</summary>
@@ -615,9 +619,11 @@ let newCard = jsOptions<Cards>(fun newCard ->
 
 #### Option 3: F# Record type
 
-As we just saw we can circumvent type safety quite easily and the author already intends us to write our own card type, so we will do exactly that. <sub>(Please don't cringe about the following joke)</sub>
+As we just saw we can circumvent type safety quite easily and the author already intends us to write our own card type, so we will do exactly that. <sub>(Please do not cringe about the following joke)</sub>
 
 ```fsharp
+/// App.fs
+///
 // https://fable.io/docs/communicate/fable-from-js.html
 [<AttachMembers>]
 type MyCard = {
@@ -630,9 +636,9 @@ type MyCard = {
         | anythingElse -> $"{anythingElse}?? .."
 ```
 
-This type is rather different to the `Cards` type, except it also contains a `.toString()` method. So we will of course tell 
-the typesafe dotnet compiler to not worry and will add our Joker to the pile of poker cards.
-Because the only time we interact with the card will be when we call the `toString()` method it will work without any problems.
+This type is rather different to the `Cards` type, except it also contains a `.toString()` method. So we will tell 
+the typesafe dotnet compiler to not worry and will add our "Joker" to the pile of poker cards.
+Because the only time we interact with the card will be when we call the `.toString()` method it will work without any problems.
 
 ```fsharp
 let myButton3 = document.querySelector(".my-button3") :?> Browser.Types.HTMLButtonElement
@@ -645,7 +651,11 @@ myButton3.onclick <- fun _ ->
 ![Fable example ignoring type safety button](../img/How2Fable_example3.png)
 
 This is an extreme example on how JS and F# will interact through Fable. By ignoring the F# typesafety with `!!` or 
-using dynamic casting we make our code error-prone. 
+using dynamic casting we make our code error-prone. It would be better to write the bindings in a way to directly work with the intended card type, 
+as all functions will work independently of the card type used.
+
+Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the -often- excellent work of other 
+programmers is valuable know-how .. and result in less time wasted recreating already existing libraries.
 
 ## Further reading
 
