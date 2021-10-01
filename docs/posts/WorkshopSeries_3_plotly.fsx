@@ -11,6 +11,7 @@ index: 0
 
 (***hide***)
 #r "nuget: Plotly.NET, 2.0.0-beta5"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-beta5"
 #r "nuget: FSharpAux, 1.0.0"
 open Plotly.NET
 open FSharpAux
@@ -22,7 +23,6 @@ let sinChart =
     |> Chart.withTitle("sin(x)")
     |> Chart.withX_AxisStyle("x",Showgrid=false,Showline=true)
     |> Chart.withY_AxisStyle("y",Showgrid=false,Showline=true)
-
 
 (**
 ![HeaderPicture](../img/Plotly_HeadPic.png)
@@ -56,7 +56,9 @@ One of the coolest things about these charts is that all of them are interactive
 resize and move the axis, and much more.
 *)
 
-(***include-value:sinChart***)
+(***hide***)
+sinChart |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 Plotly does not only generate your charts. It provides a service to change style and data of your chart after generation, which is called the chart studio.
@@ -75,7 +77,7 @@ the underlying library but empowers you to use multiple programming styles (obje
 
 In general, the Chart functions are a mapping from any kind of data to a GenericChart type:
 
-![chart functions](img/ChartFunctions.png)
+![chart functions](../img/ChartFunctions.png)
 
 All chart functions (Point,Line,Heatmap,etc.) are provided as static methods of the `Chart` Class. All of them take the input data and map
 to a `GenericChart` type. Creating a chart can be as easy as this:
@@ -118,7 +120,9 @@ This will display the following chart in your browser:
 
 *)
 
-(***include-value:cosChart***)
+(***hide***)
+cosChart |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 
@@ -144,7 +148,9 @@ let cosChart2 =
             TextFont = Font.init(StyleParam.FontFamily.Droid_Sans_Mono)
         )
 
-(***include-value:cosChart2***)
+(***hide***)
+cosChart2 |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (** 
 
@@ -159,7 +165,9 @@ let sinChart2 =
     |> Chart.withX_AxisStyle("x",Showline=true,Showgrid=false,MinMax=(0.,(4.* System.Math.PI)))
     |> Chart.withY_AxisStyle("y",Showline=true,Showgrid=false)
 
-(***include-value:sinChart2***)
+(***hide***)
+sinChart2 |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 I am a fan of mirrored axis. There is no option to do that in `Chart.withX_AxisStyle`.
@@ -199,17 +207,12 @@ let mirroredSinChart =
     |> Chart.withY_Axis(myYAxis())
     |> Chart.withSize(750.,750.)
 
-(***include-value:mirroredSinChart***)
+(***hide***)
+mirroredSinChart |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
 
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
 </br>
 
 ## Multicharts
@@ -237,17 +240,11 @@ let combinedChart =
     |> Chart.withY_Axis(myYAxis())
     |> Chart.withSize(750.,750.)
 
-(***include-value:combinedChart***)
+(***hide***)
+combinedChart |> GenericChart.toChartHTML
+(***include-it-raw***)
 
 (**
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
 </br>
 
 ### Stacking charts
@@ -271,4 +268,6 @@ let stackedChart =
     ]
     |> Chart.Stack(1,0.1)
 
-(***include-value:stackedChart***)
+(***hide***)
+stackedChart |> GenericChart.toChartHTML
+(***include-it-raw***)
