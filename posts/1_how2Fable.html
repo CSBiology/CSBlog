@@ -79,7 +79,7 @@
 </li>             
 <li class="nav-item">
   <a class="nav-link" href="/CSBlog/posts/WorkshopSeries_3_plotly.html">
-    Introduction to Data visualization using FSharp.Plotly
+    Introduction to Data visualization using Plotly.NET
   </a>
 </li>             
 <li class="nav-header">
@@ -125,7 +125,7 @@
 </li>
 <li><a href="#FSharp-to-JS">F# to JS</a></li>
 <li>
-<a href="#JS-in-FSharp">JS in FSharp</a>
+<a href="#JS-in-F#">JS in F#</a>
 <ul>
 <li><a href="#Dynamic-casting">Dynamic casting</a></li>
 <li><a href="#Setting-up-an-interface">Setting up an interface</a></li>
@@ -188,7 +188,7 @@
 </li>
 </ul>
 <h3><a name="Fable-REPL-code" class="anchor" href="#Fable-REPL-code">Fable REPL code</a></h3>
-<p>In the next step i added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
+<p>In the next step I added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
 This will result in a button (which can be found in the <code>index.html</code>), which displays on-click one drawn card.</p>
 <details>
 <summary>index.html code</summary>
@@ -289,7 +289,7 @@ This will result in a button (which can be found in the <code>index.html</code>)
 These are then used to compile the F# source files into their JS counterparts. After <code>npm start</code>, Fable will create <code>.fs.js</code> (default) files from all F# source files.
 For example <code>App.fs</code>  &#10142; <code>App.fs.js</code>. If we look into these, we can see that the modules are imported from the <code>.fable</code> folder and used to translate our code.
 This translated code will be used for the webpack app.</p>
-<p>To further showcase this, i created a new source file <code>SearchMe.fs</code> with just one binding and call this binding from the App.fs file.
+<p>To further showcase this, I created a new source file <code>SearchMe.fs</code> with just one binding and call this binding from the App.fs file.
 This is necessary, as <code>App.fs</code> is defined as our app entry in the <code>webpack.config.js</code> and Fable will only compile referenced F# code to JS, to minimize bloat.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// SearchMe.fs</span>
 <span class="c">///</span>
@@ -583,7 +583,7 @@ And even though it is not exported to the main <code>index.js</code> we can acce
 <p>We could imitate the JS <code>card</code> object with different options. Fable translates F# anonymous records to JS objects.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">newCard</span> <span class="pn">:</span> <span class="id">Cards</span> <span class="o">=</span> <span class="o">!!</span><span class="pn">{|</span><span class="id">suit</span> <span class="o">=</span> <span class="s">&quot;Heart&quot;</span><span class="pn">;</span> <span class="id">description</span> <span class="o">=</span> <span class="s">&quot;Five&quot;</span><span class="pn">;</span> <span class="id">sort</span> <span class="o">=</span> <span class="n">5</span><span class="pn">|}</span>
 </code></pre>
-<p>Altough <code>deck.putOnTopOfDeck</code> is of type <code>Cards [] -&gt; unit</code> we can handle the anonymous record as such, because of the <code>!!</code> operator.
+<p>Although <code>deck.putOnTopOfDeck</code> is of type <code>Cards [] -&gt; unit</code> we can handle the anonymous record as such, because of the <code>!!</code> operator.
 It more or less tells the dotnet compiler to not worry about typesafety for whatever follows it. Therefore we can declare <code>newCard : Cards</code>.</p>
 <p>If we just add this card to the input array we will get an error, because we try to call the <code>toString()</code> method on the drawn cards and our anonymous record type has no such member.
 <em>But</em> we can replace <code>drawnCard2.Value.toString()</code> with for example <code>drawnCard2.Value.suit</code> and it will work just fine! 🎉
@@ -635,8 +635,8 @@ Because the only time we interact with the card will be when we call the <code>.
 <p>This is an extreme example on how JS and F# will interact through Fable. By ignoring the F# typesafety with <code>!!</code> or
 using dynamic casting we make our code error-prone. It would be better to write the bindings in a way to directly work with the intended card type,
 as all functions will work independently of the card type used.</p>
-<p>Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the -often- excellent work of other
-programmers is valuable know-how .. and result in less time wasted recreating already existing libraries.</p>
+<p>Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the – often – excellent work of other
+programmers is valuable know-how... and result in less time wasted recreating already existing libraries.</p>
 <h2><a name="Further-reading" class="anchor" href="#Further-reading">Further reading</a></h2>
 <ul>
 <li><a href="https://fable.io/docs/">Official Fable docs</a></li>
