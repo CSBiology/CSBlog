@@ -6,8 +6,7 @@ index: 1
 ---
 
 # What is Fable and how to use it
-
-<br></br>
+_[Kevin Frey](https://github.com/Freymaurer)_
 
 ## Content
 - [What is Fable?](#What-is-Fable)
