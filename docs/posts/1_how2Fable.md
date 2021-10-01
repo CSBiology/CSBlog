@@ -14,7 +14,7 @@ _[Kevin Frey](https://github.com/Freymaurer)_
     - [Fable Template](#Fable-Template)
     - [Fable REPL code](#Fable-REPL-code)
 - [F# to JS](#FSharp-to-JS)
-- [JS in FSharp](#JS-in-FSharp)
+- [JS in F#](#JS-in-F#)
     - [Dynamic casting](#Dynamic-casting)
     - [Setting up an interface](#Setting-up-an-interface)
     - [Typesafety?](#Typesafety)
@@ -79,7 +79,7 @@ First to the important elements in the fable folder:
 
 ### Fable REPL code
 
-In the next step i added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
+In the next step I added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
 This will result in a button (which can be found in the ``index.html``), which displays on-click one drawn card.
 
 <details>
@@ -192,7 +192,7 @@ These are then used to compile the F# source files into their JS counterparts. A
 For example ``App.fs``  &#10142; ``App.fs.js``. If we look into these, we can see that the modules are imported from the ``.fable`` folder and used to translate our code.
 This translated code will be used for the webpack app.
 
-To further showcase this, i created a new source file `SearchMe.fs` with just one binding and call this binding from the App.fs file.
+To further showcase this, I created a new source file `SearchMe.fs` with just one binding and call this binding from the App.fs file.
 This is necessary, as `App.fs` is defined as our app entry in the `webpack.config.js` and Fable will only compile referenced F# code to JS, to minimize bloat.
 
 ```fsharp
@@ -588,7 +588,7 @@ We could imitate the JS `card` object with different options. Fable translates F
 let newCard : Cards = !!{|suit = "Heart"; description = "Five"; sort = 5|}
 ```
 
-Altough `deck.putOnTopOfDeck` is of type `Cards [] -> unit` we can handle the anonymous record as such, because of the `!!` operator. 
+Although `deck.putOnTopOfDeck` is of type `Cards [] -> unit` we can handle the anonymous record as such, because of the `!!` operator. 
 It more or less tells the dotnet compiler to not worry about typesafety for whatever follows it. Therefore we can declare `newCard : Cards`.
 
 If we just add this card to the input array we will get an error, because we try to call the `toString()` method on the drawn cards and our anonymous record type has no such member.
@@ -660,8 +660,8 @@ This is an extreme example on how JS and F# will interact through Fable. By igno
 using dynamic casting we make our code error-prone. It would be better to write the bindings in a way to directly work with the intended card type, 
 as all functions will work independently of the card type used.
 
-Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the -often- excellent work of other 
-programmers is valuable know-how .. and result in less time wasted recreating already existing libraries.
+Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the – often – excellent work of other 
+programmers is valuable know-how... and result in less time wasted recreating already existing libraries.
 
 ## Further reading
 

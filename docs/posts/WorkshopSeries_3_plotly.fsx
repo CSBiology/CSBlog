@@ -1,7 +1,7 @@
 ﻿(**
 
 ---
-title: Introduction to Data visualization using FSharp.Plotly
+title: Introduction to Data visualization using Plotly.NET
 category: Visualization
 categoryindex: 2
 index: 0
@@ -13,6 +13,7 @@ index: 0
 #r "nuget: Plotly.NET, 2.0.0-beta5"
 #r "nuget: Plotly.NET.Interactive, 2.0.0-beta5"
 #r "nuget: FSharpAux, 1.0.0"
+
 open Plotly.NET
 open FSharpAux
 
@@ -24,10 +25,12 @@ let sinChart =
     |> Chart.withX_AxisStyle("x",Showgrid=false,Showline=true)
     |> Chart.withY_AxisStyle("y",Showgrid=false,Showline=true)
 
+#nowarn "0044"
+
 (**
 ![HeaderPicture](../img/Plotly_HeadPic.png)
 
-# Introduction to Data visualization using FSharp.Plotly
+# Introduction to Data visualization using Plotly.NET
 _[Kevin Schneider](https://github.com/kMutagene)_
 
 ## Table of contents 
@@ -38,12 +41,12 @@ _[Kevin Schneider](https://github.com/kMutagene)_
  * [Styling your Charts](#Styling your Charts)
  * [Multicharts](#Multicharts)
 
-In the scope of this post, I will shortly introduce Plotly.js and our FSharp counterpart FSharp.Plotly.
+In the scope of this post, I will shortly introduce Plotly.js and our .NET counterpart Plotly.NET.
 I will go over the basic workflow to generate charts from data and how to style and combine charts.
 
 </br>
 
-##Plotly.js
+## Plotly.js
 
 [Plotly.js](https://plot.ly/javascript/) is an open source charting library written in javascript.
 
@@ -87,9 +90,9 @@ open Plotly.NET
 
 //Create some example data
 
-///x values ranging from 0 to 4π
+/// x values ranging from 0 to 4 π
 let xVals = [0. .. 0.01 .. (4. * System.Math.PI)]
-///cosine values from 0 to 4 π
+/// Cosine values from 0 to 4 π
 let yVals = xVals |> List.map cos
 
 ///GenericChart containing an X/Y scatter plot of the values above
@@ -130,7 +133,7 @@ cosChart |> GenericChart.toChartHTML
 
 ## Styling your Charts
 
-I dont know about you, but i think this chart could look a little bit better.
+I don't know about you, but I think this chart could look a little bit better.
 
 Styling charts with FSharp.Plotly can be done in multiple ways. We can use the optional parameters when initializing a chart:
 
@@ -160,10 +163,10 @@ We first apply a similar styling as in the example above, but then additionally 
 
 let sinChart2 =
     Chart.Point(xVals,yVals)
-    |> Chart.withMarkerStyle(Size=1,Color=(Table.Office.darkBlue |> toWebColor),Symbol=StyleParam.Symbol.Square)
+    |> Chart.withMarkerStyle(Size = 1, Color = (Table.Office.darkBlue |> toWebColor), Symbol = StyleParam.Symbol.Square)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_AxisStyle("x",Showline=true,Showgrid=false,MinMax=(0.,(4.* System.Math.PI)))
-    |> Chart.withY_AxisStyle("y",Showline=true,Showgrid=false)
+    |> Chart.withX_AxisStyle("x", Showline = true, Showgrid = false, MinMax = (0.,(4.* System.Math.PI)))
+    |> Chart.withY_AxisStyle("y", Showline = true, Showgrid = false)
 
 (***hide***)
 sinChart2 |> GenericChart.toChartHTML
@@ -201,7 +204,7 @@ let myYAxis () =
 
 let mirroredSinChart =
     Chart.Point(xVals,yVals)
-    |> Chart.withMarkerStyle(Size=1,Color=(Table.Office.darkBlue |> toWebColor),Symbol=StyleParam.Symbol.Square)
+    |> Chart.withMarkerStyle(Size = 1, Color = (Table.Office.darkBlue |> toWebColor), Symbol = StyleParam.Symbol.Square)
     |> Chart.withTitle("sin(x)")
     |> Chart.withX_Axis(myXAxis())
     |> Chart.withY_Axis(myYAxis())
@@ -257,12 +260,12 @@ All subplots keep their own axis.
 let stackedChart = 
     [
         Chart.Spline(xVals,xVals |> List.map sin)
-        |> Chart.withTraceName(Name="sin(x)")
+        |> Chart.withTraceName(Name = "sin(x)")
         |> Chart.withY_Axis(myYAxis())
         |> Chart.withX_Axis(myXAxis())
 
         Chart.Spline(xVals,xVals |> List.map cos)
-        |> Chart.withTraceName(Name="sin(x)")
+        |> Chart.withTraceName(Name = "sin(x)")
         |> Chart.withY_Axis(myYAxis())
         |> Chart.withX_Axis(myXAxis())
     ]

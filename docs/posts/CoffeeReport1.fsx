@@ -22,17 +22,17 @@ open Plotly.NET
 # CSBar Report 1
 _[Kevin Schneider](https://github.com/kMutagene)_
 
-##Welcome to the first CSBar report! 
+## Welcome to the first CSBar report! 
 As you all know, our CSBar ticking system went live a few weeks ago.
-Now that we sent out the first balance notifications, I decided that its a good time to write the very first report and share an analysis of the coffe/beer/beverage consumption with you.
+Now that we sent out the first balance notifications, I decided that it's a good time to write the very first report and share an analysis of the coffe/beer/beverage consumption with you.
 
-But first, I want to thank everyone participating. A whooping 100% of coffees registered by the coffee machine have actually been ticked with our system, thanks for your patience during beta and your honesty.
+But first, I want to thank everyone participating. A whooping 100 % of coffees registered by the coffee machine have actually been ticked with our system, thanks for your patience during beta and your honesty.
 
 I divided the analysis in 3 parts:
 
- 1. [Summary Stats](#Summary-stats) - A summary of the time course of coffee, beer and beverage consumption and their fraction of the total consumption
- 2. [Consumption Stats](#Consumption-stats) - Distributions of coffee, beer and beverage consumption over teams and the whole CSBar population
- 3. [Distance Stats](#Distance-stats) - An analysis of the distances teams and their members traveled to get coffee
+ 1. [Summary Stats](#Summary-stats) – A summary of the time course of coffee, beer and beverage consumption and their fraction of the total consumption
+ 2. [Consumption Stats](#Consumption-stats) – Distributions of coffee, beer and beverage consumption over teams and the whole CSBar population
+ 3. [Distance Stats](#Distance-stats) – An analysis of the distances teams and their members traveled to get coffee
 
 Analysis and plots where done by using the toolkits we develop. Feel free to take a look at our libraries at [Github](https://github.com/CSBiology), they are all open source and free to use.
 All the charts are interactive, meaning you can zoom in/out etc.
@@ -87,7 +87,7 @@ ITCrowd is also the top dog of other beverage consumption (did I mention that I 
 
 ### Population distribution
 
-There seems to be only two types of coffee drinkers: Those that drink many cups, and those that drink a low amount of cups. A middle ground seems to be missing, but this could be due to the for us invisible amount of coffe from other machines that we cant register.
+There seems to be only two types of coffee drinkers: Those that drink many cups, and those that drink a low amount of cups. A middle ground seems to be missing, but this could be due to the for us invisible amount of coffe from other machines that we can't register.
 This seems not to be the case for the other types of drinks, where the decay from high to low consumption looks much more linear. Further clustering analysis could be used to further test this observation.  
 
 <div class="PlotlyChart" id="383d0f9c-c6a0-45b5-b52b-2e9901f13a55" style="width: 1000px; height: 750px;"><!-- Plotly chart will be drawn inside this DIV --></div>        

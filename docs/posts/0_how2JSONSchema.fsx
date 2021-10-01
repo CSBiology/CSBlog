@@ -342,6 +342,12 @@ The Newtonsoft.Json library provides great JSON Schema support regarding validat
 
 *)
 
+(***hide***)
+
+#nowarn "0064"
+
+(******)
+
 #r "nuget: FSharp.Data"
 #r "nuget: Newtonsoft.Json"
 #r "nuget: Newtonsoft.Json.Schema"
