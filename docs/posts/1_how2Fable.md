@@ -1,5 +1,3 @@
-(**
-
 ---
 title: How to use Fable
 category: Implementation
@@ -678,4 +676,3 @@ Blogpost ressources
 - [Fable compatible community ressources](https://fable.io/resources.html#Libraries)
 - [Shuffle](https://www.npmjs.com/package/shuffle)
 - [SAFE stack](https://safe-stack.github.io/docs/intro/)
-*)
