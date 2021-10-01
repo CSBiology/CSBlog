@@ -8,8 +8,7 @@ index: 0
 ---
 
 # How to develop and use a JSON Schema
-
-<br></br>
+_[Oliver Maus](https://github.com/omaus)_
 
 ## Content
 - [What are JSON Schemas?](#What-are-JSON-Schemas)
