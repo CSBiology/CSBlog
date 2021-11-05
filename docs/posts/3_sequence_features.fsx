@@ -11,6 +11,8 @@ index: 3
 (***hide***)
 #r "nuget: BioFSharp, 2.0.0-beta7"
 #r "nuget: BioFSharp.IO, 2.0.0-beta6"
+#r "nuget: Newtonsoft.JSON, 12.0.3"
+#r "nuget: DynamicObj"
 
 open BioFSharp
 open System.IO
