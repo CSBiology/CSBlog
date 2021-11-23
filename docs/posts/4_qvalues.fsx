@@ -30,6 +30,9 @@ module Chart =
 (**
 # q values
 
+_[Benedikt Venn](https://github.com/bvenn)_
+
+
 ### Table of contents
 
 - [Introduction](#Introduction)
@@ -39,8 +42,6 @@ module Chart =
 - [Quality plots](#Quality-plots)
 - [Definitions and Notes](#Definitions-and-Notes)
 - [References](#References)
-
-
 
 ## Introduction
 
@@ -619,7 +620,7 @@ pi0Estimation|> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 11: Visual pi0 estimation._
+_Fig 12: Visual pi0 estimation._
 *)
 
 (**
@@ -630,14 +631,15 @@ _Fig 11: Visual pi0 estimation._
     - _"The precise definition of the q-value for a particular feature is the following. The q-value for a particular feature is the minimum false discovery rate that can be attained when calling all features up through that one on the list significant."_
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The Benjamini & Hochberg (1995) methodology also forces one to choose an acceptable FDR level before any data are seen, which is often going to be impractical."_
-
+  - A method exists, to improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa. This method published in 2014 by Orr et al. estimates a global $m_0$ and then splits the p values 
+  in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   
 
 
-
 ##References
-  - [Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
-  - [Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, Storey, John D., Jonathan E. Taylor, and David Siegmund, Journal of the Royal Statistical Society. Series B (Statistical Methodology), vol. 66, no. 1, [Royal Statistical Society, Wiley], 2004, pp. 187-205, http://www.jstor.org/stable/3647634.](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents)
+  - Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
+  - Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, Storey, John D., Jonathan E. Taylor, and David Siegmund, Journal of the Royal Statistical Society. Series B (Statistical Methodology), vol. 66, no. 1, [Royal Statistical Society, Wiley], 2004, pp. 187-205, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
+  - An improved method for computing q-values when the distribution of effect sizes is asymmetric, Orr M, Liu P, Nettleton D., Bioinformatics. 2014 Nov 1;30(21):3044-53. [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/). Epub 2014 Jul 14. PMID: 25024290; PMCID: PMC4609005.
 
 
 *)
