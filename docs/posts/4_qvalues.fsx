@@ -635,12 +635,12 @@ _Fig 12: Visual pi0 estimation._
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   
 
-
 ##References
   - Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
   - Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, Storey, John D., Jonathan E. Taylor, and David Siegmund, Journal of the Royal Statistical Society. Series B (Statistical Methodology), vol. 66, no. 1, [Royal Statistical Society, Wiley], 2004, pp. 187-205, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
   - An improved method for computing q-values when the distribution of effect sizes is asymmetric, Orr M, Liu P, Nettleton D., Bioinformatics. 2014 Nov 1;30(21):3044-53. [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/). Epub 2014 Jul 14. PMID: 25024290; PMCID: PMC4609005.
-
+  - Nettleton, Dan, et al. “Estimating the Number of True Null Hypotheses from a Histogram of p Values.” Journal of Agricultural, Biological, and Environmental Statistics, vol. 11, no. 3, [International Biometric Society, Springer], 2006, pp. 337–56, http://www.jstor.org/stable/27595607.
+  - Benjamini Y, Hochberg Y. On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics. Journal of Educational and Behavioral Statistics. 2000;25(1):60-83. doi:10.3102/10769986025001060
+  
 
 *)
-
