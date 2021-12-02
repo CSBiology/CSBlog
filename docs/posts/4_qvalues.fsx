@@ -30,7 +30,7 @@ module Chart =
 (**
 # q values
 
-_[Benedikt Venn](https://github.com/bvenn)_
+_[Dez. 2021, Benedikt Venn](https://github.com/bvenn)_
 
 
 ### Table of contents
@@ -47,7 +47,7 @@ _[Benedikt Venn](https://github.com/bvenn)_
 
 High throughput techniques like microarrays with its successor RNA-Seq and mass spectrometry proteomics lead to an huge data amount.
 Thousands of features (e.g. transcripts or proteins) are measured simultaneously. Differential expression analysis aims to identify features, that change significantly
-between two conditions. A common experimental setup is the analysis of which genes are over- or underexpressed between a wild type and a mutant.
+between two conditions. A common experimental setup is the analysis of which genes are over- or underexpressed between e.g. a wild type and a mutant.
 
 Hypothesis tests aim to identify differences between two or more samples. The most common statistical test is the t test that tests a difference of means. Hypothesis tests report 
 a p value, that correspond the probability of obtaining results at least as extreme as the observed results, assuming that the null hypothesis is correct. In other words:
@@ -78,7 +78,7 @@ let distributionChartAB =
     ]
     |> Chart.combine
     |> Chart.withAxisTitles "variable X" "relative count"
-    |> Chart.withSize (1000.,600.)
+    |> Chart.withSize (900.,600.)
     |> Chart.withTitle "null hypothesis"
 
 (***hide***)
@@ -107,12 +107,14 @@ pValue
 (***include-it***)
 
 (**
-10,000 tests are performed, each with new randomly drawn samples. This correspond to an experiment in which none of the features changed. The resulting p values are 
-uniformely distributed between 0 and 1.
+10,000 tests are performed, each with new randomly drawn samples. This correspond to an experiment in which none of the features changed. 
+Note, that the mean intensities are arbitrary and must not be the same for all features! In the presented case all feature intensities are in average 10.
+The same simulation can be performed with pairwise comparisons from distributions that differ for each feature, but are the same within the feature.
+The resulting p values are uniformely distributed between 0 and 1.
 
 <br>
 
-<img style="max-width:60%" src="/img/qvalue_01.svg"></img>
+<img style="max-width:50%" src="/img/qvalue_01.svg"></img>
 
 _Fig 1: p value distribution of the null hypothesis._
 <hr>
@@ -146,7 +148,7 @@ let thresholdLine =
 (**
 
 Samples are called significantly different, if their p value is below a certain significance threshold ($\alpha$ level). While "the lower the better", a common threshold
-is a p value of 0.05 or 0.01. In the presented case in average $10,000 * 0.05 = 500$ tests are significant (red box), even if the populations do not differ. They are false 
+is a p value of 0.05 or 0.01. In the presented case in average $10,000 * 0.05 = 500$ tests are significant (red box), even though the populations do not differ. They are false 
 positives (FP). Now lets repeat the same experiment, but this time sample 70% of the time from null features (no difference) and add 30% samples of truly 
 differing distributions. Therefore a third populations is generated, that differ in mean, but has equal standard deviations:
 
@@ -175,7 +177,7 @@ let distributionChartAC =
 
 (**
 
-<img style="max-width:60%" src="/img/qvalue_02.svg"></img>
+<img style="max-width:50%" src="/img/qvalue_02.svg"></img>
 
 _Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B. 
 Orange coloring indicate p values deriving from distribution A and C._
@@ -184,13 +186,14 @@ Orange coloring indicate p values deriving from distribution A and C._
 
 The pvalue distribution of the tests resulting from truly differing populations are right skewed, while the null tests again show a homogeneous distribution between 0 and 1. 
 Many, but not all of the tests that come from the truly differing populations are below 0.05, and therefore would be reported as significant.
+In average 350 null features would be reported as significant even though they derive from null features (blue bars).
 
 
 ##The multiple testing problem
 
 The hypothesis testing framework was developed for performing just one test. If many tests are performed, like in modern high throuput studies, the probability to obtain a 
 false positive result increases. The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
-$\alpha$ corresponds to the significance threshold and $m$ is the number of tests performed.
+$\alpha$ corresponds to the significance threshold and $m$ is the number of performed tests.
 
 
 *)
@@ -220,21 +223,21 @@ _Fig 3: Familiy wise error rate depending on number of performed tests. The dash
 
 
 When 10,000 null features are tested with a p value threshold of 0.05, in average 500 tests are reported significant even if there is not a single comparisons in which the 
-population differ. If some of the features are in fact different, the number of false positives consequently decreases (remember, the p value is defined for tests of null features). 
+population differ. **If some of the features are in fact different, the number of false positives consequently decreases (remember, the p value is defined for tests of null features).**
 
 Why the interpretation of high throughput data based on p values is difficult: The more features are measured, the more false positives you can expect. If 100 differentially 
 expressed genes are identified by p value thresholding, without further information about the magnitude of expected changes and the total number of measured transcripts, the 
 data is useless. 
 
-The p value threshold has no straight-forward interpretation when many tests are performed. Sidenote: Of course you could restrict the family wise error rate to 0.05, regardless 
+The p value threshold has no straight-forward interpretation when many tests are performed. Of course you could restrict the family wise error rate to 0.05, regardless 
 how many tests are performed. This is realized by dividing the $\alpha$ significance threshold by the number of tests, which is known as Bonferroni correction: $p^* = \frac{\alpha}{m}$.
 This correction drastically limit the false positive rate, but in an experiment with a huge count of expected changes, it additionally would result in many false negatives. The 
 FWER should be chosen if the costs of follow up studies to tests the candidates are dramatic or there is a huge waste of time to potentially study false positives.
 
 ##False discovery rate
 
-A more reasonable measure of significance with a simple interpretation is the so called false discovery rate (FDR). It describes the rate of expected false positives within the 
-overall reported significant features. The goal is to identify as many sig. features as possible while incurring a relatively low proportion of false positives.
+A more reasonable measure of significance with a simple interpretation is the so called false discovery rate (FDR). **It describes the rate of expected false positives within the 
+overall reported significant features.** The goal is to identify as many sig. features as possible while incurring a relatively low proportion of false positives.
 Consequently a set of reported significant features together with the FDR describes the confidence of this set, without the requirement to 
 somehow incorporate the uncertainty that is introduced by the total number of tests performed. In the simulated case of 7,000 null tests and 3,000 tests resulting from truly 
 differing distributions above, the FDR can be calculated exactly. Therefore at e.g. a p value of 0.05 the number of false positives (blue in red box) are devided by the number 
@@ -254,7 +257,7 @@ _Fig 4: p value distribution of the alternative hypothesis._
 
 Given the conditions described in the first chapter, the FDR of this experiment with a p value threshold of 0.05 is 0.198. Out of the 2019 reported significant comparisons, in average 350 
 are expected to be false positives, which gives an straight forward interpretation of the data confidence. In real-world experiments the proportion of null tests and tests 
-deriving from an actual difference is of course unknown. The proportion of null tests however tends to be distributed equally in the p value histogram. By identification of 
+deriving from an actual difference is of course unknown. **The proportion of null tests however tends to be distributed equally in the p value histogram.** By identification of 
 the average null frequency, a proportion of FP and TP can be determined and the FDR can be defined. This frequency estimate is called $\pi_0$, which leads to an FDR definition of:
 
 
@@ -283,9 +286,9 @@ Consequently for each presented p value a corresponding FDR can be calculated. T
 $$\hat q(p_i) = min_{t \geq p_i} \hat{FDR}(p_i)$$
 
 
-Since the q value is not monotonically increasing, it is smoothed by assigning the lowest FDR of all p values, that are bigger or equal to the current one.
+Since the q value is not monotonically increasing, it is smoothed by assigning the lowest FDR of all p values, that are equal or higher the current one.
 
-By defining $\pi_0$, all other parameters can be calculated from the given p value distribution to determine the all q values. The most prominent 
+**By defining $\pi_0$, all other parameters can be calculated from the given p value distribution to determine the all q values.** The most prominent 
 FDR-controlling method is known as Benjamini-Hochberg correction. It sets $\pi_0$ as 1, assuming that all features are null. In studies with an expected high proportion of true 
 positives, a $\pi_0$ of 1 is too conservative, since there definitely are true positives in the data. 
 
@@ -416,7 +419,7 @@ p2qValeChart |> GenericChart.toChartHTML
 
 (**
 
-_Fig 7: FDR calculation on experiment data_
+_Fig 7: FDR calculation on experiment data. Please zoom into the very first part of the curve to inspect the monotocity._
 <hr>
 
 
@@ -634,12 +637,189 @@ _Fig 12: Visual pi0 estimation._
   - A method exists, to improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa. This method published in 2014 by Orr et al. estimates a global $m_0$ and then splits the p values 
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   
+##Improving q value estimation if effects are asymmetric
+
+Considering an experiment in which the teststatistic distribution is asymmetric, there is an improved method for comuting q values. Therefore the amount of up- and downregulated features must be approximately equal, meaning the number of negative 
+teststatistics should be in the same range as the positive ones. This method is easy to understand: The &\pi_0$ is performed as described earlier. The p values are split up in two groups, according to the sign of their corresponding test statistic.
+The q values are determined separately for both p value sets and merged afterwards. To demonstrate the workflow an hypothetical experiment is presented with 60% null, 20% slightly upregulated, and 20% moderate downregulated features:
+
+  
+  *)
+  
+  
+let distributionD = Continuous.normal 10.0 1.0
+let distributionE = Continuous.normal 11.0 1.0
+let distributionF = Continuous.normal  8.0 1.0
+  
+(***hide***)
+let distributionChartDEF = 
+    [
+        Chart.Area([3. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionD.PDF x),"distD")
+        Chart.Area([3. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionE.PDF x),"distE")
+        Chart.Area([3. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionF.PDF x),"distF")
+    ]
+    |> Chart.combine
+    |> Chart.withAxisTitles "variable X" "relative count"
+    |> Chart.withSize (1000.,600.)
+  
+  
+  
+(***hide***)
+distributionChartDEF |> GenericChart.toChartHTML
+(***include-it-raw***)
+(**
+_Fig 13: Asymmetric experiment simulation._
+   
+*)
+  
+(***hide***)
+let nullFeat = 
+    Array.init 6000 (fun _ -> 
+        let ttest = Testing.TTest.twoSample true (getSample 5 distributionD) (getSample 5 distributionD)
+        ttest.Statistic,ttest.PValue
+        )
+  
+let upFeat = 
+    Array.init 2000 (fun _ -> 
+        let ttest = Testing.TTest.twoSample true (getSample 5 distributionE) (getSample 5 distributionD)
+        ttest.Statistic,ttest.PValue
+        )
+  
+let downFeat = 
+    Array.init 2000 (fun _ -> 
+        let ttest = Testing.TTest.twoSample true (getSample 5 distributionF) (getSample 5 distributionD)
+        ttest.Statistic,ttest.PValue
+        )
+  
+let testStatistics = 
+    [
+        nullFeat
+        |> Array.map fst
+        |> Distributions.Frequency.create 0.1
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "null"
+  
+        upFeat
+        |> Array.map fst
+        |> Distributions.Frequency.create 0.1
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "up reg."
+  
+        downFeat
+        |> Array.map fst
+        |> Distributions.Frequency.create 0.1
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "down reg."
+  
+    ]
+    |> Chart.combine
+    |> Chart.withAxisTitles "test statistic" "count"
+      
+(***hide***)
+testStatistics |> GenericChart.toChartHTML
+(***include-it-raw***)
+
+(**
+_Fig 14: t-statistic histogram experiment simulation._
+   
+  
+  
+*)
+  
+(***hide***)
+let positive,negative =
+    [|nullFeat;upFeat;downFeat|]
+    |> Array.concat 
+    |> fun x -> 
+        x |> Array.sumBy (fun (t,p) -> if t > 0. then 1. else 0.),
+        x |> Array.sumBy (fun (t,p) -> if t < 0. then 1. else 0.)
+  
+  
+  
+let pValRight = 
+    [
+        nullFeat
+        |> Array.filter (fun (tstat,pval) -> tstat > 0.)
+        |> Array.map snd
+        |> Distributions.Frequency.create 0.025
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c / positive / 0.025)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "null"
+  
+        upFeat
+        |> Array.filter (fun (tstat,pval) -> tstat > 0.)
+        |> Array.map snd
+        |> Distributions.Frequency.create 0.025
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c / positive / 0.025)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "up reg."
+  
+    ]
+    |> Chart.combine
+    |> Chart.withAxisTitles "p value" ""
+  
+let pValleft = 
+    [
+        nullFeat
+        |> Array.filter (fun (tstat,pval) -> tstat < 0.)
+        |> Array.map snd 
+        |> Distributions.Frequency.create 0.025
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c / negative / 0.025)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "null"
+  
+        downFeat
+        |> Array.filter (fun (tstat,pval) -> tstat < 0.)
+        |> Array.map snd
+        |> Distributions.Frequency.create 0.025
+        |> Map.toArray 
+        |> Array.map (fun (k,c) -> k,float c / negative / 0.025)
+        |> Chart.StackedColumn
+        |> Chart.withTraceName "down reg."
+  
+    ]
+    |> Chart.combine
+    |> Chart.withAxisTitles "p value" "density"
+  
+  
+(***hide***)
+[[pValleft;pValRight]] |> Chart.Grid() |> Chart.withSize (1000.,600.) |> GenericChart.toChartHTML
+(***include-it-raw***)
+  
+  
+
+  
+(**
+_Fig 15: p value distributions of negative (left) and positive (right) t statistics._
+   
+The 
+  
+*)
+  
+  
+  
+examplePVals
+|> Array.sort
+|> Array.mapi (fun i x -> float i / 9855.,x)
+|> Chart.Point
+  
+(**
+  
 
 ##References
   - Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
   - Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, Storey, John D., Jonathan E. Taylor, and David Siegmund, Journal of the Royal Statistical Society. Series B (Statistical Methodology), vol. 66, no. 1, [Royal Statistical Society, Wiley], 2004, pp. 187-205, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
   - An improved method for computing q-values when the distribution of effect sizes is asymmetric, Orr M, Liu P, Nettleton D., Bioinformatics. 2014 Nov 1;30(21):3044-53. [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/). Epub 2014 Jul 14. PMID: 25024290; PMCID: PMC4609005.
-  - Nettleton, Dan, et al. “Estimating the Number of True Null Hypotheses from a Histogram of p Values.” Journal of Agricultural, Biological, and Environmental Statistics, vol. 11, no. 3, [International Biometric Society, Springer], 2006, pp. 337–56, http://www.jstor.org/stable/27595607.
+  - Nettleton, Dan, et al. "Estimating the Number of True Null Hypotheses from a Histogram of p Values." Journal of Agricultural, Biological, and Environmental Statistics, vol. 11, no. 3, [International Biometric Society, Springer], 2006, pp. 337-56, http://www.jstor.org/stable/27595607.
   - Benjamini Y, Hochberg Y. On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics. Journal of Educational and Behavioral Statistics. 2000;25(1):60-83. doi:10.3102/10769986025001060
   
 
