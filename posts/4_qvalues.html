@@ -172,29 +172,29 @@ a p value, that correspond the probability of obtaining results at least as extr
 
 <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="id">list</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="m">Chart</span><span class="pn">.</span><span class="id">Line</span> <span class="o">|&gt;</span> <span class="id">GenericChart</span><span class="pn">.</span><span class="id">toChartHTML</span>
 </code></pre>
-<div id="f47c34ed-cf54-45bf-9e7b-4e5d5d9c07f4" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="34f5eb81-49f1-4255-bccd-ea9e41aff192" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script type="text/javascript">
 
-            var renderPlotly_f47c34edcf5445bf9e7b4e5d5d9c07f4 = function() {
+            var renderPlotly_34f5eb8149f14255bccdea9e41aff192 = function() {
             var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
             fsharpPlotlyRequire(['plotly'], function(Plotly) {
 
             var data = [{"type":"scatter","x":[1,1],"y":[2,3],"mode":"lines","marker":{}}];
             var layout = {};
             var config = {};
-            Plotly.newPlot('f47c34ed-cf54-45bf-9e7b-4e5d5d9c07f4', data, layout, config);
+            Plotly.newPlot('34f5eb81-49f1-4255-bccd-ea9e41aff192', data, layout, config);
 });
             };
             if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
                 var script = document.createElement("script");
                 script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
                 script.onload = function(){
-                    renderPlotly_f47c34edcf5445bf9e7b4e5d5d9c07f4();
+                    renderPlotly_34f5eb8149f14255bccdea9e41aff192();
                 };
                 document.getElementsByTagName("head")[0].appendChild(script);
             }
             else {
-                renderPlotly_f47c34edcf5445bf9e7b4e5d5d9c07f4();
+                renderPlotly_34f5eb8149f14255bccdea9e41aff192();
             }
 </script>
 
@@ -217,7 +217,7 @@ Both samples are tested <b>if a mean difference exist</b> using a two sample t t
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs36', 73)" onmouseover="showTip(event, 'fs36', 73)" class="id">pValue</span> <span class="o">=</span> <span class="prop">(</span><span onmouseout="hideTip(event, 'fs37', 74)" onmouseover="showTip(event, 'fs37', 74)" class="id">Testing</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs38', 75)" onmouseover="showTip(event, 'fs38', 75)" class="m">TTest</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs39', 76)" onmouseover="showTip(event, 'fs39', 76)" class="id">twoSample</span> <span class="k">true</span> <span onmouseout="hideTip(event, 'fs34', 77)" onmouseover="showTip(event, 'fs34', 77)" class="id">sampleA</span> <span onmouseout="hideTip(event, 'fs35', 78)" onmouseover="showTip(event, 'fs35', 78)" class="id">sampleB</span><span class="pn">)</span><span class="pn">.</span><span class="id">PValue</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>0.4408448295</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>0.643129126</code></pre></td></tr></table>
 <p>10,000 tests are performed, each with new randomly drawn samples. This corresponds to an experiment in which <b>none of the features changed</b>
 Note, that the mean intensities are arbitrary and must not be the same for all features! In the presented case all feature intensities are in average 10.
 The same simulation can be performed with pairwise comparisons from distributions that differ for each feature, but are the same within the feature.
