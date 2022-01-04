@@ -11,14 +11,13 @@ index: 0
 
 (***hide***)
 #r "nuget: FSharpAux, 1.1.0"
-//#r "nuget: Plotly.NET, 2.0.0-preview.11"
+#r "nuget: Plotly.NET, 2.0.0-preview.11"
 #r "nuget: FSharp.Stats, 0.4.1"
 
 
 open FSharp.Stats
 Seq.mean [123.;12.]
 (***include-it-raw***)
-
 
 let te = Seq.mean [143.;13.]
 (***include-value:te***)
@@ -28,21 +27,7 @@ let examplePVals =
     System.IO.File.ReadAllLines(@"../files/pvalExample.txt")
     |> Array.tail
     |> Array.map float
-
-(***include-value:examplePVals***)
-
-let examplePVals2 =
-    let source = __SOURCE_DIRECTORY__ + @"/../files/pvalExample.txt"
-    let path = System.IO.Directory.GetParent( source).FullName + @"/files/pvalExample.txt"
-    System.IO.File.ReadAllLines(path)
-    |> Array.tail
-    |> Array.map float
-
-(***include-value:examplePVals2***)
-
 let pi0Stats = FSharp.Stats.Testing.MultipleTesting.Qvalues.pi0BootstrapWithLambda [|0.0 .. 0.05 .. 0.95|] examplePVals
-
-
 pi0Stats
 (***include-it***)
 
@@ -129,6 +114,8 @@ let distributionChartAB =
 distributionChartAB |> GenericChart.toChartHTML
 (***include-it-raw***)
 
+let xy = Seq.mean [2.;3.]
+(***include-value:xy***)
 
 (**
 
