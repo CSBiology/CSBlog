@@ -30,7 +30,7 @@ module Chart =
 (**
 # q values
 
-_[Dez. 2021, Benedikt Venn](https://github.com/bvenn)_
+_[Benedikt Venn](https://github.com/bvenn), Jan 2022_
 
 
 ### Table of contents
@@ -45,11 +45,11 @@ _[Dez. 2021, Benedikt Venn](https://github.com/bvenn)_
 
 ## Introduction
 
-High throughput techniques like microarrays with its successor RNA-Seq and mass spectrometry proteomics lead to an huge data amount.
-Thousands of features (e.g. transcripts or proteins) are measured simultaneously. Differential expression analysis aims to identify features, that change significantly
+<b>High throughput techniques</b> like microarrays with its successor RNA-Seq and mass spectrometry proteomics lead to an huge data amount.
+Thousands of features (e.g. transcripts or proteins) are measured simultaneously. <b>Differential expression analysis</b> aims to identify features, that change significantly
 between two conditions. A common experimental setup is the analysis of which genes are over- or underexpressed between e.g. a wild type and a mutant.
 
-Hypothesis tests aim to identify differences between two or more samples. The most common statistical test is the t test that tests a difference of means. Hypothesis tests report 
+Hypothesis tests aim to identify differences between two or more samples. The most common statistical test is the <b>t test</b> that tests a difference of means. Hypothesis tests report 
 a p value, that correspond the probability of obtaining results at least as extreme as the observed results, assuming that the null hypothesis is correct. In other words:
 
 
@@ -59,7 +59,7 @@ _<center>If there is no effect (no mean difference), a p value of 0.05 indicates
 
 <hr>
 
-Consider two population distributions that follow a normal distribution. Both have the same mean and standard deviation.
+Consider two population distributions that follow a normal distribution. Both have the <b>same</b> mean and standard deviation.
 
 *)
 open FSharpAux
@@ -89,7 +89,7 @@ distributionChartAB |> GenericChart.toChartHTML
 (**
 
 Samples with sample size 5 are randomly drawn from both population distributions.
-Both samples are tested if a mean difference exist using a two sample t test where equal variances of the underlying population distribution are assumed.
+Both samples are tested <b>if a mean difference exist</b> using a two sample t test where equal variances of the underlying population distribution are assumed.
 
 
 *)
@@ -107,10 +107,10 @@ pValue
 (***include-it***)
 
 (**
-10,000 tests are performed, each with new randomly drawn samples. This correspond to an experiment in which none of the features changed. 
+10,000 tests are performed, each with new randomly drawn samples. This corresponds to an experiment in which <b>none of the features changed</b> 
 Note, that the mean intensities are arbitrary and must not be the same for all features! In the presented case all feature intensities are in average 10.
 The same simulation can be performed with pairwise comparisons from distributions that differ for each feature, but are the same within the feature.
-The resulting p values are uniformely distributed between 0 and 1.
+<b>The resulting p values are uniformely distributed between 0 and 1</b>
 
 <br>
 
@@ -148,9 +148,9 @@ let thresholdLine =
 (**
 
 Samples are called significantly different, if their p value is below a certain significance threshold ($\alpha$ level). While "the lower the better", a common threshold
-is a p value of 0.05 or 0.01. In the presented case in average $10,000 * 0.05 = 500$ tests are significant (red box), even though the populations do not differ. They are false 
-positives (FP). Now lets repeat the same experiment, but this time sample 70% of the time from null features (no difference) and add 30% samples of truly 
-differing distributions. Therefore a third populations is generated, that differ in mean, but has equal standard deviations:
+is a p value of 0.05 or 0.01. In the presented case in average $10,000 * 0.05 = 500$ tests are <b>significant (red box), even though the populations do not differ</b>. They are called <b>false 
+positives (FP)</b>. Now lets repeat the same experiment, but this time sample 70% of the time from null features (no difference) and <b>add 30% samples of truly 
+differing</b> distributions. Therefore a third populations is generated, that differ in mean, but has an equal standard deviation:
 
 
 
@@ -179,20 +179,20 @@ let distributionChartAC =
 
 <img style="max-width:50%" src="/img/qvalue_02.svg"></img>
 
-_Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B. 
-Orange coloring indicate p values deriving from distribution A and C._
+_Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B (null). 
+Orange coloring indicate p values deriving from distribution A and C (truly differing)._
 
 
 
-The pvalue distribution of the tests resulting from truly differing populations are right skewed, while the null tests again show a homogeneous distribution between 0 and 1. 
+The pvalue distribution of the tests resulting from truly differing populations are <b>right skewed</b>, while the null tests again show a homogeneous distribution between 0 and 1. 
 Many, but not all of the tests that come from the truly differing populations are below 0.05, and therefore would be reported as significant.
-In average 350 null features would be reported as significant even though they derive from null features (blue bars).
+In average 350 null features would be reported as significant even though they derive from null features (blue bars, 10,000 x 0.7 x 0.05 = 350).
 
 
 ##The multiple testing problem
 
-The hypothesis testing framework was developed for performing just one test. If many tests are performed, like in modern high throuput studies, the probability to obtain a 
-false positive result increases. The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
+The hypothesis testing framework with the p value definition given above was <b>developed for performing just one test. If many tests are performed, like in modern high throuput studies, the probability to obtain a 
+false positive result increases.</b> The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
 $\alpha$ corresponds to the significance threshold and $m$ is the number of performed tests.
 
 
@@ -209,7 +209,7 @@ let fwer =
         x,(1. - (1. - 0.05)**(float x))
         )
     |> Chart.Point
-    |> Chart.withAxisTitles "#tests" "p(at least 1 FP)" 
+    |> Chart.withAxisTitles "#tests" "p(at least one FP)" 
     |> Chart.withShape bonferroniLine
     |> Chart.withTitle "FWER"
 
@@ -219,7 +219,7 @@ fwer |> GenericChart.toChartHTML
 
 (**
 
-_Fig 3: Familiy wise error rate depending on number of performed tests. The dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$._
+_Fig 3: Familiy wise error rate depending on number of performed tests. The black dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$._
 
 
 When 10,000 null features are tested with a p value threshold of 0.05, in average 500 tests are reported significant even if there is not a single comparisons in which the 
@@ -238,7 +238,7 @@ FWER should be chosen if the costs of follow up studies to tests the candidates 
 
 A more reasonable measure of significance with a simple interpretation is the so called false discovery rate (FDR). **It describes the rate of expected false positives within the 
 overall reported significant features.** The goal is to identify as many sig. features as possible while incurring a relatively low proportion of false positives.
-Consequently a set of reported significant features together with the FDR describes the confidence of this set, without the requirement to 
+Consequently a set of reported significant features together with the <b>FDR describes the confidence of this set</b>, without the requirement to 
 somehow incorporate the uncertainty that is introduced by the total number of tests performed. In the simulated case of 7,000 null tests and 3,000 tests resulting from truly 
 differing distributions above, the FDR can be calculated exactly. Therefore at e.g. a p value of 0.05 the number of false positives (blue in red box) are devided by the number 
 of significant reported tests (false positives + true positives). 
@@ -294,9 +294,9 @@ positives, a $\pi_0$ of 1 is too conservative, since there definitely are true p
 
 A better estimation of $\pi_0$ is given in the following:
 
-True positives are assumed to be right skewed while null tests are distributed equally between 0 and 1. Consequently the right flat region of the p value histogram tends to correspond 
-to the true frequency of null comparisons (Fig 6). As real world example 9856 genes were measured in triplicates under two conditions (control, and treatment). The p value distribution of two 
-sample ttests looks as follows:
+<b>True positives are assumed to be right skewed while null tests are distributed equally between 0 and 1</b>. Consequently the right flat region of the p value histogram tends to correspond 
+to the true frequency of null comparisons (Fig 5). As <b>real world example</b> 9856 genes were measured in triplicates under two conditions (control and treatment). The p value distribution of two 
+sample t tests looks as follows:
 
 
 *)
@@ -348,8 +348,8 @@ exampleDistribution |> GenericChart.toChartHTML
 (**
 <br>
 
-_Fig 6: p value distributions of real world example. The frequency is given on the right, its density on the left. The dashed line indicates the distribution, if all features
-were null. The dash-dotted line indicates the visual estimated pi0._
+_Fig 6: p value distributions of real world example. The frequency is given on the right, its density on the left. The black dashed line indicates the distribution, if all features
+were null. The red dash-dotted line indicates the visual estimated pi0._
 
 <br>
 <hr>
@@ -358,7 +358,7 @@ were null. The dash-dotted line indicates the visual estimated pi0._
 
 By performing t tests for all comparisons 3743 (38 %) of the genes lead to a pvalue lower than 0.05.
 By eye, you would estimate $\pi_0$ as 0.4, indicating, only a small fraction of the genes are unaltered (null). After q value calculations, you would filter for a specific FDR (e.g. 0.05) and 
-end up with an p value threshold of 0.04613, indicating a FDR of max. 0.05 in the reported 3642 genes. 
+end up with an p value threshold of 0.04613, indicating a FDR of max. 0.05 in the final reported 3642 genes. 
 
 ```no-highlight
 pi0     = 0.4
@@ -419,7 +419,7 @@ p2qValeChart |> GenericChart.toChartHTML
 
 (**
 
-_Fig 7: FDR calculation on experiment data. Please zoom into the very first part of the curve to inspect the monotocity._
+_Fig 7: FDR calculation on experiment data. Please zoom into the very first part of the curve to inspect the monotonicity._
 <hr>
 
 
@@ -456,16 +456,16 @@ pi0EstChart|> GenericChart.toChartHTML
 _Fig 8: pi0 estimation._
 <hr>
 
-The resulting diagram shows, that with increasing $\lambda$ its function value $\hat \pi_0(\lambda)$ tends to $\pi_0$. The formula relates the actual proportion of tests greater than $\lambda$ to the proportion of $\lambda$ range the corresponding p values are in.
-In Storey & Tibshirani 2003 this curve is fitted with a cubic spline. A weighting of the knots by $(1 - \lambda)$ is recommended 
+The resulting diagram shows, that with increasing $\lambda$ its function value $\hat \pi_0(\lambda)$ tends to $\pi_0$. The calculation <b>relates the actual proportion of tests greater than $\lambda$ to the proportion of $\lambda$ range the corresponding p values are in</b>.
+In Storey & Tibshirani 2003 this curve is fitted with a <b>cubic spline</b>. A weighting of the knots by $(1 - \lambda)$ is recommended 
 but not specified in the final publication. Afterwards the function value at $\hat \pi_0(1)$ is defined as final estimator of $\pi_0$. 
 
-Another method, that does not depend on fitting is based on bootstrapping and was introduced in Storey et al. (2004). It is implemented in FSharp.Stats:
+Another method, that does not depend on fitting is based on <b>bootstrapping</b> and was introduced in Storey et al. (2004). It is implemented in FSharp.Stats:
 
-  1. Determine the minimal $\hat \pi_0$ and call it $min \hat \pi_0$ . 
+  1. Determine the minimal $\hat \pi_0 (\lambda)$ and call it $min \hat \pi_0$ . 
 
   2. For each $\lambda$, bootstrap the p values (e.g. 100 times) and calculate the mean squared error (MSE) from the difference of resulting $\hat \pi_0^b$ to $min  \hat \pi_0$. The minimal MSE indicates the best $\lambda$. With $\lambda$ 
-defined, $\pi_0$ can be calculated.
+defined, $\pi_0$ can be determined. *Note: When bootstrapping an data set of size n, n elements are drawn with replacement.*
 
 
 
@@ -528,7 +528,7 @@ The bootstrapped pi0 distribution that shows the least variation to the dashed l
 
 For an $\lambda$, range of $\{0.0  ..  0.05  ..  0.95\}$ the bootstrapping method determines either 0.8 or 0.85 as optimal $\lambda$ and therefore $optimal  \hat \pi_0$ is either $0.3703$ or $0.3686$.
 
-The automated estimation of $\pi_0$ based on bootstrapping is implemented in `FSharp.Stats.Testing.MultipleTesting.Qvalues`.
+The <b>automated estimation</b> of $\pi_0$ based on bootstrapping is implemented in `FSharp.Stats.Testing.MultipleTesting.Qvalues`.
 
 *)
 open Testing.MultipleTesting
@@ -543,7 +543,7 @@ pi0Stats
 
 
 (**
-Subsequent to $\pi_0$ estimation the q values can be determined from a list of p values.
+Subsequent to $\pi_0$ estimation the <b>q values can be determined</b> from a list of p values.
 *)
 
 let qValues = Qvalues.ofPValues pi0Stats examplePVals
@@ -607,7 +607,7 @@ p2q |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 10: p value relation to q values_
+_Fig 10: p value relation to q values. At a p value of 1 the q value is equal to $\pi_0$ (black dashed line)._
 *)
 
 (***hide***)
@@ -615,7 +615,7 @@ pValueDistribution |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 11: p value density distribution. The dashed line indicates pi0 estimated by bootstrapping method._
+_Fig 11: p value density distribution. The dashed line indicates pi0 estimated by Storeys bootstrapping method._
 *)
 
 (***hide***)
