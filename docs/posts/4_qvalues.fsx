@@ -20,13 +20,31 @@ Seq.mean [123.;12.]
 (***include-it-raw***)
 
 
-let te = Seq.mean [123.;12.]
+let te = Seq.mean [143.;13.]
 (***include-value:te***)
 
+let examplePVals =
+    let source = __SOURCE_DIRECTORY__
+    System.IO.File.ReadAllLines(@"../files/pvalExample.txt")
+    |> Array.tail
+    |> Array.map float
+
+(***include-value:examplePVals***)
+
+let examplePVals2 =
+    let source = __SOURCE_DIRECTORY__ + @"/../files/pvalExample.txt"
+    let path = System.IO.Directory.GetParent( source).FullName + @"/files/pvalExample.txt"
+    System.IO.File.ReadAllLines(path)
+    |> Array.tail
+    |> Array.map float
+
+(***include-value:examplePVals2***)
+
+let pi0Stats = FSharp.Stats.Testing.MultipleTesting.Qvalues.pi0BootstrapWithLambda [|0.0 .. 0.05 .. 0.95|] examplePVals
 
 
-let te2 = Seq.average [123.;12.]
-(***include-value:te2***)
+pi0Stats
+(***include-it***)
 
 open Plotly.NET
 open Plotly.NET.StyleParam
