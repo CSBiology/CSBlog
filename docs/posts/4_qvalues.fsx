@@ -10,10 +10,23 @@ index: 0
 
 
 (***hide***)
-#r "nuget: FSharpAux, 1.1.0"
-#r "nuget: Plotly.NET, 2.0.0-preview.11"
-#r "nuget: FSharp.Stats, 0.4.1"
+//#r "nuget: FSharpAux, 1.1.0"
+//#r "nuget: Plotly.NET, 2.0.0-preview.11"
+#r "nuget: FSharp.Stats, 0.4.0"
 
+
+open FSharp.Stats
+Seq.mean [123.;12.]
+(***include-it-raw***)
+
+
+let te = Seq.mean [123.;12.]
+(***include-value:te***)
+
+
+
+let te2 = Seq.average [123.;12.]
+(***include-value:te2***)
 
 open Plotly.NET
 open Plotly.NET.StyleParam
@@ -68,18 +81,6 @@ let list = [1,2;1,3]
 list |> Chart.Line |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-open FSharp.Stats
-Seq.mean [123.;12.]
-(***include-it-raw***)
-
-
-let te = Seq.mean [123.;12.]
-(***include-value:te***)
-
-
-
-let te2 = Seq.average [123.;12.]
-(***include-value:te2***)
 (**
 
 
