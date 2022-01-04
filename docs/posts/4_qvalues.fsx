@@ -10,9 +10,9 @@ index: 0
 
 
 (***hide***)
-//#r "nuget: FSharpAux, 1.1.0"
+#r "nuget: FSharpAux, 1.1.0"
 //#r "nuget: Plotly.NET, 2.0.0-preview.11"
-#r "nuget: FSharp.Stats, 0.4.0"
+#r "nuget: FSharp.Stats, 0.4.1"
 
 
 open FSharp.Stats
