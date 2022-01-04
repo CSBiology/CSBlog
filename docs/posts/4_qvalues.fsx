@@ -16,19 +16,17 @@ index: 0
 
 
 open FSharp.Stats
-Seq.mean [123.;12.]
-(***include-it-raw***)
+
 
 let te = Seq.mean [143.;13.]
 (***include-value:te***)
 
-let examplePVals =
-    let source = __SOURCE_DIRECTORY__
+let pva =
     System.IO.File.ReadAllLines(@"../files/pvalExample.txt")
     |> Array.tail
     |> Array.map float
-let pi0Stats = FSharp.Stats.Testing.MultipleTesting.Qvalues.pi0BootstrapWithLambda [|0.0 .. 0.05 .. 0.95|] examplePVals
-pi0Stats
+    |> FSharp.Stats.Testing.MultipleTesting.Qvalues.pi0BootstrapWithLambda [|0.0 .. 0.05 .. 0.95|] 
+pva
 (***include-it***)
 
 open Plotly.NET
@@ -79,9 +77,7 @@ _<center>If there is no effect (no mean difference), a p value of 0.05 indicates
 Consider two population distributions that follow a normal distribution. Both have the <b>same</b> mean and standard deviation.
 *)
 
-let list = [1,2;1,3]
-
-list |> Chart.Line |> GenericChart.toChartHTML
+Chart.Line([1,2;1,3]) |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -93,11 +89,10 @@ list |> Chart.Line |> GenericChart.toChartHTML
 
 open FSharpAux
 open FSharp.Stats
-open FSharp.Stats.Distributions
 
 
-let distributionA = Continuous.normal 10.0 1.0
-let distributionB = Continuous.normal 10.0 1.0
+let distributionA = Distributions.Continuous.normal 10.0 1.0
+let distributionB = Distributions.Continuous.normal 10.0 1.0
 
 (***hide***)
 let distributionChartAB = 
@@ -110,9 +105,22 @@ let distributionChartAB =
     |> Chart.withSize (900.,600.)
     |> Chart.withTitle "null hypothesis"
 
-(***hide***)
+
+distributionA
+(***include-it-raw***)
+
+
+Chart.Area([5. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionA.PDF x)) |> GenericChart.toChartHTML
+(***include-it-raw***)
+
+[Chart.Area([5. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionA.PDF x))] |> Chart.combine |> GenericChart.toChartHTML 
+(***include-it-raw***)
+
+
 distributionChartAB |> GenericChart.toChartHTML
 (***include-it-raw***)
+
+
 
 let xy = Seq.mean [2.;3.]
 (***include-value:xy***)
@@ -188,7 +196,7 @@ differing</b> distributions. Therefore a third populations is generated, that di
 *)
 
 
-let distributionC = Continuous.normal 11.5 1.0
+let distributionC = Distributions.Continuous.normal 11.5 1.0
 
 
 (***hide***)
