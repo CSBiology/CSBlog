@@ -177,11 +177,10 @@ let distributionChartAC =
 
 (**
 
-<img style="max-width:50%" src="/img/qvalue_02.svg"></img>
+<img style="max-width:50%" src="../img/qvalue_02.svg"></img>
 
 _Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B (null). 
 Orange coloring indicate p values deriving from distribution A and C (truly differing)._
-
 
 
 The pvalue distribution of the tests resulting from truly differing populations are <b>right skewed</b>, while the null tests again show a homogeneous distribution between 0 and 1. 
@@ -249,7 +248,7 @@ of significant reported tests (false positives + true positives).
 <br>
 <hr>
 
-<img style="max-width:75%" src="/img/qvalue_03.svg"></img>
+<img style="max-width:75%" src="../img/qvalue_03.svg"></img>
 
 _Fig 4: p value distribution of the alternative hypothesis._
 <hr>
@@ -265,7 +264,7 @@ the average null frequency, a proportion of FP and TP can be determined and the 
 <br>
 
 
-<img style="max-width:75%" src="/img/qvalue_04.svg"></img>
+<img style="max-width:75%" src="../img/qvalue_04.svg"></img>
 
 _Fig 5: FDR calculation on simulated data._
 
