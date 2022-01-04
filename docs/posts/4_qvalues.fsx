@@ -10,10 +10,10 @@ index: 0
 
 
 (***hide***)
-#r "nuget: FSharp.Stats, 0.4.1"
 #r "nuget: FSharpAux, 1.1.0"
-
 #r "nuget: Plotly.NET, 2.0.0-preview.11"
+#r "nuget: FSharp.Stats, 0.4.1"
+
 
 open Plotly.NET
 open Plotly.NET.StyleParam
@@ -63,24 +63,25 @@ _<center>If there is no effect (no mean difference), a p value of 0.05 indicates
 Consider two population distributions that follow a normal distribution. Both have the <b>same</b> mean and standard deviation.
 *)
 
+let list = [1,2;1,3]
 
-Chart.Point([1,2]) |> GenericChart.toChartHTML
+list |> Chart.Line |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 open FSharp.Stats
-FSharp.Stats.Seq.mean [123.;12.]
+Seq.mean [123.;12.]
 (***include-it-raw***)
 
+
+let te = Seq.mean [123.;12.]
+(***include-value:te***)
+
+
+
+let te2 = Seq.average [123.;12.]
+(***include-value:te2***)
 (**
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script><style id="plotly.js-style-global"></style>
-
-<div id="e075b67b-a726-4a55-a26c-4be921c46433" style="width: 1000px; height: 750px;"><!-- Plotly chart will be drawn inside this DIV --></div>        
-<script>
-  var data = [{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,1,0,18,13,9,29,23,1,2,23,31,32,20,19,1,0,24,14],"marker":{},"name":"CoffeeConsumption","xaxis":"x","yaxis":"y"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,1,0,18,13,9,29,23,1,2,23,31,32,20,19,1,0,24,14],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"blue","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"blue"},"xaxis":"x","yaxis":"y"},{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[5,1,0,1,4,6,4,10,0,0,4,6,4,0,3,0,0,5,0],"marker":{"color":"rgb(246, 126, 0)"},"name":"BeerConsumption","xaxis":"x2","yaxis":"y2"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[5,1,0,1,4,6,4,10,0,0,4,6,4,0,3,0,0,5,0],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"orange","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"orange"},"xaxis":"x2","yaxis":"y2"},{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,0,0,3,2,5,6,3,1,0,0,7,2,0,2,1,0,0,0],"marker":{"color":"rgb(65, 160, 33)"},"name":"BeverageConsumption","xaxis":"x3","yaxis":"y3"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,0,0,3,2,5,6,3,1,0,0,7,2,0,2,1,0,0,0],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"green","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"green"},"xaxis":"x3","yaxis":"y3"}];
-  var layout = {"yaxis":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [cups]","range":[0.0,33.0],"anchor":"x","domain":[0.71666666666666667,1.0]},"xaxis":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y","domain":[0.0,0.95]},"yaxis2":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [huelsen]","range":[0.0,33.0],"anchor":"x2","domain":[0.38333333333333341,0.66666666666666674]},"xaxis2":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y2","domain":[0.0,0.95]},"yaxis3":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [bottles]","range":[0.0,33.0],"anchor":"x3","domain":[0.050000000000000044,0.33333333333333337]},"xaxis3":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y3","domain":[0.0,0.95]},"width":1000.0,"height":750.0};
-  Plotly.newPlot('e075b67b-a726-4a55-a26c-4be921c46433', data, layout);
-</script>  
 
 *)
 
@@ -138,7 +139,7 @@ The same simulation can be performed with pairwise comparisons from distribution
 
 <br>
 
-<img style="max-width:50%" src="/img/qvalue_01.svg"></img>
+<img style="max-width:50%" src="../img/qvalue_01.svg"></img>
 
 _Fig 1: p value distribution of the null hypothesis._
 <hr>
