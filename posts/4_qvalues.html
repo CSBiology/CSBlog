@@ -149,24 +149,63 @@ a p value, that correspond the probability of obtaining results at least as extr
 <p><em><center>If there is no effect (no mean difference), a p value of 0.05 indicates that in 5 % of the tests a false positive is reported.</center></em></p>
 <hr>
 <p>Consider two population distributions that follow a normal distribution. Both have the <b>same</b> mean and standard deviation.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="id">FSharpAux</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="id">Stats</span>
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 43)" onmouseover="showTip(event, 'fs25', 43)" class="id">Distributions</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs22', 38)" onmouseover="showTip(event, 'fs22', 38)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="id">Point</span><span class="pn">(</span><span class="pn">[</span><span class="n">1</span><span class="pn">,</span><span class="n">2</span><span class="pn">]</span><span class="pn">)</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 40)" onmouseover="showTip(event, 'fs24', 40)" class="m">GenericChart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 41)" onmouseover="showTip(event, 'fs25', 41)" class="id">toChartHTML</span>
+</code></pre>
+<div id="34f48f2e-4d1b-4228-ae7f-33c7a5f2021e" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_34f48f2e4d1b4228ae7f33c7a5f2021e = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-latest.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","x":[1],"y":[2],"mode":"markers","marker":{}}];
+            var layout = {};
+            var config = {};
+            Plotly.newPlot('34f48f2e-4d1b-4228-ae7f-33c7a5f2021e', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_34f48f2e4d1b4228ae7f33c7a5f2021e();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_34f48f2e4d1b4228ae7f33c7a5f2021e();
+            }
+</script>
+
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs26', 42)" onmouseover="showTip(event, 'fs26', 42)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 43)" onmouseover="showTip(event, 'fs27', 43)" class="id">Stats</span>
+<span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="id">mean</span> <span class="pn">[</span><span class="n">123.</span><span class="pn">;</span><span class="n">12.</span><span class="pn">]</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script><style id="plotly.js-style-global"></style>
+<div id="e075b67b-a726-4a55-a26c-4be921c46433" style="width: 1000px; height: 750px;"><!-- Plotly chart will be drawn inside this DIV --></div>        
+<script>
+  var data = [{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,1,0,18,13,9,29,23,1,2,23,31,32,20,19,1,0,24,14],"marker":{},"name":"CoffeeConsumption","xaxis":"x","yaxis":"y"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,1,0,18,13,9,29,23,1,2,23,31,32,20,19,1,0,24,14],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"blue","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"blue"},"xaxis":"x","yaxis":"y"},{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[5,1,0,1,4,6,4,10,0,0,4,6,4,0,3,0,0,5,0],"marker":{"color":"rgb(246, 126, 0)"},"name":"BeerConsumption","xaxis":"x2","yaxis":"y2"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[5,1,0,1,4,6,4,10,0,0,4,6,4,0,3,0,0,5,0],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"orange","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"orange"},"xaxis":"x2","yaxis":"y2"},{"type":"bar","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,0,0,3,2,5,6,3,1,0,0,7,2,0,2,1,0,0,0],"marker":{"color":"rgb(65, 160, 33)"},"name":"BeverageConsumption","xaxis":"x3","yaxis":"y3"},{"type":"scatter","x":["2018-08-17T00:00:00","2018-08-18T00:00:00","2018-08-19T00:00:00","2018-08-20T00:00:00","2018-08-21T00:00:00","2018-08-22T00:00:00","2018-08-23T00:00:00","2018-08-24T00:00:00","2018-08-25T00:00:00","2018-08-26T00:00:00","2018-08-27T00:00:00","2018-08-28T00:00:00","2018-08-29T00:00:00","2018-08-30T00:00:00","2018-08-31T00:00:00","2018-09-01T00:00:00","2018-09-02T00:00:00","2018-09-03T00:00:00","2018-09-04T00:00:00"],"y":[0,0,0,3,2,5,6,3,1,0,0,7,2,0,2,1,0,0,0],"mode":"lines","fill":"tozeroy","name":" ","line":{"width":{},"color":"green","shape":"spline","smoothing":100,"dash":"dash"},"marker":{"color":"green"},"xaxis":"x3","yaxis":"y3"}];
+  var layout = {"yaxis":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [cups]","range":[0.0,33.0],"anchor":"x","domain":[0.71666666666666667,1.0]},"xaxis":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y","domain":[0.0,0.95]},"yaxis2":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [huelsen]","range":[0.0,33.0],"anchor":"x2","domain":[0.38333333333333341,0.66666666666666674]},"xaxis2":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y2","domain":[0.0,0.95]},"yaxis3":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"title":"Consumption [bottles]","range":[0.0,33.0],"anchor":"x3","domain":[0.050000000000000044,0.33333333333333337]},"xaxis3":{"tickmode":"auto","ticks":"inside","mirror":"all","showline":true,"showgrid":false,"zeroline":false,"titlefont":{"family":"Arial","size":15.0},"tickfont":{"family":"Arial","size":15.0},"anchor":"y3","domain":[0.0,0.95]},"width":1000.0,"height":750.0};
+  Plotly.newPlot('e075b67b-a726-4a55-a26c-4be921c46433', data, layout);
+</script>  
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs30', 48)" onmouseover="showTip(event, 'fs30', 48)" class="id">FSharpAux</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs26', 49)" onmouseover="showTip(event, 'fs26', 49)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 50)" onmouseover="showTip(event, 'fs27', 50)" class="id">Stats</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs26', 51)" onmouseover="showTip(event, 'fs26', 51)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs27', 52)" onmouseover="showTip(event, 'fs27', 52)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 53)" onmouseover="showTip(event, 'fs31', 53)" class="id">Distributions</span>
 
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="id">distributionA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="id">normal</span> <span class="n">10.0</span> <span class="n">1.0</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 47)" onmouseover="showTip(event, 'fs29', 47)" class="id">distributionB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 48)" onmouseover="showTip(event, 'fs27', 48)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 49)" onmouseover="showTip(event, 'fs28', 49)" class="id">normal</span> <span class="n">10.0</span> <span class="n">1.0</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 54)" onmouseover="showTip(event, 'fs32', 54)" class="id">distributionA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 55)" onmouseover="showTip(event, 'fs33', 55)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 56)" onmouseover="showTip(event, 'fs34', 56)" class="id">normal</span> <span class="n">10.0</span> <span class="n">1.0</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 57)" onmouseover="showTip(event, 'fs35', 57)" class="id">distributionB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 58)" onmouseover="showTip(event, 'fs33', 58)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 59)" onmouseover="showTip(event, 'fs34', 59)" class="id">normal</span> <span class="n">10.0</span> <span class="n">1.0</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p>Samples with sample size 5 are randomly drawn from both population distributions.
 Both samples are tested <b>if a mean difference exist</b> using a two sample t test where equal variances of the underlying population distribution are assumed.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 80)" onmouseover="showTip(event, 'fs42', 80)" class="fn">getSample</span> <span onmouseout="hideTip(event, 'fs43', 81)" onmouseover="showTip(event, 'fs43', 81)" class="fn">n</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 82)" onmouseover="showTip(event, 'fs44', 82)" class="fn">dist</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs25', 83)" onmouseover="showTip(event, 'fs25', 83)" class="id">Distributions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 84)" onmouseover="showTip(event, 'fs45', 84)" class="id">Distribution</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs46', 85)" onmouseover="showTip(event, 'fs46', 85)" class="vt">float</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs46', 86)" onmouseover="showTip(event, 'fs46', 86)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs47', 87)" onmouseover="showTip(event, 'fs47', 87)" class="m">Vector</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 88)" onmouseover="showTip(event, 'fs48', 88)" class="id">init</span> <span onmouseout="hideTip(event, 'fs43', 89)" onmouseover="showTip(event, 'fs43', 89)" class="fn">n</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">_</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs44', 90)" onmouseover="showTip(event, 'fs44', 90)" class="fn">dist</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 91)" onmouseover="showTip(event, 'fs49', 91)" class="id">Sample</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs45', 90)" onmouseover="showTip(event, 'fs45', 90)" class="fn">getSample</span> <span onmouseout="hideTip(event, 'fs46', 91)" onmouseover="showTip(event, 'fs46', 91)" class="fn">n</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs47', 92)" onmouseover="showTip(event, 'fs47', 92)" class="fn">dist</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs31', 93)" onmouseover="showTip(event, 'fs31', 93)" class="id">Distributions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs48', 94)" onmouseover="showTip(event, 'fs48', 94)" class="id">Distribution</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs49', 95)" onmouseover="showTip(event, 'fs49', 95)" class="vt">float</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs49', 96)" onmouseover="showTip(event, 'fs49', 96)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs50', 97)" onmouseover="showTip(event, 'fs50', 97)" class="m">Vector</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs51', 98)" onmouseover="showTip(event, 'fs51', 98)" class="id">init</span> <span onmouseout="hideTip(event, 'fs46', 99)" onmouseover="showTip(event, 'fs46', 99)" class="fn">n</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">_</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs47', 100)" onmouseover="showTip(event, 'fs47', 100)" class="fn">dist</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 101)" onmouseover="showTip(event, 'fs52', 101)" class="id">Sample</span><span class="pn">(</span><span class="pn">)</span><span class="pn">)</span>
     
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs50', 92)" onmouseover="showTip(event, 'fs50', 92)" class="id">sampleA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 93)" onmouseover="showTip(event, 'fs42', 93)" class="fn">getSample</span> <span class="n">5</span> <span onmouseout="hideTip(event, 'fs26', 94)" onmouseover="showTip(event, 'fs26', 94)" class="id">distributionA</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs51', 95)" onmouseover="showTip(event, 'fs51', 95)" class="id">sampleB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs42', 96)" onmouseover="showTip(event, 'fs42', 96)" class="fn">getSample</span> <span class="n">5</span> <span onmouseout="hideTip(event, 'fs29', 97)" onmouseover="showTip(event, 'fs29', 97)" class="id">distributionB</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs53', 102)" onmouseover="showTip(event, 'fs53', 102)" class="id">sampleA</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs45', 103)" onmouseover="showTip(event, 'fs45', 103)" class="fn">getSample</span> <span class="n">5</span> <span onmouseout="hideTip(event, 'fs32', 104)" onmouseover="showTip(event, 'fs32', 104)" class="id">distributionA</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 105)" onmouseover="showTip(event, 'fs54', 105)" class="id">sampleB</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs45', 106)" onmouseover="showTip(event, 'fs45', 106)" class="fn">getSample</span> <span class="n">5</span> <span onmouseout="hideTip(event, 'fs35', 107)" onmouseover="showTip(event, 'fs35', 107)" class="id">distributionB</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs52', 98)" onmouseover="showTip(event, 'fs52', 98)" class="id">pValue</span> <span class="o">=</span> <span class="prop">(</span><span onmouseout="hideTip(event, 'fs53', 99)" onmouseover="showTip(event, 'fs53', 99)" class="id">Testing</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs54', 100)" onmouseover="showTip(event, 'fs54', 100)" class="m">TTest</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 101)" onmouseover="showTip(event, 'fs55', 101)" class="id">twoSample</span> <span class="k">true</span> <span onmouseout="hideTip(event, 'fs50', 102)" onmouseover="showTip(event, 'fs50', 102)" class="id">sampleA</span> <span onmouseout="hideTip(event, 'fs51', 103)" onmouseover="showTip(event, 'fs51', 103)" class="id">sampleB</span><span class="pn">)</span><span class="pn">.</span><span class="id">PValue</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs55', 108)" onmouseover="showTip(event, 'fs55', 108)" class="id">pValue</span> <span class="o">=</span> <span class="prop">(</span><span onmouseout="hideTip(event, 'fs56', 109)" onmouseover="showTip(event, 'fs56', 109)" class="id">Testing</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs57', 110)" onmouseover="showTip(event, 'fs57', 110)" class="m">TTest</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs58', 111)" onmouseover="showTip(event, 'fs58', 111)" class="id">twoSample</span> <span class="k">true</span> <span onmouseout="hideTip(event, 'fs53', 112)" onmouseover="showTip(event, 'fs53', 112)" class="id">sampleA</span> <span onmouseout="hideTip(event, 'fs54', 113)" onmouseover="showTip(event, 'fs54', 113)" class="id">sampleB</span><span class="pn">)</span><span class="pn">.</span><span class="id">PValue</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p>10,000 tests are performed, each with new randomly drawn samples. This corresponds to an experiment in which <b>none of the features changed</b>
@@ -182,9 +221,9 @@ The same simulation can be performed with pairwise comparisons from distribution
 is a p value of 0.05 or 0.01. In the presented case in average <span class="math">\(10,000 * 0.05 = 500\)</span> tests are <b>significant (red box), even though the populations do not differ</b>. They are called <b>false
 positives (FP)</b>. Now lets repeat the same experiment, but this time sample 70% of the time from null features (no difference) and <b>add 30% samples of truly
 differing</b> distributions. Therefore a third populations is generated, that differ in mean, but has an equal standard deviation:</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs77', 145)" onmouseover="showTip(event, 'fs77', 145)" class="id">distributionC</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 146)" onmouseover="showTip(event, 'fs27', 146)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 147)" onmouseover="showTip(event, 'fs28', 147)" class="id">normal</span> <span class="n">11.5</span> <span class="n">1.0</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs80', 155)" onmouseover="showTip(event, 'fs80', 155)" class="id">distributionC</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 156)" onmouseover="showTip(event, 'fs33', 156)" class="m">Continuous</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 157)" onmouseover="showTip(event, 'fs34', 157)" class="id">normal</span> <span class="n">11.5</span> <span class="n">1.0</span>
 </code></pre>
-<img style="max-width:50%" src="/img/qvalue_02.svg"></img>
+<img style="max-width:50%" src="../img/qvalue_02.svg"></img>
 <p><em>Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B (null).
 Orange coloring indicate p values deriving from distribution A and C (truly differing).</em></p>
 <p>The pvalue distribution of the tests resulting from truly differing populations are <b>right skewed</b>, while the null tests again show a homogeneous distribution between 0 and 1.
@@ -214,7 +253,7 @@ differing distributions above, the FDR can be calculated exactly. Therefore at e
 of significant reported tests (false positives + true positives).</p>
 <br>
 <hr>
-<img style="max-width:75%" src="/img/qvalue_03.svg"></img>
+<img style="max-width:75%" src="../img/qvalue_03.svg"></img>
 <p><em>Fig 4: p value distribution of the alternative hypothesis.</em>
 <hr>
 <br></p>
@@ -223,7 +262,7 @@ are expected to be false positives, which gives an straight forward interpretati
 deriving from an actual difference is of course unknown. <strong>The proportion of null tests however tends to be distributed equally in the p value histogram.</strong> By identification of
 the average null frequency, a proportion of FP and TP can be determined and the FDR can be defined. This frequency estimate is called <span class="math">\(\pi_0\)</span>, which leads to an FDR definition of:</p>
 <br>
-<img style="max-width:75%" src="/img/qvalue_04.svg"></img>
+<img style="max-width:75%" src="../img/qvalue_04.svg"></img>
 <p><em>Fig 5: FDR calculation on simulated data.</em></p>
 <br>
 <h3><a name="q-values-1" class="anchor" href="#q-values-1">q values</a></h3>
@@ -260,14 +299,14 @@ FDR(p)  = FP(p) / D(p)
 <hr></p>
 <h3><a name="The-automatic-detection-of-is-facilitated-as-follows" class="anchor" href="#The-automatic-detection-of-is-facilitated-as-follows">The automatic detection of <span class="math">\(\pi_0\)</span> is facilitated as follows</a></h3>
 <p>For a range of <span class="math">\(\lambda\)</span> in e.g. <span class="math">\(\{0.0  ..  0.05  ..  0.95\}\)</span>, calculate <span class="math">\(\hat \pi_0 (\lambda) = \frac {\#[p_j &gt; \lambda]}{m(1 - \lambda)}\)</span></p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs127', 392)" onmouseover="showTip(event, 'fs127', 392)" class="id">pi0Est</span> <span class="o">=</span> 
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs129', 402)" onmouseover="showTip(event, 'fs129', 402)" class="id">pi0Est</span> <span class="o">=</span> 
     <span class="pn">[|</span><span class="o">0.</span> <span class="o">..</span> <span class="n">0.05</span> <span class="o">..</span> <span class="n">1.</span><span class="pn">|]</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 393)" onmouseover="showTip(event, 'fs57', 393)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 394)" onmouseover="showTip(event, 'fs67', 394)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs128', 395)" onmouseover="showTip(event, 'fs128', 395)" class="fn">lambda</span> <span class="k">-&gt;</span> 
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs129', 396)" onmouseover="showTip(event, 'fs129', 396)" class="fn">num</span> <span class="o">=</span> 
-            <span onmouseout="hideTip(event, 'fs87', 397)" onmouseover="showTip(event, 'fs87', 397)" class="id">examplePVals</span> 
-            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 398)" onmouseover="showTip(event, 'fs57', 398)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs107', 399)" onmouseover="showTip(event, 'fs107', 399)" class="id">sumBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs35', 400)" onmouseover="showTip(event, 'fs35', 400)" class="fn">x</span> <span class="k">-&gt;</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs35', 401)" onmouseover="showTip(event, 'fs35', 401)" class="fn">x</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs128', 402)" onmouseover="showTip(event, 'fs128', 402)" class="fn">lambda</span> <span class="k">then</span> <span class="n">1.</span> <span class="k">else</span> <span class="n">0.</span><span class="pn">)</span> 
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs130', 403)" onmouseover="showTip(event, 'fs130', 403)" class="fn">den</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 404)" onmouseover="showTip(event, 'fs46', 404)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs87', 405)" onmouseover="showTip(event, 'fs87', 405)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs120', 406)" onmouseover="showTip(event, 'fs120', 406)" class="id">Length</span> <span class="o">*</span> <span class="pn">(</span><span class="n">1.</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs128', 407)" onmouseover="showTip(event, 'fs128', 407)" class="fn">lambda</span><span class="pn">)</span>
-        <span onmouseout="hideTip(event, 'fs128', 408)" onmouseover="showTip(event, 'fs128', 408)" class="fn">lambda</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs129', 409)" onmouseover="showTip(event, 'fs129', 409)" class="fn">num</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs130', 410)" onmouseover="showTip(event, 'fs130', 410)" class="fn">den</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 403)" onmouseover="showTip(event, 'fs60', 403)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 404)" onmouseover="showTip(event, 'fs70', 404)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs130', 405)" onmouseover="showTip(event, 'fs130', 405)" class="fn">lambda</span> <span class="k">-&gt;</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs131', 406)" onmouseover="showTip(event, 'fs131', 406)" class="fn">num</span> <span class="o">=</span> 
+            <span onmouseout="hideTip(event, 'fs89', 407)" onmouseover="showTip(event, 'fs89', 407)" class="id">examplePVals</span> 
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 408)" onmouseover="showTip(event, 'fs60', 408)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs109', 409)" onmouseover="showTip(event, 'fs109', 409)" class="id">sumBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs40', 410)" onmouseover="showTip(event, 'fs40', 410)" class="fn">x</span> <span class="k">-&gt;</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs40', 411)" onmouseover="showTip(event, 'fs40', 411)" class="fn">x</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs130', 412)" onmouseover="showTip(event, 'fs130', 412)" class="fn">lambda</span> <span class="k">then</span> <span class="n">1.</span> <span class="k">else</span> <span class="n">0.</span><span class="pn">)</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs132', 413)" onmouseover="showTip(event, 'fs132', 413)" class="fn">den</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs49', 414)" onmouseover="showTip(event, 'fs49', 414)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs89', 415)" onmouseover="showTip(event, 'fs89', 415)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 416)" onmouseover="showTip(event, 'fs122', 416)" class="id">Length</span> <span class="o">*</span> <span class="pn">(</span><span class="n">1.</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs130', 417)" onmouseover="showTip(event, 'fs130', 417)" class="fn">lambda</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs130', 418)" onmouseover="showTip(event, 'fs130', 418)" class="fn">lambda</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs131', 419)" onmouseover="showTip(event, 'fs131', 419)" class="fn">num</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs132', 420)" onmouseover="showTip(event, 'fs132', 420)" class="fn">den</span>
         <span class="pn">)</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
@@ -290,54 +329,54 @@ The bootstrapped pi0 distribution that shows the least variation to the dashed l
 <hr></p>
 <p>For an <span class="math">\(\lambda\)</span>, range of <span class="math">\(\{0.0  ..  0.05  ..  0.95\}\)</span> the bootstrapping method determines either 0.8 or 0.85 as optimal <span class="math">\(\lambda\)</span> and therefore <span class="math">\(optimal  \hat \pi_0\)</span> is either <span class="math">\(0.3703\)</span> or <span class="math">\(0.3686\)</span>.</p>
 <p>The <b>automated estimation</b> of <span class="math">\(\pi_0\)</span> based on bootstrapping is implemented in <code>FSharp.Stats.Testing.MultipleTesting.Qvalues</code>.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs53', 518)" onmouseover="showTip(event, 'fs53', 518)" class="id">Testing</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs154', 519)" onmouseover="showTip(event, 'fs154', 519)" class="m">MultipleTesting</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs56', 528)" onmouseover="showTip(event, 'fs56', 528)" class="id">Testing</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs156', 529)" onmouseover="showTip(event, 'fs156', 529)" class="m">MultipleTesting</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs155', 520)" onmouseover="showTip(event, 'fs155', 520)" class="id">pi0Stats</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs156', 521)" onmouseover="showTip(event, 'fs156', 521)" class="m">Qvalues</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs157', 522)" onmouseover="showTip(event, 'fs157', 522)" class="id">pi0BootstrapWithLambda</span> <span class="pn">[|</span><span class="o">0.0</span> <span class="o">..</span> <span class="n">0.05</span> <span class="o">..</span> <span class="n">0.95</span><span class="pn">|]</span> <span onmouseout="hideTip(event, 'fs87', 523)" onmouseover="showTip(event, 'fs87', 523)" class="id">examplePVals</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs157', 530)" onmouseover="showTip(event, 'fs157', 530)" class="id">pi0Stats</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs158', 531)" onmouseover="showTip(event, 'fs158', 531)" class="m">Qvalues</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs159', 532)" onmouseover="showTip(event, 'fs159', 532)" class="id">pi0BootstrapWithLambda</span> <span class="pn">[|</span><span class="o">0.0</span> <span class="o">..</span> <span class="n">0.05</span> <span class="o">..</span> <span class="n">0.95</span><span class="pn">|]</span> <span onmouseout="hideTip(event, 'fs89', 533)" onmouseover="showTip(event, 'fs89', 533)" class="id">examplePVals</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p>Subsequent to <span class="math">\(\pi_0\)</span> estimation the <b>q values can be determined</b> from a list of p values.</p>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs158', 525)" onmouseover="showTip(event, 'fs158', 525)" class="id">qValues</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs156', 526)" onmouseover="showTip(event, 'fs156', 526)" class="m">Qvalues</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs159', 527)" onmouseover="showTip(event, 'fs159', 527)" class="id">ofPValues</span> <span onmouseout="hideTip(event, 'fs155', 528)" onmouseover="showTip(event, 'fs155', 528)" class="id">pi0Stats</span> <span onmouseout="hideTip(event, 'fs87', 529)" onmouseover="showTip(event, 'fs87', 529)" class="id">examplePVals</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs160', 535)" onmouseover="showTip(event, 'fs160', 535)" class="id">qValues</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs158', 536)" onmouseover="showTip(event, 'fs158', 536)" class="m">Qvalues</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs161', 537)" onmouseover="showTip(event, 'fs161', 537)" class="id">ofPValues</span> <span onmouseout="hideTip(event, 'fs157', 538)" onmouseover="showTip(event, 'fs157', 538)" class="id">pi0Stats</span> <span onmouseout="hideTip(event, 'fs89', 539)" onmouseover="showTip(event, 'fs89', 539)" class="id">examplePVals</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <h2><a name="Quality-plots" class="anchor" href="#Quality-plots">Quality plots</a></h2>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs160', 531)" onmouseover="showTip(event, 'fs160', 531)" class="id">pi0Line</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs73', 532)" onmouseover="showTip(event, 'fs73', 532)" class="rt">Shape</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs74', 533)" onmouseover="showTip(event, 'fs74', 533)" class="id">init</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs75', 534)" onmouseover="showTip(event, 'fs75', 534)" class="rt">ShapeType</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs76', 535)" onmouseover="showTip(event, 'fs76', 535)" class="id">Line</span><span class="pn">,</span><span class="n">0.</span><span class="pn">,</span><span class="n">1.</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs155', 536)" onmouseover="showTip(event, 'fs155', 536)" class="id">pi0Stats</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs155', 537)" onmouseover="showTip(event, 'fs155', 537)" class="id">pi0Stats</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs80', 538)" onmouseover="showTip(event, 'fs80', 538)" class="fn">Line</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs80', 539)" onmouseover="showTip(event, 'fs80', 539)" class="rt">Line</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs81', 540)" onmouseover="showTip(event, 'fs81', 540)" class="id">init</span><span class="pn">(</span><span class="fn">Dash</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs82', 541)" onmouseover="showTip(event, 'fs82', 541)" class="rt">DrawingStyle</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs83', 542)" onmouseover="showTip(event, 'fs83', 542)" class="id">Dash</span><span class="pn">)</span><span class="pn">)</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs162', 541)" onmouseover="showTip(event, 'fs162', 541)" class="id">pi0Line</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs76', 542)" onmouseover="showTip(event, 'fs76', 542)" class="rt">Shape</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs77', 543)" onmouseover="showTip(event, 'fs77', 543)" class="id">init</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs78', 544)" onmouseover="showTip(event, 'fs78', 544)" class="rt">ShapeType</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs79', 545)" onmouseover="showTip(event, 'fs79', 545)" class="id">Line</span><span class="pn">,</span><span class="n">0.</span><span class="pn">,</span><span class="n">1.</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs157', 546)" onmouseover="showTip(event, 'fs157', 546)" class="id">pi0Stats</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs157', 547)" onmouseover="showTip(event, 'fs157', 547)" class="id">pi0Stats</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs83', 548)" onmouseover="showTip(event, 'fs83', 548)" class="fn">Line</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs83', 549)" onmouseover="showTip(event, 'fs83', 549)" class="rt">Line</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs84', 550)" onmouseover="showTip(event, 'fs84', 550)" class="id">init</span><span class="pn">(</span><span class="fn">Dash</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs85', 551)" onmouseover="showTip(event, 'fs85', 551)" class="rt">DrawingStyle</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs86', 552)" onmouseover="showTip(event, 'fs86', 552)" class="id">Dash</span><span class="pn">)</span><span class="pn">)</span>
 
 <span class="c">// relates the q value to each p value</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs161', 543)" onmouseover="showTip(event, 'fs161', 543)" class="id">p2q</span> <span class="o">=</span> 
-    <span onmouseout="hideTip(event, 'fs57', 544)" onmouseover="showTip(event, 'fs57', 544)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs162', 545)" onmouseover="showTip(event, 'fs162', 545)" class="id">zip</span> <span onmouseout="hideTip(event, 'fs87', 546)" onmouseover="showTip(event, 'fs87', 546)" class="id">examplePVals</span> <span onmouseout="hideTip(event, 'fs158', 547)" onmouseover="showTip(event, 'fs158', 547)" class="id">qValues</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 548)" onmouseover="showTip(event, 'fs57', 548)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs163', 549)" onmouseover="showTip(event, 'fs163', 549)" class="id">sortBy</span> <span onmouseout="hideTip(event, 'fs164', 550)" onmouseover="showTip(event, 'fs164', 550)" class="fn">fst</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 551)" onmouseover="showTip(event, 'fs31', 551)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs112', 552)" onmouseover="showTip(event, 'fs112', 552)" class="id">Line</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 553)" onmouseover="showTip(event, 'fs31', 553)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs86', 554)" onmouseover="showTip(event, 'fs86', 554)" class="id">withShape</span> <span onmouseout="hideTip(event, 'fs160', 555)" onmouseover="showTip(event, 'fs160', 555)" class="id">pi0Line</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 556)" onmouseover="showTip(event, 'fs31', 556)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 557)" onmouseover="showTip(event, 'fs16', 557)" class="id">withAxisTitles</span> <span class="s">&quot;p value&quot;</span> <span class="s">&quot;q value&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs163', 553)" onmouseover="showTip(event, 'fs163', 553)" class="id">p2q</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs60', 554)" onmouseover="showTip(event, 'fs60', 554)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs164', 555)" onmouseover="showTip(event, 'fs164', 555)" class="id">zip</span> <span onmouseout="hideTip(event, 'fs89', 556)" onmouseover="showTip(event, 'fs89', 556)" class="id">examplePVals</span> <span onmouseout="hideTip(event, 'fs160', 557)" onmouseover="showTip(event, 'fs160', 557)" class="id">qValues</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 558)" onmouseover="showTip(event, 'fs60', 558)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs165', 559)" onmouseover="showTip(event, 'fs165', 559)" class="id">sortBy</span> <span onmouseout="hideTip(event, 'fs166', 560)" onmouseover="showTip(event, 'fs166', 560)" class="fn">fst</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 561)" onmouseover="showTip(event, 'fs22', 561)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs114', 562)" onmouseover="showTip(event, 'fs114', 562)" class="id">Line</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 563)" onmouseover="showTip(event, 'fs22', 563)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs88', 564)" onmouseover="showTip(event, 'fs88', 564)" class="id">withShape</span> <span onmouseout="hideTip(event, 'fs162', 565)" onmouseover="showTip(event, 'fs162', 565)" class="id">pi0Line</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 566)" onmouseover="showTip(event, 'fs22', 566)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 567)" onmouseover="showTip(event, 'fs16', 567)" class="id">withAxisTitles</span> <span class="s">&quot;p value&quot;</span> <span class="s">&quot;q value&quot;</span>
 
 <span class="c">// shows the p values distribution for an visual inspection of pi0 estimation</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs165', 558)" onmouseover="showTip(event, 'fs165', 558)" class="id">pValueDistribution</span> <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs166', 559)" onmouseover="showTip(event, 'fs166', 559)" class="fn">frequencyBins</span> <span class="o">=</span> <span class="n">0.025</span> 
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs93', 560)" onmouseover="showTip(event, 'fs93', 560)" class="fn">m</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs87', 561)" onmouseover="showTip(event, 'fs87', 561)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs120', 562)" onmouseover="showTip(event, 'fs120', 562)" class="id">Length</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs46', 563)" onmouseover="showTip(event, 'fs46', 563)" class="fn">float</span>
-    <span onmouseout="hideTip(event, 'fs87', 564)" onmouseover="showTip(event, 'fs87', 564)" class="id">examplePVals</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs25', 565)" onmouseover="showTip(event, 'fs25', 565)" class="id">Distributions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 566)" onmouseover="showTip(event, 'fs63', 566)" class="m">Frequency</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs64', 567)" onmouseover="showTip(event, 'fs64', 567)" class="id">create</span> <span onmouseout="hideTip(event, 'fs166', 568)" onmouseover="showTip(event, 'fs166', 568)" class="fn">frequencyBins</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs65', 569)" onmouseover="showTip(event, 'fs65', 569)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs66', 570)" onmouseover="showTip(event, 'fs66', 570)" class="id">toArray</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 571)" onmouseover="showTip(event, 'fs57', 571)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 572)" onmouseover="showTip(event, 'fs67', 572)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs68', 573)" onmouseover="showTip(event, 'fs68', 573)" class="fn">k</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs69', 574)" onmouseover="showTip(event, 'fs69', 574)" class="fn">c</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs68', 575)" onmouseover="showTip(event, 'fs68', 575)" class="fn">k</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs46', 576)" onmouseover="showTip(event, 'fs46', 576)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs69', 577)" onmouseover="showTip(event, 'fs69', 577)" class="fn">c</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs166', 578)" onmouseover="showTip(event, 'fs166', 578)" class="fn">frequencyBins</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs93', 579)" onmouseover="showTip(event, 'fs93', 579)" class="fn">m</span><span class="pn">)</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 580)" onmouseover="showTip(event, 'fs31', 580)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 581)" onmouseover="showTip(event, 'fs70', 581)" class="id">StackedColumn</span> 
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 582)" onmouseover="showTip(event, 'fs31', 582)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs71', 583)" onmouseover="showTip(event, 'fs71', 583)" class="id">withTraceName</span> <span class="s">&quot;p values&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 584)" onmouseover="showTip(event, 'fs31', 584)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 585)" onmouseover="showTip(event, 'fs16', 585)" class="id">withAxisTitles</span> <span class="s">&quot;p value&quot;</span> <span class="s">&quot;frequency density&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 586)" onmouseover="showTip(event, 'fs31', 586)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs86', 587)" onmouseover="showTip(event, 'fs86', 587)" class="id">withShape</span> <span onmouseout="hideTip(event, 'fs160', 588)" onmouseover="showTip(event, 'fs160', 588)" class="id">pi0Line</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs167', 568)" onmouseover="showTip(event, 'fs167', 568)" class="id">pValueDistribution</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs168', 569)" onmouseover="showTip(event, 'fs168', 569)" class="fn">frequencyBins</span> <span class="o">=</span> <span class="n">0.025</span> 
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs95', 570)" onmouseover="showTip(event, 'fs95', 570)" class="fn">m</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs89', 571)" onmouseover="showTip(event, 'fs89', 571)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 572)" onmouseover="showTip(event, 'fs122', 572)" class="id">Length</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs49', 573)" onmouseover="showTip(event, 'fs49', 573)" class="fn">float</span>
+    <span onmouseout="hideTip(event, 'fs89', 574)" onmouseover="showTip(event, 'fs89', 574)" class="id">examplePVals</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 575)" onmouseover="showTip(event, 'fs31', 575)" class="id">Distributions</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs66', 576)" onmouseover="showTip(event, 'fs66', 576)" class="m">Frequency</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 577)" onmouseover="showTip(event, 'fs67', 577)" class="id">create</span> <span onmouseout="hideTip(event, 'fs168', 578)" onmouseover="showTip(event, 'fs168', 578)" class="fn">frequencyBins</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs68', 579)" onmouseover="showTip(event, 'fs68', 579)" class="m">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 580)" onmouseover="showTip(event, 'fs69', 580)" class="id">toArray</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 581)" onmouseover="showTip(event, 'fs60', 581)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 582)" onmouseover="showTip(event, 'fs70', 582)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs71', 583)" onmouseover="showTip(event, 'fs71', 583)" class="fn">k</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs72', 584)" onmouseover="showTip(event, 'fs72', 584)" class="fn">c</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs71', 585)" onmouseover="showTip(event, 'fs71', 585)" class="fn">k</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs49', 586)" onmouseover="showTip(event, 'fs49', 586)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs72', 587)" onmouseover="showTip(event, 'fs72', 587)" class="fn">c</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs168', 588)" onmouseover="showTip(event, 'fs168', 588)" class="fn">frequencyBins</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs95', 589)" onmouseover="showTip(event, 'fs95', 589)" class="fn">m</span><span class="pn">)</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 590)" onmouseover="showTip(event, 'fs22', 590)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs73', 591)" onmouseover="showTip(event, 'fs73', 591)" class="id">StackedColumn</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 592)" onmouseover="showTip(event, 'fs22', 592)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs74', 593)" onmouseover="showTip(event, 'fs74', 593)" class="id">withTraceName</span> <span class="s">&quot;p values&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 594)" onmouseover="showTip(event, 'fs22', 594)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 595)" onmouseover="showTip(event, 'fs16', 595)" class="id">withAxisTitles</span> <span class="s">&quot;p value&quot;</span> <span class="s">&quot;frequency density&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 596)" onmouseover="showTip(event, 'fs22', 596)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs88', 597)" onmouseover="showTip(event, 'fs88', 597)" class="id">withShape</span> <span onmouseout="hideTip(event, 'fs162', 598)" onmouseover="showTip(event, 'fs162', 598)" class="id">pi0Line</span>
 
 <span class="c">// shows pi0 estimation in relation to lambda</span>
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs167', 589)" onmouseover="showTip(event, 'fs167', 589)" class="id">pi0Estimation</span> <span class="o">=</span> 
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs169', 599)" onmouseover="showTip(event, 'fs169', 599)" class="id">pi0Estimation</span> <span class="o">=</span> 
     <span class="c">//Testing.MultipleTesting.Qvalues.pi0hats [|0. .. 0.05 .. 0.96|] examplePVals</span>
     <span class="pn">[|</span><span class="o">0.</span> <span class="o">..</span> <span class="n">0.05</span> <span class="o">..</span> <span class="n">0.95</span><span class="pn">|]</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 590)" onmouseover="showTip(event, 'fs57', 590)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 591)" onmouseover="showTip(event, 'fs67', 591)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs128', 592)" onmouseover="showTip(event, 'fs128', 592)" class="fn">lambda</span> <span class="k">-&gt;</span> 
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs129', 593)" onmouseover="showTip(event, 'fs129', 593)" class="fn">num</span> <span class="o">=</span>   
-            <span onmouseout="hideTip(event, 'fs87', 594)" onmouseover="showTip(event, 'fs87', 594)" class="id">examplePVals</span> 
-            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs57', 595)" onmouseover="showTip(event, 'fs57', 595)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs107', 596)" onmouseover="showTip(event, 'fs107', 596)" class="id">sumBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs35', 597)" onmouseover="showTip(event, 'fs35', 597)" class="fn">x</span> <span class="k">-&gt;</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs35', 598)" onmouseover="showTip(event, 'fs35', 598)" class="fn">x</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs128', 599)" onmouseover="showTip(event, 'fs128', 599)" class="fn">lambda</span> <span class="k">then</span> <span class="n">1.</span> <span class="k">else</span> <span class="n">0.</span><span class="pn">)</span>
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs130', 600)" onmouseover="showTip(event, 'fs130', 600)" class="fn">den</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs46', 601)" onmouseover="showTip(event, 'fs46', 601)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs87', 602)" onmouseover="showTip(event, 'fs87', 602)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs120', 603)" onmouseover="showTip(event, 'fs120', 603)" class="id">Length</span> <span class="o">*</span> <span class="pn">(</span><span class="n">1.</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs128', 604)" onmouseover="showTip(event, 'fs128', 604)" class="fn">lambda</span><span class="pn">)</span>
-        <span onmouseout="hideTip(event, 'fs128', 605)" onmouseover="showTip(event, 'fs128', 605)" class="fn">lambda</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs129', 606)" onmouseover="showTip(event, 'fs129', 606)" class="fn">num</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs130', 607)" onmouseover="showTip(event, 'fs130', 607)" class="fn">den</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 600)" onmouseover="showTip(event, 'fs60', 600)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 601)" onmouseover="showTip(event, 'fs70', 601)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs130', 602)" onmouseover="showTip(event, 'fs130', 602)" class="fn">lambda</span> <span class="k">-&gt;</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs131', 603)" onmouseover="showTip(event, 'fs131', 603)" class="fn">num</span> <span class="o">=</span>   
+            <span onmouseout="hideTip(event, 'fs89', 604)" onmouseover="showTip(event, 'fs89', 604)" class="id">examplePVals</span> 
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs60', 605)" onmouseover="showTip(event, 'fs60', 605)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs109', 606)" onmouseover="showTip(event, 'fs109', 606)" class="id">sumBy</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs40', 607)" onmouseover="showTip(event, 'fs40', 607)" class="fn">x</span> <span class="k">-&gt;</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs40', 608)" onmouseover="showTip(event, 'fs40', 608)" class="fn">x</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs130', 609)" onmouseover="showTip(event, 'fs130', 609)" class="fn">lambda</span> <span class="k">then</span> <span class="n">1.</span> <span class="k">else</span> <span class="n">0.</span><span class="pn">)</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs132', 610)" onmouseover="showTip(event, 'fs132', 610)" class="fn">den</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs49', 611)" onmouseover="showTip(event, 'fs49', 611)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs89', 612)" onmouseover="showTip(event, 'fs89', 612)" class="id">examplePVals</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs122', 613)" onmouseover="showTip(event, 'fs122', 613)" class="id">Length</span> <span class="o">*</span> <span class="pn">(</span><span class="n">1.</span> <span class="o">-</span> <span onmouseout="hideTip(event, 'fs130', 614)" onmouseover="showTip(event, 'fs130', 614)" class="fn">lambda</span><span class="pn">)</span>
+        <span onmouseout="hideTip(event, 'fs130', 615)" onmouseover="showTip(event, 'fs130', 615)" class="fn">lambda</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs131', 616)" onmouseover="showTip(event, 'fs131', 616)" class="fn">num</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs132', 617)" onmouseover="showTip(event, 'fs132', 617)" class="fn">den</span>
         <span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 608)" onmouseover="showTip(event, 'fs31', 608)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs85', 609)" onmouseover="showTip(event, 'fs85', 609)" class="id">Point</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 610)" onmouseover="showTip(event, 'fs31', 610)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 611)" onmouseover="showTip(event, 'fs16', 611)" class="id">withAxisTitles</span> <span class="s">&quot;$\lambda$&quot;</span> <span class="s">&quot;$\hat \pi_0(\lambda)$&quot;</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 612)" onmouseover="showTip(event, 'fs31', 612)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs132', 613)" onmouseover="showTip(event, 'fs132', 613)" class="id">withMathTex</span><span class="pn">(</span><span class="k">true</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 618)" onmouseover="showTip(event, 'fs22', 618)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 619)" onmouseover="showTip(event, 'fs23', 619)" class="id">Point</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 620)" onmouseover="showTip(event, 'fs22', 620)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs16', 621)" onmouseover="showTip(event, 'fs16', 621)" class="id">withAxisTitles</span> <span class="s">&quot;$\lambda$&quot;</span> <span class="s">&quot;$\hat \pi_0(\lambda)$&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 622)" onmouseover="showTip(event, 'fs22', 622)" class="m">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs134', 623)" onmouseover="showTip(event, 'fs134', 623)" class="id">withMathTex</span><span class="pn">(</span><span class="k">true</span><span class="pn">)</span>
 </code></pre>
 <table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 <p><em>Fig 10: p value relation to q values. At a p value of 1 the q value is equal to $\pi</em>0$ (black dashed line)._</p>
@@ -440,20 +479,7 @@ from Plotly.NET</div>
 <div class="fsdocs-tip" id="fs19">val chart : GenericChart.GenericChart</div>
 <div class="fsdocs-tip" id="fs20">static member Chart.withXAxis : xAxis:LinearAxis * ?Id:SubPlotId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
 <div class="fsdocs-tip" id="fs21">static member Chart.withYAxis : yAxis:LinearAxis * ?Id:SubPlotId -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs22">namespace FSharpAux</div>
-<div class="fsdocs-tip" id="fs23">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
-<div class="fsdocs-tip" id="fs24">namespace FSharp.Stats</div>
-<div class="fsdocs-tip" id="fs25">namespace FSharp.Stats.Distributions</div>
-<div class="fsdocs-tip" id="fs26">val distributionA : Distribution&lt;float,float&gt;</div>
-<div class="fsdocs-tip" id="fs27">module Continuous
-
-from FSharp.Stats.Distributions</div>
-<div class="fsdocs-tip" id="fs28">val normal : mu:float -&gt; sigma:float -&gt; Distribution&lt;float,float&gt;<br /><em>&lt;summary&gt;
- Initializes a Normal distribution        
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs29">val distributionB : Distribution&lt;float,float&gt;</div>
-<div class="fsdocs-tip" id="fs30">val distributionChartAB : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs31">Multiple items<br />module Chart
+<div class="fsdocs-tip" id="fs22">Multiple items<br />module Chart
 
 from 4_qvalues<br /><br />--------------------<br />type Chart =
   static member Area : x:seq&lt;#IConvertible&gt; * y:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float -&gt; GenericChart + 1 overload
@@ -467,8 +493,38 @@ from 4_qvalues<br /><br />--------------------<br />type Chart =
   static member Heatmap : data:seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?ColNames:seq&lt;#IConvertible&gt; * ?RowNames:seq&lt;#IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Colorscale:Colorscale * ?Showscale:&#39;a4 * ?Xgap:&#39;a5 * ?Ygap:&#39;a6 * ?zSmooth:SmoothAlg * ?ColorBar:&#39;a7 * ?UseWebGL:bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible)
   static member Histogram : ?X:seq&lt;#IConvertible&gt; * ?Y:seq&lt;#IConvertible&gt; * ?Orientation:Orientation * ?Name:string * ?ShowLegend:bool * ?Opacity:float * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?HistFunc:HistFunc * ?HistNorm:HistNorm * ?AlignmentGroup:string * ?OffsetGroup:string * ?NBinsX:int * ?NBinsY:int * ?BinGroup:string * ?XBins:Bins * ?YBins:Bins * ?MarkerColor:Color * ?Marker:Marker * ?Line:Line * ?ErrorX:Error * ?ErrorY:Error * ?Cumulative:Cumulative * ?HoverLabel:Hoverlabel -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
   ...</div>
-<div class="fsdocs-tip" id="fs32">static member Chart.Area : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float -&gt; GenericChart.GenericChart<br />static member Chart.Area : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float -&gt; GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs33">Multiple items<br />module List
+<div class="fsdocs-tip" id="fs23">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs24">module GenericChart
+
+from Plotly.NET<br /><em>&lt;summary&gt;
+ Module to represent a GenericChart
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs25">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string<br /><em>&lt;summary&gt;
+ Converts a GenericChart to it HTML representation. The div layer has a default size of 600 if not specified otherwise.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs26">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs27">namespace FSharp.Stats</div>
+<div class="fsdocs-tip" id="fs28">module Seq
+
+from FSharp.Stats<br /><em>&lt;summary&gt;
+ Module to compute common statistical measure
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs29">val mean : items:seq&lt;&#39;T&gt; -&gt; &#39;U (requires member ( + ) and member get_Zero and member DivideByInt and member ( / ))<br /><em>&lt;summary&gt;
+   Computes the population mean (Normalized by N)
+ &lt;/summary&gt;<br />&lt;param name=&quot;items&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;remarks&gt;Returns default value if data is empty or if any entry is NaN.&lt;/remarks&gt;<br />&lt;returns&gt;population mean (Normalized by N)&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs30">namespace FSharpAux</div>
+<div class="fsdocs-tip" id="fs31">namespace FSharp.Stats.Distributions</div>
+<div class="fsdocs-tip" id="fs32">val distributionA : Distribution&lt;float,float&gt;</div>
+<div class="fsdocs-tip" id="fs33">module Continuous
+
+from FSharp.Stats.Distributions</div>
+<div class="fsdocs-tip" id="fs34">val normal : mu:float -&gt; sigma:float -&gt; Distribution&lt;float,float&gt;<br /><em>&lt;summary&gt;
+ Initializes a Normal distribution        
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs35">val distributionB : Distribution&lt;float,float&gt;</div>
+<div class="fsdocs-tip" id="fs36">val distributionChartAB : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs37">static member Chart.Area : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float -&gt; GenericChart.GenericChart<br />static member Chart.Area : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs38">Multiple items<br />module List
 
 from FSharp.Stats<br /><em>&lt;summary&gt;
  Module to compute common statistical measure on list
@@ -495,25 +551,17 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
  values of this type, or pattern match against the values directly.
  &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
-<div class="fsdocs-tip" id="fs34">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+<div class="fsdocs-tip" id="fs39">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
  to each of the elements of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements from the input list.&lt;/param&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The list of transformed elements.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs35">val x : float</div>
-<div class="fsdocs-tip" id="fs36">abstract member Distribution.PDF : &#39;b -&gt; float</div>
-<div class="fsdocs-tip" id="fs37">static member Chart.combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs38">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)<br />static member Chart.withSize : ?Width:int * ?Height:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs39">static member Chart.withTitle : title:string * ?TitleFont:Font -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs40">module GenericChart
-
-from Plotly.NET<br /><em>&lt;summary&gt;
- Module to represent a GenericChart
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs41">val toChartHTML : gChart:GenericChart.GenericChart -&gt; string<br /><em>&lt;summary&gt;
- Converts a GenericChart to it HTML representation. The div layer has a default size of 600 if not specified otherwise.
-&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs42">val getSample : n:int -&gt; dist:Distribution&lt;float,float&gt; -&gt; Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs43">val n : int</div>
-<div class="fsdocs-tip" id="fs44">val dist : Distribution&lt;float,float&gt;</div>
-<div class="fsdocs-tip" id="fs45">type Distribution&lt;&#39;a,&#39;b&gt; =
+<div class="fsdocs-tip" id="fs40">val x : float</div>
+<div class="fsdocs-tip" id="fs41">abstract member Distribution.PDF : &#39;b -&gt; float</div>
+<div class="fsdocs-tip" id="fs42">static member Chart.combine : gCharts:seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs43">static member Chart.withSize : width:float * height:float -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)<br />static member Chart.withSize : ?Width:int * ?Height:int -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs44">static member Chart.withTitle : title:string * ?TitleFont:Font -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs45">val getSample : n:int -&gt; dist:Distribution&lt;float,float&gt; -&gt; Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs46">val n : int</div>
+<div class="fsdocs-tip" id="fs47">val dist : Distribution&lt;float,float&gt;</div>
+<div class="fsdocs-tip" id="fs48">type Distribution&lt;&#39;a,&#39;b&gt; =
   abstract member CDF : &#39;a -&gt; float
   abstract member PDF : &#39;b -&gt; float
   abstract member Sample : unit -&gt; &#39;b
@@ -522,7 +570,7 @@ from Plotly.NET<br /><em>&lt;summary&gt;
   abstract member Variance : &#39;a<br /><em>&lt;summary&gt;
  Interface which every probability distribution must implement.
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs46">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+<div class="fsdocs-tip" id="fs49">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
  with InvariantCulture settings. Otherwise the operation requires an appropriate
  static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
@@ -531,7 +579,7 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
  The unit of measure is erased in compiled code and when values of this type
  are analyzed using reflection. The type is representationally equivalent to 
  &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs47">Multiple items<br />module Vector
+<div class="fsdocs-tip" id="fs50">Multiple items<br />module Vector
 
 from FSharp.Stats<br /><em>&lt;summary&gt;
 Basic vector operations
@@ -547,22 +595,22 @@ Basic vector operations
   member GetSlice : start:int option * finish:int option -&gt; Vector&lt;&#39;T&gt;
   member Permute : p:permutation -&gt; Vector&lt;&#39;T&gt;
   ...<br /><br />--------------------<br />new : opsV:INumeric&lt;&#39;T&gt; option * arrV:&#39;T array -&gt; Vector&lt;&#39;T&gt;</div>
-<div class="fsdocs-tip" id="fs48">val init : count:int -&gt; initializer:(int -&gt; float) -&gt; Vector&lt;float&gt;<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs51">val init : count:int -&gt; initializer:(int -&gt; float) -&gt; Vector&lt;float&gt;<br /><em>&lt;summary&gt;
 Initiates vector of length count and fills it by applying initializer function on indices
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs49">abstract member Distribution.Sample : unit -&gt; &#39;b</div>
-<div class="fsdocs-tip" id="fs50">val sampleA : Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs51">val sampleB : Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs52">val pValue : float</div>
-<div class="fsdocs-tip" id="fs53">namespace FSharp.Stats.Testing</div>
-<div class="fsdocs-tip" id="fs54">module TTest
+<div class="fsdocs-tip" id="fs52">abstract member Distribution.Sample : unit -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs53">val sampleA : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs54">val sampleB : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs55">val pValue : float</div>
+<div class="fsdocs-tip" id="fs56">namespace FSharp.Stats.Testing</div>
+<div class="fsdocs-tip" id="fs57">module TTest
 
 from FSharp.Stats.Testing</div>
-<div class="fsdocs-tip" id="fs55">val twoSample : assumeEqualVariances:bool -&gt; sample1:Vector&lt;float&gt; -&gt; sample2:Vector&lt;float&gt; -&gt; Testing.TestStatistics.TTestStatistics<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs58">val twoSample : assumeEqualVariances:bool -&gt; sample1:Vector&lt;float&gt; -&gt; sample2:Vector&lt;float&gt; -&gt; Testing.TestStatistics.TTestStatistics<br /><em>&lt;summary&gt;
  Computes a t-test or a Welch test (unequal variances)
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs56">val nullDist : float []</div>
-<div class="fsdocs-tip" id="fs57">Multiple items<br />module Array
+<div class="fsdocs-tip" id="fs59">val nullDist : float []</div>
+<div class="fsdocs-tip" id="fs60">Multiple items<br />module Array
 
 from FSharp.Stats<br /><em>&lt;summary&gt;
  Module to compute common statistical measure on array
@@ -573,20 +621,20 @@ from FSharpAux<br /><br />--------------------<br />module Array
 from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
   See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
  &lt;/remarks&gt;</em></div>
-<div class="fsdocs-tip" id="fs58">val init : count:int -&gt; initializer:(int -&gt; &#39;T) -&gt; &#39;T []<br /><em>&lt;summary&gt;Creates an array given the dimension and a generator function to compute the elements.&lt;/summary&gt;<br />&lt;param name=&quot;count&quot;&gt;The number of elements to initialize.&lt;/param&gt;<br />&lt;param name=&quot;initializer&quot;&gt;The function to generate the initial values for each index.&lt;/param&gt;<br />&lt;returns&gt;The created array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when count is negative.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs59">val x : int</div>
-<div class="fsdocs-tip" id="fs60">val sA : Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs61">val sB : Vector&lt;float&gt;</div>
-<div class="fsdocs-tip" id="fs62">val nullDistributionChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs63">module Frequency
+<div class="fsdocs-tip" id="fs61">val init : count:int -&gt; initializer:(int -&gt; &#39;T) -&gt; &#39;T []<br /><em>&lt;summary&gt;Creates an array given the dimension and a generator function to compute the elements.&lt;/summary&gt;<br />&lt;param name=&quot;count&quot;&gt;The number of elements to initialize.&lt;/param&gt;<br />&lt;param name=&quot;initializer&quot;&gt;The function to generate the initial values for each index.&lt;/param&gt;<br />&lt;returns&gt;The created array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when count is negative.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs62">val x : int</div>
+<div class="fsdocs-tip" id="fs63">val sA : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs64">val sB : Vector&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs65">val nullDistributionChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs66">module Frequency
 
 from FSharp.Stats.Distributions<br /><em>&lt;summary&gt;
  Represents a histogram (map from values to integer frequencies).
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs64">val create : bandwidth:float -&gt; data:seq&lt;float&gt; -&gt; Map&lt;float,int&gt;<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs67">val create : bandwidth:float -&gt; data:seq&lt;float&gt; -&gt; Map&lt;float,int&gt;<br /><em>&lt;summary&gt;
  Creates probability mass function (histogram)    
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs65">Multiple items<br />module Map
+<div class="fsdocs-tip" id="fs68">Multiple items<br />module Map
 
 from FSharpAux<br /><br />--------------------<br />module Map
 
@@ -605,24 +653,24 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  comparison is the F# structural comparison function or uses implementations of the IComparable interface on key values.&lt;/summary&gt;<br />&lt;remarks&gt;See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.MapModule&quot; /&gt; module for further operations on maps.
 
  All members of this class are thread-safe and may be used concurrently from multiple threads.&lt;/remarks&gt;</em><br /><br />--------------------<br />new : elements:seq&lt;&#39;Key * &#39;Value&gt; -&gt; Map&lt;&#39;Key,&#39;Value&gt;</div>
-<div class="fsdocs-tip" id="fs66">val toArray : table:Map&lt;&#39;Key,&#39;T&gt; -&gt; (&#39;Key * &#39;T) [] (requires comparison)<br /><em>&lt;summary&gt;Returns an array of all key-value pairs in the mapping.
+<div class="fsdocs-tip" id="fs69">val toArray : table:Map&lt;&#39;Key,&#39;T&gt; -&gt; (&#39;Key * &#39;T) [] (requires comparison)<br /><em>&lt;summary&gt;Returns an array of all key-value pairs in the mapping.
  The array will be ordered by the keys of the map.&lt;/summary&gt;<br />&lt;param name=&quot;table&quot;&gt;The input map.&lt;/param&gt;<br />&lt;returns&gt;The array of key/value pairs.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs67">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
+<div class="fsdocs-tip" id="fs70">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
  to each of the elements of the array.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements of the array.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The array of transformed elements.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs68">val k : float</div>
-<div class="fsdocs-tip" id="fs69">val c : int</div>
-<div class="fsdocs-tip" id="fs70">static member Chart.StackedColumn : keysValues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?Pattern:TraceObjects.Pattern * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Base:#System.IConvertible * ?Width:&#39;d * ?MultiWidth:seq&lt;&#39;d&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;e * ?MultiText:seq&lt;&#39;e&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;d :&gt; System.IConvertible and &#39;e :&gt; System.IConvertible)<br />static member Chart.StackedColumn : values:seq&lt;#System.IConvertible&gt; * ?Keys:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Pattern:TraceObjects.Pattern * ?Base:#System.IConvertible * ?Width:&#39;a3 * ?MultiWidth:seq&lt;&#39;a3&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;a3 :&gt; System.IConvertible and &#39;a4 :&gt; System.IConvertible)</div>
-<div class="fsdocs-tip" id="fs71">static member Chart.withTraceName : ?Name:string * ?ShowLegend:bool * ?LegendGroup:string * ?Visible:Visible -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs72">val thresholdLine : Shape</div>
-<div class="fsdocs-tip" id="fs73">Multiple items<br />type Shape =
+<div class="fsdocs-tip" id="fs71">val k : float</div>
+<div class="fsdocs-tip" id="fs72">val c : int</div>
+<div class="fsdocs-tip" id="fs73">static member Chart.StackedColumn : keysValues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?Pattern:TraceObjects.Pattern * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Base:#System.IConvertible * ?Width:&#39;d * ?MultiWidth:seq&lt;&#39;d&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;e * ?MultiText:seq&lt;&#39;e&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;d :&gt; System.IConvertible and &#39;e :&gt; System.IConvertible)<br />static member Chart.StackedColumn : values:seq&lt;#System.IConvertible&gt; * ?Keys:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Pattern:TraceObjects.Pattern * ?Base:#System.IConvertible * ?Width:&#39;a3 * ?MultiWidth:seq&lt;&#39;a3&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;a3 :&gt; System.IConvertible and &#39;a4 :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs74">static member Chart.withTraceName : ?Name:string * ?ShowLegend:bool * ?LegendGroup:string * ?Visible:Visible -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs75">val thresholdLine : Shape</div>
+<div class="fsdocs-tip" id="fs76">Multiple items<br />type Shape =
   inherit DynamicObj
   new : unit -&gt; Shape
   static member init : ?ShapeType:ShapeType * ?X0:#IConvertible * ?X1:#IConvertible * ?Y0:#IConvertible * ?Y1:#IConvertible * ?Path:string * ?Opacity:float * ?Line:Line * ?Fillcolor:Color * ?Layer:Layer * ?Xref:string * ?Yref:string -&gt; Shape
   static member style : ?ShapeType:ShapeType * ?X0:#IConvertible * ?X1:#IConvertible * ?Y0:#IConvertible * ?Y1:#IConvertible * ?Path:string * ?Opacity:float * ?Line:Line * ?Fillcolor:Color * ?Layer:Layer * ?Xref:string * ?Yref:string -&gt; (Shape -&gt; Shape)<br /><em>&lt;summary&gt;
  Shape type inherits from dynamic object
 &lt;/summary&gt;</em><br /><br />--------------------<br />new : unit -&gt; Shape</div>
-<div class="fsdocs-tip" id="fs74">static member Shape.init : ?ShapeType:ShapeType * ?X0:#System.IConvertible * ?X1:#System.IConvertible * ?Y0:#System.IConvertible * ?Y1:#System.IConvertible * ?Path:string * ?Opacity:float * ?Line:Line * ?Fillcolor:Color * ?Layer:Layer * ?Xref:string * ?Yref:string -&gt; Shape</div>
-<div class="fsdocs-tip" id="fs75">type ShapeType =
+<div class="fsdocs-tip" id="fs77">static member Shape.init : ?ShapeType:ShapeType * ?X0:#System.IConvertible * ?X1:#System.IConvertible * ?Y0:#System.IConvertible * ?Y1:#System.IConvertible * ?Path:string * ?Opacity:float * ?Line:Line * ?Fillcolor:Color * ?Layer:Layer * ?Xref:string * ?Yref:string -&gt; Shape</div>
+<div class="fsdocs-tip" id="fs78">type ShapeType =
   | Circle
   | Rectangle
   | SvgPath
@@ -635,19 +683,19 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  with radius (|(`x0`+`x1`)/2 - `x0`|, |(`y0`+`y1`)/2 -`y0`)|) If &quot;rect&quot;, a rectangle is drawn linking (`x0`,`y0`), (`x1`,`y0`), (`x1`,`y1`), (`x0`,`y1`), (`x0`,`y0`)
  If &quot;path&quot;, draw a custom SVG path using `path`.          
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs76">union case ShapeType.Line: ShapeType</div>
-<div class="fsdocs-tip" id="fs77">val distributionC : Distribution&lt;float,float&gt;</div>
-<div class="fsdocs-tip" id="fs78">val distributionChartAC : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs79">val bonferroniLine : Shape</div>
-<div class="fsdocs-tip" id="fs80">Multiple items<br />type Line =
+<div class="fsdocs-tip" id="fs79">union case ShapeType.Line: ShapeType</div>
+<div class="fsdocs-tip" id="fs80">val distributionC : Distribution&lt;float,float&gt;</div>
+<div class="fsdocs-tip" id="fs81">val distributionChartAC : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs82">val bonferroniLine : Shape</div>
+<div class="fsdocs-tip" id="fs83">Multiple items<br />type Line =
   inherit DynamicObj
   new : unit -&gt; Line
   static member init : ?Width:float * ?Color:Color * ?Shape:Shape * ?Dash:DrawingStyle * ?Smoothing:float * ?Colorscale:Colorscale * ?OutlierColor:Color * ?OutlierWidth:float -&gt; Line
   static member style : ?Color:Color * ?Width:float * ?MultiWidths:seq&lt;float&gt; * ?Shape:Shape * ?Dash:DrawingStyle * ?Smoothing:float * ?OutlierColor:Color * ?OutlierWidth:float * ?AutoColorScale:bool * ?CAuto:bool * ?CMax:float * ?CMid:float * ?CMin:float * ?ColorAxis:SubPlotId * ?Colorscale:Colorscale * ?ReverseScale:bool -&gt; (Line -&gt; Line)<br /><em>&lt;summary&gt;
  Line type inherits from dynamic object
 &lt;/summary&gt;</em><br /><br />--------------------<br />new : unit -&gt; Line</div>
-<div class="fsdocs-tip" id="fs81">static member Line.init : ?Width:float * ?Color:Color * ?Shape:Shape * ?Dash:DrawingStyle * ?Smoothing:float * ?Colorscale:Colorscale * ?OutlierColor:Color * ?OutlierWidth:float -&gt; Line</div>
-<div class="fsdocs-tip" id="fs82">type DrawingStyle =
+<div class="fsdocs-tip" id="fs84">static member Line.init : ?Width:float * ?Color:Color * ?Shape:Shape * ?Dash:DrawingStyle * ?Smoothing:float * ?Colorscale:Colorscale * ?OutlierColor:Color * ?OutlierWidth:float -&gt; Line</div>
+<div class="fsdocs-tip" id="fs85">type DrawingStyle =
   | Solid
   | Dash
   | Dot
@@ -660,14 +708,13 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
  Dash: Sets the drawing style of the lines segments in this trace.
  Sets the style of the lines. Set to a dash string type or a dash length in px.
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs83">union case DrawingStyle.Dash: DrawingStyle</div>
-<div class="fsdocs-tip" id="fs84">val fwer : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs85">static member Chart.Point : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Point : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs86">static member Chart.withShape : shape:Shape * ?Append:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs87">val examplePVals : float []</div>
-<div class="fsdocs-tip" id="fs88">namespace System</div>
-<div class="fsdocs-tip" id="fs89">namespace System.IO</div>
-<div class="fsdocs-tip" id="fs90">type File =
+<div class="fsdocs-tip" id="fs86">union case DrawingStyle.Dash: DrawingStyle</div>
+<div class="fsdocs-tip" id="fs87">val fwer : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs88">static member Chart.withShape : shape:Shape * ?Append:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs89">val examplePVals : float []</div>
+<div class="fsdocs-tip" id="fs90">namespace System</div>
+<div class="fsdocs-tip" id="fs91">namespace System.IO</div>
+<div class="fsdocs-tip" id="fs92">type File =
   static member AppendAllLines : path: string * contents: IEnumerable&lt;string&gt; -&gt; unit + 1 overload
   static member AppendAllLinesAsync : path: string * contents: IEnumerable&lt;string&gt; * encoding: Encoding *?cancellationToken: CancellationToken -&gt; Task + 1 overload
   static member AppendAllText : path: string * contents: string -&gt; unit + 1 overload
@@ -679,14 +726,14 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
   static member Decrypt : path: string -&gt; unit
   static member Delete : path: string -&gt; unit
   ...<br /><em>&lt;summary&gt;Provides static methods for the creation, copying, deletion, moving, and opening of a single file, and aids in the creation of &lt;see cref=&quot;T:System.IO.FileStream&quot; /&gt; objects.&lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs91">System.IO.File.ReadAllLines(path: string) : string []<br />System.IO.File.ReadAllLines(path: string, encoding: System.Text.Encoding) : string []</div>
-<div class="fsdocs-tip" id="fs92">val tail : array:&#39;T [] -&gt; &#39;T []<br /><em>&lt;summary&gt;Returns a new array containing the elements of the original except the first element.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the array is empty.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;returns&gt;A new array containing the elements of the original except the first element.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs93">val m : float</div>
-<div class="fsdocs-tip" id="fs94">val length : array:&#39;T [] -&gt; int<br /><em>&lt;summary&gt;Returns the length of an array. You can also use property arr.Length.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The length of the array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.NullReferenceException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs95">val nullLine : Shape</div>
-<div class="fsdocs-tip" id="fs96">val empLine : Shape</div>
-<div class="fsdocs-tip" id="fs97">union case DrawingStyle.DashDot: DrawingStyle</div>
-<div class="fsdocs-tip" id="fs98">Multiple items<br />module Color
+<div class="fsdocs-tip" id="fs93">System.IO.File.ReadAllLines(path: string) : string []<br />System.IO.File.ReadAllLines(path: string, encoding: System.Text.Encoding) : string []</div>
+<div class="fsdocs-tip" id="fs94">val tail : array:&#39;T [] -&gt; &#39;T []<br /><em>&lt;summary&gt;Returns a new array containing the elements of the original except the first element.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the array is empty.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;returns&gt;A new array containing the elements of the original except the first element.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs95">val m : float</div>
+<div class="fsdocs-tip" id="fs96">val length : array:&#39;T [] -&gt; int<br /><em>&lt;summary&gt;Returns the length of an array. You can also use property arr.Length.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The length of the array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.NullReferenceException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs97">val nullLine : Shape</div>
+<div class="fsdocs-tip" id="fs98">val empLine : Shape</div>
+<div class="fsdocs-tip" id="fs99">union case DrawingStyle.DashDot: DrawingStyle</div>
+<div class="fsdocs-tip" id="fs100">Multiple items<br />module Color
 
 from Plotly.NET<br /><br />--------------------<br />type Color =
   private new : obj:obj -&gt; Color
@@ -702,108 +749,108 @@ from Plotly.NET<br /><br />--------------------<br />type Color =
   ...<br /><em>&lt;summary&gt;
  Plotly color can be a single color, a sequence of colors, or a sequence of numeric values referencing the color of the colorscale obj
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs99">static member Color.fromHex : s:string -&gt; Color</div>
-<div class="fsdocs-tip" id="fs100">val exampleDistribution : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs101">static member Chart.Column : keysValues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Pattern:TraceObjects.Pattern * ?Base:#System.IConvertible * ?Width:&#39;d * ?MultiWidth:seq&lt;&#39;d&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;e * ?MultiText:seq&lt;&#39;e&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;d :&gt; System.IConvertible and &#39;e :&gt; System.IConvertible)<br />static member Chart.Column : values:seq&lt;#System.IConvertible&gt; * ?Keys:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?Pattern:TraceObjects.Pattern * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Base:#System.IConvertible * ?Width:&#39;a3 * ?MultiWidth:seq&lt;&#39;a3&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;a3 :&gt; System.IConvertible and &#39;a4 :&gt; System.IConvertible)</div>
-<div class="fsdocs-tip" id="fs102">static member Chart.withShapes : shapes:seq&lt;Shape&gt; * ?Append:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs103">static member Chart.Grid : ?SubPlots:(LinearAxisId * LinearAxisId) [] [] * ?XAxes:LinearAxisId [] * ?YAxes:LinearAxisId [] * ?RowOrder:LayoutGridRowOrder * ?Pattern:LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:Domain * ?XSide:LayoutGridXSide * ?YSide:LayoutGridYSide -&gt; (#seq&lt;&#39;b&gt; -&gt; GenericChart.GenericChart) (requires &#39;b :&gt; seq&lt;GenericChart.GenericChart&gt;)<br />static member Chart.Grid : nRows:int * nCols:int * ?SubPlots:(LinearAxisId * LinearAxisId) [] [] * ?XAxes:LinearAxisId [] * ?YAxes:LinearAxisId [] * ?RowOrder:LayoutGridRowOrder * ?Pattern:LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:Domain * ?XSide:LayoutGridXSide * ?YSide:LayoutGridYSide -&gt; (#seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs104">val pi0 : float</div>
-<div class="fsdocs-tip" id="fs105">val getD : p:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs106">val p : float</div>
-<div class="fsdocs-tip" id="fs107">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the array.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform the array elements into the type to be summed.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs108">val getFP : p:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs109">val getFDR : p:float -&gt; float</div>
-<div class="fsdocs-tip" id="fs110">val qvaluesNotSmoothed : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs111">val sort : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, returning a new array. Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;. &lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
+<div class="fsdocs-tip" id="fs101">static member Color.fromHex : s:string -&gt; Color</div>
+<div class="fsdocs-tip" id="fs102">val exampleDistribution : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs103">static member Chart.Column : keysValues:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Pattern:TraceObjects.Pattern * ?Base:#System.IConvertible * ?Width:&#39;d * ?MultiWidth:seq&lt;&#39;d&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;e * ?MultiText:seq&lt;&#39;e&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;d :&gt; System.IConvertible and &#39;e :&gt; System.IConvertible)<br />static member Chart.Column : values:seq&lt;#System.IConvertible&gt; * ?Keys:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Color:Color * ?Pattern:TraceObjects.Pattern * ?PatternShape:PatternShape * ?MultiPatternShape:seq&lt;PatternShape&gt; * ?Base:#System.IConvertible * ?Width:&#39;a3 * ?MultiWidth:seq&lt;&#39;a3&gt; * ?Opacity:float * ?MultiOpacity:seq&lt;float&gt; * ?Text:&#39;a4 * ?MultiText:seq&lt;&#39;a4&gt; * ?TextPosition:TextPosition * ?MultiTextPosition:seq&lt;TextPosition&gt; * ?TextFont:Font * ?Marker:TraceObjects.Marker -&gt; GenericChart.GenericChart (requires &#39;a3 :&gt; System.IConvertible and &#39;a4 :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs104">static member Chart.withShapes : shapes:seq&lt;Shape&gt; * ?Append:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs105">static member Chart.Grid : ?SubPlots:(LinearAxisId * LinearAxisId) [] [] * ?XAxes:LinearAxisId [] * ?YAxes:LinearAxisId [] * ?RowOrder:LayoutGridRowOrder * ?Pattern:LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:Domain * ?XSide:LayoutGridXSide * ?YSide:LayoutGridYSide -&gt; (#seq&lt;&#39;b&gt; -&gt; GenericChart.GenericChart) (requires &#39;b :&gt; seq&lt;GenericChart.GenericChart&gt;)<br />static member Chart.Grid : nRows:int * nCols:int * ?SubPlots:(LinearAxisId * LinearAxisId) [] [] * ?XAxes:LinearAxisId [] * ?YAxes:LinearAxisId [] * ?RowOrder:LayoutGridRowOrder * ?Pattern:LayoutGridPattern * ?XGap:float * ?YGap:float * ?Domain:Domain * ?XSide:LayoutGridXSide * ?YSide:LayoutGridYSide -&gt; (#seq&lt;GenericChart.GenericChart&gt; -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs106">val pi0 : float</div>
+<div class="fsdocs-tip" id="fs107">val getD : p:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs108">val p : float</div>
+<div class="fsdocs-tip" id="fs109">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the array.&lt;/summary&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform the array elements into the type to be summed.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The resulting sum.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs110">val getFP : p:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs111">val getFDR : p:float -&gt; float</div>
+<div class="fsdocs-tip" id="fs112">val qvaluesNotSmoothed : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs113">val sort : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, returning a new array. Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;. &lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
  For a stable sort, consider using &lt;see cref=&quot;M:Microsoft.FSharp.Collections.SeqModule.Sort&quot; /&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The sorted array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs112">static member Chart.Line : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Line : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs113">val qvaluesSmoothed : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs114">val pValsSorted : float []</div>
-<div class="fsdocs-tip" id="fs115">val sortDescending : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, in descending order, returning a new array. Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;. &lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
+<div class="fsdocs-tip" id="fs114">static member Chart.Line : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart<br />static member Chart.Line : x:seq&lt;#System.IConvertible&gt; * y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowMarkers:bool * ?ShowLegend:bool * ?MarkerSymbol:MarkerSymbol * ?Color:Color * ?Opacity:float * ?Labels:seq&lt;#System.IConvertible&gt; * ?TextPosition:TextPosition * ?TextFont:Font * ?Dash:DrawingStyle * ?Width:float * ?StackGroup:string * ?Orientation:Orientation * ?GroupNorm:GroupNorm * ?UseWebGL:bool -&gt; GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs115">val qvaluesSmoothed : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs116">val pValsSorted : float []</div>
+<div class="fsdocs-tip" id="fs117">val sortDescending : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, in descending order, returning a new array. Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;. &lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
  For a stable sort, consider using &lt;see cref=&quot;M:Microsoft.FSharp.Collections.SeqModule.Sort&quot; /&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The sorted array.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs116">val loop : (int -&gt; float -&gt; (float * float) list -&gt; (float * float) list)</div>
-<div class="fsdocs-tip" id="fs117">val i : int</div>
-<div class="fsdocs-tip" id="fs118">val lowest : float</div>
-<div class="fsdocs-tip" id="fs119">val acc : (float * float) list</div>
-<div class="fsdocs-tip" id="fs120">property System.Array.Length: int with get<br /><em>&lt;summary&gt;Gets the total number of elements in all the dimensions of the &lt;see cref=&quot;T:System.Array&quot; /&gt;.&lt;/summary&gt;<br />&lt;exception cref=&quot;T:System.OverflowException&quot;&gt;The array is multidimensional and contains more than &lt;see cref=&quot;F:System.Int32.MaxValue&quot; /&gt; elements.&lt;/exception&gt;<br />&lt;returns&gt;The total number of elements in all the dimensions of the &lt;see cref=&quot;T:System.Array&quot; /&gt;; zero if there are no elements in the array.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs121">val rev : list:&#39;T list -&gt; &#39;T list<br /><em>&lt;summary&gt;Returns a new list with the elements in reverse order.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The reversed list.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs122">val q : float</div>
-<div class="fsdocs-tip" id="fs123">val eXpos : int</div>
-<div class="fsdocs-tip" id="fs124">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
+<div class="fsdocs-tip" id="fs118">val loop : (int -&gt; float -&gt; (float * float) list -&gt; (float * float) list)</div>
+<div class="fsdocs-tip" id="fs119">val i : int</div>
+<div class="fsdocs-tip" id="fs120">val lowest : float</div>
+<div class="fsdocs-tip" id="fs121">val acc : (float * float) list</div>
+<div class="fsdocs-tip" id="fs122">property System.Array.Length: int with get<br /><em>&lt;summary&gt;Gets the total number of elements in all the dimensions of the &lt;see cref=&quot;T:System.Array&quot; /&gt;.&lt;/summary&gt;<br />&lt;exception cref=&quot;T:System.OverflowException&quot;&gt;The array is multidimensional and contains more than &lt;see cref=&quot;F:System.Int32.MaxValue&quot; /&gt; elements.&lt;/exception&gt;<br />&lt;returns&gt;The total number of elements in all the dimensions of the &lt;see cref=&quot;T:System.Array&quot; /&gt;; zero if there are no elements in the array.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs123">val rev : list:&#39;T list -&gt; &#39;T list<br /><em>&lt;summary&gt;Returns a new list with the elements in reverse order.&lt;/summary&gt;<br />&lt;param name=&quot;list&quot;&gt;The input list.&lt;/param&gt;<br />&lt;returns&gt;The reversed list.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs124">val q : float</div>
+<div class="fsdocs-tip" id="fs125">val eXpos : int</div>
+<div class="fsdocs-tip" id="fs126">val filter : predicate:(&#39;T -&gt; bool) -&gt; array:&#39;T [] -&gt; &#39;T []<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
  for which the given predicate returns &quot;true&quot;.&lt;/summary&gt;<br />&lt;param name=&quot;predicate&quot;&gt;The function to test the input elements.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;An array containing the elements for which the given predicate returns true.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs125">val p2qValeChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs126">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs127">val pi0Est : (float * float) []</div>
-<div class="fsdocs-tip" id="fs128">val lambda : float</div>
-<div class="fsdocs-tip" id="fs129">val num : float</div>
-<div class="fsdocs-tip" id="fs130">val den : float</div>
-<div class="fsdocs-tip" id="fs131">val pi0EstChart : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs132">static member Chart.withMathTex : ?AppendTags:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
-<div class="fsdocs-tip" id="fs133">val getpi0Bootstrap : lambda:float [] -&gt; pValues:float [] -&gt; (float * float []) []</div>
-<div class="fsdocs-tip" id="fs134">val lambda : float []</div>
-<div class="fsdocs-tip" id="fs135">val pValues : float []</div>
-<div class="fsdocs-tip" id="fs136">val rnd : System.Random</div>
-<div class="fsdocs-tip" id="fs137">Multiple items<br />type Random =
+<div class="fsdocs-tip" id="fs127">val p2qValeChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs128">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs129">val pi0Est : (float * float) []</div>
+<div class="fsdocs-tip" id="fs130">val lambda : float</div>
+<div class="fsdocs-tip" id="fs131">val num : float</div>
+<div class="fsdocs-tip" id="fs132">val den : float</div>
+<div class="fsdocs-tip" id="fs133">val pi0EstChart : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs134">static member Chart.withMathTex : ?AppendTags:bool -&gt; (GenericChart.GenericChart -&gt; GenericChart.GenericChart)</div>
+<div class="fsdocs-tip" id="fs135">val getpi0Bootstrap : lambda:float [] -&gt; pValues:float [] -&gt; (float * float []) []</div>
+<div class="fsdocs-tip" id="fs136">val lambda : float []</div>
+<div class="fsdocs-tip" id="fs137">val pValues : float []</div>
+<div class="fsdocs-tip" id="fs138">val rnd : System.Random</div>
+<div class="fsdocs-tip" id="fs139">Multiple items<br />type Random =
   new : unit -&gt; unit + 1 overload
   member Next : unit -&gt; int + 2 overloads
   member NextBytes : buffer: byte [] -&gt; unit + 1 overload
   member NextDouble : unit -&gt; float
   member Sample : unit -&gt; float<br /><em>&lt;summary&gt;Represents a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.&lt;/summary&gt;</em><br /><br />--------------------<br />System.Random() : System.Random<br />System.Random(Seed: int) : System.Random</div>
-<div class="fsdocs-tip" id="fs138">val getpi0hat : (float -&gt; float [] -&gt; float)</div>
-<div class="fsdocs-tip" id="fs139">val pVals : float []</div>
-<div class="fsdocs-tip" id="fs140">val hits : float</div>
-<div class="fsdocs-tip" id="fs141">val getMSE : (float -&gt; float [])</div>
-<div class="fsdocs-tip" id="fs142">val mse : float []</div>
-<div class="fsdocs-tip" id="fs143">val b : int</div>
-<div class="fsdocs-tip" id="fs144">val sampleWithReplacement : rnd:System.Random -&gt; source:&#39;a array -&gt; k:int -&gt; &#39;a []<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs140">val getpi0hat : (float -&gt; float [] -&gt; float)</div>
+<div class="fsdocs-tip" id="fs141">val pVals : float []</div>
+<div class="fsdocs-tip" id="fs142">val hits : float</div>
+<div class="fsdocs-tip" id="fs143">val getMSE : (float -&gt; float [])</div>
+<div class="fsdocs-tip" id="fs144">val mse : float []</div>
+<div class="fsdocs-tip" id="fs145">val b : int</div>
+<div class="fsdocs-tip" id="fs146">val sampleWithReplacement : rnd:System.Random -&gt; source:&#39;a array -&gt; k:int -&gt; &#39;a []<br /><em>&lt;summary&gt;
  Samples from an array of obj wit replacement (with putting back)
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs145">val l : float</div>
-<div class="fsdocs-tip" id="fs146">val minimalpihat : float</div>
-<div class="fsdocs-tip" id="fs147">val minpiHatShape : Shape</div>
-<div class="fsdocs-tip" id="fs148">val bootstrappedPi0 : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs149">val x : float []</div>
-<div class="fsdocs-tip" id="fs150">static member Chart.BoxPlot : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)<br />static member Chart.BoxPlot : ?x:seq&lt;#System.IConvertible&gt; * ?y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;c * ?MultiText:seq&lt;&#39;c&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart.GenericChart (requires &#39;c :&gt; System.IConvertible)</div>
-<div class="fsdocs-tip" id="fs151">argument x: seq&lt;float&gt; option<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs147">val l : float</div>
+<div class="fsdocs-tip" id="fs148">val minimalpihat : float</div>
+<div class="fsdocs-tip" id="fs149">val minpiHatShape : Shape</div>
+<div class="fsdocs-tip" id="fs150">val bootstrappedPi0 : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs151">val x : float []</div>
+<div class="fsdocs-tip" id="fs152">static member Chart.BoxPlot : xy:seq&lt;#System.IConvertible * #System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;a2 * ?MultiText:seq&lt;&#39;a2&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart.GenericChart (requires &#39;a2 :&gt; System.IConvertible)<br />static member Chart.BoxPlot : ?x:seq&lt;#System.IConvertible&gt; * ?y:seq&lt;#System.IConvertible&gt; * ?Name:string * ?ShowLegend:bool * ?Text:&#39;c * ?MultiText:seq&lt;&#39;c&gt; * ?Fillcolor:Color * ?MarkerColor:Color * ?OutlierColor:Color * ?OutlierWidth:int * ?Opacity:float * ?WhiskerWidth:float * ?BoxPoints:BoxPoints * ?BoxMean:BoxMean * ?Jitter:float * ?PointPos:float * ?Orientation:Orientation * ?Marker:TraceObjects.Marker * ?Line:Line * ?AlignmentGroup:string * ?Offsetgroup:string * ?Notched:bool * ?NotchWidth:float * ?QuartileMethod:QuartileMethod -&gt; GenericChart.GenericChart (requires &#39;c :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs153">argument x: seq&lt;float&gt; option<br /><em>&lt;summary&gt;
  Displays the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum.            
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs152">argument y: seq&lt;float&gt; option<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs154">argument y: seq&lt;float&gt; option<br /><em>&lt;summary&gt;
  Displays the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum.            
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs153">union case HoverInfo.Name: HoverInfo</div>
-<div class="fsdocs-tip" id="fs154">module MultipleTesting
+<div class="fsdocs-tip" id="fs155">union case HoverInfo.Name: HoverInfo</div>
+<div class="fsdocs-tip" id="fs156">module MultipleTesting
 
 from FSharp.Stats.Testing<br /><em>&lt;summary&gt;
  This module contains functions to adjust for multiple testing errors in statistical tests.
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs155">val pi0Stats : float</div>
-<div class="fsdocs-tip" id="fs156">module Qvalues
+<div class="fsdocs-tip" id="fs157">val pi0Stats : float</div>
+<div class="fsdocs-tip" id="fs158">module Qvalues
 
 from FSharp.Stats.Testing.MultipleTesting<br /><em>&lt;summary&gt;
  Estimate the q-values for a given set of p-values. The q-value of a test measures the proportion of false positives incurred (called the false discovery rate) when that particular test is called significant. 
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs157">val pi0BootstrapWithLambda : lambda:float [] -&gt; pValues:float [] -&gt; float<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs159">val pi0BootstrapWithLambda : lambda:float [] -&gt; pValues:float [] -&gt; float<br /><em>&lt;summary&gt;
  Estimates pi0 from given p-Values by Storeys bootstrap .
  pi0 is the value to which, one can find certain values of the distribution at random.
  If this returns 0. lambda needs to be smaller.
  Math Definition for lambda = [0,1) . Contains values from 0 to 1, but not 1.
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs158">val qValues : float []</div>
-<div class="fsdocs-tip" id="fs159">val ofPValues : pi0:float -&gt; pValues:float [] -&gt; float []<br /><em>&lt;summary&gt;
+<div class="fsdocs-tip" id="fs160">val qValues : float []</div>
+<div class="fsdocs-tip" id="fs161">val ofPValues : pi0:float -&gt; pValues:float [] -&gt; float []<br /><em>&lt;summary&gt;
  Calculates q-values from given p-values and returns an array of qValues in the same order.
  &#39;pi0&#39; can be calculated with &#39;pi0Bootstrap&#39; or &#39;pi0BootstrapWithLambda&#39;.
 &lt;/summary&gt;</em></div>
-<div class="fsdocs-tip" id="fs160">val pi0Line : Shape</div>
-<div class="fsdocs-tip" id="fs161">val p2q : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs162">val zip : array1:&#39;T1 [] -&gt; array2:&#39;T2 [] -&gt; (&#39;T1 * &#39;T2) []<br /><em>&lt;summary&gt;Combines the two arrays into an array of pairs. The two arrays must have equal lengths, otherwise an &lt;c&gt;ArgumentException&lt;/c&gt; is
+<div class="fsdocs-tip" id="fs162">val pi0Line : Shape</div>
+<div class="fsdocs-tip" id="fs163">val p2q : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs164">val zip : array1:&#39;T1 [] -&gt; array2:&#39;T2 [] -&gt; (&#39;T1 * &#39;T2) []<br /><em>&lt;summary&gt;Combines the two arrays into an array of pairs. The two arrays must have equal lengths, otherwise an &lt;c&gt;ArgumentException&lt;/c&gt; is
  raised.&lt;/summary&gt;<br />&lt;param name=&quot;array1&quot;&gt;The first input array.&lt;/param&gt;<br />&lt;param name=&quot;array2&quot;&gt;The second input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when either of the input arrays is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input arrays differ in length.&lt;/exception&gt;<br />&lt;returns&gt;The array of tupled elements.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs163">val sortBy : projection:(&#39;T -&gt; &#39;Key) -&gt; array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, using the given projection for the keys and returning a new array. 
+<div class="fsdocs-tip" id="fs165">val sortBy : projection:(&#39;T -&gt; &#39;Key) -&gt; array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, using the given projection for the keys and returning a new array. 
  Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
  For a stable sort, consider using &lt;see cref=&quot;M:Microsoft.FSharp.Collections.SeqModule.Sort&quot; /&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;projection&quot;&gt;The function to transform array elements into the type that is compared.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The sorted array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
-<div class="fsdocs-tip" id="fs164">val fst : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T1<br /><em>&lt;summary&gt;Return the first element of a tuple, &lt;c&gt;fst (a,b) = a&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;tuple&quot;&gt;The input tuple.&lt;/param&gt;<br />&lt;returns&gt;The first value.&lt;/returns&gt;</em></div>
-<div class="fsdocs-tip" id="fs165">val pValueDistribution : GenericChart.GenericChart</div>
-<div class="fsdocs-tip" id="fs166">val frequencyBins : float</div>
-<div class="fsdocs-tip" id="fs167">val pi0Estimation : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs166">val fst : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T1<br /><em>&lt;summary&gt;Return the first element of a tuple, &lt;c&gt;fst (a,b) = a&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;tuple&quot;&gt;The input tuple.&lt;/param&gt;<br />&lt;returns&gt;The first value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs167">val pValueDistribution : GenericChart.GenericChart</div>
+<div class="fsdocs-tip" id="fs168">val frequencyBins : float</div>
+<div class="fsdocs-tip" id="fs169">val pi0Estimation : GenericChart.GenericChart</div>
 
     </div>
 
