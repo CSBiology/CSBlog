@@ -11,23 +11,13 @@ index: 0
 
 (***hide***)
 #r "nuget: FSharpAux, 1.1.0"
-#r "nuget: Plotly.NET, 2.0.0-preview.11"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: FSharp.Stats, 0.4.1"
 
 
 open FSharp.Stats
 
 
-let te = Seq.mean [143.;13.]
-(***include-value:te***)
-
-let pva =
-    System.IO.File.ReadAllLines(@"../files/pvalExample.txt")
-    |> Array.tail
-    |> Array.map float
-    |> FSharp.Stats.Testing.MultipleTesting.Qvalues.pi0BootstrapWithLambda [|0.0 .. 0.05 .. 0.95|] 
-pva
-(***include-it***)
 
 open Plotly.NET
 open Plotly.NET.StyleParam
@@ -45,7 +35,7 @@ module Chart =
 (**
 # q values
 
-_[Benedikt Venn](https://github.com/bvenn), Jan 2022_
+_[Benedikt Venn](https://github.com/bvenn)_, Jan 2022
 
 
 ### Table of contents
@@ -77,14 +67,6 @@ _<center>If there is no effect (no mean difference), a p value of 0.05 indicates
 Consider two population distributions that follow a normal distribution. Both have the <b>same</b> mean and standard deviation.
 *)
 
-Chart.Line([1,2;1,3]) |> GenericChart.toChartHTML
-(***include-it-raw***)
-
-(**
-
-
-*)
-
 
 
 open FSharpAux
@@ -105,25 +87,9 @@ let distributionChartAB =
     |> Chart.withSize (900.,600.)
     |> Chart.withTitle "null hypothesis"
 
-
-distributionA
-(***include-it-raw***)
-
-
-Chart.Area([5. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionA.PDF x)) |> GenericChart.toChartHTML
-(***include-it-raw***)
-
-[Chart.Area([5. .. 0.01 .. 15.] |> List.map (fun x -> x,distributionA.PDF x))] |> Chart.combine |> GenericChart.toChartHTML 
-(***include-it-raw***)
-
-
 distributionChartAB |> GenericChart.toChartHTML
 (***include-it-raw***)
 
-
-
-let xy = Seq.mean [2.;3.]
-(***include-value:xy***)
 
 (**
 
@@ -153,7 +119,7 @@ The same simulation can be performed with pairwise comparisons from distribution
 
 <br>
 
-<img style="max-width:50%" src="../img/qvalue_01.svg"></img>
+<center><img style="max-width:50%" src="../img/qvalue_01.svg"></img></center>
 
 _Fig 1: p value distribution of the null hypothesis._
 <hr>
@@ -216,7 +182,7 @@ let distributionChartAC =
 
 (**
 
-<img style="max-width:50%" src="../img/qvalue_02.svg"></img>
+<center><img style="max-width:50%" src="../img/qvalue_02.svg"></img></center>
 
 _Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B (null). 
 Orange coloring indicate p values deriving from distribution A and C (truly differing)._
@@ -287,7 +253,7 @@ of significant reported tests (false positives + true positives).
 <br>
 <hr>
 
-<img style="max-width:75%" src="../img/qvalue_03.svg"></img>
+<center><img style="max-width:75%" src="../img/qvalue_03.svg"></img></center>
 
 _Fig 4: p value distribution of the alternative hypothesis._
 <hr>
@@ -303,7 +269,7 @@ the average null frequency, a proportion of FP and TP can be determined and the 
 <br>
 
 
-<img style="max-width:75%" src="../img/qvalue_04.svg"></img>
+<center><img style="max-width:75%" src="../img/qvalue_04.svg"></img></center>
 
 _Fig 5: FDR calculation on simulated data._
 
@@ -645,7 +611,7 @@ p2q |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 10: p value relation to q values. At a p value of 1 the q value is equal to $\pi_0$ (black dashed line)._
+_Fig 10: p value relation to q values. At a p value of 1 the q value is equal to pi0 (black dashed line)._
 *)
 
 (***hide***)
@@ -666,7 +632,7 @@ _Fig 12: Visual pi0 estimation._
 
 (**
 ##Definitions and Notes
-  - q values are not always greater than their associated p values. q values can maximal be $\pi_0$.
+  - q values are not always greater than their associated p values. q values can maximal be pi0.
   - Storey & Tibshirani (2003):
     - _"The q-value for a particular feature is the expected proportion of false positives occurring up through that feature on the list."_
     - _"The precise definition of the q-value for a particular feature is the following. The q-value for a particular feature is the minimum false discovery rate that can be attained when calling all features up through that one on the list significant."_
