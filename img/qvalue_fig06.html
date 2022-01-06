@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Plotly.js -->
+        <meta http-equiv="X-UA-Compatible" content="IE=11" >
+        <script src="https://cdn.plot.ly/plotly-2.6.3.min.js"></script>
+        
+        <style>
+        .container {
+          padding-right: 25px;
+          padding-left: 25px;
+          margin-right: 0 auto;
+          margin-left: 0 auto;
+        }
+        @media (min-width: 768px) {
+          .container {
+            width: 750px;
+          }
+        }
+        @media (min-width: 992px) {
+          .container {
+            width: 970px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .container {
+            width: 1170px;
+          }
+        }
+        </style>
+    </head>
+    <body>
+      <div id="3f880c00-cd73-40a0-85be-30ae524efb12"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_3f880c00cd7340a085be30ae524efb12 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"bar","x":[0.0125,0.037500000000000006,0.06250000000000001,0.08750000000000001,0.1125,0.1375,0.1625,0.1875,0.2125,0.2375,0.2625,0.28750000000000003,0.3125,0.3375,0.3625,0.3875,0.41250000000000003,0.4375,0.4625,0.4875,0.5125000000000001,0.5375000000000001,0.5625000000000001,0.5875000000000001,0.6125,0.6375000000000001,0.6625000000000001,0.6875000000000001,0.7125000000000001,0.7375,0.7625000000000001,0.7875000000000001,0.8125000000000001,0.8375000000000001,0.8625,0.8875000000000001,0.9125000000000001,0.9375000000000001,0.9625000000000001,0.9875],"y":[11.521915584415584,3.6688311688311686,2.406655844155844,1.7613636363636362,1.4042207792207793,1.1728896103896103,1.1079545454545454,0.9293831168831168,0.9212662337662337,1.0064935064935066,0.7670454545454545,0.6858766233766234,0.689935064935065,0.7061688311688311,0.5762987012987013,0.5316558441558441,0.5438311688311688,0.450487012987013,0.5397727272727273,0.4342532467532467,0.5194805194805194,0.47077922077922074,0.42207792207792205,0.450487012987013,0.45860389610389607,0.39366883116883117,0.38961038961038963,0.3774350649350649,0.450487012987013,0.4667207792207792,0.37337662337662336,0.4383116883116883,0.37337662337662336,0.3774350649350649,0.28814935064935066,0.349025974025974,0.4464285714285714,0.3814935064935065,0.3409090909090909,0.40584415584415584],"orientation":"v","marker":{"pattern":{}},"name":"density","xaxis":"x","yaxis":"y"},{"type":"bar","x":[0.0125,0.037500000000000006,0.06250000000000001,0.08750000000000001,0.1125,0.1375,0.1625,0.1875,0.2125,0.2375,0.2625,0.28750000000000003,0.3125,0.3375,0.3625,0.3875,0.41250000000000003,0.4375,0.4625,0.4875,0.5125000000000001,0.5375000000000001,0.5625000000000001,0.5875000000000001,0.6125,0.6375000000000001,0.6625000000000001,0.6875000000000001,0.7125000000000001,0.7375,0.7625000000000001,0.7875000000000001,0.8125000000000001,0.8375000000000001,0.8625,0.8875000000000001,0.9125000000000001,0.9375000000000001,0.9625000000000001,0.9875],"y":[2839.0,904.0,593.0,434.0,346.0,289.0,273.0,229.0,227.0,248.0,189.0,169.0,170.0,174.0,142.0,131.0,134.0,111.0,133.0,107.0,128.0,116.0,104.0,111.0,113.0,97.0,96.0,93.0,111.0,115.0,92.0,108.0,92.0,93.0,71.0,86.0,110.0,94.0,84.0,100.0],"orientation":"v","marker":{"pattern":{}},"name":"gene count","xaxis":"x2","yaxis":"y2"}];
+            var layout = {"width":1100,"height":550,"template":{"layout":{"paper_bgcolor":"white","plot_bgcolor":"white","xaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true},"yaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true}},"data":{}},"xaxis":{"title":{"text":"p value"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"yaxis":{"title":{"text":"density"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"shapes":[{"type":"line","x0":0.0,"x1":1.0,"y0":1.0,"y1":1.0,"line":{"dash":"dash"}},{"type":"line","x0":0.0,"x1":1.0,"y0":0.4,"y1":0.4,"line":{"color":"rgba(252, 62, 54, 1.0)","dash":"dashdot"}}],"xaxis2":{"title":{"text":"p value"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"yaxis2":{"title":{"text":"gene count"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"grid":{"rows":1,"columns":2,"pattern":"independent"}};
+            var config = {"responsive":true};
+            Plotly.newPlot('3f880c00-cd73-40a0-85be-30ae524efb12', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_3f880c00cd7340a085be30ae524efb12();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_3f880c00cd7340a085be30ae524efb12();
+            }
+</script>
+
+      
+    </body>
+</html>

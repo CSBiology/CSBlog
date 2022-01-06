@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Plotly.js -->
+        <meta http-equiv="X-UA-Compatible" content="IE=11" >
+        <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+        <script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML%2CSafe.js&ver=4.1"></script>
+        <style>
+        .container {
+          padding-right: 25px;
+          padding-left: 25px;
+          margin-right: 0 auto;
+          margin-left: 0 auto;
+        }
+        @media (min-width: 768px) {
+          .container {
+            width: 750px;
+          }
+        }
+        @media (min-width: 992px) {
+          .container {
+            width: 970px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .container {
+            width: 1170px;
+          }
+        }
+        </style>
+    </head>
+    <body>
+      <div id="aa96eadf-c2fe-476c-b2ed-2e062993faa0" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_aa96eadfc2fe476cb2ed2e062993faa0 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.4.2.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"markers","x":[0.0,0.05,0.1,0.15000000000000002,0.2,0.25,0.3,0.35,0.39999999999999997,0.44999999999999996,0.49999999999999994,0.5499999999999999,0.6,0.65,0.7000000000000001,0.7500000000000001,0.8000000000000002,0.8500000000000002,0.9000000000000002],"y":[1.0,0.652875085440875,0.5733676046176046,0.5312977463712758,0.5008370535714286,0.4699675324675325,0.45164656771799633,0.43269230769230765,0.4225852272727272,0.41580578512396693,0.40868506493506496,0.39908008658008653,0.394429788961039,0.38990027829313545,0.39096320346320357,0.37743506493506507,0.37033279220779247,0.36864177489177535,0.3936688311688321],"marker":{}}];
+            var layout = {"template":{"layout":{"paper_bgcolor":"white","plot_bgcolor":"white","xaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true},"yaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true}},"data":{}},"xaxis":{"title":{"text":"$\\lambda$"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"yaxis":{"title":{"text":"$\\hat \\pi_0(\\lambda)$"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false}};
+            var config = {};
+            Plotly.newPlot('aa96eadf-c2fe-476c-b2ed-2e062993faa0', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_aa96eadfc2fe476cb2ed2e062993faa0();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_aa96eadfc2fe476cb2ed2e062993faa0();
+            }
+</script>
+
+      
+    </body>
+</html>

@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Plotly.js -->
+        <meta http-equiv="X-UA-Compatible" content="IE=11" >
+        <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+        
+        <style>
+        .container {
+          padding-right: 25px;
+          padding-left: 25px;
+          margin-right: 0 auto;
+          margin-left: 0 auto;
+        }
+        @media (min-width: 768px) {
+          .container {
+            width: 750px;
+          }
+        }
+        @media (min-width: 992px) {
+          .container {
+            width: 970px;
+          }
+        }
+        @media (min-width: 1200px) {
+          .container {
+            width: 1170px;
+          }
+        }
+        </style>
+    </head>
+    <body>
+      <div id="81e3222c-792a-486b-8fcb-eec552a22810" style="width: 600px; height: 600px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_81e3222c792a486b8fcbeec552a22810 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.4.2.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"bar","x":[0.0125,0.037500000000000006,0.06250000000000001,0.08750000000000001,0.1125,0.1375,0.1625,0.1875,0.2125,0.2375,0.2625,0.28750000000000003,0.3125,0.3375,0.3625,0.3875,0.41250000000000003,0.4375,0.4625,0.4875,0.5125000000000001,0.5375000000000001,0.5625000000000001,0.5875000000000001,0.6125,0.6375000000000001,0.6625000000000001,0.6875000000000001,0.7125000000000001,0.7375,0.7625000000000001,0.7875000000000001,0.8125000000000001,0.8375000000000001,0.8625,0.8875000000000001,0.9125000000000001,0.9375000000000001,0.9625000000000001,0.9875],"y":[11.521915584415584,3.668831168831169,2.406655844155844,1.7613636363636365,1.4042207792207793,1.1728896103896105,1.1079545454545454,0.9293831168831169,0.9212662337662337,1.0064935064935066,0.7670454545454546,0.6858766233766234,0.689935064935065,0.7061688311688312,0.5762987012987013,0.5316558441558441,0.5438311688311688,0.450487012987013,0.5397727272727273,0.4342532467532468,0.5194805194805194,0.4707792207792208,0.42207792207792205,0.450487012987013,0.4586038961038961,0.39366883116883117,0.38961038961038963,0.37743506493506496,0.450487012987013,0.4667207792207792,0.37337662337662336,0.4383116883116883,0.37337662337662336,0.37743506493506496,0.28814935064935066,0.349025974025974,0.44642857142857145,0.3814935064935065,0.3409090909090909,0.40584415584415584],"orientation":"v","marker":{"pattern":{}},"name":"p values"}];
+            var layout = {"barmode":"stack","template":{"layout":{"paper_bgcolor":"white","plot_bgcolor":"white","xaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true},"yaxis":{"ticks":"inside","mirror":"all","showline":true,"zeroline":true}},"data":{}},"xaxis":{"title":{"text":"p value"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"yaxis":{"title":{"text":"frequency density"},"ticks":"inside","mirror":"all","showline":true,"showgrid":false},"shapes":[{"type":"line","x0":0.0,"x1":1.0,"y0":0.3703327922077925,"y1":0.3703327922077925,"line":{"dash":"dash"}}]};
+            var config = {};
+            Plotly.newPlot('81e3222c-792a-486b-8fcb-eec552a22810', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_81e3222c792a486b8fcbeec552a22810();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_81e3222c792a486b8fcbeec552a22810();
+            }
+</script>
+
+      
+    </body>
+</html>
