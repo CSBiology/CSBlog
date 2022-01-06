@@ -23,15 +23,17 @@ open Plotly.NET
 open Plotly.NET.StyleParam
 open Plotly.NET.LayoutObjects
 
-
+ 
 
 module Chart = 
 
     let myAxis name = LinearAxis.init(Title=Title.init name,Mirror=StyleParam.Mirror.All,Ticks=StyleParam.TickOptions.Inside,ShowGrid=false,ShowLine=true)
-    let withAxisTitles x y chart = chart |> Chart.withXAxis (myAxis x) |> Chart.withYAxis (myAxis y)
+    let withAxisTitles x y chart = 
+        chart 
+        |> Chart.withTemplate ChartTemplates.lightMirrored
+        |> Chart.withXAxis (myAxis x) 
+        |> Chart.withYAxis (myAxis y)
     
-
-
 (**
 # q values
 
@@ -87,11 +89,14 @@ let distributionChartAB =
     |> Chart.withSize (900.,600.)
     |> Chart.withTitle "null hypothesis"
 
-distributionChartAB |> GenericChart.toChartHTML
+(**<center>*)
+(***hide***)
+//distributionChartAB |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig01.html"
 (***include-it-raw***)
 
-
 (**
+</center>
 
 Samples with sample size 5 are randomly drawn from both population distributions.
 Both samples are tested <b>if a mean difference exist</b> using a two sample t test where equal variances of the underlying population distribution are assumed.
@@ -147,9 +152,6 @@ let nullDistributionChart =
 let thresholdLine =
     Shape.init(ShapeType.Line,0.05,0.05,0.,300.)
 
-
-
-
 (**
 
 Samples are called significantly different, if their p value is below a certain significance threshold ($\alpha$ level). While "the lower the better", a common threshold
@@ -157,13 +159,9 @@ is a p value of 0.05 or 0.01. In the presented case in average $10,000 * 0.05 = 
 positives (FP)</b>. Now lets repeat the same experiment, but this time sample 70% of the time from null features (no difference) and <b>add 30% samples of truly 
 differing</b> distributions. Therefore a third populations is generated, that differ in mean, but has an equal standard deviation:
 
-
-
 *)
 
-
 let distributionC = Distributions.Continuous.normal 11.5 1.0
-
 
 (***hide***)
 let distributionChartAC = 
@@ -176,9 +174,7 @@ let distributionChartAC =
     |> Chart.withSize (1000.,600.)
     |> Chart.withTitle "alternative hypothesis"
 
-
 //distributionChartAC |> GenericChart.toChartHTML
-
 
 (**
 
@@ -199,7 +195,6 @@ The hypothesis testing framework with the p value definition given above was <b>
 false positive result increases.</b> The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
 $\alpha$ corresponds to the significance threshold and $m$ is the number of performed tests.
 
-
 *)
 
 (***hide***)
@@ -217,11 +212,14 @@ let fwer =
     |> Chart.withShape bonferroniLine
     |> Chart.withTitle "FWER"
 
-fwer |> GenericChart.toChartHTML
+(**<center>*)
+(***hide***)
+//fwer |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig03.html"
 (***include-it-raw***)
 
-
 (**
+</center>
 
 _Fig 3: Familiy wise error rate depending on number of performed tests. The black dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$._
 
@@ -346,11 +344,14 @@ let exampleDistribution =
     |> Chart.Grid()
     |> Chart.withSize(1100.,550.)
 
-exampleDistribution |> GenericChart.toChartHTML
+(**<center>*)
+(***hide***)
+//exampleDistribution |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig06.html"
 (***include-it-raw***)
 
 (**
-<br>
+</center>
 
 _Fig 6: p value distributions of real world example. The frequency is given on the right, its density on the left. The black dashed line indicates the distribution, if all features
 were null. The red dash-dotted line indicates the visual estimated pi0._
@@ -418,10 +419,14 @@ let p2qValeChart =
     |> Chart.withShape empLine
     |> Chart.withTitle (sprintf "#[genes with q value < 0.05] = %i" eXpos)
 
-p2qValeChart |> GenericChart.toChartHTML
+(**<center>*)
+(***hide***)
+//p2qValeChart |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig07.html"
 (***include-it-raw***)
 
 (**
+</center>
 
 _Fig 7: FDR calculation on experiment data. Please zoom into the very first part of the curve to inspect the monotonicity._
 <hr>
@@ -452,11 +457,15 @@ let pi0EstChart =
     |> Chart.Point
     |> Chart.withAxisTitles "$\lambda$" "$\hat \pi_0(\lambda)$"
     |> Chart.withMathTex(true)
-
-pi0EstChart|> GenericChart.toChartHTML
+//pi0EstChart|> GenericChart.toChartHTML
+(**<center>*)
+(***hide***)
+System.IO.File.ReadAllText "../img/qvalue_fig08.html"
 (***include-it-raw***)
 
 (**
+</center>
+
 _Fig 8: pi0 estimation._
 <hr>
 
@@ -469,7 +478,7 @@ Another method, that does not depend on fitting is based on <b>bootstrapping</b>
   1. Determine the minimal $\hat \pi_0 (\lambda)$ and call it $min \hat \pi_0$ . 
 
   2. For each $\lambda$, bootstrap the p values (e.g. 100 times) and calculate the mean squared error (MSE) from the difference of resulting $\hat \pi_0^b$ to $min  \hat \pi_0$. The minimal MSE indicates the best $\lambda$. With $\lambda$ 
-defined, $\pi_0$ can be determined. *Note: When bootstrapping an data set of size n, n elements are drawn with replacement.*
+defined, $\pi_0$ can be determined. <b>Note: When bootstrapping an data set of size n, n elements are drawn with replacement.</b>
 
 
 
@@ -515,16 +524,13 @@ let bootstrappedPi0 =
     |> Chart.withMathTex(true)
     |> Chart.withShape minpiHatShape
 
-bootstrappedPi0 |> GenericChart.toChartHTML
+//bootstrappedPi0 |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig09.html"
 (***include-it-raw***)
 
 
-
-
-
-
-
 (**
+
 
 _Fig 9: Bootstrapping for pi0 estimation. The dashed line indicates the minimal pi0 from Fig. 8.
 The bootstrapped pi0 distribution that shows the least variation to the dashed line is the optimal. In the presented example it is either 0.8 or 0.85._
@@ -555,9 +561,6 @@ let qValues = Qvalues.ofPValues pi0Stats examplePVals
 (***hide***)
 qValues
 (***include-it***)
-
-
-
 
 (**
 
@@ -605,9 +608,9 @@ let pi0Estimation =
     |> Chart.withMathTex(true)
 
 
-
 (***hide***)
-p2q |> GenericChart.toChartHTML
+//p2q |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig10.html"
 (***include-it-raw***)
 
 (**
@@ -615,7 +618,8 @@ _Fig 10: p value relation to q values. At a p value of 1 the q value is equal to
 *)
 
 (***hide***)
-pValueDistribution |> GenericChart.toChartHTML
+//pValueDistribution |> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig11.html"
 (***include-it-raw***)
 
 (**
@@ -623,7 +627,8 @@ _Fig 11: p value density distribution. The dashed line indicates pi0 estimated b
 *)
 
 (***hide***)
-pi0Estimation|> GenericChart.toChartHTML
+//pi0Estimation|> GenericChart.toChartHTML
+System.IO.File.ReadAllText "../img/qvalue_fig12.html"
 (***include-it-raw***)
 
 (**
@@ -634,9 +639,9 @@ _Fig 12: Visual pi0 estimation._
 ##Definitions and Notes
   - q values are not always greater than their associated p values. q values can maximal be pi0.
   - Storey & Tibshirani (2003):
+    - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The q-value for a particular feature is the expected proportion of false positives occurring up through that feature on the list."_
     - _"The precise definition of the q-value for a particular feature is the following. The q-value for a particular feature is the minimum false discovery rate that can be attained when calling all features up through that one on the list significant."_
-    - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The Benjamini & Hochberg (1995) methodology also forces one to choose an acceptable FDR level before any data are seen, which is often going to be impractical."_
   - A method exists, to improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa. This method published in 2014 by Orr et al. estimates a global $m_0$ and then splits the p values 
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
@@ -648,6 +653,5 @@ _Fig 12: Visual pi0 estimation._
   - An improved method for computing q-values when the distribution of effect sizes is asymmetric, Orr M, Liu P, Nettleton D., Bioinformatics. 2014 Nov 1;30(21):3044-53. [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/). Epub 2014 Jul 14. PMID: 25024290; PMCID: PMC4609005.
   - Nettleton, Dan, et al. "Estimating the Number of True Null Hypotheses from a Histogram of p Values." Journal of Agricultural, Biological, and Environmental Statistics, vol. 11, no. 3, [International Biometric Society, Springer], 2006, pp. 337-56, http://www.jstor.org/stable/27595607.
   - Benjamini Y, Hochberg Y. On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics. Journal of Educational and Behavioral Statistics. 2000;25(1):60-83. doi:10.3102/10769986025001060
-  
 
 *)
