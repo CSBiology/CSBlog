@@ -684,7 +684,10 @@ type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;se
   member Next : unit -&gt; int + 2 overloads
   member NextBytes : buffer: byte [] -&gt; unit + 1 overload
   member NextDouble : unit -&gt; float
-  member Sample : unit -&gt; float<br /><em>&lt;summary&gt;Represents a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.&lt;/summary&gt;</em><br /><br />--------------------<br />System.Random() : System.Random<br />System.Random(Seed: int) : System.Random</div>
+  member NextInt64 : unit -&gt; int64 + 2 overloads
+  member NextSingle : unit -&gt; float32
+  member Sample : unit -&gt; float
+  static member Shared : Random<br /><em>&lt;summary&gt;Represents a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.&lt;/summary&gt;</em><br /><br />--------------------<br />System.Random() : System.Random<br />System.Random(Seed: int) : System.Random</div>
 <div class="fsdocs-tip" id="fs6">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
 <div class="fsdocs-tip" id="fs7">namespace Microsoft.FSharp</div>
 <div class="fsdocs-tip" id="fs8">module Seq

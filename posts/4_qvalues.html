@@ -1015,9 +1015,9 @@ from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations fo
   static member AppendText : path: string -&gt; StreamWriter
   static member Copy : sourceFileName: string * destFileName: string -&gt; unit + 1 overload
   static member Create : path: string -&gt; FileStream + 2 overloads
+  static member CreateSymbolicLink : path: string * pathToTarget: string -&gt; FileSystemInfo
   static member CreateText : path: string -&gt; StreamWriter
   static member Decrypt : path: string -&gt; unit
-  static member Delete : path: string -&gt; unit
   ...<br /><em>&lt;summary&gt;Provides static methods for the creation, copying, deletion, moving, and opening of a single file, and aids in the creation of &lt;see cref=&quot;T:System.IO.FileStream&quot; /&gt; objects.&lt;/summary&gt;</em></div>
 <div class="fsdocs-tip" id="fs46">System.IO.File.ReadAllText(path: string) : string<br />System.IO.File.ReadAllText(path: string, encoding: System.Text.Encoding) : string</div>
 <div class="fsdocs-tip" id="fs47">val getSample : n:int -&gt; dist:Distributions.Distribution&lt;float,float&gt; -&gt; Vector&lt;float&gt;</div>
@@ -1244,7 +1244,10 @@ from Plotly.NET<br /><br />--------------------<br />type Color =
   member Next : unit -&gt; int + 2 overloads
   member NextBytes : buffer: byte [] -&gt; unit + 1 overload
   member NextDouble : unit -&gt; float
-  member Sample : unit -&gt; float<br /><em>&lt;summary&gt;Represents a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.&lt;/summary&gt;</em><br /><br />--------------------<br />System.Random() : System.Random<br />System.Random(Seed: int) : System.Random</div>
+  member NextInt64 : unit -&gt; int64 + 2 overloads
+  member NextSingle : unit -&gt; float32
+  member Sample : unit -&gt; float
+  static member Shared : Random<br /><em>&lt;summary&gt;Represents a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.&lt;/summary&gt;</em><br /><br />--------------------<br />System.Random() : System.Random<br />System.Random(Seed: int) : System.Random</div>
 <div class="fsdocs-tip" id="fs140">val getpi0hat : (float -&gt; float [] -&gt; float)</div>
 <div class="fsdocs-tip" id="fs141">val pVals : float []</div>
 <div class="fsdocs-tip" id="fs142">val hits : float</div>
