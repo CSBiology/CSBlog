@@ -204,8 +204,8 @@ let mirroredSinChart =
     Chart.Point(xVals,yVals)
     |> Chart.withMarkerStyle(Size = 1, Color = Color.fromKeyword DarkBlue, Symbol = StyleParam.MarkerSymbol.Square)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_Axis(myXAxis())
-    |> Chart.withY_Axis(myYAxis())
+    |> Chart.withXAxis(myXAxis())
+    |> Chart.withYAxis(myYAxis())
     |> Chart.withSize(750.,750.)
 
 (***hide***)
@@ -225,7 +225,7 @@ two options: Combining charts in a single plot or displaying them side-by-side i
 
 ### Combining charts
 
-The `Chart.Combine` function creates a single plot with the same axis from a collection of charts:
+The `Chart.combine` function creates a single plot with the same axis from a collection of charts:
 
 *)
 
@@ -259,15 +259,15 @@ let stackedChart =
     [
         Chart.Spline(xVals,xVals |> List.map sin)
         |> Chart.withTraceName(Name = "sin(x)")
-        |> Chart.withY_Axis(myYAxis())
-        |> Chart.withX_Axis(myXAxis())
+        |> Chart.withYAxis(myYAxis())
+        |> Chart.withXAxis(myXAxis())
 
         Chart.Spline(xVals,xVals |> List.map cos)
         |> Chart.withTraceName(Name = "sin(x)")
-        |> Chart.withY_Axis(myYAxis())
-        |> Chart.withX_Axis(myXAxis())
+        |> Chart.withYAxis(myYAxis())
+        |> Chart.withXAxis(myXAxis())
     ]
-    |> Chart.Stack(1,0.1)
+    |> Chart.SingleStack()
 
 (***hide***)
 stackedChart |> GenericChart.toChartHTML
