@@ -91,8 +91,8 @@ let distributionChartAB =
 
 (**<center>*)
 (***hide***)
-//distributionChartAB |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig01.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig01.html"
+distributionChartAB |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -214,8 +214,8 @@ let fwer =
 
 (**<center>*)
 (***hide***)
-//fwer |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig03.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig03.html"
+fwer |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -257,7 +257,7 @@ _Fig 4: p value distribution of the alternative hypothesis._
 <hr>
 <br>
 
-Given the conditions described in the first chapter, the FDR of this experiment with a p value threshold of 0.05 is 0.198. Out of the 2019 reported significant comparisons, in average 350 
+Given the conditions described in the first chapter, the FDR of this experiment with a p value threshold of 0.05 is 0.173. Out of the 2019 reported significant comparisons, in average 350 
 are expected to be false positives, which gives an straight forward interpretation of the data confidence. In real-world experiments the proportion of null tests and tests 
 deriving from an actual difference is of course unknown. **The proportion of null tests however tends to be distributed equally in the p value histogram.** By identification of 
 the average null frequency, a proportion of FP and TP can be determined and the FDR can be defined. This frequency estimate is called $\pi_0$, which leads to an FDR definition of:
@@ -346,8 +346,8 @@ let exampleDistribution =
 
 (**<center>*)
 (***hide***)
-//exampleDistribution |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig06.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig06.html"
+exampleDistribution |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -421,8 +421,8 @@ let p2qValeChart =
 
 (**<center>*)
 (***hide***)
-//p2qValeChart |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig07.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig07.html"
+p2qValeChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -524,8 +524,8 @@ let bootstrappedPi0 =
     |> Chart.withMathTex(true)
     |> Chart.withShape minpiHatShape
 
-//bootstrappedPi0 |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig09.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig09.html"
+bootstrappedPi0 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 
@@ -609,8 +609,8 @@ let pi0Estimation =
 
 
 (***hide***)
-//p2q |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig10.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig10.html"
+p2q |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -618,8 +618,8 @@ _Fig 10: p value relation to q values. At a p value of 1 the q value is equal to
 *)
 
 (***hide***)
-//pValueDistribution |> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig11.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig11.html"
+pValueDistribution |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -627,8 +627,8 @@ _Fig 11: p value density distribution. The dashed line indicates pi0 estimated b
 *)
 
 (***hide***)
-//pi0Estimation|> GenericChart.toChartHTML
-System.IO.File.ReadAllText "../img/qvalue_fig12.html"
+//System.IO.File.ReadAllText "../img/qvalue_fig12.html"
+pi0Estimation|> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
