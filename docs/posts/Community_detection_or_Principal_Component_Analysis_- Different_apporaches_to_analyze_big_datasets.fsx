@@ -1,7 +1,7 @@
 (**
 
 ---
-title: The Louvain Method and where to go from there
+title: Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
 category: Implementation
 categoryindex: 3
 index: 4
@@ -32,7 +32,7 @@ open BioFSharp
 open BioFSharp.Stats
 
 (**
-# The Louvain Method and where to go from there
+# Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
 _[Christopher Lux](https://github.com/LibraChris)_, Jan 2022
 
 
@@ -47,7 +47,7 @@ _[Christopher Lux](https://github.com/LibraChris)_, Jan 2022
 ## Introduction
 
 This tutorial picks up where the Fslab advanced tutorials [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) ended.
-The goal of this blogpost is to showcase different approaches to analyze big datasets: 
+ The goal of this blogpost is to showcase different methods to analyze big datasets:
 The graph-Analysis apporach featuring community detection and ontology enrichment vs 
 the principal component analysis approach that reduces the dimensions of complex datasets.
 
@@ -203,7 +203,7 @@ One crucial factor in network science is the ability to represent large datasets
 But when these graphs get to large, it is often very difficult to retrieve useful data from them without using some form of simplification.
 One such method is the decomposition of networks into communities, sets of highly interconnected vertices.
 By reducing the information of each of the vertices into these communities the size of the network can be reduced quite effectively.
-The interdependence of the community-building vertices is often based on a functional modul that the verices belong to.
+The interdependence of the community-building vertices is often based on a functional module that the vertices belong to.
 As such, the detection of communities is a really interesting factor in network science.
 The Louvain-algorithm, published in [Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 (10): P10008. arXiv:0803.0476. Bibcode:2008JSMTE..10..008B. doi:10.1088/1742-5468/2008/10/P10008. S2CID 334423](https://doi.org/10.1088%2F1742-5468%2F2008%2F10%2FP10008) ,
 is one of the possible algorithms for community detection and has been integrated into [FSharp.FGL](https://github.com/CSBiology/FSharp.FGL).
@@ -220,7 +220,7 @@ let louvainGraph =
 
 The Louvain algorithm reveals that the graph can be rationed into 34 communities. 
 In the following steps, we color the communities that feature more than 5 members using Cyjs.Net.
-The code to create the Map which connected the community identifier and the color code has been ommitted since it is not important for the rest of the data analysis.
+The code to create the Map which connected the community identifier and the color code has been omitted since it is not important for the rest of the data analysis.
 *)
 (***hide***)
 // Map that connected the community identifier with a color codex
@@ -260,7 +260,7 @@ let colorMap =
     |> List.map2(fun community color -> (community,color)) communitiesToColorList
     |> Map.ofList
 
-// Map that maps the gene name to the color it is accosiated with because of its community
+// Map that maps the gene name to the color it is associated with because of its community
 let geneNameToColor =
     
     let louvainLabelToColor= 
@@ -355,6 +355,7 @@ let cytoGraph2 =
 cytoGraph2
 |> CyGraph.withSize (1300,1000)
 |> CyGraph.show
+
 (***hide***)
 System.IO.File.ReadAllText "../files/ecoliGeneExpressionLouvainCyjs.html"
 (*** include-it-raw ***)
@@ -368,9 +369,9 @@ System.IO.File.ReadAllText "../files/ecoliGeneExpressionColorTable.html"
 ## PCA - Principal component analysis
 
 An entirely different approach to the graph analysis is given by the principal component analysis (PCA) . 
-It is most commenly used for dimensional reduction and to build predective models.
+It is most commonly used for dimensional reduction and to build predictive models.
 In our case we reduce the dimensions of experiments from the data we used to create the first graph.
-More accuratly, the PCA reduces the dataset by highliting its biggest variances.
+More accurately, the PCA reduces the dataset by highlighting its biggest variances.
 The PCA algorithm can be found in [FSharp.Stats](https://fslab.org/FSharp.Stats/).
 *)
 
@@ -424,9 +425,9 @@ System.IO.File.ReadAllText "../files/ecoliGeneExpressionPCA.html"
 (***include-it-raw***)
 
 (**
-While some communities from the Louvain analysis can be spotted in the PCA chart on behalve of their clustering, most of them are widespread, a sign for a high variance in the original dataset.
+While some communities from the Louvain analysis can be spotted in the PCA chart on behalf of their clustering, most of them are widespread, a sign for a high variance in the original dataset.
 Using a clustering algorithm would lead to a much different communities than the PCA revealed.
-A mathematical demonstration of this was deemed unneccessary, since most of the data points lie on top of another and would therefor be clustered togehter.
+A mathematical demonstration of this was deemed unnecessary, since most of the data points lie on top of another and would therefore be clustered together.
 
 ## Ontology Enrichment
 
@@ -453,7 +454,7 @@ let geneNameToMolecularFunction =
 // List of all the community identifiers we want to use for ontology enrichment
 let moduleNumbers = [|0..34|]
 
-
+// Create the ontology terms on the gene data
 let ontologyTerms =
     Vertices.getLabelList louvainGraph
     |> Array.map(fun (name,community) -> (name,[|1.223;2.123123|],community,(Map.find name geneNameToMolecularFunction)))
@@ -464,12 +465,14 @@ let ontologyTerms =
         )
     |> Seq.concat
 
+// Run the ontology enrichment on every enty in ontologyTerms
 let gseaResult =
     moduleNumbers
     |> Array.map (fun x ->
         x,OntologyEnrichment.CalcOverEnrichment x (Some 5) (Some 2) ontologyTerms
         )
 
+// Return the enriched ontology entries 
 let ontologyResult = 
     gseaResult
     |> Array.map (fun (moduleNumber,moduleEnrichment) ->
@@ -488,7 +491,8 @@ let ontologyResult =
     |> Seq.map (fun x -> List.ofSeq x)
     |> List.ofSeq
     |> List.concat
-    
+
+// Build a Plotly.Net table of the ontology enrichment     
 let ontologyTable =
     let header = ["<b>Community</b>";"OntologyTerm";"TotalUnivers";"TotalNumberOfDE";"NumberInBin";"NumberOfDEsInBin";"PValue";"pvalAdj"]
     let rows = 
@@ -521,7 +525,7 @@ let cytoVerticesOntology =
     Array.map2 (fun v l -> (v,l)) (louvainGraph.GetVertices()) (Vertices.getLabelList louvainGraph)
     |> List.ofArray
     |> List.map(fun (v,(l,c)) ->
-        let styling = [CyParam.label l;if c=30 then CyParam.color (colorMap.Item (c));CyParam.weight (sqrt (float (g2.Degree v)) + 1. |> (*) 10.)]
+        let styling = [CyParam.label l;if c=30 then CyParam.color (colorMap.Item (c));CyParam.weight (sqrt (float (louvainGraph.Degree v)) + 1. |> (*) 10.)]
         (Elements.node (string v) styling)
 
     )
@@ -545,10 +549,8 @@ let cytoGraphOntology =
             CyParam.Line.color "#3D1244"
         ]
     |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
-(***do-not-eval***)
-cytoGraphOntology
-|> CyGraph.withSize (1300,1000)
-|> CyGraph.show
+
+
 (***hide***)
 cytoGraphOntology
 |> CyGraph.withSize (1300,1000)
@@ -559,7 +561,7 @@ cytoGraphOntology
 
 While comparing community 30 with its PCA counterpart it becomes apparent 
 that this functional group would not have been detected based on clustering of the PCA.
-This does not mean that the PCA is without its merrits, but merly show that 
+This does not mean that the PCA is without its merits, but merely show that 
 the application of different approached to datasets can and will deliver different results.
 The combination and comparison between different methods is an important step in data evaluation 
 and should always be considered when thinking about your dataflow.
