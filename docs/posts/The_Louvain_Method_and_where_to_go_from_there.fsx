@@ -16,12 +16,15 @@ index: 4
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: FSharp.FGL, 0.0.2"
 #r "nuget: FSharp.FGL.ArrayAdjacencyGraph, 0.0.2"
+#r "nuget: BioFSharp"
+#r "nuget: BioFSharp.Stats"
+
 
 // The edge filtering method presented in this tutorial requires an Eigenvalue decomposition. 
 // FSharp.Stats uses the one implemented in the LAPACK library. 
 // To enable it just reference the lapack folder in the FSharp.Stats nuget package:
-FSharp.Stats.ServiceLocator.setEnvironmentPathVariable @"C:\Users\USERNAME\.nuget\packages\fsharp.stats\0.4.2\netlib_LAPACK" // 
-FSharp.Stats.Algebra.LinearAlgebra.Service()
+// FSharp.Stats.ServiceLocator.setEnvironmentPathVariable @"C:\Users\USERNAME\.nuget\packages\fsharp.stats\0.4.2\netlib_LAPACK" // 
+// FSharp.Stats.Algebra.LinearAlgebra.Service()
 
 open Deedle
 open Plotly.NET
@@ -29,7 +32,9 @@ open FSharp.Data
 open FSharp.Stats
 open Cyjs.NET
 open FSharp.FGL.ArrayAdjacencyGraph
-
+open BioFSharp
+open BioFSharp.Stats
+open FSharp.Stats.Testing
 
 (**
 # The Louvain Method and where to go from there
@@ -62,6 +67,7 @@ We are using the following libraries:
 
 ## Loading the previous graph 
 
+We start out with the graph depicted in [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) .
 
 *)
 
@@ -88,8 +94,6 @@ let correlationNetwork =
 
 (***hide***)
 let thr = 0.8203125
-(**
-*)
 
 // Set all correlations less strong than the critical threshold to 0
 let filteredNetwork = 
@@ -151,11 +155,13 @@ let cytoGraph =
         ]
     |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
 
+
 // cytoGraph
 // |> CyGraph.withSize (1300,1000)
-// |> HTML.toEmbeddedHTML
-
-// (*** include-it-raw ***)
+// |> Cyjs.NET.HTML.toEmbeddedHTML
+(**
+![Graph](../files/ecoliGeneExpressionCyjs.html)
+*)
 (**
 *)
 
@@ -195,7 +201,6 @@ let edges =
 
 let g = 
     Graph.createOfEdgelist vertices edges
-
 
 let g2= 
     ArrayAdjacencyGraph.Algorithms.Louvain.Louvain.louvain g 0.1 
@@ -287,10 +292,12 @@ let cytoGraph2 =
         ]
     |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
 
+
+
 (***hide***)
 cytoGraph2
 |> CyGraph.withSize (1300,1000)
-|> HTML.toEmbeddedHTML
+|> Cyjs.NET.HTML.toEmbeddedHTML
 (*** include-it-raw ***)
 (**
 *)
@@ -307,10 +314,8 @@ let pcaData =
     |> fun x ->
         let pcaComponents = ML.Unsupervised.PCA.compute (ML.Unsupervised.PCA.toAdjustCenter x) x
 
-        let index1 = 1
-        let index2 = 2
-        let pComponent1 = pcaComponents.[index1 - 1]
-        let pComponent2 = pcaComponents.[index2 - 1]
+        let pComponent1 = pcaComponents.[0]
+        let pComponent2 = pcaComponents.[1]
         let x = pComponent1.EigenVector 
         let y = pComponent2.EigenVector 
         let label = rawFrame.RowKeys |> Array.ofSeq
@@ -328,25 +333,72 @@ let pcaChart =
             [x],
             Text=label.[i],
             MarkerColor=(
-                if (Map.containsKey (label.[i]) geneToColor) then
-                    Color.fromHex(Map.find(label.[i]) geneToColor)
+                if (Map.containsKey (label.[i]) geneNameToColor) then
+                    Color.fromHex(Map.find(label.[i]) geneNameToColor)
                 else
                     Color.fromString "gray"
                     ))|> Chart.withTraceName (label.[i]))
     |> Array.choose(fun (l,chart) -> if List.contains l (vertices|>List.map snd) then Some chart else None)
     |> Chart.combine
 
+
 pcaChart
 |> Chart.withMarkerStyle (Size=8)
 |> Chart.withSize (1300,1000)
-|> GenericChart.toEmbeddedHTML
+|> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
 ## Ontology Enrichment
 *)
 
+let geneNameToMolecularFunction =
+    let d :Frame<string,string>=
+        Frame.ReadCsv(@"C:\Users\lux-c\source\repos\CSBlog\docs\files\ecoliGeneExpression.tsv",separators="\t")
+        |> Frame.take 500
+        |> Frame.indexRows "Key"
 
+    let col :Series<string,string>=
+        Frame.getCol "Gene ontology (molecular function)" d
+
+    Seq.map2 (fun name f -> (name,f)) (col|> Series.keys) (col|> Series.values)
+    |> Map.ofSeq
+
+g2.GetLabels()
+|> Array.map(fun (name,community) -> (name,[|1.223;2.123123|],community,(Map.find name geneNameToMolecularFunction)))
+
+
+let ontologyTerms =
+    g2.GetLabels()
+    |> Array.map(fun (name,community) -> (name,[|1.223;2.123123|],community,(Map.find name geneNameToMolecularFunction)))
+    |> Array.map (fun (name,data,modularityClass,annotation) ->
+        let annotationProcessed = annotation.Replace ("| ","|") //keine ahnung warum der separator "| " mit einem Space ist, aber hiermit sollte es gehen
+        OntologyEnrichment.createOntologyItem name annotationProcessed modularityClass data
+        |> OntologyEnrichment.splitMultipleAnnotationsBy '|' 
+        )
+    |> Seq.concat
+let moduleNumbers = [|1..34|]
+let gseaResult =
+    moduleNumbers
+    |> Array.map (fun x ->
+        x,OntologyEnrichment.CalcOverEnrichment x (Some 5) (Some 2) ontologyTerms
+        )
+printfn "moduleNumber\tOntologyTerm\tTotal number of items\tNumber elements with thins annotation\tNumber of items within this module\tNumber of items within this module with this annotation\tp value"
+gseaResult
+|> Array.map (fun (moduleNumber,moduleEnrichment) ->
+    let pvalues = moduleEnrichment |> Seq.map (fun x -> x.PValue)
+    let pvaluesAdj = MultipleTesting.benjaminiHochbergFDR pvalues |> Array.ofSeq
+    moduleEnrichment
+    |> Seq.mapi (fun i x -> x,pvaluesAdj.[i])
+    |> Seq.filter (fun (item,pvalAdj) -> item.PValue < 0.05) //nur signifikante annotationen werden rausgefiltert
+    |> Seq.sortByDescending (fun (item,pvalAdj) -> item.NumberOfDEsInBin) //es wird nach den jeweiligen annotationsanzahlen pro modul sortiert. Weiter oben = wichtig
+    |> Seq.map (fun (x,pvalAdj) ->
+        sprintf "%i\t%s\t%i\t%i\t%i\t%i\t%f\t%f" moduleNumber x.OntologyTerm x.TotalUnivers x.TotalNumberOfDE x.NumberInBin x.NumberOfDEsInBin x.PValue pvalAdj
+        )
+    )
+
+
+(***include-it-raw***)
 (**
 ## Further reading
 
