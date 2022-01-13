@@ -19,22 +19,17 @@ index: 4
 #r "nuget: BioFSharp"
 #r "nuget: BioFSharp.Stats"
 
-
-// The edge filtering method presented in this tutorial requires an Eigenvalue decomposition. 
-// FSharp.Stats uses the one implemented in the LAPACK library. 
-// To enable it just reference the lapack folder in the FSharp.Stats nuget package:
-// FSharp.Stats.ServiceLocator.setEnvironmentPathVariable @"C:\Users\USERNAME\.nuget\packages\fsharp.stats\0.4.2\netlib_LAPACK" // 
-// FSharp.Stats.Algebra.LinearAlgebra.Service()
-
 open Deedle
 open Plotly.NET
+open Plotly.NET.StyleParam
 open FSharp.Data
 open FSharp.Stats
+open FSharp.Stats.Testing
 open Cyjs.NET
 open FSharp.FGL.ArrayAdjacencyGraph
+open ArrayAdjacencyGraph.Algorithms.Louvain.Louvain
 open BioFSharp
 open BioFSharp.Stats
-open FSharp.Stats.Testing
 
 (**
 # The Louvain Method and where to go from there
@@ -48,29 +43,30 @@ _[Christopher Lux](https://github.com/LibraChris)_, Jan 2022
 - [PCA - Principal component analysis](#PCA-Principal-component-analysis)
 - [Ontology Enrichment](#Ontology-Enrichment)
 - [Further reading](#Further-reading)
-- []()
 
 ## Introduction
 
 This tutorial picks up where the Fslab advanced tutorials [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) ended.
-The goal of this blogpost is to showcase how to use the Louvain methode in FSharp.FGL and what you can do with this information with the resources of our group.
+The goal of this blogpost is to showcase different approaches to analyze big datasets: 
+The graph-Analysis apporach featuring community detection and ontology enrichment vs 
+the principal component analysis approach that reduces the dimensions of complex datasets.
 
 We are using the following libraries:
 
-1. [Deedle]()
-2. [Plotly.NET]()
-3. [FSharp.Data]()
-4. [FSharp.Stats]()
-5. [Cyjs.NET]()
-6. [FSharp.FGL]()
-
+1. [Deedle](https://github.com/fslaborg/Deedle)
+2. [Plotly.NET](https://github.com/plotly/Plotly.NET/)
+3. [Cyjs.NET](https://github.com/fslaborg/Cyjs.NET)
+4. [BioFSharp](https://github.com/CSBiology/BioFSharp)
+5. [FSharp.Data](https://github.com/fsprojects/FSharp.Data)
+6. [FSharp.Stats](https://github.com/fslaborg/FSharp.Stats)
+7. [FSharp.FGL](https://github.com/CSBiology/FSharp.FGL)
 
 ## Loading the previous graph 
 
-We start out with the graph depicted in [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) .
-
+We start by recreating the graph depicted in [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) .
+The code for this is hidden since it is just the same as in the blogpost. 
+If you are interested in the creation of the correlation network you can read about it there.
 *)
-
 (***hide***)
 // Load the data 
 let rawData = Http.RequestString @"https://raw.githubusercontent.com/HLWeil/datasets/main/data/ecoliGeneExpression.tsv"
@@ -81,25 +77,22 @@ let rawFrame : Frame<string,string> =
     |> Frame.take 500
     |> Frame.indexRows "Key"
 
-
 // Get the rows as a matrix
 let rows = 
     rawFrame 
     |> Frame.toJaggedArray 
     |> Matrix.ofJaggedArray
 
-// Create a correlation network by computing the pearson correlation between every tow rows
+// Create a correlation network by computing the pearson correlation between every two rows
 let correlationNetwork = 
     Correlation.Matrix.rowWisePearson rows
 
-(***hide***)
 let thr = 0.8203125
 
 // Set all correlations less strong than the critical threshold to 0
 let filteredNetwork = 
     correlationNetwork
     |> Matrix.map (fun v -> if (abs v) > thr then v else 0.)
-
 
 // The styled vertices. The size is based on the degree of this vertex, so that more heavily connected nodes are emphasized
 let cytoVertices = 
@@ -120,7 +113,7 @@ let cytoVertices =
     )
 
 // Styled edges
-let cytoEdges = 
+let cytoEdgesOG = 
     let len = filteredNetwork.Dimensions |> fst
     [
         for i = 0 to len - 1 do
@@ -138,7 +131,7 @@ let cytoGraph =
 
     CyGraph.initEmpty ()
     |> CyGraph.withElements cytoVertices
-    |> CyGraph.withElements cytoEdges
+    |> CyGraph.withElements cytoEdgesOG
     |> CyGraph.withStyle "node" 
         [
             CyParam.shape "circle"
@@ -155,26 +148,24 @@ let cytoGraph =
         ]
     |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
 
-
-// cytoGraph
-// |> CyGraph.withSize (1300,1000)
-// |> Cyjs.NET.HTML.toEmbeddedHTML
-(**
-![Graph](../files/ecoliGeneExpressionCyjs.html)
-*)
 (**
 *)
-
+(***do-not-eval***)
+cytoGraph
+|> CyGraph.withSize (1300,1000)
+|> CyGraph.show
+(***hide***)
+System.IO.File.ReadAllText "../files/ecoliGeneExpressionCyjs.html"
+(*** include-it-raw ***)
 
 (**
-
-## Modularity
-
-One method to check the 
+Now to recreate this graph in FSharp.FGl.ArrayAdjacencyGraph we simply have to create a vertex list and an edge list:
+Once again we are using the data from [Correlation network](https://fslab.org/content/tutorials/009_correlation-network.html) .
 
 *)
 
-let vertices =
+// Creates a vertex list based on the cytoVertices
+let vertexList =
     rawFrame.RowKeys
     |> Seq.toList
     |> List.indexed
@@ -190,7 +181,8 @@ let vertices =
             None
     )
 
-let edges =
+// Creates an edge list based on the cytoEdges
+let edgeList =
     let len = filteredNetwork.Dimensions |> fst
     [
         for i = 0 to len - 1 do
@@ -199,26 +191,55 @@ let edges =
                 if v <> 0. then yield i,j,v
     ]
 
-let g = 
-    Graph.createOfEdgelist vertices edges
+// Creates an ArrayAdjacencyGraph based on vertexList and edgeList
+let startingGraph = 
+    Graph.createOfEdgelist vertexList edgeList
 
-let g2= 
-    ArrayAdjacencyGraph.Algorithms.Louvain.Louvain.louvain g 0.1 
+(**
+
+## Modularity
+
+One crucial factor in network science is the ability to represent large datasets in comprehensible graphs.
+But when these graphs get to large, it is often very difficult to retrieve useful data from them without using some form of simplification.
+One such method is the decomposition of networks into communities, sets of highly interconnected vertices.
+By reducing the information of each of the vertices into these communities the size of the network can be reduced quite effectively.
+The interdependence of the community-building vertices is often based on a functional modul that the verices belong to.
+As such, the detection of communities is a really interesting factor in network science.
+The Louvain-algorithm, published in [Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 (10): P10008. arXiv:0803.0476. Bibcode:2008JSMTE..10..008B. doi:10.1088/1742-5468/2008/10/P10008. S2CID 334423](https://doi.org/10.1088%2F1742-5468%2F2008%2F10%2FP10008) ,
+is one of the possible algorithms for community detection and has been integrated into [FSharp.FGL](https://github.com/CSBiology/FSharp.FGL).
+
+Here we apply this algorithm on our existing graph:
+*)
+
+// The graph after being grouped into communities
+let louvainGraph = 
+    louvain startingGraph 0.1 
 
 
-let coloredVertices = 
-    g2.GetLabels()
-    |> Array.map (snd)
-    |> Array.countBy (fun x -> x)
-    |> Array.choose(fun (m,count) -> 
-        if count > 5 then
-            Some m
-        else
-            None
-        )
-    |> List.ofArray
+(**
 
-let color =
+The Louvain algorithm reveals that the graph can be rationed into 34 communities. 
+In the following steps, we color the communities that feature more than 5 members using Cyjs.Net.
+The code to create the Map which connected the community identifier and the color code has been ommitted since it is not important for the rest of the data analysis.
+*)
+(***hide***)
+// Map that connected the community identifier with a color codex
+let colorMap =
+    
+    // List of all communities that have more than 5 members
+    let communitiesToColorList = 
+        Vertices.getLabelList louvainGraph
+        |> Array.map (snd)
+        |> Array.countBy (fun x -> x)
+        |> Array.choose(fun (m,count) -> 
+            if count > 5 then
+                Some m
+            else
+                None
+            )
+        |> List.ofArray
+
+    // List of hexadecimal colors. 
     [
         "#A00976";
         "#D68A0C";
@@ -236,14 +257,14 @@ let color =
         "#FFC0CB"
 
     ]
-    |> List.map2(fun community color -> (community,color)) coloredVertices
+    |> List.map2(fun community color -> (community,color)) communitiesToColorList
     |> Map.ofList
 
-// Map to apply the same color as in the graph above to 
+// Map that maps the gene name to the color it is accosiated with because of its community
 let geneNameToColor =
     
     let louvainLabelToColor= 
-        g2.GetLabels()
+        Vertices.getLabelList louvainGraph
         |> Array.countBy (fun (gene,x) -> x)
         |> Array.choose(fun (m,count) -> 
             if count > 5 then
@@ -251,10 +272,10 @@ let geneNameToColor =
             else
                 None
             )
-        |> Array.map(fun x -> (x,color.Item (x)))
+        |> Array.map(fun x -> (x,colorMap.Item (x)))
         |> Map.ofArray
 
-    g2.GetLabels()
+    Vertices.getLabelList louvainGraph
     |> Array.map(fun (gene,label) -> 
         (gene,
             (if (Map.containsKey label louvainLabelToColor) then Map.find label louvainLabelToColor 
@@ -262,15 +283,53 @@ let geneNameToColor =
     )
     |> Map.ofArray
 
+// Table that showcases all communities, their member count and their connected color
+let colorTable =
+    let header = ["<b>Community</b>";"Number of members";"Color"]
+    let rows = 
+        Vertices.getLabelList louvainGraph
+        |> Array.map (snd)
+        |> Array.countBy (fun x -> x)
+        |> Array.sortByDescending (fun (community,count) -> count)
+        |> Array.map(fun (community,count) -> [(sprintf "%i" community);(sprintf "%i" count);(if (Map.containsKey community colorMap) then (colorMap.Item community) else "#808080")])
+    let cellColor =
+        Array.map(fun l -> 
+            let color = Color.fromString (List.last l)
+            [Color.fromString "transparent";Color.fromString "transparent";color]) rows
+        |> Seq.transpose
+        |> Seq.map Color.fromColors
+        |> Color.fromColors
+    Chart.Table(
+        header,
+        rows,
+        HeaderOutlineColor = Color.fromString "black",
+        CellsOutlineColor = Color.fromString "black",
+        CellsOutlineWidth = 0.1,        
+        CellsFillColor = cellColor
+    )
+(**
+*)
+
+// The styled vertices. The color of the vertices is based on their community. The size is based on the degree of this vertex, so that more heavily connected nodes are emphasized.
 let cytoVertices2 =
-    Array.map2 (fun v l -> (v,l)) (g2.GetVertices()) (g2.GetLabels())
+    Array.map2 (fun v l -> (v,l)) (louvainGraph.GetVertices()) (Vertices.getLabelList louvainGraph)
     |> List.ofArray
     |> List.map(fun (v,(l,c)) ->
-        let styling = [CyParam.label l;if (Map.containsKey c color) then CyParam.color (color.Item (c));CyParam.weight (sqrt (float (g2.Degree v)) + 1. |> (*) 10.)]
+        let styling = [CyParam.label l;if (Map.containsKey c colorMap) then CyParam.color (colorMap.Item (c));CyParam.weight (sqrt (float (Vertices.degree v louvainGraph)) + 1. |> (*) 10.)]
         (Elements.node (string v) styling)
 
     )
 
+// Creates an edge list based on the cytoEdges
+let cytoEdges = 
+    edgeList
+    |> List.mapi (fun i (v1,v2,weight) -> 
+        let styling = [CyParam.weight (0.2 * weight)]
+        Elements.edge ("e" + string i) (string v1) (string v2) styling
+    )
+
+
+// Resulting cytograph
 let cytoGraph2 = 
 
     CyGraph.initEmpty ()
@@ -292,22 +351,30 @@ let cytoGraph2 =
         ]
     |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
 
-
-
-(***hide***)
+(***do-not-eval***)
 cytoGraph2
 |> CyGraph.withSize (1300,1000)
-|> Cyjs.NET.HTML.toEmbeddedHTML
+|> CyGraph.show
+(***hide***)
+System.IO.File.ReadAllText "../files/ecoliGeneExpressionLouvainCyjs.html"
 (*** include-it-raw ***)
+(***hide***)
+System.IO.File.ReadAllText "../files/ecoliGeneExpressionColorTable.html"
+(*** include-it-raw ***)
+
 (**
 *)
-
-
 (**
 ## PCA - Principal component analysis
 
-The principal component analysis is a method used to 
+An entirely different approach to the graph analysis is given by the principal component analysis (PCA) . 
+It is most commenly used for dimensional reduction and to build predective models.
+In our case we reduce the dimensions of experiments from the data we used to create the first graph.
+More accuratly, the PCA reduces the dataset by highliting its biggest variances.
+The PCA algorithm can be found in [FSharp.Stats](https://fslab.org/FSharp.Stats/).
 *)
+
+// Calculations to get a PCA
 let pcaData = 
     rows
     |> Matrix.transpose
@@ -318,43 +385,62 @@ let pcaData =
         let pComponent2 = pcaComponents.[1]
         let x = pComponent1.EigenVector 
         let y = pComponent2.EigenVector 
-        let label = rawFrame.RowKeys |> Array.ofSeq
         
-        let combined = Array.map2 (fun c1 c2 -> (c1,c2)) x y
+        let pcaCoordinates = Array.map2 (fun c1 c2 -> (c1,c2)) x y
         
-        (label,combined)
+        pcaCoordinates
 
+(**
+Using the calculated data, we color each gene based on its coloring in the Louvain-Graph to showcase the differences between the community detection and the PCA.
+*)
+
+// Creation of a pointchart based on the PCA data
 let pcaChart = 
-    let label,data = pcaData
+    let labelArray = rawFrame.RowKeys |> Array.ofSeq
 
-    data
+    pcaData
     |> Array.mapi(fun i x -> 
-        (label.[i]),Chart.Point(
+        (labelArray.[i]),Chart.Point(
             [x],
-            Text=label.[i],
+            Text=labelArray.[i],
             MarkerColor=(
-                if (Map.containsKey (label.[i]) geneNameToColor) then
-                    Color.fromHex(Map.find(label.[i]) geneNameToColor)
+                if (Map.containsKey (labelArray.[i]) geneNameToColor) then
+                    Color.fromHex(Map.find(labelArray.[i]) geneNameToColor)
                 else
                     Color.fromString "gray"
-                    ))|> Chart.withTraceName (label.[i]))
-    |> Array.choose(fun (l,chart) -> if List.contains l (vertices|>List.map snd) then Some chart else None)
+                    ))|> Chart.withTraceName (labelArray.[i]))
+    |> Array.choose(fun (l,chart) -> if List.contains l (vertexList|>List.map snd) then Some chart else None)
     |> Chart.combine
+    |> Chart.withYAxisStyle(title="PC2")
+    |> Chart.withXAxisStyle(title="PC1")
 
-
+(***do-not-eval***)
 pcaChart
-|> Chart.withMarkerStyle (Size=8)
-|> Chart.withSize (1300,1000)
-|> GenericChart.toChartHTML
+|> Chart.withSize(1300,1000)
+|> Chart.show
+
+(***hide***)
+System.IO.File.ReadAllText "../files/ecoliGeneExpressionPCA.html"
 (***include-it-raw***)
 
 (**
+While some communities from the Louvain analysis can be spotted in the PCA chart on behalve of their clustering, most of them are widespread, a sign for a high variance in the original dataset.
+Using a clustering algorithm would lead to a much different communities than the PCA revealed.
+A mathematical demonstration of this was deemed unneccessary, since most of the data points lie on top of another and would therefor be clustered togehter.
+
 ## Ontology Enrichment
+
+Ontology enrichment is a method to identify overrepresented transcript/protein groups in data sets. 
+The used annotation is based on the [AnnotationARC](https://github.com/CSBiology/ARCs/tree/main/AnnotationARC) .
+and the calculation is done via [BioFSharp.Stats](https://github.com/CSBiology/BioFSharp) .
+Here we try to find overrepresented protein functions in the Louvain communities to see if there is a functional modularity or
+if the communities are not that relevant, just like the PCA suggested. 
 *)
 
+// Maps the gene name to its molecular function based on the AnnotationARC
 let geneNameToMolecularFunction =
     let d :Frame<string,string>=
-        Frame.ReadCsv(@"C:\Users\lux-c\source\repos\CSBlog\docs\files\ecoliGeneExpression.tsv",separators="\t")
+        Frame.ReadCsv(@"../CSBlog/docs/files/ecoliGeneExpression.tsv",separators="\t")
         |> Frame.take 500
         |> Frame.indexRows "Key"
 
@@ -364,48 +450,124 @@ let geneNameToMolecularFunction =
     Seq.map2 (fun name f -> (name,f)) (col|> Series.keys) (col|> Series.values)
     |> Map.ofSeq
 
-g2.GetLabels()
-|> Array.map(fun (name,community) -> (name,[|1.223;2.123123|],community,(Map.find name geneNameToMolecularFunction)))
+// List of all the community identifiers we want to use for ontology enrichment
+let moduleNumbers = [|0..34|]
 
 
 let ontologyTerms =
-    g2.GetLabels()
+    Vertices.getLabelList louvainGraph
     |> Array.map(fun (name,community) -> (name,[|1.223;2.123123|],community,(Map.find name geneNameToMolecularFunction)))
     |> Array.map (fun (name,data,modularityClass,annotation) ->
-        let annotationProcessed = annotation.Replace ("| ","|") //keine ahnung warum der separator "| " mit einem Space ist, aber hiermit sollte es gehen
+        let annotationProcessed = annotation.Replace ("| ","|")
         OntologyEnrichment.createOntologyItem name annotationProcessed modularityClass data
         |> OntologyEnrichment.splitMultipleAnnotationsBy '|' 
         )
     |> Seq.concat
-let moduleNumbers = [|1..34|]
+
 let gseaResult =
     moduleNumbers
     |> Array.map (fun x ->
         x,OntologyEnrichment.CalcOverEnrichment x (Some 5) (Some 2) ontologyTerms
         )
-printfn "moduleNumber\tOntologyTerm\tTotal number of items\tNumber elements with thins annotation\tNumber of items within this module\tNumber of items within this module with this annotation\tp value"
-gseaResult
-|> Array.map (fun (moduleNumber,moduleEnrichment) ->
-    let pvalues = moduleEnrichment |> Seq.map (fun x -> x.PValue)
-    let pvaluesAdj = MultipleTesting.benjaminiHochbergFDR pvalues |> Array.ofSeq
-    moduleEnrichment
-    |> Seq.mapi (fun i x -> x,pvaluesAdj.[i])
-    |> Seq.filter (fun (item,pvalAdj) -> item.PValue < 0.05) //nur signifikante annotationen werden rausgefiltert
-    |> Seq.sortByDescending (fun (item,pvalAdj) -> item.NumberOfDEsInBin) //es wird nach den jeweiligen annotationsanzahlen pro modul sortiert. Weiter oben = wichtig
-    |> Seq.map (fun (x,pvalAdj) ->
-        sprintf "%i\t%s\t%i\t%i\t%i\t%i\t%f\t%f" moduleNumber x.OntologyTerm x.TotalUnivers x.TotalNumberOfDE x.NumberInBin x.NumberOfDEsInBin x.PValue pvalAdj
+
+let ontologyResult = 
+    gseaResult
+    |> Array.map (fun (moduleNumber,moduleEnrichment) ->
+        let pvalues = moduleEnrichment |> Seq.map (fun x -> x.PValue)
+        let pvaluesAdj = MultipleTesting.benjaminiHochbergFDR pvalues |> Array.ofSeq
+        moduleEnrichment
+        |> Seq.mapi (fun i x -> x,pvaluesAdj.[i])
+        |> Seq.filter (fun (item,pvalAdj) -> item.PValue < 0.05) 
+        |> Seq.sortByDescending (fun (item,pvalAdj) -> item.NumberOfDEsInBin) 
+        |> Seq.map (fun (x,pvalAdj) ->
+            [sprintf "%i" moduleNumber; x.OntologyTerm; sprintf "%i" x.TotalUnivers; sprintf "%i" x.TotalNumberOfDE; sprintf "%i" x.NumberInBin;sprintf "%i" x.NumberOfDEsInBin; sprintf "%f"x.PValue ;sprintf "%f" pvalAdj]
+            
+            )
         )
-    )
+    |> Seq.choose(fun x -> if Seq.isEmpty x then None else Some x)
+    |> Seq.map (fun x -> List.ofSeq x)
+    |> List.ofSeq
+    |> List.concat
+    
+let ontologyTable =
+    let header = ["<b>Community</b>";"OntologyTerm";"TotalUnivers";"TotalNumberOfDE";"NumberInBin";"NumberOfDEsInBin";"PValue";"pvalAdj"]
+    let rows = 
+        ontologyResult
+    Chart.Table(header, rows)
 
 
-(***include-it-raw***)
 (**
+The result of the ontology enrichment can be seen in the following table. The headers are explained in the [BioFsharp doku](https://csbiology.github.io/BioFSharp//GSEA.html) .
+*)
+
+(***do-not-eval***)
+ontologyTable
+|> Chart.withSize(1300,1000)
+|> Chart.show
+
+(***hide***)
+System.IO.File.ReadAllText "../files/ecoliGeneExpressionOntologyTable.html"
+(***include-it-raw***)
+
+
+
+(**
+
+From the table above I have chosen to show community 30 as an example of the differences between community detection and PCA.
+
+*)
+(***hide***)
+let cytoVerticesOntology =
+    Array.map2 (fun v l -> (v,l)) (louvainGraph.GetVertices()) (Vertices.getLabelList louvainGraph)
+    |> List.ofArray
+    |> List.map(fun (v,(l,c)) ->
+        let styling = [CyParam.label l;if c=30 then CyParam.color (colorMap.Item (c));CyParam.weight (sqrt (float (g2.Degree v)) + 1. |> (*) 10.)]
+        (Elements.node (string v) styling)
+
+    )
+let cytoGraphOntology = 
+
+    CyGraph.initEmpty ()
+    |> CyGraph.withElements cytoVerticesOntology
+    |> CyGraph.withElements cytoEdges
+    |> CyGraph.withStyle "node" 
+        [
+            CyParam.shape "circle"
+            CyParam.content =. CyParam.label
+            CyParam.width =. CyParam.weight
+            CyParam.height =. CyParam.weight
+            CyParam.Text.Align.center
+            CyParam.Border.color =. CyParam.color
+            CyParam.Background.color =. CyParam.color
+        ]
+    |> CyGraph.withStyle "edge" 
+        [
+            CyParam.Line.color "#3D1244"
+        ]
+    |> CyGraph.withLayout (Layout.initCose (Layout.LayoutOptions.Cose(NodeOverlap = 400,ComponentSpacing = 100)))  
+(***do-not-eval***)
+cytoGraphOntology
+|> CyGraph.withSize (1300,1000)
+|> CyGraph.show
+(***hide***)
+cytoGraphOntology
+|> CyGraph.withSize (1300,1000)
+|> Cyjs.NET.HTML.toCytoHTML
+(**
+
+![Community detection vs PCA](../img/communityVsPCA.jpg)
+
+While comparing community 30 with its PCA counterpart it becomes apparent 
+that this functional group would not have been detected based on clustering of the PCA.
+This does not mean that the PCA is without its merrits, but merly show that 
+the application of different approached to datasets can and will deliver different results.
+The combination and comparison between different methods is an important step in data evaluation 
+and should always be considered when thinking about your dataflow.
+
 ## Further reading
 
-- [Networksciencebook](http://www.networksciencebook.com)
-- [Wikipedia](https://en.wikipedia.org/wiki/Graph_theory)
-- [FSharp.FGL Github](https://github.com/CSBiology/FSharp.FGL)
 - [Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 (10): P10008. arXiv:0803.0476. Bibcode:2008JSMTE..10..008B. doi:10.1088/1742-5468/2008/10/P10008. S2CID 334423](https://doi.org/10.1088%2F1742-5468%2F2008%2F10%2FP10008)
-
+- [Fslab](https://fslab.org)
+- [FSharp.FGL](https://github.com/CSBiology/FSharp.FGL)
 
 *)
