@@ -323,7 +323,7 @@ This is necessary, as <code>App.fs</code> is defined as our app entry in the <co
 but also one for each F# source file. If we search it for <code>iAmAVeryLongAndEasilySearchableName</code> or <code>drawOneAndPrintCard</code> we will find the respective JS code.</p>
 <br>
 <p>Because Fable can only compile code patterns and the functions from the modules in <code>src\.fable</code> it is <strong>not</strong> possible to compile any F# library with Fable out of the box.</p>
-<p>If we add <code>&lt;PackageReference Include="FSharp.Stats" Version="0.4.2" /&gt;</code> to <code>App.fsproj</code> it will return an error.</p>
+<p>If we add <code>&lt;PackageReference Include="FSharp.Stats" Version="0.4.3" /&gt;</code> to <code>App.fsproj</code> it will return an error.</p>
 <pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// App.fs</span>
 <span class="c">///</span>
 <span class="k">open</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">FSharp</span><span class="pn">.</span><span class="id">Stats</span>
