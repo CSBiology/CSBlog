@@ -184,7 +184,7 @@ In average 350 null features would be reported as significant even though they d
 
 The hypothesis testing framework with the p value definition given above was <b>developed for performing just one test. If many tests are performed, like in modern high throuput studies, the probability to obtain a 
 false positive result increases.</b> The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
-$\alpha$ corresponds to the significance threshold and $m$ is the number of performed tests.
+$\alpha$ corresponds to the significance threshold (here 0.05) and $m$ is the number of performed tests.
 
 *)
 
@@ -212,7 +212,7 @@ fwer |> GenericChart.toChartHTML
 (**
 </center>
 
-_Fig 3: Familiy wise error rate depending on number of performed tests. The black dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$._
+_Fig 3: Familiy wise error rate depending on number of performed tests. The black dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$ ._
 
 
 When 10,000 null features are tested with a p value threshold of 0.05, in average 500 tests are reported significant even if there is not a single comparisons in which the 
@@ -450,8 +450,20 @@ let pi0EstChart =
     pi0Est 
     |> Chart.Point
     |> Chart.withYAxisStyle("",MinMax=(0.,1.))
+    |> Chart.withXAxisStyle("",MinMax=(0.,1.))
     |> Chart.withAxisTitles "$\lambda$" "$\hat \pi_0(\lambda)$"
     |> Chart.withMathTex(true)
+    |> Chart.withConfig(
+        Config.init(
+            Responsive=true, 
+            ModeBarButtonsToAdd=[
+                ModeBarButton.DrawLine
+                ModeBarButton.DrawOpenPath
+                ModeBarButton.EraseShape
+                ]
+            )
+        )
+
 (**<center>*)
 (***hide***)
 pi0EstChart|> GenericChart.toChartHTML
@@ -676,21 +688,36 @@ _Fig 13: Visual pi0 estimation._
 
 (**
 ##Definitions and Notes
-  - q values are not always greater than their associated p values. q values can maximal be pi0.
   - Storey & Tibshirani (2003):
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The q-value for a particular feature is the expected proportion of false positives occurring up through that feature on the list."_
     - _"The precise definition of the q-value for a particular feature is the following. The q-value for a particular feature is the minimum false discovery rate that can be attained when calling all features up through that one on the list significant."_
     - _"The Benjamini & Hochberg (1995) methodology also forces one to choose an acceptable FDR level before any data are seen, which is often going to be impractical."_
-  - A method exists, to improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa. This method published in 2014 by Orr et al. estimates a global $m_0$ and then splits the p values 
+  - To improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa a method was published in 2014 by Orr et al.. They estimate a global $m_0$ and then split the p values 
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
-  - The distinction of FDR and pFDR (positive FDR) is not crucial here, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
+  - The distinction of FDR and pFDR (positive FDR) is not crucial in the presented context, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
+
+
+##FAQ
+  - Why are q values lower than their associated p values?
+    - q values are not necessarily greater than their associated p values. q values can maximal be pi0. The definition of p values ist not the same as for q values! A q
+    value defines what proportion of the reported discoveries may be false.
+
+  - Which cut off should I use?
+    - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_ (Storey 2003). It depends on your experimental design and the number of false positives you are willing to accept.
+    If there are _20 discoveries_, you may argue to accept if _2_ of them are false positives (FDR=0.1). On the other hand, if there are _10,000 discoveries_ with _1,000 false positives_ (FDR=0.1) you may should reduce the FDR. Thereby the 
+    proportion of false positives decreases. Of course in this case the number of positives will decrease as well. It all breaks down to the matter of willingness to accept a certain number of false positives within your study. 
+    If confirmatory follow up studies are cheap, you can increase the FDR, if they are **expensive**, you should restrict the number of false positives to **avoid unpleasant discussions with your supervisor**. 
+    
+  - In my study gene RBCM has an q value of 0.03. Does that indicate, there is a 3% chance, that it is an false positive?
+    - No, actually the change that this particulare gene is an false positive may actually be higher, because there may be genes that are much more significant than MSH2. The q value indicates, 
+    that 3% of the genes that are as or more extreme than RBCM are false positives (Storey 2003).
 
 ##References
-  - Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
-  - Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, Storey, John D., Jonathan E. Taylor, and David Siegmund, Journal of the Royal Statistical Society. Series B (Statistical Methodology), vol. 66, no. 1, [Royal Statistical Society, Wiley], 2004, pp. 187-205, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
-  - An improved method for computing q-values when the distribution of effect sizes is asymmetric, Orr M, Liu P, Nettleton D., Bioinformatics. 2014 Nov 1;30(21):3044-53. [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/). Epub 2014 Jul 14. PMID: 25024290; PMCID: PMC4609005.
-  - Nettleton, Dan, et al. "Estimating the Number of True Null Hypotheses from a Histogram of p Values." Journal of Agricultural, Biological, and Environmental Statistics, vol. 11, no. 3, [International Biometric Society, Springer], 2006, pp. 337-56, http://www.jstor.org/stable/27595607.
-  - Benjamini Y, Hochberg Y. On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics. Journal of Educational and Behavioral Statistics. 2000;25(1):60-83. doi:10.3102/10769986025001060
+  - Storey JD, Tibshirani R, Statistical significance for genomewide studies, 2003 [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
+  - Storey JD, Taylor JE, Siegmund D, Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, 2004, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
+  - Orr M, Liu P, Nettleton D, An improved method for computing q-values when the distribution of effect sizes is asymmetric, 2014, [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/)
+  - NettletonD et al., Estimating the Number of True Null Hypotheses from a Histogram of p Values., 2006, http://www.jstor.org/stable/27595607.
+  - Benjamini Y, Hochberg Y, On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics, 2000, [doi:10.3102/10769986025001060](https://journals.sagepub.com/doi/10.3102/10769986025001060)
 
 *)
