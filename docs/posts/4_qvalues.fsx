@@ -12,21 +12,13 @@ index: 0
 (***hide***)
 #r "nuget: FSharpAux, 1.1.0"
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
-#r "nuget: FSharp.Stats, 0.4.1"
-
-
-open FSharp.Stats
-
-
+#r "nuget: FSharp.Stats, 0.4.3"
 
 open Plotly.NET
 open Plotly.NET.StyleParam
 open Plotly.NET.LayoutObjects
 
- 
-
 module Chart = 
-
     let myAxis name = LinearAxis.init(Title=Title.init name,Mirror=StyleParam.Mirror.All,Ticks=StyleParam.TickOptions.Inside,ShowGrid=false,ShowLine=true)
     let withAxisTitles x y chart = 
         chart 
@@ -46,6 +38,7 @@ _[Benedikt Venn](https://github.com/bvenn)_, Jan 2022
 - [The multiple testing problem](#The-multiple-testing-problem)
 - [False discovery rate](#False-discovery-rate)
     - [q values](#q-values)
+    - [Variants](#variants)
 - [Quality plots](#Quality-plots)
 - [Definitions and Notes](#Definitions-and-Notes)
 - [References](#References)
@@ -74,7 +67,6 @@ Consider two population distributions that follow a normal distribution. Both ha
 open FSharpAux
 open FSharp.Stats
 
-
 let distributionA = Distributions.Continuous.normal 10.0 1.0
 let distributionB = Distributions.Continuous.normal 10.0 1.0
 
@@ -91,7 +83,6 @@ let distributionChartAB =
 
 (**<center>*)
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig01.html"
 distributionChartAB |> GenericChart.toChartHTML
 (***include-it-raw***)
 
@@ -208,13 +199,13 @@ let fwer =
         x,(1. - (1. - 0.05)**(float x))
         )
     |> Chart.Point
+    |> Chart.withYAxisStyle("",MinMax=(0.,1.))
     |> Chart.withAxisTitles "#tests" "p(at least one FP)" 
     |> Chart.withShape bonferroniLine
     |> Chart.withTitle "FWER"
 
 (**<center>*)
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig03.html"
 fwer |> GenericChart.toChartHTML
 (***include-it-raw***)
 
@@ -346,7 +337,6 @@ let exampleDistribution =
 
 (**<center>*)
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig06.html"
 exampleDistribution |> GenericChart.toChartHTML
 (***include-it-raw***)
 
@@ -383,11 +373,15 @@ FDR(0.04613) = 0.4995
 *)
 (***hide***)
 let pi0 = 0.4
+
 let getD p = 
     examplePVals 
-    |> Array.sumBy (fun x -> if x < p then 1. else 0.) 
+    |> Array.sumBy (fun x -> if x <= p then 1. else 0.) 
+
 let getFP p = p * pi0 * m
+
 let getFDR p = (getFP p) / (getD p)
+
 let qvaluesNotSmoothed = 
     examplePVals
     |> Array.sort
@@ -415,13 +409,13 @@ let eXpos = examplePVals |> Array.filter (fun x -> x <= 0.046135) |> Array.lengt
 let p2qValeChart =
     [qvaluesNotSmoothed;qvaluesSmoothed]
     |> Chart.combine
+    |> Chart.withYAxisStyle("",MinMax=(0.,1.))
     |> Chart.withAxisTitles "p value" "q value"
     |> Chart.withShape empLine
     |> Chart.withTitle (sprintf "#[genes with q value < 0.05] = %i" eXpos)
 
 (**<center>*)
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig07.html"
 p2qValeChart |> GenericChart.toChartHTML
 (***include-it-raw***)
 
@@ -442,7 +436,7 @@ For a range of $\lambda$ in e.g. $\{0.0  ..  0.05  ..  0.95\}$, calculate $\hat 
 
 
 let pi0Est = 
-    [|0. .. 0.05 .. 1.|]
+    [|0. .. 0.05 .. 0.95|]
     |> Array.map (fun lambda -> 
         let num = 
             examplePVals 
@@ -455,12 +449,12 @@ let pi0Est =
 let pi0EstChart = 
     pi0Est 
     |> Chart.Point
+    |> Chart.withYAxisStyle("",MinMax=(0.,1.))
     |> Chart.withAxisTitles "$\lambda$" "$\hat \pi_0(\lambda)$"
     |> Chart.withMathTex(true)
-//pi0EstChart|> GenericChart.toChartHTML
 (**<center>*)
 (***hide***)
-System.IO.File.ReadAllText "../img/qvalue_fig08.html"
+pi0EstChart|> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
@@ -471,9 +465,9 @@ _Fig 8: pi0 estimation._
 
 The resulting diagram shows, that with increasing $\lambda$ its function value $\hat \pi_0(\lambda)$ tends to $\pi_0$. The calculation <b>relates the actual proportion of tests greater than $\lambda$ to the proportion of $\lambda$ range the corresponding p values are in</b>.
 In Storey & Tibshirani 2003 this curve is fitted with a <b>cubic spline</b>. A weighting of the knots by $(1 - \lambda)$ is recommended 
-but not specified in the final publication. Afterwards the function value at $\hat \pi_0(1)$ is defined as final estimator of $\pi_0$. 
+but not specified in the final publication. Afterwards the function value at $\hat \pi_0(1)$ is defined as final estimator of $\pi_0$. This is often referred to as the _smoother method_.
 
-Another method, that does not depend on fitting is based on <b>bootstrapping</b> and was introduced in Storey et al. (2004). It is implemented in FSharp.Stats:
+Another method (_bootstrap method_) (Storey et al., 2004), that does not depend on fitting is based on <b>bootstrapping</b> and was introduced in Storey et al. (2004). It is implemented in FSharp.Stats:
 
   1. Determine the minimal $\hat \pi_0 (\lambda)$ and call it $min \hat \pi_0$ . 
 
@@ -516,15 +510,25 @@ let minpiHatShape =
     Shape.init(ShapeType.Line,0.,1.,minimalpihat,minimalpihat,Line=Line.init(Dash=DrawingStyle.Dash))
 
 let bootstrappedPi0 =
-    getpi0Bootstrap [|0. .. 0.05 .. 0.96|] examplePVals
+    getpi0Bootstrap [|0. .. 0.05 .. 0.95|] examplePVals
     |> Array.map (fun (l,x) -> 
         Chart.BoxPlot(x=Array.init x.Length (fun _ -> l),y=x,Fillcolor=Color.fromHex"#1F77B4",MarkerColor=Color.fromHex"#1F77B4",Name=sprintf "%.2f" l))
     |> Chart.combine
+    |> Chart.withYAxisStyle("",MinMax=(0.,1.))
     |> Chart.withAxisTitles "$\lambda$" "$\hat \pi_0$"
     |> Chart.withMathTex(true)
     |> Chart.withShape minpiHatShape
+    |> Chart.withConfig(
+        Config.init(
+            Responsive=true, 
+            ModeBarButtonsToAdd=[
+                ModeBarButton.DrawLine
+                ModeBarButton.DrawOpenPath
+                ModeBarButton.EraseShape
+                ]
+            )
+        )
 
-//System.IO.File.ReadAllText "../img/qvalue_fig09.html"
 bootstrappedPi0 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
@@ -563,6 +567,43 @@ qValues
 (***include-it***)
 
 (**
+###Variants
+
+A robust variant of q value determination exists, that is more conservative for small p values when
+the total number of p values is low. Here the number of false positives is divided by the number of 
+total discoveries multiplied by the FWER at the current p value. The correction takes into account 
+the probability of a false positive being reported in the first place.
+
+<center>
+
+$qval = {\#FP \over \#Discoveries}$ 
+
+$qval_{robust} = {\#FP \over \#Discoveries \times (1-(1-p)^m)}$ 
+
+</center>
+
+*)
+
+let qvaluesRobust = 
+    Testing.MultipleTesting.Qvalues.ofPValuesRobust pi0Stats examplePVals
+
+(***hide***)
+
+
+let qChart =    
+    [
+        Chart.Line(Array.sortBy fst (Array.zip examplePVals qValues),Name="qValue")
+        Chart.Line(Array.sortBy fst (Array.zip examplePVals qvaluesRobust),Name="qValueRobust")
+    ]
+    |> Chart.combine
+    |> Chart.withAxisTitles "p value" "q value"
+
+qChart |> GenericChart.toChartHTML
+(***include-it-raw***)
+
+(**
+_Fig 10: Comparison of q values and robust q values, that is more conservative at low p values._
+
 
 ##Quality plots
 
@@ -614,25 +655,23 @@ p2q |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 10: p value relation to q values. At a p value of 1 the q value is equal to pi0 (black dashed line)._
+_Fig 11: p value relation to q values. At a p value of 1 the q value is equal to pi0 (black dashed line)._
 *)
 
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig11.html"
 pValueDistribution |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 11: p value density distribution. The dashed line indicates pi0 estimated by Storeys bootstrapping method._
+_Fig 12: p value density distribution. The dashed line indicates pi0 estimated by Storeys bootstrapping method._
 *)
 
 (***hide***)
-//System.IO.File.ReadAllText "../img/qvalue_fig12.html"
 pi0Estimation|> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (**
-_Fig 12: Visual pi0 estimation._
+_Fig 13: Visual pi0 estimation._
 *)
 
 (**
@@ -645,7 +684,7 @@ _Fig 12: Visual pi0 estimation._
     - _"The Benjamini & Hochberg (1995) methodology also forces one to choose an acceptable FDR level before any data are seen, which is often going to be impractical."_
   - A method exists, to improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa. This method published in 2014 by Orr et al. estimates a global $m_0$ and then splits the p values 
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
-  
+  - The distinction of FDR and pFDR (positive FDR) is not crucial here, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
 
 ##References
   - Statistical significance for genomewide studies, John D. Storey, Robert Tibshirani, Proceedings of the National Academy of Sciences Aug 2003, 100 (16) 9440-9445; [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
