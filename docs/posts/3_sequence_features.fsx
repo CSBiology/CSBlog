@@ -13,6 +13,7 @@ index: 3
 #r "nuget: BioFSharp.IO, 2.0.0-beta6"
 #r "nuget: Newtonsoft.JSON, 12.0.3"
 #r "nuget: DynamicObj"
+#r "nuget: FSharp.Stats, 0.4.3"
 
 open BioFSharp
 open System.IO
@@ -352,7 +353,7 @@ I took heavy inspiration from DisProt's sequence viewer, which displays feature 
 To plot a sequence of characters on a 2D plot, we can leverage Plotly.NETs `Annotations`. 
 To give the annotations points that can trigger hovertext, i added an invisible line trace behind them.
 *)
-#r "nuget: Plotly.NET, 2.0.0-preview.11"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 
 open Plotly.NET
 open Plotly.NET.LayoutObjects
@@ -360,10 +361,10 @@ open Plotly.NET.LayoutObjects
 let testSeqChart = 
     Chart.Line(
         [for i in 0..3 -> (i,1)], 
-        Labels=["A";"T";"G";"C"], 
+        MultiText=["A";"T";"G";"C"], 
         Opacity=0.0,
         ShowLegend = false,
-        Color= Color.fromKeyword Black
+        LineColor= Color.fromKeyword Black
     )
     |> Chart.withAnnotations (
         ["A";"T";"G";"C"]
@@ -410,10 +411,10 @@ type Chart with
 
             Chart.Line(
                 [for i in 0..((Seq.length annotationText) - 1) -> (i,1)], 
-                Labels=annotationText, 
+                MultiText=annotationText, 
                 Opacity=0.0,
                 ShowLegend = false,
-                Color= Color.fromKeyword Black
+                LineColor= Color.fromKeyword Black
             )
             |> Chart.withXAxis(
                 LinearAxis.init(
@@ -544,7 +545,7 @@ type Chart with
                             Text = $"({f.Start}-{f.End}):  {f.Abbreviation}", 
                             TextPosition = StyleParam.TextPosition.Inside,
                             ShowLegend = false,
-                            Color = (Map.tryFind featureName featureColorMap |> Option.defaultValue (Color.fromKeyword Black))
+                            MarkerColor = (Map.tryFind featureName featureColorMap |> Option.defaultValue (Color.fromKeyword Black))
                         )
                     
                     )

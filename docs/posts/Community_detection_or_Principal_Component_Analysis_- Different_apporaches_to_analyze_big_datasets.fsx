@@ -9,15 +9,15 @@ index: 4
 *)
 (***hide***)
 
-#r "nuget: FSharp.Data"
-#r "nuget: Deedle"
-#r "nuget: FSharp.Stats"
-#r "nuget: Cyjs.NET"
+#r "nuget: FSharp.Data, 4.2.7"
+#r "nuget: Deedle, 2.5.0"
+#r "nuget: Cyjs.NET, 0.0.4"
 #r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: FSharp.FGL, 0.0.2"
 #r "nuget: FSharp.FGL.ArrayAdjacencyGraph, 0.0.2"
-#r "nuget: BioFSharp"
-#r "nuget: BioFSharp.Stats"
+#r "nuget: BioFSharp, 2.0.0-beta7"
+#r "nuget: BioFSharp.Stats, 2.0.0-beta6"
+#r "nuget: FSharp.Stats, 0.4.3"
 
 open Deedle
 open Plotly.NET
@@ -483,6 +483,7 @@ let ontologyResult =
         |> Seq.filter (fun (item,pvalAdj) -> item.PValue < 0.05) 
         |> Seq.sortByDescending (fun (item,pvalAdj) -> item.NumberOfDEsInBin) 
         |> Seq.map (fun (x,pvalAdj) ->
+            //TotalUnivers was renamed to TotalUniverse
             [sprintf "%i" moduleNumber; x.OntologyTerm; sprintf "%i" x.TotalUnivers; sprintf "%i" x.TotalNumberOfDE; sprintf "%i" x.NumberInBin;sprintf "%i" x.NumberOfDEsInBin; sprintf "%f"x.PValue ;sprintf "%f" pvalAdj]
             
             )
@@ -494,7 +495,7 @@ let ontologyResult =
 
 // Build a Plotly.Net table of the ontology enrichment     
 let ontologyTable =
-    let header = ["<b>Community</b>";"OntologyTerm";"TotalUnivers";"TotalNumberOfDE";"NumberInBin";"NumberOfDEsInBin";"PValue";"pvalAdj"]
+    let header = ["<b>Community</b>";"OntologyTerm";"TotalUniverse";"TotalNumberOfDE";"NumberInBin";"NumberOfDEsInBin";"PValue";"pvalAdj"]
     let rows = 
         ontologyResult
     Chart.Table(header, rows)

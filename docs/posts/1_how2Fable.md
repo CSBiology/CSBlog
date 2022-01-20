@@ -216,7 +216,7 @@ but also one for each F# source file. If we search it for `iAmAVeryLongAndEasily
 
 Because Fable can only compile code patterns and the functions from the modules in ``src\.fable`` it is **not** possible to compile any F# library with Fable out of the box.
 
-If we add `<PackageReference Include="FSharp.Stats" Version="0.4.2" />` to `App.fsproj` it will return an error.
+If we add `<PackageReference Include="FSharp.Stats" Version="0.4.3" />` to `App.fsproj` it will return an error.
 
 ```fsharp
 /// App.fs
