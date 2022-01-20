@@ -688,6 +688,7 @@ _Fig 13: Visual pi0 estimation._
 
 (**
 ##Definitions and Notes
+  - Benjamini-Hochberg correction is equal to q values with $\pi_0 = 0$
   - Storey & Tibshirani (2003):
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The q-value for a particular feature is the expected proportion of false positives occurring up through that feature on the list."_
@@ -696,6 +697,7 @@ _Fig 13: Visual pi0 estimation._
   - To improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa a method was published in 2014 by Orr et al.. They estimate a global $m_0$ and then split the p values 
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   - The distinction of FDR and pFDR (positive FDR) is not crucial in the presented context, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
+  - The local FDR (lFDR) is sometimes referred to as the probability that for the current p value the null hypothesis is true (Storey 2011).
 
 
 ##FAQ
@@ -716,6 +718,7 @@ _Fig 13: Visual pi0 estimation._
 ##References
   - Storey JD, Tibshirani R, Statistical significance for genomewide studies, 2003 [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
   - Storey JD, Taylor JE, Siegmund D, Strong Control, Conservative Point Estimation and Simultaneous Conservative Consistency of False Discovery Rates: A Unified Approach, 2004, [http://www.jstor.org/stable/3647634](https://www.jstor.org/stable/3647634?seq=1#metadata_info_tab_contents).
+  - Storey JD, Princeton University, 2011, [preprint](http://genomics.princeton.edu/storeylab/papers/Storey_FDR_2011.pdf)
   - Orr M, Liu P, Nettleton D, An improved method for computing q-values when the distribution of effect sizes is asymmetric, 2014, [doi: 10.1093/bioinformatics/btu432](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4609005/)
   - NettletonD et al., Estimating the Number of True Null Hypotheses from a Histogram of p Values., 2006, http://www.jstor.org/stable/27595607.
   - Benjamini Y, Hochberg Y, On the Adaptive Control of the False Discovery Rate in Multiple Testing With Independent Statistics, 2000, [doi:10.3102/10769986025001060](https://journals.sagepub.com/doi/10.3102/10769986025001060)
