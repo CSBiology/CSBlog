@@ -586,6 +586,9 @@ the total number of p values is low. Here the number of false positives is divid
 total discoveries multiplied by the FWER at the current p value. The correction takes into account 
 the probability of a false positive being reported in the first place.
 
+Especially when the population distributions do not follow a perfect normal distribution or the p value distribution looks strange, 
+the usage of the robust version is recommended.
+
 <center>
 
 $qval = {\#FP \over \#Discoveries}$ 
@@ -688,7 +691,7 @@ _Fig 13: Visual pi0 estimation._
 
 (**
 ##Definitions and Notes
-  - Benjamini-Hochberg correction is equal to q values with $\pi_0 = 0$
+  - Benjamini-Hochberg (BH) correction is equal to q values with $\pi_0 = 1$
   - Storey & Tibshirani (2003):
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_
     - _"The q-value for a particular feature is the expected proportion of false positives occurring up through that feature on the list."_
@@ -698,6 +701,7 @@ _Fig 13: Visual pi0 estimation._
   in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   - The distinction of FDR and pFDR (positive FDR) is not crucial in the presented context, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
   - The local FDR (lFDR) is sometimes referred to as the probability that for the current p value the null hypothesis is true (Storey 2011).
+  - If you have found typos, errors, or misleading statements, please feel free to file a pull request or contact me.
 
 
 ##FAQ
@@ -709,11 +713,19 @@ _Fig 13: Visual pi0 estimation._
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_ (Storey 2003). It depends on your experimental design and the number of false positives you are willing to accept.
     If there are _20 discoveries_, you may argue to accept if _2_ of them are false positives (FDR=0.1). On the other hand, if there are _10,000 discoveries_ with _1,000 false positives_ (FDR=0.1) you may should reduce the FDR. Thereby the 
     proportion of false positives decreases. Of course in this case the number of positives will decrease as well. It all breaks down to the matter of willingness to accept a certain number of false positives within your study. 
+    Studies, that aim to identify the presence of an specific protein of interest, the FDR should be kept low, because it inflates the risk, that this particular candidate is a false positive.
     If confirmatory follow up studies are cheap, you can increase the FDR, if they are **expensive**, you should restrict the number of false positives to **avoid unpleasant discussions with your supervisor**. 
     
   - In my study gene RBCM has an q value of 0.03. Does that indicate, there is a 3% chance, that it is an false positive?
     - No, actually the change that this particulare gene is an false positive may actually be higher, because there may be genes that are much more significant than MSH2. The q value indicates, 
     that 3% of the genes that are as or more extreme than RBCM are false positives (Storey 2003).
+
+  - Should I use the default or robust version for my study?
+
+  - When should I use q values over BH correction, or other multiple testing variants?
+    - There is no straight forward answer to this question. If you are able to define a confident pi0 estimate by eye when inspecting the p value distribution, then the q value approach may be feasable.
+    If you struggle in defining pi0, because the p value distribution has an odd shape or there are too few p values on which you base your estimate, it is better to choose the more conservative BH correction, or even
+    consider other methodologies.
 
 ##References
   - Storey JD, Tibshirani R, Statistical significance for genomewide studies, 2003 [DOI: 10.1073/pnas.1530509100](https://www.pnas.org/content/100/16/9440)
