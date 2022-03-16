@@ -29,7 +29,7 @@ module Chart =
 (**
 # q values
 
-_[Benedikt Venn](https://github.com/bvenn)_, Jan 2022
+_[Benedikt Venn](https://github.com/bvenn)_
 
 
 ### Table of contents

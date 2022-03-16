@@ -183,6 +183,8 @@ Offending annotations:
 (**
 # Modelling and visualizing sequence features with BioFSharp and Plotly.NET
 
+_[Kevin Schneider](https://github.com/kMutagene)_
+
 ### Table of contents
 
 - [Assigning secondary structure for proteins based on .pdb files](#Assigning-secondary-structure-for-proteins-based-on-pdb-files)

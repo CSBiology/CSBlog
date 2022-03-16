@@ -15,6 +15,8 @@ index: 0
 open Plotly.NET
 
 (**
+_[Henrich Lukas Weil](https://github.com/HLWeil)_
+
 # Creating a Documentation
 ## Introduction
 

@@ -33,7 +33,7 @@ open BioFSharp.Stats
 
 (**
 # Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
-_[Christopher Lux](https://github.com/LibraChris)_, Jan 2022
+_[Christopher Lux](https://github.com/LibraChris)_
 
 
 ## Content
