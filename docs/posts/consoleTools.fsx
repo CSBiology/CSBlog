@@ -105,9 +105,7 @@ __The starting Program.fs in .NET 6 with inclusion and usage of the input argume
 ```fsharp
 let userInput = 
     let args = System.Environment.GetCommandLineArgs()      // first argument will always be the filepath to the executable
-    match args.Length with
-    | 1 -> [||]
-    | _ -> args[1 ..]
+    Array.skip 1 args
 
 printfn "Hello from F# with userInput: %A" userInput
 ```
@@ -166,8 +164,10 @@ For a list of runtimes you can deploy to, look [here](https://docs.microsoft.com
 ### Single file vs. folder
 
 Default is that your console app will be deployed as an executable file inside a folder with all libraries and other files needed for the execution. Sometimes, especially when you don't have an installer for your application (which will mostly be the case) or you don't want your app users to handle [ZIP archives](https://experience.dropbox.com/resources/what-is-a-zip-file), it might be a good choice to use single file-deployment. In that case, the whole folder content will be packed into a single file which itself will serve as an archive that gets extracted
+
 - into the user's temp folder at runtime and then executed (.NET 5).  
 - directly into the memory and then executed (.NET 6).  
+
 Using the single file deployment comes at the cost of a slightly slower startup time due to the extraction process.
 
 
@@ -219,6 +219,33 @@ Unfortunately, even for our small example app (which does nothing else than prin
 
 `<EnableCompression>` decreases file size by about 50 %. This comes at the cost of a higher startup time.
 `<PublishTrimmed>` decreases file size depending on the number of unused libraries and classes but compiletime is noticeably increased. Since this feature is still in beta stage, it is possible that the resulting app does not start or fails under special circumstances, though this seems rarely to be the case (I personally never encountered it).
+
+There are a lot (!) of different properties you can set in your project file. I won't cover all of them here, but here are a few other things that might be important to you:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <CultureInvariant>true</CultureInvariant>       <!--Depending on the regional settings of your system, you might get problems with different signs (`,`, `.`, and so on)-->
+                                                    <!--Due to this, it is best practice to set `<CultureInvariant>` to true, so that you don't have to expect parsing errors-->
+    <InvariantGlobalization>true</InvariantGlobalization>   <!--Comparable to the setting above-->
+    <ServerGarbageCollection>true</ServerGarbageCollection>     <!--Important to set this to true if you don't want to expect performance problems due to garbage collection-->
+    <Version>0.0.1</Version>                    <!--There are 3 version settings: `<Version>`, `AssemblyVersion>, and `FileVersion`. `<Version>` is an informal version tag of your application-->
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>  <!--`<AssemblyVersion>` is the version tag that you can access to while using your app via `System.Reflection.Assembly.GetExecutingAssembly()`-->
+    <FileVersion>0.0.1.0</FileVersion>          <!--This is the version tag that you can see when rightclicking on your app and looking at the properties. It defaults to 1.0.0.0-->
+                                                <!--Keep in mind that the versioning follows the `(Major).(Minor).(Build).(Revision)` pattern (except `<Version>` tag)-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
+```
 
 _([Further reading](https://dotnetcoretutorials.com/2021/11/10/single-file-apps-in-net-6/))_
 
@@ -463,14 +490,14 @@ and SubCommands =
 // initialization of the parser
 let parser = ArgumentParser.Create<MainCommands>()
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main argv =
     try 
         // parse the user's command-line arguments
         let pr = parser.ParseCommandLine(inputs = argv, raiseOnUsage = true)
         // return the results
         let ar = pr.GetAllResults()
-        // this is the actual algorithm stuff: What shall happen if the user gives what argument, what second argument, and so on
+        // this is the actual control flow: What shall happen if the user gives what argument, what second argument, and so on
         match ar.Length with
         | 0 -> printfn "No input."
         | _ ->
@@ -513,7 +540,7 @@ open System.Threading
 open Spectre.Console
 open FSharpAux
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
 
     // a test file for our purposes
@@ -569,7 +596,7 @@ type Dir = {
     Files   : FileInfo []
 }
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
 
     // special markup for special files
@@ -620,7 +647,7 @@ Building a Bar Chart:
 
 *)
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
 
     let noOfContributionsIn2021 =
@@ -685,7 +712,7 @@ let main _ =
 
 *)
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
 
     let bm = new System.Drawing.Bitmap(@"C:\testFolder\testDir\sp.png")
@@ -713,7 +740,7 @@ Starting a live update:
 
 *)
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
     
     // initialize a status report
@@ -857,7 +884,7 @@ Notice that we have to apply rules for each log level. The different log levels 
 
 *)
 
-//[<EntryPoint>]
+[<EntryPoint>]
 let main _ =
 
     log.Info("Info Message")
