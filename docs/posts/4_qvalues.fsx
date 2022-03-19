@@ -29,7 +29,7 @@ module Chart =
 (**
 # q values
 
-_[Benedikt Venn](https://github.com/bvenn)_
+_[Benedikt Venn](https://github.com/bvenn), Jan 2022_
 
 
 ### Table of contents
@@ -111,7 +111,7 @@ pValue
 10,000 tests are performed, each with new randomly drawn samples. This corresponds to an experiment in which <b>none of the features changed</b> 
 Note, that the mean intensities are arbitrary and must not be the same for all features! In the presented case all feature intensities are in average 10.
 The same simulation can be performed with pairwise comparisons from distributions that differ for each feature, but are the same within the feature.
-<b>The resulting p values are uniformely distributed between 0 and 1</b>
+<b>The resulting p values are uniformly distributed between 0 and 1</b>
 
 <br>
 
@@ -182,7 +182,7 @@ In average 350 null features would be reported as significant even though they d
 
 ##The multiple testing problem
 
-The hypothesis testing framework with the p value definition given above was <b>developed for performing just one test. If many tests are performed, like in modern high throuput studies, the probability to obtain a 
+The hypothesis testing framework with the p value definition given above was <b>developed for performing just one test. If many tests are performed, like in modern high throughput studies, the probability to obtain a 
 false positive result increases.</b> The probability of at least one false positive is called Familywise error rate (FWER) and can be determined by $FWER=1-(1-\alpha)^m$ where 
 $\alpha$ corresponds to the significance threshold (here 0.05) and $m$ is the number of performed tests.
 
@@ -215,25 +215,25 @@ fwer |> GenericChart.toChartHTML
 _Fig 3: Familiy wise error rate depending on number of performed tests. The black dashed line indicates the Bonferroni corrected FWER by $p^* = \frac{\alpha}{m}$ ._
 
 
-When 10,000 null features are tested with a p value threshold of 0.05, in average 500 tests are reported significant even if there is not a single comparisons in which the 
-population differ. **If some of the features are in fact different, the number of false positives consequently decreases (remember, the p value is defined for tests of null features).**
+When 10,000 null features are tested with a p value threshold of 0.05, in average 500 tests are reported significant even if there is not a single comparison in which the 
+populations differ. **If some of the features are in fact different, the number of false positives consequently decreases (remember, the p value is defined for tests of null features).**
 
 Why the interpretation of high throughput data based on p values is difficult: The more features are measured, the more false positives you can expect. If 100 differentially 
 expressed genes are identified by p value thresholding, without further information about the magnitude of expected changes and the total number of measured transcripts, the 
 data is useless. 
 
-The p value threshold has no straight-forward interpretation when many tests are performed. Of course you could restrict the family wise error rate to 0.05, regardless 
+The p value threshold has no straight-forward interpretation when many tests are performed. Of course, you could restrict the family wise error rate to 0.05, regardless 
 how many tests are performed. This is realized by dividing the $\alpha$ significance threshold by the number of tests, which is known as Bonferroni correction: $p^* = \frac{\alpha}{m}$.
-This correction drastically limit the false positive rate, but in an experiment with a huge count of expected changes, it additionally would result in many false negatives. The 
+This correction drastically limits the false positive rate, but in an experiment with a huge count of expected changes, it additionally would result in many false negatives. The 
 FWER should be chosen if the costs of follow up studies to tests the candidates are dramatic or there is a huge waste of time to potentially study false positives.
 
 ##False discovery rate
 
-A more reasonable measure of significance with a simple interpretation is the so called false discovery rate (FDR). **It describes the rate of expected false positives within the 
+A more reasonable measure of significance with a simple interpretation is the so-called false discovery rate (FDR). **It describes the rate of expected false positives within the 
 overall reported significant features.** The goal is to identify as many sig. features as possible while incurring a relatively low proportion of false positives.
-Consequently a set of reported significant features together with the <b>FDR describes the confidence of this set</b>, without the requirement to 
+Consequently, a set of reported significant features together with the <b>FDR describes the confidence of this set</b>, without the requirement to 
 somehow incorporate the uncertainty that is introduced by the total number of tests performed. In the simulated case of 7,000 null tests and 3,000 tests resulting from truly 
-differing distributions above, the FDR can be calculated exactly. Therefore at e.g. a p value of 0.05 the number of false positives (blue in red box) are devided by the number 
+differing distributions above, the FDR can be calculated exactly. Therefore at e.g. a p value of 0.05 the number of false positives (blue in red box) are divided by the number 
 of significant reported tests (false positives + true positives). 
 
 
@@ -251,7 +251,7 @@ _Fig 4: p value distribution of the alternative hypothesis._
 Given the conditions described in the first chapter, the FDR of this experiment with a p value threshold of 0.05 is 0.173. Out of the 2019 reported significant comparisons, in average 350 
 are expected to be false positives, which gives an straight forward interpretation of the data confidence. In real-world experiments the proportion of null tests and tests 
 deriving from an actual difference is of course unknown. **The proportion of null tests however tends to be distributed equally in the p value histogram.** By identification of 
-the average null frequency, a proportion of FP and TP can be determined and the FDR can be defined. This frequency estimate is called $\pi_0$, which leads to an FDR definition of:
+the average null frequency, a proportion of FP and TP can be determined, and the FDR can be defined. This frequency estimate is called $\pi_0$, which leads to an FDR definition of:
 
 
 
@@ -274,7 +274,7 @@ _Fig 5: FDR calculation on simulated data._
 
 ### q values
 
-Consequently for each presented p value a corresponding FDR can be calculated. The minimum local FDR at each p value is called q value. 
+Consequently, for each presented p value a corresponding FDR can be calculated. The minimum local FDR at each p value is called q value. 
 
 $$\hat q(p_i) = min_{t \geq p_i} \hat{FDR}(p_i)$$
 
@@ -287,7 +287,7 @@ positives, a $\pi_0$ of 1 is too conservative, since there definitely are true p
 
 A better estimation of $\pi_0$ is given in the following:
 
-<b>True positives are assumed to be right skewed while null tests are distributed equally between 0 and 1</b>. Consequently the right flat region of the p value histogram tends to correspond 
+<b>True positives are assumed to be right skewed while null tests are distributed equally between 0 and 1</b>. Consequently, the right flat region of the p value histogram tends to correspond 
 to the true frequency of null comparisons (Fig 5). As <b>real world example</b> 9856 genes were measured in triplicates under two conditions (control and treatment). The p value distribution of two 
 sample t tests looks as follows:
 
@@ -352,7 +352,7 @@ were null. The red dash-dotted line indicates the visual estimated pi0._
 
 
 By performing t tests for all comparisons 3743 (38 %) of the genes lead to a pvalue lower than 0.05.
-By eye, you would estimate $\pi_0$ as 0.4, indicating, only a small fraction of the genes are unaltered (null). After q value calculations, you would filter for a specific FDR (e.g. 0.05) and 
+By eye, you would estimate $\pi_0$ as 0.4, indicating, only a small fraction of the genes is unaltered (null). After q value calculations, you would filter for a specific FDR (e.g. 0.05) and 
 end up with an p value threshold of 0.04613, indicating a FDR of max. 0.05 in the final reported 3642 genes. 
 
 ```no-highlight
@@ -698,7 +698,7 @@ _Fig 13: Visual pi0 estimation._
     - _"The precise definition of the q-value for a particular feature is the following. The q-value for a particular feature is the minimum false discovery rate that can be attained when calling all features up through that one on the list significant."_
     - _"The Benjamini & Hochberg (1995) methodology also forces one to choose an acceptable FDR level before any data are seen, which is often going to be impractical."_
   - To improve the q value estimation if the effects are asymmetric, meaning that negative effects are stronger than positives, or vice versa a method was published in 2014 by Orr et al.. They estimate a global $m_0$ and then split the p values 
-  in two groups before calulating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
+  in two groups before calculating q values for each p value set. The applicability of this strategy however is questionable, as the number of up- and downregulated features must be equal, which is not the case in most biological experimental setups.
   - The distinction of FDR and pFDR (positive FDR) is not crucial in the presented context, because in high throughput experiments with m>>100: Pr(R > 0) ~ 1 (Storey & Tibshirani, 2003, Appendix Remark A).
   - The local FDR (lFDR) is sometimes referred to as the probability that for the current p value the null hypothesis is true (Storey 2011).
   - If you have found typos, errors, or misleading statements, please feel free to file a pull request or contact me.
@@ -706,24 +706,24 @@ _Fig 13: Visual pi0 estimation._
 
 ##FAQ
   - Why are q values lower than their associated p values?
-    - q values are not necessarily greater than their associated p values. q values can maximal be pi0. The definition of p values ist not the same as for q values! A q
+    - q values are not necessarily greater than their associated p values. q values can maximal be pi0. The definition of p values is not the same as for q values! A q
     value defines what proportion of the reported discoveries may be false.
 
   - Which cut off should I use?
     - _"The 0.05 q-value cut-off is arbitrary, and we do not recommend that this value necessarily be used."_ (Storey 2003). It depends on your experimental design and the number of false positives you are willing to accept.
     If there are _20 discoveries_, you may argue to accept if _2_ of them are false positives (FDR=0.1). On the other hand, if there are _10,000 discoveries_ with _1,000 false positives_ (FDR=0.1) you may should reduce the FDR. Thereby the 
-    proportion of false positives decreases. Of course in this case the number of positives will decrease as well. It all breaks down to the matter of willingness to accept a certain number of false positives within your study. 
+    proportion of false positives decreases. Of course, in this case the number of positives will decrease as well. It all breaks down to the matter of willingness to accept a certain number of false positives within your study. 
     Studies, that aim to identify the presence of an specific protein of interest, the FDR should be kept low, because it inflates the risk, that this particular candidate is a false positive.
     If confirmatory follow up studies are cheap, you can increase the FDR, if they are **expensive**, you should restrict the number of false positives to **avoid unpleasant discussions with your supervisor**. 
     
   - In my study gene RBCM has an q value of 0.03. Does that indicate, there is a 3% chance, that it is an false positive?
-    - No, actually the change that this particulare gene is an false positive may actually be higher, because there may be genes that are much more significant than MSH2. The q value indicates, 
+    - No, actually the chance that this particular gene is an false positive may actually be higher, because there may be genes that are much more significant than RBCM. The q value indicates, 
     that 3% of the genes that are as or more extreme than RBCM are false positives (Storey 2003).
 
   - Should I use the default or robust version for my study?
 
   - When should I use q values over BH correction, or other multiple testing variants?
-    - There is no straight forward answer to this question. If you are able to define a confident pi0 estimate by eye when inspecting the p value distribution, then the q value approach may be feasable.
+    - There is no straight forward answer to this question. If you are able to define a confident pi0 estimate by eye when inspecting the p value distribution, then the q value approach may be feasible.
     If you struggle in defining pi0, because the p value distribution has an odd shape or there are too few p values on which you base your estimate, it is better to choose the more conservative BH correction, or even
     consider other methodologies.
 
