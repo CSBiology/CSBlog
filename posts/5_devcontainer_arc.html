@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>VS Code Remote-Container and the ARC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/CSBlog//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-tips.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/init.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/CSBlog/">
+                        <figure class="image is-128x128 container">
+                            <img src="/CSBlog/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">CSBlog</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">
+  Overview
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/about.html">
+    About
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/blogposts_overview.html">
+    Blog posts
+  </a>
+</li>             
+<li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/documentation.html">
+    Creating a Documentation
+  </a>
+</li>             
+<li class="nav-header">
+  Visualization
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/WorkshopSeries_3_plotly.html">
+    Introduction to Data visualization using Plotly.NET
+  </a>
+</li>             
+<li class="nav-header">
+  Implementation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/0_how2JSONSchema.html">
+    How to develop and use a JSON Schema
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/consoleTools.html">
+    Console apps: Above and beyond
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/1_how2Fable.html">
+    How to use Fable
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/3_sequence_features.html">
+    Modelling and visualizing sequence features with BioFSharp and Plotly.NET
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/Community_detection_or_Principal_Component_Analysis_- Different_apporaches_to_analyze_big_datasets.html">
+    Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
+  </a>
+</li>             
+<li class="nav-header">
+  Learning resources
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/4_qvalues.html">
+    q values
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/5_devcontainer_arc.html">
+    VS Code Remote-Container and the ARC
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<h1><a name="VS-Code-Remote-Container-and-the-ARC" class="anchor" href="#VS-Code-Remote-Container-and-the-ARC">VS Code Remote-Container and the ARC</a></h1>
+<p><em><a href="https://github.com/Joott">Jonathan Ott</a></em>, <em><a href="https://github.com/Freymaurer">Kevin Frey</a></em> ~ <em>last updated: 2022-04-25</em></p>
+<p>In this blogpost I will deal with the question how computational data analysis could look like in a reproducible environment. You can read more about FAIR data and the important concepts on the <a href="https://www.nfdi4plants.de">DataPLANT website</a>. DataPLANT's research data management is built around the <strong>ARC</strong> (<a href="https://www.nfdi4plants.de/content/learn-more/annotated-research-context.html">Annotated Research Context</a>), a folder and file structure to not only annotate research data but also to store and share it. Workflows and Runs also refer to computational data analysis done on the produced data. It is important that not only laboratory experiments are reproducible, but also the data analysis is repeatable. Therefore, i propose using Visual Studio Code <a href="https://code.visualstudio.com/docs/remote/containers"><code>Remote-Containers</code></a> for scripting in an ARC environment. This VS Code extensions allows us to connect with our personal VS Code instance to a VS Code Server instance inside a docker container. Inside of the docker container runs defined development environment, which allows any user to recreate the environment under which the data analysis was originally performed.</p>
+<h2><a name="Requirements" class="anchor" href="#Requirements">Requirements</a></h2>
+<ul>
+<li>Installed <a href="https://docs.docker.com/get-docker/">Docker</a>.</li>
+<li>VS Code with <a href="https://code.visualstudio.com/docs/remote/containers"><code>Remote-Containers</code></a> extension.</li>
+</ul>
+<h2><a name="Set-up" class="anchor" href="#Set-up">Set up</a></h2>
+<p>This blogpost assumes that an ARC was already created (with the <a href="https://nfdi4plants.org/content/service.html">ArcCommander</a>) and the data annotated (with <a href="https://github.com/nfdi4plants/Swate#swate">Swate</a>). The example ARC I will link for this blogpost was reduced to a minimal version for ease of use.</p>
+<p>To use remote containers we need 3 things:</p>
+<ul>
+<li>
+a <code>.devcontainer</code> folder with the following files:
+<ul>
+<li><code>.devcontainer/devcontainer.json</code></li>
+<li><code>.devcontainer/settings.vscode.json</code></li>
+</ul>
+</li>
+<li><code>Dockerfile</code></li>
+</ul>
+<p>For this example I will use a devcontainer "designed" for an F# development environment. Let's start with a look at the devcontainer.json</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="json">// devcontainer.json
+{
+    "name": "FSharpCodeContainer",
+    "dockerFile": "../Dockerfile", // Path to Dockerfile with environment
+    "appPort": [8080],
+    "extensions": [ 
+        "ionide.ionide-fsharp", // F# extension
+        "ms-vscode.csharp",
+        "editorconfig.editorconfig",
+        "ms-dotnettools.dotnet-interactive-vscode", // allows to create juypter notebooks with .NET kernel
+        "cweijan.vscode-office" // can display .xlsx files in VS Code
+    ],
+} 
+</code></pre></td></tr></table>
+<p>Here we can specify, which extensions the VS Code Server instance in our docker container should be running. We also reference the dockerfile which should be used to build the container. There we specify that we for example want to use the .NET sdk 6.0.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Dockerfile">FROM mcr.microsoft.com/dotnet/sdk:6.0
+# Dockerfile
+
+# Copy endpoint specific user settings into container to specify
+# .NET Core should be used as the runtime.
+COPY .devcontainer/settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
+
+# Install git, process tools
+RUN apt-get update &amp;&amp; apt-get -y install git procps
+
+WORKDIR /workspaces/FSharpCodespace/dependencies
+</code></pre></td></tr></table>
+<blockquote>
+<p>👀 If you want to go along the example, you can download the minimal arc (<code>arc-bio-bte-06-l-7-small.zip</code>) from the <a href="https://github.com/CSBiology/CSBlog">CSBlog repository</a>.</p>
+</blockquote>
+<h2><a name="Folderstructure" class="anchor" href="#Folderstructure">Folderstructure</a></h2>
+<pre>assays
+    - VP21_WC
+        - dataset
+            - WCAnnotated_Ratio.txt
+        isa.assay.xlsx
+runs
+    - VP21_WC
+        data-analysis.ipynb
+        analyze.yml
+        data-analysis.fsx
+workflows
+    - FSharpContainer
+        Dockerfile
+        - .devcontainer
+            - devcontainer.json
+            - settings.vscode.json
+    FSharpContainer.cwl</pre>
+<p>There are more folders and files in there, but let's focus on these for now.</p>
+<ul>
+<li><code>assays\VP21_WC\dataset\WCAnnotated_Ratio.txt</code> is the file that contains the data. It is a tab separated file and contains the 14N/15N ratios (<a href="https://training.galaxyproject.org/training-material/topics/proteomics/tutorials/protein-quant-sil/tutorial.html">ref</a>) for the proteins of interest.</li>
+<li><code>assays\VP21_WC\isa.assay.xlsx</code> contains the metadata information for the experiment. Growthconditions, <a href="https://pubmed.ncbi.nlm.nih.gov/26791984/">QconCat proteins</a>, and biological replicates to name a few.</li>
+<li><code>runs\VP21_WC\data-analysis.ipynb</code> is the notebook that contains the data analysis. It is a <a href="https://jupyter-notebook.readthedocs.io/en/stable/">Jupyter Notebook</a> with .NET Kernel and F# code.</li>
+<li><code>workflows\FSharpContainer\</code> contains the information for the VS Code remote container.</li>
+</ul>
+<h2><a name="How-to-start" class="anchor" href="#How-to-start">How to start</a></h2>
+<ol>
+<li>Open the <code>workflows\FSharpContainer\</code> folder on root level as workspace in VS Code.</li>
+<li>Click on the new bottom left <code>&gt;&lt;</code> button and <code>Reopen in container</code>.</li>
+<li>This will create the container in docker (needs to be running) and binds the workspace and all changes into the docker dev environment.</li>
+<li>All changes are computed in the docker environment but reflected to the local files.</li>
+</ol>
+<h2><a name="️-devcontainer-MUST-be-on-root-level" class="anchor" href="#️-devcontainer-MUST-be-on-root-level">⚠️ .devcontainer MUST be on root level</a></h2>
+<p>In an <em>ARC</em> we don't want to have the .devcontainer folder in the root of the project. But instead we want to have it under <em>workflows</em>.
+So to start the devcontainer with VS Code we need to open the exact parent folder of <code>.devcontainer</code> folder. In this case <code>arc-bio-bte-06-l-7-small/workflows/FSharpCodeContainer</code>.</p>
+<p>This means most files in the mounted volume will not be displayed in the VS Code file explorer.</p>
+<p>This issue is also mentioned <a href="https://github.com/microsoft/vscode-remote-release/issues/2413">here</a>.</p>
+<h3><a name="How-to-open-access-not-displayed-files" class="anchor" href="#How-to-open-access-not-displayed-files">How to open/access not displayed files</a></h3>
+<ul>
+<li><kbd>Ctrl</kbd> + <kbd>O</kbd> to use VS Code <code>Open File...</code> .</li>
+<li><code>File</code> -&gt; <code>Open Folder...</code> to rescope workspace to base folder.</li>
+</ul>
+<blockquote>
+<p>👀 If you downloaded the example arc open <code>runs\VP21_WC\data-analysis.ipynb</code> and follow along from there. All content will be the same, but you can run the code in the jupyter notebook.</p>
+</blockquote>
+<h2><a name="Dependencies" class="anchor" href="#Dependencies">Dependencies</a></h2>
+<p>We start by importing all required nuget packages.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">#r "nuget: Deedle, 2.3.0"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
+#r "nuget: Plotly.NET.Interactive, 2.0.0-preview.16"
+#r "nuget: FSharp.Stats, 0.4.1"
+#r "nuget: FSharpAux"
+#r "nuget: BIO-BTE-06-L-7_Aux, 0.0.9"
+#r "nuget: ISADotNet, 0.4.0-preview.4"
+#r "nuget: ISADotNet.XLSX, 0.4.0-preview.4"
+#r "nuget: ISADotNet.IO, 0.0.2"
+
+open Deedle
+open Plotly.NET
+open Plotly.NET.LayoutObjects
+open FSharp.Stats
+open System.IO
+open FSharpAux
+open BIO_BTE_06_L_7_Aux.Deedle_Aux
+</code></pre></td></tr></table>
+<h2><a name="Review-Assay-file" class="anchor" href="#Review-Assay-file">Review Assay file</a></h2>
+<p>The devcontainer has the <code>Office Viewer</code> extension installed so we can open <code>/workspaces/blogpost-playground/arc-bio-bte-06-l-7-small/assays/VP21_WC/isa.assay.xlsx</code> without leaving the VS Code environment!</p>
+<p>Some important things to note from the isa.assay.xlsx file.</p>
+<ul>
+<li>In the <code>Cultivation</code> sheet we can see that the experiment used 3 biological replicates.</li>
+<li>
+In <code>Protein Extraction</code> we can see, that the replicates were split into 4 samples each with different quantities of Q-Protein:
+<ul>
+<li><code>Parameter [15N Calvin-Benson cycle QconCAT mass#3]</code></li>
+<li><code>Parameter [15N Photosynthesis QconCAT mass#4]</code></li>
+</ul>
+</li>
+<li>Any further processing was done equally on all those samples.</li>
+<li>
+All data processing ends in one file <code>../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt</code>.
+<ul>
+<li>⚠️ Normally the computational part should be better annotated, but for this minimal example we just have to know that the result file contains 14N/15N ratios for all peptides of the two used Q-Proteins. ⚠️</li>
+</ul>
+</li>
+</ul>
+<h2><a name="Data-analysis" class="anchor" href="#Data-analysis">Data analysis</a></h2>
+<h3><a name="Data-access" class="anchor" href="#Data-access">Data access</a></h3>
+<p>We start by accessing our data and reading it into an <a href="https://fslab.org/packages.html">Deedle frame</a>.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pn">[&lt;</span><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Literal</span><span class="pn">&gt;]</span>
+<span class="k">let</span> <span class="id">dataPath</span> <span class="o">=</span> <span class="s">@&quot;../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt&quot;</span>
+
+<span class="c">// quality control, check dilution series. In this example mean should always increase by times 5.</span>
+<span class="k">type</span> <span class="id">Qprot</span> <span class="o">=</span>
+    <span class="pn">|</span> <span class="id">CBB</span>
+    <span class="pn">|</span> <span class="id">PS</span>
+
+<span class="k">type</span> <span class="id">PeptideIon</span> <span class="o">=</span> 
+    <span class="pn">{</span>
+        <span class="id">ProteinGroup</span>    <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">string</span>  
+        <span class="id">Synonym</span>         <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="id">string</span>
+        <span class="id">StringSequence</span>  <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="id">string</span>
+        <span class="id">PepSequenceID</span>   <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs3', 5)" onmouseover="showTip(event, 'fs3', 5)" class="id">int</span>
+        <span class="id">Charge</span>          <span class="pn">:</span> <span onmouseout="hideTip(event, 'fs3', 6)" onmouseover="showTip(event, 'fs3', 6)" class="id">int</span>
+        <span class="id">QProt</span>           <span class="pn">:</span> <span class="id">Qprot</span>
+    <span class="pn">}</span>
+
+<span class="k">let</span> <span class="id">rowKeyColNames</span> <span class="o">=</span> <span class="pn">[|</span><span class="s">&quot;ProteinGroup&quot;</span><span class="pn">;</span> <span class="s">&quot;StringSequence&quot;</span><span class="pn">;</span> <span class="s">&quot;PepSequenceID&quot;</span><span class="pn">;</span> <span class="s">&quot;Charge&quot;</span><span class="pn">;</span> <span class="s">&quot;Synonym&quot;</span><span class="pn">|]</span>
+
+<span class="c">/// Open .xlsx file and index rows with column information. Then drop those columns</span>
+<span class="k">let</span> <span class="id">readQuantAndProtFrame</span> <span class="pn">(</span><span class="id">path</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 7)" onmouseover="showTip(event, 'fs2', 7)" class="id">string</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="id">frame</span> <span class="o">=</span>
+        <span class="id">Frame</span><span class="pn">.</span><span class="id">ReadCsv</span> <span class="pn">(</span><span class="id">path</span><span class="pn">,</span><span class="k">true</span><span class="pn">,</span><span class="id">separators</span><span class="o">=</span><span class="s">&quot;\t&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">indexRowsUsing</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">s</span> <span class="k">-&gt;</span>
+            <span class="k">let</span> <span class="id">pGroup</span> <span class="o">=</span> 
+                <span class="id">s</span><span class="pn">.</span><span class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs2', 8)" onmouseover="showTip(event, 'fs2', 8)" class="id">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="pn">)</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="id">String</span><span class="pn">.</span><span class="id">split</span> <span class="s">&#39;;&#39;</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 10)" onmouseover="showTip(event, 'fs5', 10)" class="id">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="id">sort</span>
+                <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 12)" onmouseover="showTip(event, 'fs4', 12)" class="id">String</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="id">concat</span> <span class="s">&quot;;&quot;</span>
+            <span class="pn">{</span>
+                <span class="id">ProteinGroup</span> <span class="o">=</span> <span class="id">pGroup</span>
+                <span class="id">StringSequence</span> <span class="o">=</span> <span class="id">s</span><span class="pn">.</span><span class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs2', 14)" onmouseover="showTip(event, 'fs2', 14)" class="id">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;StringSequence&quot;</span><span class="pn">)</span>
+                <span class="id">PepSequenceID</span> <span class="o">=</span> <span class="id">s</span><span class="pn">.</span><span class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs3', 15)" onmouseover="showTip(event, 'fs3', 15)" class="id">int</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;PepSequenceID&quot;</span><span class="pn">)</span>
+                <span class="id">Charge</span> <span class="o">=</span> <span class="id">s</span><span class="pn">.</span><span class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs3', 16)" onmouseover="showTip(event, 'fs3', 16)" class="id">int</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;Charge&quot;</span><span class="pn">)</span>
+                <span class="id">Synonym</span> <span class="o">=</span> <span class="id">s</span><span class="pn">.</span><span class="id">GetAs</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs2', 17)" onmouseover="showTip(event, 'fs2', 17)" class="id">string</span><span class="pn">&gt;</span><span class="pn">(</span><span class="s">&quot;Synonym&quot;</span><span class="pn">)</span>
+                <span class="id">QProt</span> <span class="o">=</span> 
+                    <span class="k">match</span> <span class="id">pGroup</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 18)" onmouseover="showTip(event, 'fs4', 18)" class="id">String</span><span class="pn">.</span><span class="id">contains</span> <span class="s">&quot;QProt_newCBB&quot;</span><span class="pn">,</span> <span class="id">pGroup</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 19)" onmouseover="showTip(event, 'fs4', 19)" class="id">String</span><span class="pn">.</span><span class="id">contains</span> <span class="s">&quot;QProt_newPS&quot;</span> <span class="k">with</span>
+                    <span class="pn">|</span> <span class="k">true</span><span class="pn">,</span> <span class="k">false</span>  <span class="k">-&gt;</span> <span class="id">CBB</span>
+                    <span class="pn">|</span> <span class="k">false</span><span class="pn">,</span> <span class="k">true</span>  <span class="k">-&gt;</span> <span class="id">PS</span>  
+                    <span class="pn">|</span> <span class="id">anythingElse</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs8', 20)" onmouseover="showTip(event, 'fs8', 20)" class="id">failwith</span> <span class="s">$&quot;Error! unexpected input in cbb ps matching: {</span><span class="id">anythingElse</span><span class="s">}&quot;</span> 
+            <span class="pn">}</span>
+        <span class="pn">)</span>
+    <span class="c">/// The following works on a mutable frame, so we can drop all columns we don&#39;t need without forwarding the frame to the next column to drop.</span>
+    <span class="id">rowKeyColNames</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 21)" onmouseover="showTip(event, 'fs5', 21)" class="id">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs9', 22)" onmouseover="showTip(event, 'fs9', 22)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">name</span> <span class="k">-&gt;</span>
+        <span class="id">frame</span><span class="pn">.</span><span class="id">DropColumn</span><span class="pn">(</span><span class="id">name</span><span class="pn">)</span>
+    <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="id">ignore</span>
+    <span class="id">frame</span>
+
+<span class="k">let</span> <span class="id">data</span> <span class="o">=</span> <span class="id">readQuantAndProtFrame</span> <span class="id">dataPath</span>
+</code></pre>
+<h4><a name="Visualisation-1" class="anchor" href="#Visualisation-1">Visualisation 1</a></h4>
+<p>Check the current state with:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="id">data</span> 
+<span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">take</span> <span class="n">10</span>
+<span class="o">|&gt;</span> <span class="id">formatAsTable</span> <span class="n">500</span>
+</code></pre>
+<details>
+<summary>Image of table data</summary>
+<p><img src="../img/5_devcontainer_arc/data_table.png" alt="Image of table data" /></p>
+</details>
+<h4><a name="Visualisation-2" class="anchor" href="#Visualisation-2">Visualisation 2</a></h4>
+<p>Display the same data as boxplot:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">createBoxPlot</span> <span class="id">f</span> <span class="o">=</span>
+    <span class="id">f</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">getNumericCols</span>
+    <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">k</span> <span class="id">s</span> <span class="k">-&gt;</span>
+        <span class="k">let</span> <span class="id">x</span><span class="pn">,</span><span class="id">y</span> <span class="o">=</span>
+            <span class="id">s</span>
+            <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">values</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 24)" onmouseover="showTip(event, 'fs11', 24)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs12', 25)" onmouseover="showTip(event, 'fs12', 25)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">values</span> <span class="k">-&gt;</span> 
+                <span onmouseout="hideTip(event, 'fs2', 26)" onmouseover="showTip(event, 'fs2', 26)" class="id">string</span> <span class="id">k</span><span class="pn">,</span> <span class="id">values</span>
+            <span class="pn">)</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 27)" onmouseover="showTip(event, 'fs11', 27)" class="id">Seq</span><span class="pn">.</span><span class="id">unzip</span>
+        <span class="id">Chart</span><span class="pn">.</span><span class="id">BoxPlot</span><span class="pn">(</span><span class="id">x</span><span class="pn">,</span> <span class="id">y</span><span class="pn">,</span> <span class="id">Orientation</span> <span class="o">=</span> <span class="id">StyleParam</span><span class="pn">.</span><span class="id">Orientation</span><span class="pn">.</span><span class="id">Vertical</span><span class="pn">)</span>
+    <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">values</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">combine</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withYAxisStyle</span><span class="pn">(</span><span class="s">&quot;Ratio&quot;</span><span class="pn">,</span> <span class="id">MinMax</span><span class="o">=</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span class="n">100</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withLegend</span><span class="pn">(</span><span class="k">false</span><span class="pn">)</span>
+
+<span class="id">createBoxPlot</span> <span class="id">data</span>
+</code></pre>
+<details>
+<summary>Image data as boxplot</summary>
+<p><img src="../img/5_devcontainer_arc/data_boxplot.png" alt="Image data as boxplot" /></p>
+</details>
+<br>
+<p>This plot shows the 15N/14N ratio of all detected Q-Protein peptides.</p>
+<h3><a name="Metadata-access" class="anchor" href="#Metadata-access">Metadata access</a></h3>
+<p>Next we want to calculate the mean for all peptides over the biological replicates.</p>
+<p>We want to access the metadata from <code>assays\VP21_WC\isa.assay.xlsx</code>. We can traverse the annotation tables of the .xlsx file with the <a href="https://github.com/nfdi4plants/ISADotNet">ISADotNet</a> library.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">normalizeFileName</span> <span class="pn">(</span><span class="id">f</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 28)" onmouseover="showTip(event, 'fs2', 28)" class="id">string</span><span class="pn">)</span> <span class="o">=</span> <span class="k">if</span> <span class="id">Path</span><span class="pn">.</span><span class="id">HasExtension</span> <span class="id">f</span> <span class="k">then</span> <span class="id">f</span> <span class="k">else</span> <span class="id">Path</span><span class="pn">.</span><span class="id">ChangeExtension</span><span class="pn">(</span><span class="id">f</span><span class="pn">,</span> <span class="s">&quot;wiff&quot;</span><span class="pn">)</span>
+
+<span class="k">open</span> <span class="id">ISADotNet</span>
+<span class="k">open</span> <span class="id">arcIO</span><span class="pn">.</span><span class="id">NET</span>
+
+<span class="k">let</span> <span class="id">assayFilePath</span> <span class="o">=</span> <span class="s">@&quot;../../assays/VP21_WC/isa.assay.xlsx&quot;</span>
+
+<span class="c">/// Put these functions into a separate code block. Run them once and then work in a new block, </span>
+<span class="c">/// to avoid getting an error when you have the .xlsx file open somewhere else</span>
+<span class="k">let</span> <span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">,</span><span class="id">myAssayFile</span> <span class="o">=</span> <span class="id">XLSX</span><span class="pn">.</span><span class="id">AssayFile</span><span class="pn">.</span><span class="id">Assay</span><span class="pn">.</span><span class="id">fromFile</span> <span class="id">assayFilePath</span>
+
+<span class="k">let</span> <span class="id">inOutMap</span> <span class="o">=</span> <span class="id">ISADotNet</span><span class="pn">.</span><span class="id">createInOutMap</span> <span class="id">myAssayFile</span>
+</code></pre>
+<p>Because we know we have the sample names in the <code>isa.assay.xlsx</code> files as column headers we can use them to access related metadata information.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Get one specific value for an output column</span>
+<span class="k">let</span> <span class="id">getColumnParam</span> <span class="pn">(</span><span class="id">sheetName</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs2', 29)" onmouseover="showTip(event, 'fs2', 29)" class="id">string</span><span class="pn">)</span> <span class="pn">(</span><span class="id">paramName</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs2', 30)" onmouseover="showTip(event, 'fs2', 30)" class="id">string</span><span class="pn">)</span> <span class="pn">(</span><span class="id">fileName</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 31)" onmouseover="showTip(event, 'fs2', 31)" class="id">string</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="id">fN</span> <span class="o">=</span> <span class="id">fileName</span> <span class="o">|&gt;</span> <span class="id">normalizeFileName</span> 
+    <span class="id">ISADotNet</span><span class="pn">.</span><span class="id">tryGetParameter</span> <span class="c">// can only get Parameter [xxx]</span>
+        <span class="id">inOutMap</span> 
+        <span class="id">sheetName</span> <span class="c">// Excel Sheet</span>
+        <span class="id">paramName</span> <span class="c">// Excel column name in []</span>
+        <span class="id">fN</span> <span class="c">// last &quot;Sample Name&quot; in assay file, without file extension</span>
+        <span class="id">myAssayFile</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs13', 32)" onmouseover="showTip(event, 'fs13', 32)" class="id">Option</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 33)" onmouseover="showTip(event, 'fs14', 33)" class="id">defaultValue</span> <span class="s">&quot;&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 34)" onmouseover="showTip(event, 'fs4', 34)" class="id">String</span><span class="pn">.</span><span class="id">split</span> <span class="s">&#39; &#39;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 35)" onmouseover="showTip(event, 'fs5', 35)" class="id">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 36)" onmouseover="showTip(event, 'fs15', 36)" class="id">head</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 37)" onmouseover="showTip(event, 'fs16', 37)" class="id">float</span>
+
+<span class="c">/// The column parameter names in isa.assay.xlsx</span>
+<span class="k">let</span> <span class="id">cbc_qconcat</span> <span class="o">=</span> <span class="s">&quot;15N Calvin-Benson cycle QconCAT mass #3&quot;</span>
+<span class="k">let</span> <span class="id">ps_qconcat</span> <span class="o">=</span> <span class="s">&quot;15N Photosynthesis QconCAT mass #4&quot;</span>
+
+<span class="k">let</span> <span class="id">getCBC_qconcat</span> <span class="id">sampleName</span> <span class="o">=</span> <span class="id">getColumnParam</span> <span class="s">&quot;Protein extraction&quot;</span> <span class="id">cbc_qconcat</span> <span class="id">sampleName</span>
+<span class="k">let</span> <span class="id">getPS_qconcat</span> <span class="id">sampleName</span> <span class="o">=</span> <span class="id">getColumnParam</span> <span class="s">&quot;Protein extraction&quot;</span> <span class="id">ps_qconcat</span> <span class="id">sampleName</span>
+
+<span class="c">/// example access</span>
+<span class="id">getColumnParam</span> <span class="s">&quot;Protein extraction&quot;</span> <span class="id">cbc_qconcat</span> <span class="s">&quot;WCGr2_U1&quot;</span> <span class="c">// 0.9</span>
+</code></pre>
+<h3><a name="Data-transformation" class="anchor" href="#Data-transformation">Data transformation</a></h3>
+<p>Map over all samples to extract Q-Protein quantities and calculate the mean over all samples with the same quantities <em>(the biological replicates)</em>.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">cbc_ps_data</span> <span class="o">=</span>
+    <span class="id">data</span>
+    <span class="c">/// col keys as row keys</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">transpose</span>
+    <span class="c">/// Adjust keys to represent dilution series.</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">mapRowKeys</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">rk</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs17', 38)" onmouseover="showTip(event, 'fs17', 38)" class="id">sprintf</span> <span class="s">&quot;cbc: %A&quot;</span> <span class="pn">(</span><span class="id">getCBC_qconcat</span> <span class="id">rk</span><span class="pn">)</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs17', 39)" onmouseover="showTip(event, 'fs17', 39)" class="id">sprintf</span> <span class="s">&quot;ps: %A&quot;</span> <span class="pn">(</span><span class="id">getPS_qconcat</span> <span class="id">rk</span><span class="pn">)</span><span class="pn">,</span> <span class="id">rk</span><span class="pn">)</span>
+    <span class="c">/// Calculate mean for all rows with the same value in cbc and ps q-protein quantity (aka. the biological replicates)</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">applyLevel</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span class="id">cbc</span><span class="pn">,</span><span class="id">ps</span><span class="pn">,</span><span class="id">_</span><span class="pn">)</span> <span class="k">-&gt;</span> <span class="id">cbc</span><span class="pn">,</span> <span class="id">ps</span><span class="pn">)</span> <span class="id">Stats</span><span class="pn">.</span><span class="id">mean</span>
+    <span class="c">/// Swap rows keys back to column keys</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">transpose</span>
+
+<span class="id">cbc_ps_data</span>
+<span class="o">|&gt;</span> <span class="id">formatAsTable</span> <span class="n">500</span>
+</code></pre>
+<details>
+<summary>Image data mean as table</summary>
+<p><img src="../img/5_devcontainer_arc/data_table_mean.png" alt="Image data mean as table" /></p>
+</details>
+<details>
+<summary>Image data mean as boxplot</summary>
+<p><img src="../img/5_devcontainer_arc/data_boxplot_mean.png" alt="Image data mean as boxplot" /></p>
+</details>
+<p>Last we want to show only ratios for peptides related to a specific protein.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">plotPeptidesOf</span> <span class="pn">(</span><span class="id">ratios</span><span class="pn">:</span> <span class="id">Frame</span><span class="pn">&lt;</span><span class="id">PeptideIon</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs2', 40)" onmouseover="showTip(event, 'fs2', 40)" class="id">string</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs2', 41)" onmouseover="showTip(event, 'fs2', 41)" class="id">string</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="pn">(</span><span class="id">prot</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs2', 42)" onmouseover="showTip(event, 'fs2', 42)" class="id">string</span><span class="pn">)</span> <span class="o">=</span> 
+    <span class="id">ratios</span>
+    <span class="c">/// filter data to only show peptides of the given protein</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">filterRows</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">k</span> <span class="id">s</span> <span class="k">-&gt;</span> <span class="id">k</span><span class="pn">.</span><span class="id">Synonym</span><span class="pn">.</span><span class="id">Contains</span> <span class="id">prot</span> <span class="o">||</span> <span class="id">k</span><span class="pn">.</span><span class="id">ProteinGroup</span><span class="pn">.</span><span class="id">Contains</span> <span class="id">prot</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">transpose</span>
+    <span class="o">|&gt;</span> <span class="id">Frame</span><span class="pn">.</span><span class="id">getNumericCols</span>
+    <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">pep</span> <span class="pn">(</span><span class="id">values</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+        <span class="k">let</span> <span class="id">qprotAmounts</span><span class="pn">,</span><span class="id">ratios</span><span class="pn">,</span><span class="id">fileLabel</span> <span class="o">=</span>
+            <span class="id">values</span>
+            <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="id">dataColumnName</span> <span class="id">ratio</span> <span class="k">-&gt;</span> 
+                    <span class="k">let</span> <span class="id">cbc</span><span class="pn">,</span> <span class="id">ps</span> <span class="o">=</span> <span class="id">dataColumnName</span>
+                    <span class="k">let</span> <span class="id">name</span> <span class="o">=</span> 
+                        <span class="k">if</span> <span class="id">pep</span><span class="pn">.</span><span class="id">QProt</span> <span class="o">=</span> <span class="id">CBB</span> <span class="k">then</span> <span class="id">cbc</span> <span class="k">else</span> <span class="id">ps</span>
+                        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 43)" onmouseover="showTip(event, 'fs4', 43)" class="id">String</span><span class="pn">.</span><span class="id">split</span> <span class="s">&#39; &#39;</span>
+                        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs5', 44)" onmouseover="showTip(event, 'fs5', 44)" class="id">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 45)" onmouseover="showTip(event, 'fs18', 45)" class="id">last</span>
+                    <span class="id">name</span><span class="pn">,</span> <span class="id">ratio</span><span class="pn">,</span> <span class="id">name</span>
+            <span class="pn">)</span>
+            <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">values</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs11', 46)" onmouseover="showTip(event, 'fs11', 46)" class="id">Seq</span><span class="pn">.</span><span class="id">unzip3</span>
+        <span class="id">Chart</span><span class="pn">.</span><span class="id">Point</span><span class="pn">(</span><span class="id">qprotAmounts</span><span class="pn">,</span> <span class="id">ratios</span><span class="pn">,</span> <span class="id">MultiText</span> <span class="o">=</span> <span class="id">fileLabel</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withTraceName</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs17', 47)" onmouseover="showTip(event, 'fs17', 47)" class="id">sprintf</span> <span class="s">&quot;S:%s_C:%i&quot;</span> <span class="id">pep</span><span class="pn">.</span><span class="id">StringSequence</span> <span class="id">pep</span><span class="pn">.</span><span class="id">Charge</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withXAxisStyle</span><span class="pn">(</span><span class="s">&quot;qProt Amount&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withYAxisStyle</span><span class="pn">(</span><span class="s">&quot;Ratio&quot;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">withTitle</span> <span class="pn">(</span><span class="id">prot</span><span class="pn">)</span>
+        <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span class="id">Series</span><span class="pn">.</span><span class="id">values</span>
+    <span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">combine</span>
+
+<span class="id">plotPeptidesOf</span> <span class="id">cbc_ps_data</span> <span class="s">&quot;rbcL&quot;</span>
+</code></pre>
+<p><img src="../img/5_devcontainer_arc/data_rbcL.png" alt="Image: Measured ratios for all Q-Peptides related to rbcL" /></p>
+<p>Thats it for a minimal example on how we can interopt VS Code remote containers and the ARC.</p>
+<h2><a name="Verdict" class="anchor" href="#Verdict">Verdict</a></h2>
+<ul>
+<li>Remote containers allow scripting in an ARC to be reproducible and often with a lower set of requirements (only VS Code with the extension and docker).</li>
+<li>Scripting is handled intuitively (personal settings from VS Code are used), any files dropped into folderstructure are mounted to the container.</li>
+<li>
+Still some minor issues:
+<ul>
+<li>.devcontainer must be at root level for the active VS Code workspace.</li>
+<li>lacking some computational prowess (at least out of the box).</li>
+</ul>
+</li>
+</ul>
+<h2><a name="Outlook" class="anchor" href="#Outlook">Outlook</a></h2>
+<p>The especially attentive reader might have noticed, that we listed some files under <a href="#folderstructure">folderstructure</a>, which were not mentioned yet.</p>
+<ul>
+<li><code>workflows\FSharpContainer.cwl</code></li>
+<li><code>runs\VP21_WC\analyze.yml</code></li>
+<li><code>runs\VP21_WC\data-analysis.fsx</code></li>
+</ul>
+<p>A finished <strong>ARC</strong> will feature a  <a href="https://www.commonwl.org">CWL</a> file which is meant to automatically run the complete computational pipeline. Thus, it has a dual function as an indirect annotation of the computational process. A standard CWL file will create a docker container which will run the computational pipeline.</p>
+<p>If we manage to create CWL, Dockerfile and VS Code devcontainer in a combined manner to reuse the docker file or even the dockercontainer we would reduce maintenance issues and further generalize the workflow.</p>
+<p>So in the future it should be possible to run the CWL pipeline with the same settings as the VS Code remote container.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">Multiple items<br />type LiteralAttribute =
+  inherit Attribute
+  new : unit -&gt; LiteralAttribute<br /><em>&lt;summary&gt;Adding this attribute to a value causes it to be compiled as a CLI constant literal.&lt;/summary&gt;<br />&lt;category&gt;Attributes&lt;/category&gt;</em><br /><br />--------------------<br />new : unit -&gt; LiteralAttribute</div>
+<div class="fsdocs-tip" id="fs2">Multiple items<br />val string : value:&#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs3">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs4">module String
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Functional programming operators for string processing.  Further string operations
+ are available via the member functions on strings and other functionality in
+  &lt;a href=&quot;http://msdn2.microsoft.com/en-us/library/system.string.aspx&quot;&gt;System.String&lt;/a&gt; 
+ and &lt;a href=&quot;http://msdn2.microsoft.com/library/system.text.regularexpressions.aspx&quot;&gt;System.Text.RegularExpressions&lt;/a&gt; types.
+ &lt;/summary&gt;<br />&lt;category&gt;Strings and Text&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs5">module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs6">val sort : array:&#39;T [] -&gt; &#39;T [] (requires comparison)<br /><em>&lt;summary&gt;Sorts the elements of an array, returning a new array. Elements are compared using &lt;see cref=&quot;M:Microsoft.FSharp.Core.Operators.compare&quot; /&gt;. &lt;/summary&gt;<br />&lt;remarks&gt;This is not a stable sort, i.e. the original order of equal elements is not necessarily preserved. 
+ For a stable sort, consider using &lt;see cref=&quot;M:Microsoft.FSharp.Collections.SeqModule.Sort&quot; /&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The sorted array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs7">val concat : sep:string -&gt; strings:seq&lt;string&gt; -&gt; string<br /><em>&lt;summary&gt;Returns a new string made by concatenating the given strings
+ with separator &lt;c&gt;sep&lt;/c&gt;, that is &lt;c&gt;a1 + sep + ... + sep + aN&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;sep&quot;&gt;The separator string to be inserted between the strings
+ of the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;strings&quot;&gt;The sequence of strings to be concatenated.&lt;/param&gt;<br />&lt;returns&gt;A new string consisting of the concatenated strings separated by
+ the separation string.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when &lt;c&gt;strings&lt;/c&gt; is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs8">val failwith : message:string -&gt; &#39;T<br /><em>&lt;summary&gt;Throw a &lt;see cref=&quot;T:System.Exception&quot; /&gt; exception.&lt;/summary&gt;<br />&lt;param name=&quot;message&quot;&gt;The exception message.&lt;/param&gt;<br />&lt;returns&gt;The result value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs9">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
+ to each of the elements of the array.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements of the array.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The array of transformed elements.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs10">val ignore : value:&#39;T -&gt; unit<br /><em>&lt;summary&gt;Ignore the passed value. This is often used to throw away results of a computation.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The value to ignore.&lt;/param&gt;</em></div>
+<div class="fsdocs-tip" id="fs11">module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs12">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs13">module Option
+
+from Microsoft.FSharp.Core<br /><em>&lt;summary&gt;Contains operations for working with options.&lt;/summary&gt;<br />&lt;category&gt;Options&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">val defaultValue : value:&#39;T -&gt; option:&#39;T option -&gt; &#39;T<br /><em>&lt;summary&gt;Gets the value of the option if the option is &lt;c&gt;Some&lt;/c&gt;, otherwise returns the specified default value.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The specified default value.&lt;/param&gt;<br />&lt;param name=&quot;option&quot;&gt;The input option.&lt;/param&gt;<br />&lt;returns&gt;The option if the option is Some, else the default value.&lt;/returns&gt;<br />&lt;remarks&gt;Identical to the built-in &lt;see cref=&quot;defaultArg&quot; /&gt; operator, except with the arguments swapped.&lt;/remarks&gt;<br />&lt;example&gt;&lt;code&gt;
+     (99, None) ||&amp;gt; Option.defaultValue // evaluates to 99
+     (99, Some 42) ||&amp;gt; Option.defaultValue // evaluates to 42
+ &lt;/code&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs15">val head : array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Returns the first element of the array.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The first element of the array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input array is empty.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs16">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs17">val sprintf : format:Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs18">val last : array:&#39;T [] -&gt; &#39;T<br /><em>&lt;summary&gt;Returns the last element of the array.&lt;/summary&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The last element of the array.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input does not have any elements.&lt;/exception&gt;</em></div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/CSBlog/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+<footer>
+    <script>
+        bulmaCollapsible.attach('.is-collapsible');
+    </script>
+</footer>
+</html>
