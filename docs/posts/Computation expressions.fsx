@@ -424,14 +424,14 @@ math {
 
 // Results in 6
 
-let faculty x =
+let factorial x =
     math {
         Multiply
         for i = 1 to x do
             i
     }
 
-faculty 4
+factorial 4
 
 //Delay
 //Delay
