@@ -17,3 +17,4 @@ This is a chronological overview over every published Blog post on this page.The
 * January 21, 2022: [q values](../posts/4_qvalues.html) (by [Benedikt Venn](https://github.com/bvenn))
 * March 18, 2022: [Console apps](../posts/consoleTools.html) (by [Oliver Maus](https://github.com/omaus))
 * April 22, 2022 [VS Code Remote-Container and the ARC](../posts/5_devcontainer_arc.html) (by [Kevin Frey](https://github.com/Freymaurer) and [Jonathan Ott](https://github.com/Joott))
+* April 29, 2022 [Computation expressions: Usage examples](../posts/Computation_expressions.html) (by [Heinrich Lukas Weil](https://github.com/HLWeil))
