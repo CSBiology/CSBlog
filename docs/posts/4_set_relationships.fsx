@@ -65,7 +65,11 @@ let getScoreMap (frame: Frame<int,string>) =
 ### Table of contents
 
 - [Visualizing set relationships with Venn diagrams](#Visualizing-set-relationships-with-Venn-diagrams)
+    - [Construction Venn](#Construction-Venn)
+    - [Usage Venn](#Usage-Venn)
 - [Visualizing set relationships with UpSet plots](#Visualizing-set-relationships-with-UpSet-plots)
+    - [Construction UpSet](#Construction-UpSet)
+    - [Usage UpSet](#Usage-UpSet)
 
 Visualizing and understanding relationships between sets plays an important role in analyzing data at hand. A widely used visualization method is the 
 [Venn diagram](https://en.wikipedia.org/wiki/Venn_diagram). But Venn diagrams are limited in their capability. While two, three, or even four sets may be easily visualizable, they struggle 
@@ -79,7 +83,7 @@ movieFrame
 
 (**
 ## Visualizing set relationships with Venn diagrams
-
+### Construction Venn
 A Venn diagram uses simple closed shapes to represent sets. Those shapes are often circles or ellipses.
 Let`s start with a simple comparison of two sets using circles as our shape. For that we take genres action and comedy and determine their intersections:
 *)
@@ -180,8 +184,9 @@ vennChart
 |> Chart.withLayout layout
 |> GenericChart.toChartHTML
 (***include-it-raw***)
-
 (**
+### Usage Venn
+
 This required a lot of manual formatting. Luckily, [BioFSharp.Vis](https://github.com/CSBiology/BioFSharp.Vis) contains chart extensions 
 for Venn diagrams with two and three sets.
 *)
@@ -205,6 +210,7 @@ Chart.Venn (
 
 (**
 ## Visualizing set relationships with UpSet plots
+### Construction UpSet
 
 Since Venn diagrams with more than three sets are increasingly difficult to model and read, BioFSharp.Vis also includes UpSet plots. 
 UpSet plots consist of three basic parts. The first is a matrix representing the intersection between sets. Each row corresponds to a set and each column to 
@@ -397,6 +403,8 @@ let intersectionSizeBar =
 (***include-it-raw***)
 
 (**
+### Usage UpSet
+
 We now have a basic UpSet plot. There is also a chart extension for UpSet plot in `BioFSharp.Vis`.
 *)
 
