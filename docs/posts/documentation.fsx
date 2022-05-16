@@ -11,10 +11,12 @@ index: 0
 
 (*** hide ***)
 
-#r "nuget: Plotly.NET, 2.0.0-beta5"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 open Plotly.NET
 
 (**
+_[Henrich Lukas Weil](https://github.com/HLWeil)_
+
 # Creating a Documentation
 ## Introduction
 

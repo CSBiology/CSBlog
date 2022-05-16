@@ -353,3 +353,4 @@ MigrationBackup/
 tmp/
 output/
 .fsdocs/
+.fsdocs/cache
