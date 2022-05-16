@@ -10,8 +10,7 @@ index: 0
 *)
 
 (***hide***)
-#r "nuget: Plotly.NET, 2.0.0-beta5"
-#r "nuget: Plotly.NET.Interactive, 2.0.0-beta5"
+#r "nuget: Plotly.NET, 2.0.0-preview.16"
 #r "nuget: FSharpAux, 1.0.0"
 
 open Plotly.NET
@@ -22,8 +21,8 @@ let ySin = xSin |> List.map sin
 let sinChart = 
     Chart.Spline(xSin,ySin)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_AxisStyle("x",Showgrid=false,Showline=true)
-    |> Chart.withY_AxisStyle("y",Showgrid=false,Showline=true)
+    |> Chart.withX_AxisStyle("x",ShowGrid=false,ShowLine=true)
+    |> Chart.withY_AxisStyle("y",ShowGrid=false,ShowLine=true)
 
 #nowarn "0044"
 
@@ -116,7 +115,7 @@ In general, the Chart.Show function maps from the GenericChart type to unit, and
 (***do-not-eval***)
 //Render the chart from the example above in your browser
 cosChart
-|> Chart.Show
+|> Chart.show
 (**
 
 This will display the following chart in your browser:
@@ -146,9 +145,8 @@ let cosChart2 =
         (
             xVals,
             yVals,
-            MarkerSymbol = StyleParam.Symbol.Square,
-            Color = (Table.Office.lightGreen |> toWebColor),
-            TextFont = Font.init(StyleParam.FontFamily.Droid_Sans_Mono)
+            MarkerSymbol = StyleParam.MarkerSymbol.Square,
+            MarkerColor = Color.fromKeyword LightGreen
         )
 
 (***hide***)
@@ -156,17 +154,16 @@ cosChart2 |> GenericChart.toChartHTML
 (***include-it-raw***)
 
 (** 
-
 Or use a more functional style and pipe our chart into styling functions, which have even more control:
 We first apply a similar styling as in the example above, but then additionally take control over the axis stylings (title,line style, and grid display):
 *)
 
 let sinChart2 =
     Chart.Point(xVals,yVals)
-    |> Chart.withMarkerStyle(Size = 1, Color = (Table.Office.darkBlue |> toWebColor), Symbol = StyleParam.Symbol.Square)
+    |> Chart.withMarkerStyle(Size = 1, Color = Color.fromKeyword LightGreen, Symbol = StyleParam.MarkerSymbol.Square)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_AxisStyle("x", Showline = true, Showgrid = false, MinMax = (0.,(4.* System.Math.PI)))
-    |> Chart.withY_AxisStyle("y", Showline = true, Showgrid = false)
+    |> Chart.withXAxisStyle("x", ShowLine = true, ShowGrid = false, MinMax = (0.,(4.* System.Math.PI)))
+    |> Chart.withYAxisStyle("y", ShowLine = true, ShowGrid = false)
 
 (***hide***)
 sinChart2 |> GenericChart.toChartHTML
@@ -178,36 +175,37 @@ To have even more control over the Axis, we can initialize custom axis. This has
 function because of the axis object may be mutated by styling functions when used in different charts. 
 We can prevent this by using a function that for every chart returns a new Axis.
 *)
+open Plotly.NET.LayoutObjects
 
 let myXAxis () = 
-    Axis.LinearAxis.init(
-        Title   = "x",
-        Showgrid= false,
-        Showline= true,
+    LinearAxis.init(
+        Title   = Title.init("x"),
+        ShowGrid= false,
+        ShowLine= true,
         Mirror  = StyleParam.Mirror.All,
         Range   = StyleParam.Range.MinMax (0.,(4. * System.Math.PI)),
-        Tickmode = StyleParam.TickMode.Array,
-        Tickvals = ([|0. .. (0.5 * System.Math.PI) .. (4. * System.Math.PI)|] |> Array.map (round 2)),
+        TickMode = StyleParam.TickMode.Array,
+        TickVals = ([|0. .. (0.5 * System.Math.PI) .. (4. * System.Math.PI)|] |> Array.map (round 2)),
         Ticks   = StyleParam.TickOptions.Inside
         )
 
 let myYAxis () = 
-    Axis.LinearAxis.init(
-        Title   = "y",
-        Showgrid= false,
-        Showline= true,
+    LinearAxis.init(
+        Title   = Title.init("y"),
+        ShowGrid= false,
+        ShowLine= true,
         Mirror  = StyleParam.Mirror.AllTicks,
         Range   = StyleParam.Range.MinMax (-1.,1.),
-        Tickmode = StyleParam.TickMode.Auto,
+        TickMode = StyleParam.TickMode.Auto,
         Ticks   = StyleParam.TickOptions.Inside
         )
 
 let mirroredSinChart =
     Chart.Point(xVals,yVals)
-    |> Chart.withMarkerStyle(Size = 1, Color = (Table.Office.darkBlue |> toWebColor), Symbol = StyleParam.Symbol.Square)
+    |> Chart.withMarkerStyle(Size = 1, Color = Color.fromKeyword DarkBlue, Symbol = StyleParam.MarkerSymbol.Square)
     |> Chart.withTitle("sin(x)")
-    |> Chart.withX_Axis(myXAxis())
-    |> Chart.withY_Axis(myYAxis())
+    |> Chart.withXAxis(myXAxis())
+    |> Chart.withYAxis(myYAxis())
     |> Chart.withSize(750.,750.)
 
 (***hide***)
@@ -227,7 +225,7 @@ two options: Combining charts in a single plot or displaying them side-by-side i
 
 ### Combining charts
 
-The `Chart.Combine` function creates a single plot with the same axis from a collection of charts:
+The `Chart.combine` function creates a single plot with the same axis from a collection of charts:
 
 *)
 
@@ -237,10 +235,10 @@ let combinedChart =
 
         Chart.Spline(xVals,xVals |> List.map cos,Name="cos(x)")
     ]
-    |> Chart.Combine
+    |> Chart.combine
     |> Chart.withTitle("sin(x) and cos(x)")
-    |> Chart.withX_Axis(myXAxis())
-    |> Chart.withY_Axis(myYAxis())
+    |> Chart.withXAxis(myXAxis())
+    |> Chart.withYAxis(myYAxis())
     |> Chart.withSize(750.,750.)
 
 (***hide***)
@@ -261,15 +259,15 @@ let stackedChart =
     [
         Chart.Spline(xVals,xVals |> List.map sin)
         |> Chart.withTraceName(Name = "sin(x)")
-        |> Chart.withY_Axis(myYAxis())
-        |> Chart.withX_Axis(myXAxis())
+        |> Chart.withYAxis(myYAxis())
+        |> Chart.withXAxis(myXAxis())
 
         Chart.Spline(xVals,xVals |> List.map cos)
         |> Chart.withTraceName(Name = "sin(x)")
-        |> Chart.withY_Axis(myYAxis())
-        |> Chart.withX_Axis(myXAxis())
+        |> Chart.withYAxis(myYAxis())
+        |> Chart.withXAxis(myXAxis())
     ]
-    |> Chart.Stack(1,0.1)
+    |> Chart.SingleStack()
 
 (***hide***)
 stackedChart |> GenericChart.toChartHTML
