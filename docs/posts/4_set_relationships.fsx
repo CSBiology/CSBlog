@@ -570,7 +570,6 @@ Chart.UpSet(
 )
 |> Chart.withSize (1400., 800.)
 |> Chart.withTemplate ChartTemplates.light
-|> Chart.show
 
 (**
 ![heatmap](/img/UpsetScore.png)
