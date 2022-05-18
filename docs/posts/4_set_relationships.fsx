@@ -572,7 +572,7 @@ Chart.UpSet(
 |> Chart.withTemplate ChartTemplates.light
 
 (**
-![heatmap](/img/UpsetScore.png)
+![heatmap](../img/UpsetScore.png)
 *)
 
 (**
@@ -581,5 +581,5 @@ Venn diagrams.Even though the UpSet plot gets also more complex with increasing 
 *)
 
 (**
-![heatmap](/img/UpsetComplex.png)
+![heatmap](../img/UpsetComplex.png)
 *)
