@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Label Efficiency Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/CSBlog//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
+
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-tips.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/init.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="/CSBlog/">
+                        <figure class="image is-128x128 container">
+                            <img src="/CSBlog/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white pb-4">CSBlog</h2>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
+                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">
+  Overview
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/about.html">
+    About
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/blogposts_overview.html">
+    Blog posts
+  </a>
+</li>             
+<li class="nav-header">
+  Documentation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/documentation.html">
+    Creating a Documentation
+  </a>
+</li>             
+<li class="nav-header">
+  Visualization
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/WorkshopSeries_3_plotly.html">
+    Introduction to Data visualization using Plotly.NET
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/4_set_relationships.html">
+    Visualizing relationships between sets with Plotly.NET
+  </a>
+</li>             
+<li class="nav-header">
+  Implementation
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/0_how2JSONSchema.html">
+    How to develop and use a JSON Schema
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/consoleTools.html">
+    Console apps: Above and beyond
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/1_how2Fable.html">
+    How to use Fable
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/3_sequence_features.html">
+    Modelling and visualizing sequence features with BioFSharp and Plotly.NET
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/Community_detection_or_Principal_Component_Analysis_- Different_apporaches_to_analyze_big_datasets.html">
+    Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/Computation_expressions.html">
+    Computation expressions: Usage examples
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/6_LabelEfficiencyCalculator.html">
+    Label Efficiency Calculator
+  </a>
+</li>             
+<li class="nav-header">
+  Learning resources
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/4_qvalues.html">
+    q values
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="/CSBlog/posts/5_devcontainer_arc.html">
+    VS Code Remote-Container and the ARC
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<h1><a name="Label-Efficiency-Calculator" class="anchor" href="#Label-Efficiency-Calculator">Label Efficiency Calculator</a></h1>
+<p><em><a href="https://github.com/Joott">Jonathan Ott</a></em> ~ <em>last updated: 2022-05-19</em></p>
+<h2><a name="Isotopic-Distribution" class="anchor" href="#Isotopic-Distribution">Isotopic Distribution</a></h2>
+<p>Peptide signals exhibit a characteristic shape in the mass spectrum that depend on their isotopic profile, which is defined by
+the number of naturally occurring isotopes in the peptide. The occurrence probabilities of natural isotopes are reflected in the mass
+spectrum by the relative heights of the peak series belonging to the respective peptide. The frequency at which natural isotopes occur
+is known and can be used to compute the isotope distribution of a molecule. The isotopic distribution for a given peptide molecule
+C(v)H(w)N(x)O(y)S(z) is described by the following product of polynomials:</p>
+<p><img src="https://latex.codecogs.com/png.image?\dpi{110}\bg{white}\large&amp;space;\newline(&amp;space;{}^{12}\textrm{C}&amp;space;&amp;plus;&amp;space;{}^{13}\textrm{C})^{v}&amp;space;\times&amp;space;({}^{1}\textrm{H}&amp;plus;{}^{2}\textrm{H})^{w}&amp;space;\times&amp;space;({}^{14}\textrm{N}&amp;plus;{}^{15}\textrm{N})^{x}\times({}^{16}\textrm{O}&amp;plus;{}^{17}\textrm{O}&amp;space;&amp;plus;&amp;space;{}^{18}\textrm{O})^{y}\newline\times({}^{32}\textrm{S}&amp;plus;{}^{33}\textrm{S}&amp;plus;{}^{34}\textrm{S}&amp;plus;{}^{36}\textrm{S})^{z}" alt="" /></p>
+<p>Symbolic expansion of the polynomials results in many product terms, which correspond to different isotopic variants of a molecule.
+Even for molecules of a medium size, the straightforward expansion of the polynomials leads to an explosion regarding the number of product terms.
+Due to this complexity, there was a need to develop algorithms for efficient computation.
+MIDAs (Alves and Yu 2005) is one of the more elaborate algorithms to predict an isotope cluster based on a given peptide sequence.</p>
+<p>Stable isotopic peptide labeling is an established technique in proteomics experiments. While an excellent tool when carried out correctly, it also exposes
+challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which the proteins were labeled. The isotopic pattern
+can be used to <strong>estimate the labeling efficiency by comparing measured isotopic patterns to simulated patterns with known label efficiency</strong>.</p>
+<h2><a name="Simulating-Isotopic-Clusters-for-peptides" class="anchor" href="#Simulating-Isotopic-Clusters-for-peptides">Simulating Isotopic Clusters for peptides</a></h2>
+<p>Before we start, we need to load our dependencies. The MIDAs implementation we are using here is located in BioFSharp. FSharp.Stats is required later on as well.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">#r "nuget: BioFSharp, 2.0.0-preview.3"
+#r "nuget: FSharp.Stats, 0.4.5"
+</code></pre></td></tr></table>
+<p>Our function for the generation of the isotopic distributions takes a <code>Formula</code> as an input. A <code>Formula</code> is a type in BioFSharp which is a map of element information and
+their number of occurences. So we start by defining a convenience function that converts an amino acid string to a <code>Formula</code> and adds water to reflect hydrolyzed state in a mass spectrometer.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let toFormula peptide =  
+    peptide
+    |&gt; BioSeq.ofAminoAcidString
+    |&gt; BioSeq.toFormula
+    |&gt; Formula.add Formula.Table.H2O
+</code></pre></td></tr></table>
+<p>Next, we have our isotopic pattern simulation function. It predicts an isotopic distribution of the given formula at the given charge, normalized by the sum of probabilities, using the MIDAs algorithm.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
+    IsotopicDistribution.MIDA.ofFormula 
+        IsotopicDistribution.MIDA.normalizeByProbSum
+        0.01 // resolution
+        0.01 // minimal probability
+        charge
+        f
+</code></pre></td></tr></table>
+<p>We can now apply our <code>generateIsotopicDistribution</code> function to a example peptide ion, in this case <em>AAGVLDNFSEGEK</em> with an charge of 2.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPattern =
+    "AAGVLDNFSEGEK"
+    |&gt; toFormula
+    |&gt; generateIsotopicDistribution 2
+</code></pre></td></tr></table>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK.png" alt="" /></p>
+<p>The isotopic pattern we simulated so far corresponds to an unlabeled version of the peptide ion. In this example, we want to calculate the label efficiency for a
+<a href="https://en.wikipedia.org/wiki/Isotopic_labeling#Applications_in_proteomics">15N</a> labeled peptide ion. Therefore, we need a function to add 15N labeling to our <code>Formula</code> for the simulation function.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let label n15LableEfficiency formula =
+    let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency))
+    Formula.replaceElement formula Elements.Table.N heavyN15
+</code></pre></td></tr></table>
+<p>We now apply our <code>generateIsotopicDistribution</code> function to the same peptide ion as above, but now with a 15N label efficiency of 95%.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPatternLE95 =
+    "AAGVLDNFSEGEK"
+    |&gt; toFormula
+    |&gt; label 0.95
+    |&gt; generateIsotopicDistribution 2
+</code></pre></td></tr></table>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE.png" alt="" /></p>
+<p>With those functions we are now able to simulate isotopic patterns for any peptide with any charge and label efficiency. In the next step we use those functions
+to determine the label efficiency of real life data.</p>
+<h2><a name="Comparing-simulated-Isotopic-Clusters-with-measured-Isotopic-Clusters" class="anchor" href="#Comparing-simulated-Isotopic-Clusters-with-measured-Isotopic-Clusters">Comparing simulated Isotopic Clusters with measured Isotopic Clusters</a></h2>
+<p>Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide ion <em>AAGVLDNFSEGEK</em> we used before.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let mz = [|675.7949645701999;676.2983662177933;676.8017942912567|]
+let intensity = [|0.0846659638221692;0.5856855554667739;0.3296484807110569|]
+</code></pre></td></tr></table>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_real.png" alt="" /></p>
+<p>If we now compare the measured pattern to the simulated pattern, we see some differences. The m/z values for the measured pattern are identical with
+peaks in the simulated pattern, but they are different in relative intensity and peak count.</p>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE_overlay.png" alt="" /></p>
+<p>It is difficult to extract all peaks of an isotopic pattern from an MS run. So we need to adapt our simulated pattern to better fit the measured data
+and filter the simulated pattern for peaks present in the experimentally measured pattern. Also, while both patterns are normalized in a way that their intensities
+sum to 1, they were normalized independently from each other. So we normalize our simulated pattern again after filtering to have comparable patterns.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let measuredPattern = Array.zip mz intensity
+
+let normBySum (a:seq&lt;float*float&gt;) =
+    let s = Seq.sumBy snd a 
+    Seq.map (fun (x,y) -&gt; x,y / s) a
+
+let simulatedPattern = 
+    measuredPattern 
+    |&gt; Array.map (fun (mz,intensities) -&gt; 
+        mz,
+        midaPatternLE95
+        |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
+        |&gt; Seq.sumBy snd
+    )
+    |&gt; normBySum
+</code></pre></td></tr></table>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE_overlayFiltered.png" alt="" /></p>
+<p>Now our simulated pattern with a label efficiency of 95% fits the measured pattern better than before, but still not quite well. So our real label efficiency is likely different.
+To better determine the similarity of our patterns, we can use the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler divergence</a>,
+which gives us a measure of how our simulated pattern is different from our measured pattern. We can use it in this case since our isotopic patterns can be abstracted as probability
+distributions.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let klDiv (p:seq&lt;float&gt;) (q:seq&lt;float&gt;) = 
+    Seq.fold2 (fun acc p q -&gt; (System.Math.Log(p/q)*p) + acc) 0. p q
+
+klDiv (simulatedPattern |&gt; Seq.map snd) (measuredPattern |&gt; Seq.map snd)
+</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">float</span> <span class="o">=</span> <span class="n">0.1856483998</span>
+</code></pre>
+<p>So the Kullback-Leibler divergence for our isotopic patterns is ~0.19. The smaller the divergence, the better the fit. So our simulated pattern can still be improved
+through the label efficiency to better fit our measured pattern.</p>
+<h2><a name="Determining-Label-Efficiency" class="anchor" href="#Determining-Label-Efficiency">Determining Label Efficiency</a></h2>
+<p>To better work for general use cases, we can now take the functions we used above and modify them so that in the end we have a function that takes the measured isotopic pattern,
+the corresponding peptide sequence with charge and a label efficiency.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let simulateFrom peptideSequence charge lableEfficiency =
+    let simPattern =
+        peptideSequence
+        |&gt; toFormula 
+        |&gt; label lableEfficiency
+        |&gt; generateIsotopicDistribution charge 
+    simPattern
+
+let compareIsotopicDistributions (measured:(float*float)[]) (simulated:(float*float) list)= 
+    let patternSim = 
+        measured
+        |&gt; Seq.map (fun (mz,intensities) -&gt; 
+            mz,
+            simulated
+            |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
+            |&gt; Seq.sumBy snd
+        )
+        |&gt; normBySum
+    let klDiv = klDiv (patternSim |&gt; Seq.map snd)  (measured |&gt; Seq.map snd)
+    klDiv
+
+let calcKL extractedIsoPattern peptideSequence charge lableEfficiency = 
+    let sim = simulateFrom peptideSequence charge lableEfficiency
+    let comp = compareIsotopicDistributions extractedIsoPattern sim
+    comp
+</code></pre></td></tr></table>
+<p>If we now give the parameters for the measured pattern, peptide sequence and charge to this function, we have a function that takes a label efficiency and returns a measure for the
+pattern similarity. This function can then be used in a minimization function. For this we will use an algorithm called <a href="https://en.wikipedia.org/wiki/Brent%27s_method">'Brent's method'</a>, which is implemented in FSharp.Stats.
+Since we don't expect a label efficiency below 80% in our example, we search for the label efficiency with the best fit between 80% and 99.9%.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">FSharp.Stats.Optimization.Brent.minimize 
+    (calcKL measuredPattern "AAGVLDNFSEGEK" 2)
+    0.8
+    0.999
+</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="id">float</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="id">option</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="id">Some</span> <span class="n">0.9892291257</span>
+</code></pre>
+<p>According to Brent, the simulated pattern with a label efficiency of ~0.99 fits best to our measured pattern. We can now visualize both patterns and compare them.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPatternOptimal =
+    "AAGVLDNFSEGEK"
+    |&gt; toFormula
+    |&gt; label 0.9892291257
+    |&gt; generateIsotopicDistribution 2
+
+let simulatedPattern = 
+    measuredPattern 
+    |&gt; Array.map (fun (mz,intensities) -&gt; 
+        mz,
+        midaPatternOptimal
+        |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
+        |&gt; Seq.sumBy snd
+    )
+    |&gt; normBySum
+</code></pre></td></tr></table>
+<p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_optimal_overlayFiltered.png" alt="" /></p>
+<p>As we can see now, the simulated pattern is almost identical to the measured pattern. We can check the Kullback-Leibler divergence for our new pattern again and see, that
+the divergence is also better when compared to our 95% label efficiency pattern.</p>
+<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">klDiv (simulatedPattern |&gt; Seq.map snd) (measuredPattern |&gt; Seq.map snd)
+</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="id">float</span> <span class="o">=</span> <span class="n">0.0002724543862</span>
+</code></pre>
+<p>Now, we are not limited to one peptide ion with our label efficiency calculation. We can perform this for every peptide ion in a mass spectrometry run and get a label efficiency
+coupled with a "quality measurement". This can give us a good idea for the label efficiency in a sample.</p>
+<p><img src="../img/6_label_efficiency_calculator/DataSetCalc.png" alt="" /></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure. 
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs2">type &#39;T option = Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The type of optional values. When used from other CLI languages the
+ empty option is the &lt;c&gt;null&lt;/c&gt; value. &lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;Some&lt;/c&gt; and &lt;c&gt;None&lt;/c&gt; to create values of this type.
+ Use the values in the &lt;c&gt;Option&lt;/c&gt; module to manipulate values of this type,
+ or pattern match against the values directly.
+
+ &#39;None&#39; values will appear as the value &lt;c&gt;null&lt;/c&gt; to other CLI languages.
+ Instance methods on this type will appear as static methods to other CLI languages
+ due to the use of &lt;c&gt;null&lt;/c&gt; as a value representation.&lt;/remarks&gt;<br />&lt;category index=&quot;3&quot;&gt;Options&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs3">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The representation of &quot;Value of type &#39;T&quot;&lt;/summary&gt;<br />&lt;param name=&quot;Value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;An option representing the value.&lt;/returns&gt;</em></div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = '/CSBlog/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/CSBlog/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+<footer>
+    <script>
+        bulmaCollapsible.attach('.is-collapsible');
+    </script>
+</footer>
+</html>
