@@ -1,8 +1,8 @@
 ---
 title: Label Efficiency Calculator
-category: Learning resources
+category: Implementation
 categoryindex: 3
-index: 7
+index: 6
 ---
 
 # Label Efficiency Calculator
@@ -19,11 +19,12 @@ C(v)H(w)N(x)O(y)S(z) is described by the following product of polynomials:
 
 Symbolic expansion of the polynomials results in many product terms, which correspond to different isotopic variants of a molecule. 
 Even for molecules of a medium size, the straightforward expansion of the polynomials leads to an explosion regarding the number of product terms. 
-Due to this complexity, there was a need to develop algorithms for efficient computation. The different strategies comprise pruning the 
-polynomials to discard terms with coefficients below a threshold (Yergey 1983) combined with a recursive 
-computation (Claesen et al. 2012), and Fourier Transformation for a more efficient convolution of the isotope distributions of 
-individual elements (Rockwood et al. 1995), or rely on dynamic programming (Snider 2007). 
+Due to this complexity, there was a need to develop algorithms for efficient computation. 
 MIDAs (Alves and Yu 2005) is one of the more elaborate algorithms to predict an isotope cluster based on a given peptide sequence.
+
+Stable isotopic peptide labeling is an established technique in proteomics experiments. While an excellent tool when carried out correctly, it also exposes 
+challenges and pitfalls that have to be checked and possibly accounted for. One of these pitfalls is the efficiency with which the proteins were labeled. The isotopic pattern 
+can be used to **estimate the labeling efficiency by comparing measured isotopic patterns to simulated patterns with known label efficiency**.
 
 ## Simulating Isotopic Clusters for peptides
 Before we start, we need to load our dependencies. The MIDAs implementation we are using here is located in BioFSharp. FSharp.Stats is required later on as well.
@@ -32,7 +33,7 @@ Before we start, we need to load our dependencies. The MIDAs implementation we a
 #r "nuget: FSharp.Stats, 0.4.5"
 ```
 Our function for the generation of the isotopic distributions takes a `Formula` as an input. A `Formula` is a type in BioFSharp which is a map of element information and 
-their number of occurences. So we start by defining a convenience function that converts an amino acid string to a `Formula` and adds water to reflect hydrolyzed state in mass spectrometer.
+their number of occurences. So we start by defining a convenience function that converts an amino acid string to a `Formula` and adds water to reflect hydrolyzed state in a mass spectrometer.
 ```Fsharp
 let toFormula peptide =  
     peptide
@@ -45,12 +46,12 @@ Next, we have our isotopic pattern simulation function. It predicts an isotopic 
 let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
     IsotopicDistribution.MIDA.ofFormula 
         IsotopicDistribution.MIDA.normalizeByProbSum
-        0.01
-        0.01
+        0.01 // resolution
+        0.01 // minimal probability
         charge
         f
 ```
-We can now apply our `generateIsotopicDistribution` function to a example peptide, in this case _AAGVLDNFSEGEK_.
+We can now apply our `generateIsotopicDistribution` function to a example peptide ion, in this case _AAGVLDNFSEGEK_ with an charge of 2.
 ```Fsharp
 let midaPattern =
     "AAGVLDNFSEGEK"
@@ -59,14 +60,14 @@ let midaPattern =
 ```
 ![](../img/6_label_efficiency_calculator/AAGVLDNFSEGEK.png)
 
-The isotopic pattern we simulated so far corresponds to an unlabeled version of the peptide. In this example, we want to calculate the label efficiency for a 
-15N labeled peptide. Therefore, we need a function to add 15N labeling to our `Formula` for the simulation function.
+The isotopic pattern we simulated so far corresponds to an unlabeled version of the peptide ion. In this example, we want to calculate the label efficiency for a 
+[15N](https://en.wikipedia.org/wiki/Isotopic_labeling#Applications_in_proteomics) labeled peptide ion. Therefore, we need a function to add 15N labeling to our `Formula` for the simulation function.
 ```Fsharp
 let label n15LableEfficiency formula =
-    let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency) )
+    let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency))
     Formula.replaceElement formula Elements.Table.N heavyN15
 ```
-We now apply our `generateIsotopicDistribution` function to the same peptide as above, but now with a 15N label efficiency of 95%.
+We now apply our `generateIsotopicDistribution` function to the same peptide ion as above, but now with a 15N label efficiency of 95%.
 ```Fsharp
 let midaPatternLE95 =
     "AAGVLDNFSEGEK"
@@ -81,7 +82,7 @@ With those functions we are now able to simulate isotopic patterns for any pepti
 to determine the label efficiency of real life data.
 ## Comparing simulated Isotopic Clusters with measured Isotopic Clusters
 
-Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide _AAGVLDNFSEGEK_ we used before.
+Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide ion _AAGVLDNFSEGEK_ we used before.
 ```Fsharp
 let mz = [|675.7949645701999;676.2983662177933;676.8017942912567|]
 let intensity = [|0.0846659638221692;0.5856855554667739;0.3296484807110569|]
