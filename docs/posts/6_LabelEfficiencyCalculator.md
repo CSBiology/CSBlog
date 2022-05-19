@@ -31,8 +31,8 @@ Before we start, we need to load our dependencies. The MIDAs implementation we a
 #r "nuget: BioFSharp, 2.0.0-preview.3"
 #r "nuget: FSharp.Stats, 0.4.5"
 ```
-Our function for the generation of the isotopic distributions takes a `Formula` as an input. A `Forumla` is a type in BioFSharp which is a map of element informations and 
-their number of occurences. So we start by defining a convenience function that converts an amino acid string to a `Formula` and adds water to reflect hydrolysed state in mass spectrometer.
+Our function for the generation of the isotopic distributions takes a `Formula` as an input. A `Formula` is a type in BioFSharp which is a map of element information and 
+their number of occurences. So we start by defining a convenience function that converts an amino acid string to a `Formula` and adds water to reflect hydrolyzed state in mass spectrometer.
 ```Fsharp
 let toFormula peptide =  
     peptide
@@ -50,7 +50,7 @@ let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
         charge
         f
 ```
-We can now apply our `generateIsotopicDistribution` function to a sample peptide, in this case AAGVLDNFSEGEK
+We can now apply our `generateIsotopicDistribution` function to a example peptide, in this case _AAGVLDNFSEGEK_.
 ```Fsharp
 let midaPattern =
     "AAGVLDNFSEGEK"
@@ -66,7 +66,7 @@ let label n15LableEfficiency formula =
     let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency) )
     Formula.replaceElement formula Elements.Table.N heavyN15
 ```
-We now apply our `generateIsotopicDistribution` function to the same peptide as above, but now with a 15N label efficiency of 95%
+We now apply our `generateIsotopicDistribution` function to the same peptide as above, but now with a 15N label efficiency of 95%.
 ```Fsharp
 let midaPatternLE95 =
     "AAGVLDNFSEGEK"
@@ -81,7 +81,7 @@ With those functions we are now able to simulate isotopic patterns for any pepti
 to determine the label efficiency of real life data.
 ## Comparing simulated Isotopic Clusters with measured Isotopic Clusters
 
-Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide AAGVLDNFSEGEK we used before.
+Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide _AAGVLDNFSEGEK_ we used before.
 ```Fsharp
 let mz = [|675.7949645701999;676.2983662177933;676.8017942912567|]
 let intensity = [|0.0846659638221692;0.5856855554667739;0.3296484807110569|]
@@ -94,7 +94,7 @@ peaks in the simulated pattern, but they are different in relative intensity and
 
 ![](../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE_overlay.png)
 
-It is difficult to extract all peaks of an isotopic pattern from a MS run. So we need to adapt our simulated pattern to better fit the measured data 
+It is difficult to extract all peaks of an isotopic pattern from an MS run. So we need to adapt our simulated pattern to better fit the measured data 
 and filter the simulated pattern for peaks present in the experimentally measured pattern. Also, while both patterns are normalized in a way that their intensities 
 sum to 1, they were normalized independently from each other. So we normalize our simulated pattern again after filtering to have comparable patterns.
 ```Fsharp
@@ -116,15 +116,15 @@ let simulatedPattern =
 ```
 ![](../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE_overlayFiltered.png)
 
-Now our simulated pattern with an label efficiency of 95% fits the measured pattern better than before, but not quite well. So our real label efficiency is likely something 
-else. To better determine the similarity of our patterns, we can use the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence), 
-which gives us a measure of how our simulated pattern is different from our measured pattern. We can use it in this case, since our normalized isotopic distributions are probability 
+Now our simulated pattern with a label efficiency of 95% fits the measured pattern better than before, but still not quite well. So our real label efficiency is likely different. 
+To better determine the similarity of our patterns, we can use the [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence), 
+which gives us a measure of how our simulated pattern is different from our measured pattern. We can use it in this case since our isotopic patterns can be abstracted as probability 
 distributions.
 ```Fsharp
 let klDiv (p:seq<float>) (q:seq<float>) = 
-    Seq.fold2 (fun acc p q -> (System.Math.Log(p/q)*p) + acc ) 0. p q
+    Seq.fold2 (fun acc p q -> (System.Math.Log(p/q)*p) + acc) 0. p q
 
-klDiv (simulatedPattern|> Seq.map snd) (measuredPattern|> Seq.map snd)
+klDiv (simulatedPattern |> Seq.map snd) (measuredPattern |> Seq.map snd)
 ```
 ```
 val it: float = 0.1856483998
@@ -196,7 +196,7 @@ let simulatedPattern =
 As we can see now, the simulated pattern is almost identical to the measured pattern. We can check the Kullback-Leibler divergence for our new pattern again and see, that 
 the divergence is also better when compared to our 95% label efficiency pattern.
 ```Fsharp
-klDiv (simulatedPattern|> Seq.map snd) (measuredPattern|> Seq.map snd)
+klDiv (simulatedPattern |> Seq.map snd) (measuredPattern |> Seq.map snd)
 ```
 ```
 val it: float = 0.0002724543862
