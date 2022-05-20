@@ -169,49 +169,49 @@ can be used to <strong>estimate the labeling efficiency by comparing measured is
 </code></pre></td></tr></table>
 <p>Our function for the generation of the isotopic distributions takes a <code>Formula</code> as an input. A <code>Formula</code> is a type in BioFSharp which is a map of element information and
 their number of occurences. So we start by defining a convenience function that converts an amino acid string to a <code>Formula</code> and adds water to reflect hydrolyzed state in a mass spectrometer.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let toFormula peptide =  
-    peptide
-    |&gt; BioSeq.ofAminoAcidString
-    |&gt; BioSeq.toFormula
-    |&gt; Formula.add Formula.Table.H2O
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="fn">toFormula</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="fn">peptide</span> <span class="o">=</span>  
+    <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="fn">peptide</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">ofAminoAcidString</span>
+    <span class="o">|&gt;</span> <span class="id">BioSeq</span><span class="pn">.</span><span class="id">toFormula</span>
+    <span class="o">|&gt;</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">add</span> <span class="id">Formula</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">H2O</span>
+</code></pre>
 <p>Next, we have our isotopic pattern simulation function. It predicts an isotopic distribution of the given formula at the given charge, normalized by the sum of probabilities, using the MIDAs algorithm.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let generateIsotopicDistribution (charge:int) (f:Formula.Formula) =
-    IsotopicDistribution.MIDA.ofFormula 
-        IsotopicDistribution.MIDA.normalizeByProbSum
-        0.01 // resolution
-        0.01 // minimal probability
-        charge
-        f
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="fn">generateIsotopicDistribution</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="fn">charge</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="fn">f</span><span class="pn">:</span><span class="id">Formula</span><span class="pn">.</span><span class="id">Formula</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="id">IsotopicDistribution</span><span class="pn">.</span><span class="id">MIDA</span><span class="pn">.</span><span class="id">ofFormula</span> 
+        <span class="id">IsotopicDistribution</span><span class="pn">.</span><span class="id">MIDA</span><span class="pn">.</span><span class="id">normalizeByProbSum</span>
+        <span class="n">0.01</span> <span class="c">// resolution</span>
+        <span class="n">0.01</span> <span class="c">// minimal probability</span>
+        <span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="id">charge</span>
+        <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="id">f</span>
+</code></pre>
 <p>We can now apply our <code>generateIsotopicDistribution</code> function to a example peptide ion, in this case <em>AAGVLDNFSEGEK</em> with an charge of 2.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPattern =
-    "AAGVLDNFSEGEK"
-    |&gt; toFormula
-    |&gt; generateIsotopicDistribution 2
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="id">midaPattern</span> <span class="o">=</span>
+    <span class="s">&quot;AAGVLDNFSEGEK&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 11)" onmouseover="showTip(event, 'fs1', 11)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 12)" onmouseover="showTip(event, 'fs3', 12)" class="fn">generateIsotopicDistribution</span> <span class="n">2</span>
+</code></pre>
 <p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK.png" alt="" /></p>
 <p>The isotopic pattern we simulated so far corresponds to an unlabeled version of the peptide ion. In this example, we want to calculate the label efficiency for a
 <a href="https://en.wikipedia.org/wiki/Isotopic_labeling#Applications_in_proteomics">15N</a> labeled peptide ion. Therefore, we need a function to add 15N labeling to our <code>Formula</code> for the simulation function.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let label n15LableEfficiency formula =
-    let heavyN15 = Elements.Di (Elements.createDi "N15" (Isotopes.Table.N15,n15LableEfficiency) (Isotopes.Table.N14,1.-n15LableEfficiency))
-    Formula.replaceElement formula Elements.Table.N heavyN15
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="fn">label</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="fn">n15LableEfficiency</span> <span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="fn">formula</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="fn">heavyN15</span> <span class="o">=</span> <span class="id">Elements</span><span class="pn">.</span><span class="id">Di</span> <span class="pn">(</span><span class="id">Elements</span><span class="pn">.</span><span class="id">createDi</span> <span class="s">&quot;N15&quot;</span> <span class="pn">(</span><span class="id">Isotopes</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">N15</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="id">n15LableEfficiency</span><span class="pn">)</span> <span class="pn">(</span><span class="id">Isotopes</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">N14</span><span class="pn">,</span><span class="n">1.</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs9', 18)" onmouseover="showTip(event, 'fs9', 18)" class="id">n15LableEfficiency</span><span class="pn">)</span><span class="pn">)</span>
+    <span class="id">Formula</span><span class="pn">.</span><span class="id">replaceElement</span> <span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="id">formula</span> <span class="id">Elements</span><span class="pn">.</span><span class="id">Table</span><span class="pn">.</span><span class="id">N</span> <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="id">heavyN15</span>
+</code></pre>
 <p>We now apply our <code>generateIsotopicDistribution</code> function to the same peptide ion as above, but now with a 15N label efficiency of 95%.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPatternLE95 =
-    "AAGVLDNFSEGEK"
-    |&gt; toFormula
-    |&gt; label 0.95
-    |&gt; generateIsotopicDistribution 2
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="id">midaPatternLE95</span> <span class="o">=</span>
+    <span class="s">&quot;AAGVLDNFSEGEK&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 22)" onmouseover="showTip(event, 'fs1', 22)" class="fn">toFormula</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 23)" onmouseover="showTip(event, 'fs8', 23)" class="fn">label</span> <span class="n">0.95</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 24)" onmouseover="showTip(event, 'fs3', 24)" class="fn">generateIsotopicDistribution</span> <span class="n">2</span>
+</code></pre>
 <p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE.png" alt="" /></p>
 <p>With those functions we are now able to simulate isotopic patterns for any peptide with any charge and label efficiency. In the next step we use those functions
 to determine the label efficiency of real life data.</p>
 <h2><a name="Comparing-simulated-Isotopic-Clusters-with-measured-Isotopic-Clusters" class="anchor" href="#Comparing-simulated-Isotopic-Clusters-with-measured-Isotopic-Clusters">Comparing simulated Isotopic Clusters with measured Isotopic Clusters</a></h2>
 <p>Those m/z and intensity traces were measured in a mass spectrometer for the 15N labeled peptide ion <em>AAGVLDNFSEGEK</em> we used before.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let mz = [|675.7949645701999;676.2983662177933;676.8017942912567|]
-let intensity = [|0.0846659638221692;0.5856855554667739;0.3296484807110569|]
-</code></pre></td></tr></table>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs13', 25)" onmouseover="showTip(event, 'fs13', 25)" class="id">mz</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">675.7949645701999</span><span class="pn">;</span><span class="n">676.2983662177933</span><span class="pn">;</span><span class="n">676.8017942912567</span><span class="pn">|]</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 26)" onmouseover="showTip(event, 'fs14', 26)" class="id">intensity</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0.0846659638221692</span><span class="pn">;</span><span class="n">0.5856855554667739</span><span class="pn">;</span><span class="n">0.3296484807110569</span><span class="pn">|]</span>
+</code></pre>
 <p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_real.png" alt="" /></p>
 <p>If we now compare the measured pattern to the simulated pattern, we see some differences. The m/z values for the measured pattern are identical with
 peaks in the simulated pattern, but they are different in relative intensity and peak count.</p>
@@ -219,98 +219,98 @@ peaks in the simulated pattern, but they are different in relative intensity and
 <p>It is difficult to extract all peaks of an isotopic pattern from an MS run. So we need to adapt our simulated pattern to better fit the measured data
 and filter the simulated pattern for peaks present in the experimentally measured pattern. Also, while both patterns are normalized in a way that their intensities
 sum to 1, they were normalized independently from each other. So we normalize our simulated pattern again after filtering to have comparable patterns.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let measuredPattern = Array.zip mz intensity
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 27)" onmouseover="showTip(event, 'fs15', 27)" class="id">measuredPattern</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="id">zip</span> <span onmouseout="hideTip(event, 'fs13', 30)" onmouseover="showTip(event, 'fs13', 30)" class="id">mz</span> <span onmouseout="hideTip(event, 'fs14', 31)" onmouseover="showTip(event, 'fs14', 31)" class="id">intensity</span>
 
-let normBySum (a:seq&lt;float*float&gt;) =
-    let s = Seq.sumBy snd a 
-    Seq.map (fun (x,y) -&gt; x,y / s) a
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="fn">normBySum</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 33)" onmouseover="showTip(event, 'fs19', 33)" class="fn">a</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs20', 34)" onmouseover="showTip(event, 'fs20', 34)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs21', 35)" onmouseover="showTip(event, 'fs21', 35)" class="vt">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs21', 36)" onmouseover="showTip(event, 'fs21', 36)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 37)" onmouseover="showTip(event, 'fs22', 37)" class="fn">s</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs23', 38)" onmouseover="showTip(event, 'fs23', 38)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 39)" onmouseover="showTip(event, 'fs24', 39)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs25', 40)" onmouseover="showTip(event, 'fs25', 40)" class="fn">snd</span> <span onmouseout="hideTip(event, 'fs19', 41)" onmouseover="showTip(event, 'fs19', 41)" class="fn">a</span> 
+    <span onmouseout="hideTip(event, 'fs23', 42)" onmouseover="showTip(event, 'fs23', 42)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 43)" onmouseover="showTip(event, 'fs26', 43)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs27', 44)" onmouseover="showTip(event, 'fs27', 44)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs28', 45)" onmouseover="showTip(event, 'fs28', 45)" class="fn">y</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs27', 46)" onmouseover="showTip(event, 'fs27', 46)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs28', 47)" onmouseover="showTip(event, 'fs28', 47)" class="fn">y</span> <span class="o">/</span> <span onmouseout="hideTip(event, 'fs22', 48)" onmouseover="showTip(event, 'fs22', 48)" class="fn">s</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs19', 49)" onmouseover="showTip(event, 'fs19', 49)" class="fn">a</span>
 
-let simulatedPattern = 
-    measuredPattern 
-    |&gt; Array.map (fun (mz,intensities) -&gt; 
-        mz,
-        midaPatternLE95
-        |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
-        |&gt; Seq.sumBy snd
-    )
-    |&gt; normBySum
-</code></pre></td></tr></table>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 50)" onmouseover="showTip(event, 'fs29', 50)" class="id">simulatedPattern</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs15', 51)" onmouseover="showTip(event, 'fs15', 51)" class="id">measuredPattern</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 52)" onmouseover="showTip(event, 'fs16', 52)" class="m">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 53)" onmouseover="showTip(event, 'fs30', 53)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs31', 54)" onmouseover="showTip(event, 'fs31', 54)" class="fn">mz</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs32', 55)" onmouseover="showTip(event, 'fs32', 55)" class="fn">intensities</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+        <span onmouseout="hideTip(event, 'fs31', 56)" onmouseover="showTip(event, 'fs31', 56)" class="fn">mz</span><span class="pn">,</span>
+        <span onmouseout="hideTip(event, 'fs12', 57)" onmouseover="showTip(event, 'fs12', 57)" class="id">midaPatternLE95</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 58)" onmouseover="showTip(event, 'fs23', 58)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 59)" onmouseover="showTip(event, 'fs33', 59)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs34', 60)" onmouseover="showTip(event, 'fs34', 60)" class="fn">mzSim</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs35', 61)" onmouseover="showTip(event, 'fs35', 61)" class="fn">intensitiesSim</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs36', 62)" onmouseover="showTip(event, 'fs36', 62)" class="fn">abs</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs34', 63)" onmouseover="showTip(event, 'fs34', 63)" class="fn">mzSim</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs31', 64)" onmouseover="showTip(event, 'fs31', 64)" class="fn">mz</span><span class="pn">)</span> <span class="o">&lt;</span> <span class="n">0.05</span> <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 65)" onmouseover="showTip(event, 'fs23', 65)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 66)" onmouseover="showTip(event, 'fs24', 66)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs25', 67)" onmouseover="showTip(event, 'fs25', 67)" class="fn">snd</span>
+    <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 68)" onmouseover="showTip(event, 'fs18', 68)" class="fn">normBySum</span>
+</code></pre>
 <p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_95LE_overlayFiltered.png" alt="" /></p>
 <p>Now our simulated pattern with a label efficiency of 95% fits the measured pattern better than before, but still not quite well. So our real label efficiency is likely different.
 To better determine the similarity of our patterns, we can use the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler divergence</a>,
 which gives us a measure of how our simulated pattern is different from our measured pattern. We can use it in this case since our isotopic patterns can be abstracted as probability
 distributions.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let klDiv (p:seq&lt;float&gt;) (q:seq&lt;float&gt;) = 
-    Seq.fold2 (fun acc p q -&gt; (System.Math.Log(p/q)*p) + acc) 0. p q
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 69)" onmouseover="showTip(event, 'fs37', 69)" class="fn">klDiv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs38', 70)" onmouseover="showTip(event, 'fs38', 70)" class="fn">p</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs20', 71)" onmouseover="showTip(event, 'fs20', 71)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs21', 72)" onmouseover="showTip(event, 'fs21', 72)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs39', 73)" onmouseover="showTip(event, 'fs39', 73)" class="fn">q</span><span class="pn">:</span><span onmouseout="hideTip(event, 'fs20', 74)" onmouseover="showTip(event, 'fs20', 74)" class="if">seq</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs21', 75)" onmouseover="showTip(event, 'fs21', 75)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs23', 76)" onmouseover="showTip(event, 'fs23', 76)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 77)" onmouseover="showTip(event, 'fs40', 77)" class="id">fold2</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs41', 78)" onmouseover="showTip(event, 'fs41', 78)" class="fn">acc</span> <span onmouseout="hideTip(event, 'fs42', 79)" onmouseover="showTip(event, 'fs42', 79)" class="fn">p</span> <span onmouseout="hideTip(event, 'fs43', 80)" onmouseover="showTip(event, 'fs43', 80)" class="fn">q</span> <span class="k">-&gt;</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs44', 81)" onmouseover="showTip(event, 'fs44', 81)" class="id">System</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs45', 82)" onmouseover="showTip(event, 'fs45', 82)" class="rt">Math</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs46', 83)" onmouseover="showTip(event, 'fs46', 83)" class="id">Log</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs42', 84)" onmouseover="showTip(event, 'fs42', 84)" class="fn">p</span><span class="o">/</span><span onmouseout="hideTip(event, 'fs43', 85)" onmouseover="showTip(event, 'fs43', 85)" class="fn">q</span><span class="pn">)</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs42', 86)" onmouseover="showTip(event, 'fs42', 86)" class="fn">p</span><span class="pn">)</span> <span class="o">+</span> <span onmouseout="hideTip(event, 'fs41', 87)" onmouseover="showTip(event, 'fs41', 87)" class="fn">acc</span><span class="pn">)</span> <span class="n">0.</span> <span onmouseout="hideTip(event, 'fs38', 88)" onmouseover="showTip(event, 'fs38', 88)" class="fn">p</span> <span onmouseout="hideTip(event, 'fs39', 89)" onmouseover="showTip(event, 'fs39', 89)" class="fn">q</span>
 
-klDiv (simulatedPattern |&gt; Seq.map snd) (measuredPattern |&gt; Seq.map snd)
-</code></pre></td></tr></table>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">float</span> <span class="o">=</span> <span class="n">0.1856483998</span>
+<span onmouseout="hideTip(event, 'fs37', 90)" onmouseover="showTip(event, 'fs37', 90)" class="fn">klDiv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs29', 91)" onmouseover="showTip(event, 'fs29', 91)" class="id">simulatedPattern</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 92)" onmouseover="showTip(event, 'fs23', 92)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 93)" onmouseover="showTip(event, 'fs26', 93)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 94)" onmouseover="showTip(event, 'fs25', 94)" class="fn">snd</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 95)" onmouseover="showTip(event, 'fs15', 95)" class="id">measuredPattern</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 96)" onmouseover="showTip(event, 'fs23', 96)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 97)" onmouseover="showTip(event, 'fs26', 97)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 98)" onmouseover="showTip(event, 'fs25', 98)" class="fn">snd</span><span class="pn">)</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs21', 99)" onmouseover="showTip(event, 'fs21', 99)" class="id">float</span> <span class="o">=</span> <span class="n">0.1856483998</span>
 </code></pre>
 <p>So the Kullback-Leibler divergence for our isotopic patterns is ~0.19. The smaller the divergence, the better the fit. So our simulated pattern can still be improved
 through the label efficiency to better fit our measured pattern.</p>
 <h2><a name="Determining-Label-Efficiency" class="anchor" href="#Determining-Label-Efficiency">Determining Label Efficiency</a></h2>
 <p>To better work for general use cases, we can now take the functions we used above and modify them so that in the end we have a function that takes the measured isotopic pattern,
 the corresponding peptide sequence with charge and a label efficiency.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let simulateFrom peptideSequence charge lableEfficiency =
-    let simPattern =
-        peptideSequence
-        |&gt; toFormula 
-        |&gt; label lableEfficiency
-        |&gt; generateIsotopicDistribution charge 
-    simPattern
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">simulateFrom</span> <span class="id">peptideSequence</span> <span class="id">charge</span> <span class="id">lableEfficiency</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="id">simPattern</span> <span class="o">=</span>
+        <span class="id">peptideSequence</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 100)" onmouseover="showTip(event, 'fs1', 100)" class="id">toFormula</span> 
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 101)" onmouseover="showTip(event, 'fs8', 101)" class="id">label</span> <span class="id">lableEfficiency</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 102)" onmouseover="showTip(event, 'fs3', 102)" class="id">generateIsotopicDistribution</span> <span class="id">charge</span> 
+    <span class="id">simPattern</span>
 
-let compareIsotopicDistributions (measured:(float*float)[]) (simulated:(float*float) list)= 
-    let patternSim = 
-        measured
-        |&gt; Seq.map (fun (mz,intensities) -&gt; 
-            mz,
-            simulated
-            |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
-            |&gt; Seq.sumBy snd
-        )
-        |&gt; normBySum
-    let klDiv = klDiv (patternSim |&gt; Seq.map snd)  (measured |&gt; Seq.map snd)
-    klDiv
+<span class="k">let</span> <span class="id">compareIsotopicDistributions</span> <span class="pn">(</span><span class="id">measured</span><span class="pn">:</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 103)" onmouseover="showTip(event, 'fs21', 103)" class="id">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs21', 104)" onmouseover="showTip(event, 'fs21', 104)" class="id">float</span><span class="pn">)</span><span class="pn">[</span><span class="pn">]</span><span class="pn">)</span> <span class="pn">(</span><span class="id">simulated</span><span class="pn">:</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 105)" onmouseover="showTip(event, 'fs21', 105)" class="id">float</span><span class="pn">*</span><span onmouseout="hideTip(event, 'fs21', 106)" onmouseover="showTip(event, 'fs21', 106)" class="id">float</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs47', 107)" onmouseover="showTip(event, 'fs47', 107)" class="id">list</span><span class="pn">)</span><span class="o">=</span> 
+    <span class="k">let</span> <span class="id">patternSim</span> <span class="o">=</span> 
+        <span class="id">measured</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 108)" onmouseover="showTip(event, 'fs23', 108)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 109)" onmouseover="showTip(event, 'fs26', 109)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 110)" onmouseover="showTip(event, 'fs13', 110)" class="id">mz</span><span class="pn">,</span><span class="id">intensities</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+            <span onmouseout="hideTip(event, 'fs13', 111)" onmouseover="showTip(event, 'fs13', 111)" class="id">mz</span><span class="pn">,</span>
+            <span class="id">simulated</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 112)" onmouseover="showTip(event, 'fs23', 112)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 113)" onmouseover="showTip(event, 'fs33', 113)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span class="id">mzSim</span><span class="pn">,</span><span class="id">intensitiesSim</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs36', 114)" onmouseover="showTip(event, 'fs36', 114)" class="id">abs</span><span class="pn">(</span><span class="id">mzSim</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs13', 115)" onmouseover="showTip(event, 'fs13', 115)" class="id">mz</span><span class="pn">)</span> <span class="pn">&lt;</span> <span class="n">0.05</span> <span class="pn">)</span>
+            <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 116)" onmouseover="showTip(event, 'fs23', 116)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 117)" onmouseover="showTip(event, 'fs24', 117)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs25', 118)" onmouseover="showTip(event, 'fs25', 118)" class="id">snd</span>
+        <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 119)" onmouseover="showTip(event, 'fs18', 119)" class="id">normBySum</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs37', 120)" onmouseover="showTip(event, 'fs37', 120)" class="id">klDiv</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs37', 121)" onmouseover="showTip(event, 'fs37', 121)" class="id">klDiv</span> <span class="pn">(</span><span class="id">patternSim</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 122)" onmouseover="showTip(event, 'fs23', 122)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 123)" onmouseover="showTip(event, 'fs26', 123)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 124)" onmouseover="showTip(event, 'fs25', 124)" class="id">snd</span><span class="pn">)</span>  <span class="pn">(</span><span class="id">measured</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 125)" onmouseover="showTip(event, 'fs23', 125)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 126)" onmouseover="showTip(event, 'fs26', 126)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 127)" onmouseover="showTip(event, 'fs25', 127)" class="id">snd</span><span class="pn">)</span>
+    <span onmouseout="hideTip(event, 'fs37', 128)" onmouseover="showTip(event, 'fs37', 128)" class="id">klDiv</span>
 
-let calcKL extractedIsoPattern peptideSequence charge lableEfficiency = 
-    let sim = simulateFrom peptideSequence charge lableEfficiency
-    let comp = compareIsotopicDistributions extractedIsoPattern sim
-    comp
-</code></pre></td></tr></table>
+<span class="k">let</span> <span class="id">calcKL</span> <span class="id">extractedIsoPattern</span> <span class="id">peptideSequence</span> <span class="id">charge</span> <span class="id">lableEfficiency</span> <span class="o">=</span> 
+    <span class="k">let</span> <span class="id">sim</span> <span class="o">=</span> <span class="id">simulateFrom</span> <span class="id">peptideSequence</span> <span class="id">charge</span> <span class="id">lableEfficiency</span>
+    <span class="k">let</span> <span class="id">comp</span> <span class="o">=</span> <span class="id">compareIsotopicDistributions</span> <span class="id">extractedIsoPattern</span> <span class="id">sim</span>
+    <span class="id">comp</span>
+</code></pre>
 <p>If we now give the parameters for the measured pattern, peptide sequence and charge to this function, we have a function that takes a label efficiency and returns a measure for the
 pattern similarity. This function can then be used in a minimization function. For this we will use an algorithm called <a href="https://en.wikipedia.org/wiki/Brent%27s_method">'Brent's method'</a>, which is implemented in FSharp.Stats.
 Since we don't expect a label efficiency below 80% in our example, we search for the label efficiency with the best fit between 80% and 99.9%.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">FSharp.Stats.Optimization.Brent.minimize 
-    (calcKL measuredPattern "AAGVLDNFSEGEK" 2)
-    0.8
-    0.999
-</code></pre></td></tr></table>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="id">float</span> <span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="id">option</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="id">Some</span> <span class="n">0.9892291257</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs48', 129)" onmouseover="showTip(event, 'fs48', 129)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 130)" onmouseover="showTip(event, 'fs49', 130)" class="id">Stats</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 131)" onmouseover="showTip(event, 'fs50', 131)" class="id">Optimization</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs51', 132)" onmouseover="showTip(event, 'fs51', 132)" class="id">Brent</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 133)" onmouseover="showTip(event, 'fs52', 133)" class="id">minimize</span> 
+    <span class="pn">(</span><span class="id">calcKL</span> <span onmouseout="hideTip(event, 'fs15', 134)" onmouseover="showTip(event, 'fs15', 134)" class="id">measuredPattern</span> <span class="s">&quot;AAGVLDNFSEGEK&quot;</span> <span class="n">2</span><span class="pn">)</span>
+    <span class="n">0.8</span>
+    <span class="n">0.999</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs21', 135)" onmouseover="showTip(event, 'fs21', 135)" class="id">float</span> <span onmouseout="hideTip(event, 'fs53', 136)" onmouseover="showTip(event, 'fs53', 136)" class="id">option</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs54', 137)" onmouseover="showTip(event, 'fs54', 137)" class="id">Some</span> <span class="n">0.9892291257</span>
 </code></pre>
 <p>According to Brent, the simulated pattern with a label efficiency of ~0.99 fits best to our measured pattern. We can now visualize both patterns and compare them.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">let midaPatternOptimal =
-    "AAGVLDNFSEGEK"
-    |&gt; toFormula
-    |&gt; label 0.9892291257
-    |&gt; generateIsotopicDistribution 2
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">midaPatternOptimal</span> <span class="o">=</span>
+    <span class="s">&quot;AAGVLDNFSEGEK&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs1', 138)" onmouseover="showTip(event, 'fs1', 138)" class="id">toFormula</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs8', 139)" onmouseover="showTip(event, 'fs8', 139)" class="id">label</span> <span class="n">0.9892291257</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 140)" onmouseover="showTip(event, 'fs3', 140)" class="id">generateIsotopicDistribution</span> <span class="n">2</span>
 
-let simulatedPattern = 
-    measuredPattern 
-    |&gt; Array.map (fun (mz,intensities) -&gt; 
-        mz,
-        midaPatternOptimal
-        |&gt; Seq.filter (fun (mzSim,intensitiesSim) -&gt; abs(mzSim-mz) &lt; 0.05 )
-        |&gt; Seq.sumBy snd
-    )
-    |&gt; normBySum
-</code></pre></td></tr></table>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 141)" onmouseover="showTip(event, 'fs29', 141)" class="id">simulatedPattern</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs15', 142)" onmouseover="showTip(event, 'fs15', 142)" class="id">measuredPattern</span> 
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs16', 143)" onmouseover="showTip(event, 'fs16', 143)" class="id">Array</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 144)" onmouseover="showTip(event, 'fs30', 144)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs13', 145)" onmouseover="showTip(event, 'fs13', 145)" class="id">mz</span><span class="pn">,</span><span class="id">intensities</span><span class="pn">)</span> <span class="k">-&gt;</span> 
+        <span onmouseout="hideTip(event, 'fs13', 146)" onmouseover="showTip(event, 'fs13', 146)" class="id">mz</span><span class="pn">,</span>
+        <span class="id">midaPatternOptimal</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 147)" onmouseover="showTip(event, 'fs23', 147)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs33', 148)" onmouseover="showTip(event, 'fs33', 148)" class="id">filter</span> <span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span class="id">mzSim</span><span class="pn">,</span><span class="id">intensitiesSim</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs36', 149)" onmouseover="showTip(event, 'fs36', 149)" class="id">abs</span><span class="pn">(</span><span class="id">mzSim</span><span class="o">-</span><span onmouseout="hideTip(event, 'fs13', 150)" onmouseover="showTip(event, 'fs13', 150)" class="id">mz</span><span class="pn">)</span> <span class="pn">&lt;</span> <span class="n">0.05</span> <span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 151)" onmouseover="showTip(event, 'fs23', 151)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 152)" onmouseover="showTip(event, 'fs24', 152)" class="id">sumBy</span> <span onmouseout="hideTip(event, 'fs25', 153)" onmouseover="showTip(event, 'fs25', 153)" class="id">snd</span>
+    <span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs18', 154)" onmouseover="showTip(event, 'fs18', 154)" class="id">normBySum</span>
+</code></pre>
 <p><img src="../img/6_label_efficiency_calculator/AAGVLDNFSEGEK_optimal_overlayFiltered.png" alt="" /></p>
 <p>As we can see now, the simulated pattern is almost identical to the measured pattern. We can check the Kullback-Leibler divergence for our new pattern again and see, that
 the divergence is also better when compared to our 95% label efficiency pattern.</p>
-<table class="pre"><tr><td class="snippet"><pre class="fssnip"><code lang="Fsharp">klDiv (simulatedPattern |&gt; Seq.map snd) (measuredPattern |&gt; Seq.map snd)
-</code></pre></td></tr></table>
-<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="id">float</span> <span class="o">=</span> <span class="n">0.0002724543862</span>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs37', 155)" onmouseover="showTip(event, 'fs37', 155)" class="id">klDiv</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs29', 156)" onmouseover="showTip(event, 'fs29', 156)" class="id">simulatedPattern</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 157)" onmouseover="showTip(event, 'fs23', 157)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 158)" onmouseover="showTip(event, 'fs26', 158)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 159)" onmouseover="showTip(event, 'fs25', 159)" class="id">snd</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs15', 160)" onmouseover="showTip(event, 'fs15', 160)" class="id">measuredPattern</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs23', 161)" onmouseover="showTip(event, 'fs23', 161)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs26', 162)" onmouseover="showTip(event, 'fs26', 162)" class="id">map</span> <span onmouseout="hideTip(event, 'fs25', 163)" onmouseover="showTip(event, 'fs25', 163)" class="id">snd</span><span class="pn">)</span>
+</code></pre>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">val</span> <span class="id">it</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs21', 164)" onmouseover="showTip(event, 'fs21', 164)" class="id">float</span> <span class="o">=</span> <span class="n">0.0002724543862</span>
 </code></pre>
 <p>Now, we are not limited to one peptide ion with our label efficiency calculation. We can perform this for every peptide ion in a mass spectrometry run and get a label efficiency
 coupled with a "quality measurement". This can give us a good idea for the label efficiency in a sample.</p>
@@ -319,7 +319,44 @@ coupled with a "quality measurement". This can give us a good idea for the label
                 </div>
             </div>
         </div>
-        <div class="fsdocs-tip" id="fs1">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+        <div class="fsdocs-tip" id="fs1">val toFormula : peptide:&#39;a -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs2">val peptide : &#39;a</div>
+<div class="fsdocs-tip" id="fs3">val generateIsotopicDistribution : charge:int -&gt; f:&#39;a -&gt; &#39;b</div>
+<div class="fsdocs-tip" id="fs4">val charge : int</div>
+<div class="fsdocs-tip" id="fs5">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to 
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs6">val f : &#39;a</div>
+<div class="fsdocs-tip" id="fs7">val midaPattern : obj</div>
+<div class="fsdocs-tip" id="fs8">val label : n15LableEfficiency:&#39;a -&gt; formula:&#39;b -&gt; &#39;c</div>
+<div class="fsdocs-tip" id="fs9">val n15LableEfficiency : &#39;a</div>
+<div class="fsdocs-tip" id="fs10">val formula : &#39;b</div>
+<div class="fsdocs-tip" id="fs11">val heavyN15 : obj</div>
+<div class="fsdocs-tip" id="fs12">val midaPatternLE95 : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs13">val mz : float []</div>
+<div class="fsdocs-tip" id="fs14">val intensity : float []</div>
+<div class="fsdocs-tip" id="fs15">val measuredPattern : (float * float) []</div>
+<div class="fsdocs-tip" id="fs16">module Array
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with arrays.&lt;/summary&gt;<br />&lt;remarks&gt;
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/arrays&quot;&gt;F# Language Guide - Arrays&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs17">val zip : array1:&#39;T1 [] -&gt; array2:&#39;T2 [] -&gt; (&#39;T1 * &#39;T2) []<br /><em>&lt;summary&gt;Combines the two arrays into an array of pairs. The two arrays must have equal lengths, otherwise an &lt;c&gt;ArgumentException&lt;/c&gt; is
+ raised.&lt;/summary&gt;<br />&lt;param name=&quot;array1&quot;&gt;The first input array.&lt;/param&gt;<br />&lt;param name=&quot;array2&quot;&gt;The second input array.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when either of the input arrays is null.&lt;/exception&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input arrays differ in length.&lt;/exception&gt;<br />&lt;returns&gt;The array of tupled elements.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs18">val normBySum : a:seq&lt;float * float&gt; -&gt; seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs19">val a : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs20">Multiple items<br />val seq : sequence:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><em>&lt;summary&gt;Builds a sequence using sequence expression syntax&lt;/summary&gt;<br />&lt;param name=&quot;sequence&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;</em><br /><br />--------------------<br />type seq&lt;&#39;T&gt; = System.Collections.Generic.IEnumerable&lt;&#39;T&gt;<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Collections.Generic.IEnumerable`1&quot; /&gt;&lt;/summary&gt;<br />&lt;remarks&gt;
+  See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.SeqModule&quot; /&gt; module for further operations related to sequences.
+
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/sequences&quot;&gt;F# Language Guide - Sequences&lt;/a&gt;.
+&lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
  primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
  with InvariantCulture settings. Otherwise the operation requires an appropriate
  static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
@@ -328,7 +365,75 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
  The unit of measure is erased in compiled code and when values of this type
  are analyzed using reflection. The type is representationally equivalent to 
  &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs2">type &#39;T option = Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The type of optional values. When used from other CLI languages the
+<div class="fsdocs-tip" id="fs22">val s : float</div>
+<div class="fsdocs-tip" id="fs23">module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs24">val sumBy : projection:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; &#39;U (requires member ( + ) and member get_Zero)<br /><em>&lt;summary&gt;Returns the sum of the results generated by applying the function to each element of the sequence.&lt;/summary&gt;<br />&lt;remarks&gt;The generated elements are summed using the &lt;c&gt;+&lt;/c&gt; operator and &lt;c&gt;Zero&lt;/c&gt; property associated with the generated type.&lt;/remarks&gt;<br />&lt;param name=&quot;projection&quot;&gt;A function to transform items from the input sequence into the type that will be summed.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The computed sum.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs25">val snd : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T2<br /><em>&lt;summary&gt;Return the second element of a tuple, &lt;c&gt;snd (a,b) = b&lt;/c&gt;.&lt;/summary&gt;<br />&lt;param name=&quot;tuple&quot;&gt;The input tuple.&lt;/param&gt;<br />&lt;returns&gt;The second value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs26">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs27">val x : float</div>
+<div class="fsdocs-tip" id="fs28">val y : float</div>
+<div class="fsdocs-tip" id="fs29">val simulatedPattern : seq&lt;float * float&gt;</div>
+<div class="fsdocs-tip" id="fs30">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><em>&lt;summary&gt;Builds a new array whose elements are the results of applying the given function
+ to each of the elements of the array.&lt;/summary&gt;<br />&lt;param name=&quot;mapping&quot;&gt;The function to transform elements of the array.&lt;/param&gt;<br />&lt;param name=&quot;array&quot;&gt;The input array.&lt;/param&gt;<br />&lt;returns&gt;The array of transformed elements.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input array is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs31">val mz : float</div>
+<div class="fsdocs-tip" id="fs32">val intensities : float</div>
+<div class="fsdocs-tip" id="fs33">val filter : predicate:(&#39;T -&gt; bool) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;T&gt;<br /><em>&lt;summary&gt;Returns a new collection containing only the elements of the collection
+ for which the given predicate returns &quot;true&quot;. This is a synonym for Seq.where.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However, 
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.
+
+ Remember sequence is lazy, effects are delayed until it is enumerated.&lt;/remarks&gt;<br />&lt;param name=&quot;predicate&quot;&gt;A function to test whether each item in the input sequence should be included in the output.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">val mzSim : float</div>
+<div class="fsdocs-tip" id="fs35">val intensitiesSim : float</div>
+<div class="fsdocs-tip" id="fs36">val abs : value:&#39;T -&gt; &#39;T (requires member Abs)<br /><em>&lt;summary&gt;Absolute value of the given number.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The absolute value of the input.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs37">val klDiv : p:seq&lt;float&gt; -&gt; q:seq&lt;float&gt; -&gt; float</div>
+<div class="fsdocs-tip" id="fs38">val p : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs39">val q : seq&lt;float&gt;</div>
+<div class="fsdocs-tip" id="fs40">val fold2 : folder:(&#39;State -&gt; &#39;T1 -&gt; &#39;T2 -&gt; &#39;State) -&gt; state:&#39;State -&gt; source1:seq&lt;&#39;T1&gt; -&gt; source2:seq&lt;&#39;T2&gt; -&gt; &#39;State<br /><em>&lt;summary&gt;Applies a function to corresponding elements of two collections, threading an accumulator argument
+ through the computation.&lt;/summary&gt;<br />&lt;remarks&gt; The two sequences need not have equal lengths:
+ when one sequence is exhausted any remaining elements in the other sequence are ignored.
+ If the input function is &lt;c&gt;f&lt;/c&gt; and the elements are &lt;c&gt;i0...iN&lt;/c&gt; and &lt;c&gt;j0...jN&lt;/c&gt;
+ then computes &lt;c&gt;f (... (f s i0 j0)...) iN jN&lt;/c&gt;.&lt;/remarks&gt;<br />&lt;param name=&quot;folder&quot;&gt;The function to update the state given the input elements.&lt;/param&gt;<br />&lt;param name=&quot;state&quot;&gt;The initial state.&lt;/param&gt;<br />&lt;param name=&quot;source1&quot;&gt;The first input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source2&quot;&gt;The second input sequence.&lt;/param&gt;<br />&lt;returns&gt;The final state value.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the either of the input sequences is null.&lt;/exception&gt;</em></div>
+<div class="fsdocs-tip" id="fs41">val acc : float</div>
+<div class="fsdocs-tip" id="fs42">val p : float</div>
+<div class="fsdocs-tip" id="fs43">val q : float</div>
+<div class="fsdocs-tip" id="fs44">namespace System</div>
+<div class="fsdocs-tip" id="fs45">type Math =
+  static member Abs : value: decimal -&gt; decimal + 7 overloads
+  static member Acos : d: float -&gt; float
+  static member Acosh : d: float -&gt; float
+  static member Asin : d: float -&gt; float
+  static member Asinh : d: float -&gt; float
+  static member Atan : d: float -&gt; float
+  static member Atan2 : y: float * x: float -&gt; float
+  static member Atanh : d: float -&gt; float
+  static member BigMul : a: int * b: int -&gt; int64 + 2 overloads
+  static member BitDecrement : x: float -&gt; float
+  ...<br /><em>&lt;summary&gt;Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs46">System.Math.Log(d: float) : float<br />System.Math.Log(a: float, newBase: float) : float</div>
+<div class="fsdocs-tip" id="fs47">type &#39;T list = List&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The type of immutable singly-linked lists. &lt;/summary&gt;<br />&lt;remarks&gt;See the &lt;see cref=&quot;T:Microsoft.FSharp.Collections.ListModule&quot; /&gt; module for further operations related to lists.
+
+ Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1; 2; 3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+
+  See also &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/lists&quot;&gt;F# Language Guide - Lists&lt;/a&gt;.
+ &lt;/remarks&gt;</em></div>
+<div class="fsdocs-tip" id="fs48">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs49">namespace FSharp.Stats</div>
+<div class="fsdocs-tip" id="fs50">namespace FSharp.Stats.Optimization</div>
+<div class="fsdocs-tip" id="fs51">module Brent
+
+from FSharp.Stats.Optimization</div>
+<div class="fsdocs-tip" id="fs52">val minimize : f:(float -&gt; float) -&gt; lowerBound:float -&gt; upperBound:float -&gt; float option<br /><em>&lt;summary&gt;
+ Finds the minimum in the given function between the lower and upper boundary with tolerance 10^-7 via brent search. Returns None if 100 iterations are reached.   
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs53">type &#39;T option = Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The type of optional values. When used from other CLI languages the
  empty option is the &lt;c&gt;null&lt;/c&gt; value. &lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;Some&lt;/c&gt; and &lt;c&gt;None&lt;/c&gt; to create values of this type.
  Use the values in the &lt;c&gt;Option&lt;/c&gt; module to manipulate values of this type,
  or pattern match against the values directly.
@@ -336,7 +441,7 @@ type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI t
  &#39;None&#39; values will appear as the value &lt;c&gt;null&lt;/c&gt; to other CLI languages.
  Instance methods on this type will appear as static methods to other CLI languages
  due to the use of &lt;c&gt;null&lt;/c&gt; as a value representation.&lt;/remarks&gt;<br />&lt;category index=&quot;3&quot;&gt;Options&lt;/category&gt;</em></div>
-<div class="fsdocs-tip" id="fs3">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The representation of &quot;Value of type &#39;T&quot;&lt;/summary&gt;<br />&lt;param name=&quot;Value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;An option representing the value.&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs54">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;<br /><em>&lt;summary&gt;The representation of &quot;Value of type &#39;T&quot;&lt;/summary&gt;<br />&lt;param name=&quot;Value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;An option representing the value.&lt;/returns&gt;</em></div>
 
     </div>
 
