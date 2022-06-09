@@ -76,7 +76,7 @@ This high number of comparisons is not unusual in modern experiments and therefo
 
 One approach is the usage of the __False-Discovery-Rate FDR__ instead of p values, for the reason that it is robust to false positives and is widely used in exploratory analysis where the goal is to have mostly true findings and a minimum of false positive findings. 
 The FDR describes the rate of expected false positives in all significant findings.
-Another concern in differential gene expression analysis is failing to identify truly differentially expressed genes, which is why the FDR is used (as many true positives with minimum of false positives). For further information see the [q values BlogPost](https://csbiology.github.io/CSBlog/posts/4_qvalues.html)
+Another concern in differential gene expression analysis is failing to identify truly differentially expressed genes, which is why the FDR is used (as many true positives with minimum of false positives). For further information see the [q values BlogPost](https://csbiology.github.io/CSBlog/posts/4_qvalues.html).
 
 
 A second approach is using __q values__, which are local FDRs of single genes in this case.
@@ -121,6 +121,7 @@ In this implemented version of SAM the t statistic is used.
 <center><img style="max-width:50%" src="../img/7_SAM/Formula.png"></img></center>
 
 This score of means relative to their standard deviation is sufficient to condense all replicate measurements into one score for each gene.
+<center>
 *)
 
 (***hide***)
@@ -128,14 +129,15 @@ System.IO.File.ReadAllText "../img/7_SAM/observedChart.html"
 (*** include-it-raw ***)
 
 (**
-_Figure 2: Histogram of statistical scores of the observed dataset._
-
+_Figure 2: Histogram of statistics of the observed dataset._
+</center>
 
 When observing the histogram in figure 2, which shows the distribution of the statistics of the measured (observed) data from each gene, it is obvious that distribution is right-skewed. 
 The shape of this histogram will be important later when comparing the observed data to the expected (permuted) data. 
 
 # s0
 Ideally, the variance of the statistic is only dependent on the statistic and not on the standard deviation (si). 
+<center>
 *)
 
 (***hide***)
@@ -144,7 +146,7 @@ System.IO.File.ReadAllText "../img/7_SAM/s0with0.html"
 
 (**
 _Figure 3: Statistics vs. their variance_
-
+</center>
 In figure 3, the statistic (di) is plotted against the standard deviation (si). 
 It can be seen that the variance of the statistics decreases with increasing sis (less spread on the Y-Axis).
 Including s0, an artificial fudge factor , aims to homogenize the variance of di in respect to si.
@@ -155,7 +157,7 @@ The statistics di are calculated by dividing the mean through the pooled standar
 
 Values with small standard deviations get affected stronger than the ones with higher standard deviations, ideally eliminating the relation between the variance of statistics and si. 
 It is chosen as a percentile of si that minimizes the coefficient of variation of di.
-
+<center>
 
 *)
 
@@ -166,7 +168,7 @@ System.IO.File.ReadAllText "../img/7_SAM/s0est.html"
 (**
 _Figure 4: Statistics vs. their variance with s0 included._ 
 
-
+</center>
 Benefit of including s0 in the calculation of statistic scores is dampening the effect of large score values that result from near-zero gene expression.
 If a standard deviation is nearly zero, as in very reproducible measurements in replicates, it can lead to a strong t statistics overestimation.
 Both problems can be solved by the addition of s0 to the estimated standard deviation, because the denominator can not be smaller than s0, and therefore no infinite large scores can be produced.  
@@ -186,6 +188,7 @@ This statistics can be plotted again in a histogram (see figure 3) and then comp
 __Calculating statistics for the permuted data allows to use it as a null distribution for comparison, because no links between prior scores and treatments are left.__
 The permutation, being a bootstrap method, leads to a __random scrambling of the labels__ and each configuration is equally likely. 
 One more advantage is the ability to estimate the false discovery rate by estimating falsely positive called genes. 
+<center>
 *)
 
 (***hide***)
@@ -195,13 +198,14 @@ System.IO.File.ReadAllText "../img/7_SAM/observedVsExpectedHisto.html"
 
 (**
 _Figure 5: Histogram of statistics of expected and observed datasets._
-
+</center>
 In figure 5 are the histograms of observed and expected data displayed (comparison to figure 2). 
 As previously described, the distribution of the observed data is right-skewed.
 The expected scores, in contrast, are more centered. 
 The mode of the distributions with a bin-width of 0.5 is 0.11 for the observed data and 0.17 for the expected data.
 As mentioned previously, higher statistics indicate a higher possibility of real changes, and therefore differential gene expression can be expected.
 To investigate this further, the observed statistics are compared to the expected statistics.
+<center>
 *)
 (***hide***)
 System.IO.File.ReadAllText "../img/7_SAM/scores.html"
@@ -210,7 +214,7 @@ System.IO.File.ReadAllText "../img/7_SAM/scores.html"
 (**
 
 _Figure 6: observed vs. expected statistics. The red line indicates the bisecting angle, the black dots represent statistics._ 
-
+</center>
 The bisecting angle is an indication where genes should be located if there is no difference between observed and expected scores.
 Datapoints deviating from the bisecting angle are potentially significantly different. 
 The variation in the x-axis indicates the magnitude of the change, as more extreme values are more likely to be significantly different. 
@@ -228,6 +232,7 @@ To ensure that the differences are always increasing (or decreasing for the lowe
 With that delta, the same step is performed on the expected datasets, where ideally no genes should be significant. 
 The genes outside of the previously determined cuts are counted, and declared as false positive. 
 With the information on how many genes are significant by chance (false positives), it is possible to calculate the False Discovery Rate by dividing the false positives through the amount of significant genes.
+<center>
 *)
 (***hide***)
 System.IO.File.ReadAllText "../img/7_SAM/SAM005.html"
@@ -236,6 +241,7 @@ System.IO.File.ReadAllText "../img/7_SAM/SAM005.html"
 (**
 
 _Figure 7: SAM results with FDR of 5%._
+</center>
 The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold.
 Lower and upper cuts are marked by grey dashed lines. 
 Points colored red indicate genes that are downregulated, green indicates upregulation.  
@@ -245,6 +251,7 @@ By increasing delta, the FDR decreases, and statistics have to be more extreme i
 
 
 To clarify the meaning of the delta, a comparison with an FDR of 10% will be shown. 
+<center>
 *)
 
 (***hide***)
@@ -253,13 +260,14 @@ System.IO.File.ReadAllText "../img/7_SAM/SAM010.html"
 
 (**
 _Figure 8: SAM results with FDR of 10 %._
+</center>
 The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold. 
 Lower and upper cuts are marked by grey dashed lines.
 Points colored red indicate genes that are downregulated, green indicates upregulation. 
-
+<center>
 _Table 1: SAM Results with different FDRs._ 
 
-|       | FDR 5% | FDR 10% |
+|       | __FDR 5%__ | __FDR 10%__ |
 |:-----:|:------:|:-------:|
 |   __s0__  | 0.0021 |  0.0021 |
 |  __pi0__  |  0.63  |   0.63  |
@@ -273,7 +281,7 @@ _Table 1: SAM Results with different FDRs._
 |__median false positives__| 125 | 400| 
 
 
-
+</center>
 
 
 Comparing the results with an FDR of 5% and 10%, it shows that s0 and pi0 remain unchanged because they are dependent on the dataset, not the FDR.
@@ -369,7 +377,7 @@ When working with high throughput data it is beneficial to use more tailored met
 SAM is a modular blue print for permutation tests, that is not limited to microarray data, but with alternative permutation patterns and exchangeable statistic calculations can be applied to several data (e.g. RNASeq, proteomics, and many more).
 
 ## References
-[1] Tusher V, Tibshirani R, Significance analysis of microarrays applied to the ionizing radiation response , 2001[DOI:10.1073/pnas.091062498](https://doi.org/10.1073/pnas.091062498)
+[1] Tusher V, Tibshirani R, Significance analysis of microarrays applied to the ionizing radiation response , 2001 [DOI:10.1073/pnas.091062498](https://doi.org/10.1073/pnas.091062498)
 
 [2] Zhang S, A comprehensive evaluation of SAM, the SAM R-package and a simple modification to improve its performance, 2007 [DOI:10.1186/1471-2105-8-230](https://doi.org/10.1186/1471-2105-8-230)
 
