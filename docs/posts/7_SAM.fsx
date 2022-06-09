@@ -8,9 +8,8 @@ index: 2
 ---
 *)
 
-
 (***hide***)
-#r "nuget: FSharpAux, 1.1.0"
+
 #r "nuget: Plotly.NET, 2.0.0"
 #r "nuget: FSharp.Stats, 0.4.7"
 
@@ -27,17 +26,7 @@ module Chart =
         |> Chart.withYAxis (myAxis y)
     
 (**
-# SAM
 
-
-_[Selina Ziegler](https://github.com/zieglerSe), June 2022_
-
----
-title: SAM
-category: Learning resources
-categoryindex: 4
-index: 2
----
 # SAM
 _[Selina Ziegler](https://github.com/ZieglerSe)_ ~ _last updated: 2022-06-10_
 
@@ -76,7 +65,7 @@ Traditional statistical tests like t-tests were originally created to perform co
 With an increasing number of performed tests the probability of encountering false positives increases. 
 This effect can be adjusted or minimized by applying correction methods. 
 Correction methods, like Bonferroni, usually account for the number of performed tests, lowering the threshold (BonferroniThreshold) for calling a change significant.
-![](../img/7_SAM/Bonferroni.png)
+<center><img style="max-width:50%" src="../img/7_SAM/Bonferroni.png"></img></center>
 
 With this lowered threshold it is more likely to miss true differentially expressed genes. 
 Using the example from above, an alpha level of 0.05 and 10.000 performed tests results in a p value of 0.000005 for genes to be called significant. 
@@ -107,15 +96,15 @@ But in biological experiments, it is often challenging to define the true null d
 
 This leads to a complex problem that needs a tailored solution. 
 SAM accounts for this problem with a __combined permutation-bootstrap-method__. 
-Bootstrap method here means that a “new” dataset is created out of the available observed data by random sampling and can be used as a “no change” reference __(synthetic null distribution)__. 
+Bootstrap method here means that a new dataset is created out of the available observed data by random sampling and can be used as a no change reference __(synthetic null distribution)__. 
 The relation of data to their treatment is lost  and therefore, each reported positive result is a false positive.
 
 To compare different states a statistic is calculated for each observed gene and the expected values from the bootstrap method (synthetic null distribution).
 More extreme statistics are more likely to be true changes and less likely to occur by chance.
 With a high statistic, the chances are high to find a real difference between control and treatment. 
 
+<center><img style="max-width:50%" src="../img/7_SAM/DataPrep.png"></img></center>
 
-![](../img/7_SAM/DataPrep.png)
 
 _Figure 1: Sample workflow._
 
@@ -128,37 +117,48 @@ For that, the statistic is calculated.
 # Statistics
 In this implemented version of SAM the t statistic is used. 
 
-
-![](../img/7_SAM/Formula.png)
+<center><img style="max-width:50%" src="../img/7_SAM/Formula.png"></img></center>
 
 This score of means relative to their standard deviation is sufficient to condense all replicate measurements into one score for each gene.
+*)
 
+(**<center>*)
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/observedChart.html"
+(*** include-it-raw ***)
 
-Histo Observed
-
+(**
 _Figure 2: Histogram of statistical scores of the observed dataset._
-
+</center>
+*)
+(**
 When observing the histogram in figure 2, which shows the distribution of the statistics of the measured (observed) data from each gene, it is obvious that distribution is right-skewed. 
 The shape of this histogram will be important later when comparing the observed data to the expected (permuted) data. 
 
 # s0
 Ideally, the variance of the statistic is only dependent on the statistic and not on the standard deviation (si). 
-
-S0 = 0 Plot
-
+*)
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/observedChart.html"
+(*** include-it-raw ***)
+(**
 _Figure 3: Statistics vs. their variance_
 
 In figure 3, the statistic (di) is plotted against the standard deviation (si). 
 It can be seen that the variance of the statistics decreases with increasing sis (less spread on the Y-Axis).
 Including s0, an artificial fudge factor , aims to homogenize the variance of di in respect to si.
 The statistics di are calculated by dividing the mean through the pooled standard deviation, and therefore adding a constant to variance si leads to a decrease in the statistic. 
-![](../img/7_SAM/S0Formula.png)
+
+<center><img style="max-width:50%" src="../img/7_SAM/S0Formula.png"></img></center>
+
 
 Values with small standard deviations get affected stronger than the ones with higher standard deviations, ideally eliminating the relation between the variance of statistics and si. 
 It is chosen as a percentile of si that minimizes the coefficient of variation of di.
 
-![](../img/7_SAM/s0with0.html)
 
+*)
+
+(**
 _Figure 4: Statistics vs. their variance with s0 included._ 
 
 
@@ -170,7 +170,7 @@ Both problems can be solved by the addition of s0 to the estimated standard devi
 # Permuted data
 For statistical comparisons, it is always important to have a reference, for example how the dataset would look like if there was a treatment, but no gene expression changed.
 This cannot be derived from the experiments. 
-Tests that sample their own null distribution out of the given data, are often found in statistics and are coined __“permutation tests”__. 
+Tests that sample their own null distribution out of the given data, are often found in statistics and are coined __permutation test__. 
 The advantage of using SAM for differential gene expression analysis is that the null distribution (treatment but no changes) is created directly from the observed data to estimate the behavior with no changes present (control vs. treatment).
 
 In the default version, the data are permuted by a column-wise Fisher Yates shuffle.
@@ -179,12 +179,15 @@ First, the observed data are permuted (here 100 times) and ranked by their stati
 Afterwards, the mean statistic of all permutations of each gene is calculated (meaning: 100 datasets with all genes, condensed into one average dataset).
 This statistics can be plotted again in a histogram (see figure 3) and then compared to the observed statistics.   
 __Calculating statistics for the permuted data allows to use it as a null distribution for comparison, because no links between prior scores and treatments are left.__
-The permutation, being a bootstrap method, leads to a __“random scrambling of the labels”__ and each configuration is equally likely. 
+The permutation, being a bootstrap method, leads to a __random scrambling of the labels__ and each configuration is equally likely. 
 One more advantage is the ability to estimate the false discovery rate by estimating falsely positive called genes. 
+*)
 
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/observedVsExpectedHisto.html"
+(*** include-it-raw ***)
 
-Histo Vergleich
-
+(**
 _Figure 5: Histogram of statistics of expected and observed datasets._
 
 In figure 5 are the histograms of observed and expected data displayed (comparison to figure 2). 
@@ -237,6 +240,7 @@ The black line indicates the bisecting angle, the purple dashed line next to it 
 Lower and upper cuts are marked by grey dashed lines.
 Points colored red indicate genes that are downregulated, green indicates upregulation. 
 
+(**<center>**)
 _Table 1: SAM Results with different FDRs._ 
 
 |       | FDR 5% | FDR 10% |
@@ -253,7 +257,7 @@ _Table 1: SAM Results with different FDRs._
 |__median false positives__| 125 | 400| 
 
 
-
+</center>
 
 
 Comparing the results with an FDR of 5% and 10%, it shows that s0 and pi0 remain unchanged because they are dependent on the dataset, not the FDR.
@@ -263,23 +267,25 @@ With an increasing FDR there is more uncertainty involved in the results, which 
 
  
 
- ## Modules of SAM
+## Modules of SAM
 
- SAM is implemented as a modular test, meaning it is possible to add or exchange specific functions. 
- Figure 9 is an overview of all steps performed in SAM. 
+SAM is implemented as a modular test, meaning it is possible to add or exchange specific functions. 
+Figure 9 is an overview of all steps performed in SAM. 
+<center><img style="max-width:50%" src="../img/7_SAM/WorkflowSAM.png"></img>
 
-![](../img/7_SAM/WorkflowSAM.png)
- Workflow SAM
+_Figure 9: Workflow of SAM._
+</center>
 
- _Figure 9: Workflow of SAM._
+*)
+(**
 
- ### pi0
+### pi0
 
- Pi0 is another coefficient to ensure that SAM does not overestimate the FDR. 
- It is estimated as the __proportion of non-differentially-expressed-genes__ [2], so true positive null hypothesis. 
- Multiplying it with the median false positive count helps getting closer to the real null distribution. 
- To calculate pi0 the 25% and 75% quantile of relative differences of all performed permutations must be estimated, and the scores between those quantiles must be counted.
- Afterwards, the count must be divided through half the number of samples. 
+Pi0 is another coefficient to ensure that SAM does not overestimate the FDR. 
+It is estimated as the __proportion of non-differentially-expressed-genes__ [2], so true positive null hypothesis. 
+Multiplying it with the median false positive count helps getting closer to the real null distribution. 
+To calculate pi0 the 25% and 75% quantile of relative differences of all performed permutations must be estimated, and the scores between those quantiles must be counted.
+Afterwards, the count must be divided through half the number of samples. 
 
  __Example:__
 Two different cells are tested (14845 genes each, FDR 5%).
@@ -321,7 +327,7 @@ The FDR is determined by these steps:
 
 3. count genes that exceed cutoffs in the expected data (median False Positives over all permutations) 
 
-4. FDR = ![](../img/7_SAM/medFP.png) 
+4. <img style="max-width:30%" src="../img/7_SAM/medFP.png"></img>
 
 By calculating the absolute difference and FDR for each gene, in contrast to samR, it gives the opportunity to select the used desired FDR more preciselydirectly without the need to search for a delta that would result in the FDR.  
 
@@ -364,9 +370,6 @@ SAM is a modular blue print for permutation tests, that is not limited to microa
 
 
 *)
-(***hide***)
-System.IO.File.ReadAllText "../files/observedVsExpected14.html"
-(*** include-it-raw ***)
 
 (**
 
