@@ -32,6 +32,21 @@ module Chart =
 # SAM
 _[Selina Ziegler](https://github.com/ZieglerSe)_ ~ _last updated: 2022-06-10_
 
+## Table of contents
+- [Introduction](#Introduction)
+- [Statistics](#Statistics)
+- [s0](#s0)
+- [Permuted data](#Permuted-data)
+- [Significance](#Significance)
+- [Modules of SAM](#Modules-of-SAM)
+    - [pi0](#pi0)
+    - [Delta](#Delta)
+    - [Cuts](#Cuts)
+    - [FDR](#FDR)
+- [Limitations](#Limitations)
+- [Alternatives](#Alternatives)
+- [References](#References)
+
 ## Introduction 
 
 This blogpost deals with a statistical analysis for gene expression microarray experiments, called __Significance Analysis of Microarrays (SAM)__ , that - despite the name - is not restricted for microarray analysis [1] but serves as a blue print for any permutation test.
@@ -66,7 +81,7 @@ Traditional statistical tests like t-tests were originally created to perform co
 With an increasing number of performed tests the probability of encountering false positives increases. 
 This effect can be adjusted or minimized by applying correction methods. 
 Correction methods, like Bonferroni, usually account for the number of performed tests, lowering the threshold (BonferroniThreshold) for calling a change significant.
-<center><img style="max-width:50%" src="../img/7_SAM/Bonferroni.png"></img></center>
+<center><img style="max-width:40%" src="../img/7_SAM/Bonferroni.png"></img></center>
 
 With this lowered threshold it is more likely to miss true differentially expressed genes. 
 Using the example from above, an alpha level of 0.05 and 10.000 performed tests results in a p value of 0.000005 for genes to be called significant. 
@@ -80,9 +95,9 @@ Another concern in differential gene expression analysis is failing to identify 
 
 
 A second approach is using __q values__, which are local FDRs of single genes in this case.
-Every gene with a greater significance than the one observed will be called significant, and provides a higher accuracy than conventional t-tests according to the initial publication of SAM.
+Every gene with a greater significance than the one observed will be called significant, and provides a higher accuracy than conventional t-tests according to the initial publication of SAM [1].
 
-# Solution 
+## Solution 
 
 __SAM (Significance Analysis of Microarrays) is a tool developed to overcome this multiple testing problem.__ It is a statistical method for multiple hypothesis testing and is mainly used for __differential gene expression analysis__. 
 It is able to compare different biological states with thousands of genes without the loss of true positive findings due to before mentioned correction methods.
@@ -104,7 +119,7 @@ To compare different states a statistic is calculated for each observed gene and
 More extreme statistics are more likely to be true changes and less likely to occur by chance.
 With a high statistic, the chances are high to find a real difference between control and treatment. 
 
-<center><img style="max-width:50%" src="../img/7_SAM/DataPrep.png"></img>
+<center><img style="max-width:40%" src="../img/7_SAM/DataPrep.png"></img>
 
 
 _Figure 1: Sample workflow._
@@ -115,10 +130,10 @@ For that, the statistic is calculated.
 
  
 
-# Statistics
+## Statistics
 In this implemented version of SAM the t statistic is used. 
 
-<center><img style="max-width:50%" src="../img/7_SAM/Formula.png"></img></center>
+<center><img style="max-width:40%" src="../img/7_SAM/Formula.png"></img></center>
 
 This score of means relative to their standard deviation is sufficient to condense all replicate measurements into one score for each gene.
 <center>
@@ -135,8 +150,8 @@ _Figure 2: Histogram of statistics of the observed dataset._
 When observing the histogram in figure 2, which shows the distribution of the statistics of the measured (observed) data from each gene, it is obvious that distribution is right-skewed. 
 The shape of this histogram will be important later when comparing the observed data to the expected (permuted) data. 
 
-# s0
-Ideally, the variance of the statistic is only dependent on the statistic and not on the standard deviation (si). 
+## s0
+Ideally, the variance of the statistic is only dependent on the statistic and not on the standard deviation (si). But that is not always the case. 
 <center>
 *)
 
@@ -152,7 +167,7 @@ It can be seen that the variance of the statistics decreases with increasing sis
 Including s0, an artificial fudge factor , aims to homogenize the variance of di in respect to si.
 The statistics di are calculated by dividing the mean through the pooled standard deviation, and therefore adding a constant to variance si leads to a decrease in the statistic. 
 
-<center><img style="max-width:50%" src="../img/7_SAM/S0Formula.png"></img></center>
+<center><img style="max-width:40%" src="../img/7_SAM/S0Formula.png"></img></center>
 
 
 Values with small standard deviations get affected stronger than the ones with higher standard deviations, ideally eliminating the relation between the variance of statistics and si. 
@@ -174,7 +189,7 @@ If a standard deviation is nearly zero, as in very reproducible measurements in 
 Both problems can be solved by the addition of s0 to the estimated standard deviation, because the denominator can not be smaller than s0, and therefore no infinite large scores can be produced.  
 
 
-# Permuted data
+## Permuted data
 For statistical comparisons, it is always important to have a reference, for example how the dataset would look like if there was a treatment, but no gene expression changed.
 This cannot be derived from the experiments. 
 Tests that sample their own null distribution out of the given data, are often found in statistics and are coined __permutation test__. 
@@ -224,7 +239,7 @@ The variation in the x-axis indicates the magnitude of the change, as more extre
 In order to determine significant changes an absolute distance from the bisecting angle (delta) is used as cutoff value. 
 
 The cutoffs are obtained by selecting an arbitrary delta and finding the first gene and its corresponding statistic that exceeds the difference.
-This is done for the positive and negative direction to obtain the lower and upper cut.
+This is done for the positive and negative direction to obtain the lower and upper cuts.
 The lower and upper cuts indicate the observed score where the absolute difference is the first time greater than delta.
 Every gene beyond that first exceeding threshold gene is called significant.
 To ensure that the differences are always increasing (or decreasing for the lower cut), a monotonizing function is applied. 
@@ -240,11 +255,10 @@ System.IO.File.ReadAllText "../img/7_SAM/SAM005.html"
 
 (**
 
-_Figure 7: SAM results with FDR of 5%._
-</center>
-The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold.
+_Figure 7: SAM results with FDR of 5%. The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold.
 Lower and upper cuts are marked by grey dashed lines. 
-Points colored red indicate genes that are downregulated, green indicates upregulation.  
+Points colored red indicate genes that are downregulated, green indicates upregulation._
+</center>
 
 By varying delta, and therefore the difference between the statistics and the bisecting angle, it is possible to find more or less significant genes. 
 By increasing delta, the FDR decreases, and statistics have to be more extreme in comparison to the expected data to be called significant.  
@@ -259,12 +273,14 @@ System.IO.File.ReadAllText "../img/7_SAM/SAM010.html"
 (*** include-it-raw ***)
 
 (**
-_Figure 8: SAM results with FDR of 10 %._
-</center>
-The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold. 
+_Figure 8: SAM results with FDR of 10 %. The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold. 
 Lower and upper cuts are marked by grey dashed lines.
-Points colored red indicate genes that are downregulated, green indicates upregulation. 
+Points colored red indicate genes that are downregulated, green indicates upregulation._
+</center>
+
 <center>
+
+
 _Table 1: SAM Results with different FDRs._ 
 
 |       | __FDR 5%__ | __FDR 10%__ |
@@ -277,7 +293,7 @@ _Table 1: SAM Results with different FDRs._
 | __positive significant__ |  2481 |  3969  |
 | __negative significant__ |  26 |  37  |
 | __non significant__ | 12338 | 10839 |
-|__significant called genes__ | 2057 | 4006|
+|__significant called genes__ | 2507 | 4006|
 |__median false positives__| 125 | 400| 
 
 
@@ -286,7 +302,7 @@ _Table 1: SAM Results with different FDRs._
 
 Comparing the results with an FDR of 5% and 10%, it shows that s0 and pi0 remain unchanged because they are dependent on the dataset, not the FDR.
 
-In contrast to the results with an FDR of 5%, the delta of FDR 10% is smaller (1.6 vs 1.17) and therefore the cuts are also smaller.
+In contrast to the results with an FDR of 5%, the delta of FDR 10% is smaller (1.6 vs 1.18) and therefore the cuts are also smaller.
 With an increasing FDR there is more uncertainty involved in the results, which can be seen at the greater number of significantly differentially expressed genes (2507 vs. 4006) as well as the higher number of false positives (125 vs. 400).
 
  
@@ -323,8 +339,6 @@ To account for this when calculating the median FDR, pi0 is included.
 
 The variable delta is the absolute difference between observed and expected statistic, and it is calculated for each gene.
 With using delta as distance, cutoffs in the statistics can be determined and those correspond to an FDR. 
-The global FDR gives an overview about the amount of false positive genes within the reported significant elements.
-Another feature of SAM is the so-called local FDR or q Value, which is a gene specific value that gives the exact FDR at which that gene is called significant [3].  
 
 ### Cuts
 
@@ -341,7 +355,7 @@ To ensure that the differences are always increasing (or decreasing for the lowe
 ### FDR
 
 
-To call a gene significant in SAM it must exceed a difference (delta) between observed and expected statistic scores. 
+To call a gene significant in SAM it must exceed a difference (delta) between observed and expected statistics. 
 In this implemented version each absolute difference is calculated and used to determine the corresponding FDR. 
 The FDR is determined by these steps: 
 
@@ -353,7 +367,9 @@ The FDR is determined by these steps:
 
 4. <img style="max-width:30%" src="../img/7_SAM/medFP.png"></img>
 
-By calculating the absolute difference and FDR for each gene, in contrast to samR, it gives the opportunity to select the used desired FDR more preciselydirectly without the need to search for a delta that would result in the FDR.  
+The global FDR gives an overview about the amount of false positive genes within the reported significant elements.
+By calculating the absolute difference and FDR for each gene, in contrast to samR, it gives the opportunity to select the used desired FDR more precisely without the need to search for a delta that would result in the FDR.  
+Another feature of SAM is the so-called local FDR or q Value, which is a gene specific value that gives the exact FDR at which that gene is called significant [3].  
 
 
 
@@ -362,7 +378,7 @@ By calculating the absolute difference and FDR for each gene, in contrast to sam
 The implemented default version can right now process two class unpaired data, while samR can process timecourse and paired data, as well as some other types.  
 
 The way of permuting data can be a limitation, and there may be more efficient or fitting ones for your experiment.
-However, SAM is designed to be modular and implementing your adapted permutation or statistic score calculation is not a problem.  
+However, SAM is designed to be modular and implementing your adapted permutation or statistic calculation is not a problem.  
 
 The last limitation of SAM is the estimation of the null distribution. 
 Because it uses a bootstrap method and generates the distribution only from existing data, problems arise if a large percentage of the genes are differentially expressed. 
@@ -372,7 +388,7 @@ This can lead to a false null distribution, which is problematic because all cal
 
 An alternative to SAM would be to perform multiple two sample t-tests and correct the p values subsequently. 
 With this method the multiple testing errors would be a problem, and correction (e.g. Bonferroni) would lead to the loss of true positive findings.
-When working with high throughput data it is beneficial to use more tailored methods instead of the basic t tests. 
+When working with high throughput data it is beneficial to use more tailored methods instead of the basic t test. 
 
 SAM is a modular blue print for permutation tests, that is not limited to microarray data, but with alternative permutation patterns and exchangeable statistic calculations can be applied to several data (e.g. RNASeq, proteomics, and many more).
 
