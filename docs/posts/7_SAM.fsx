@@ -24,7 +24,9 @@ module Chart =
         |> Chart.withTemplate ChartTemplates.lightMirrored
         |> Chart.withXAxis (myAxis x) 
         |> Chart.withYAxis (myAxis y)
-    
+
+
+
 (**
 
 # SAM
@@ -32,7 +34,6 @@ _[Selina Ziegler](https://github.com/ZieglerSe)_ ~ _last updated: 2022-06-10_
 
 ## Introduction 
 
- 
 This blogpost deals with a statistical analysis for gene expression microarray experiments, called __Significance Analysis of Microarrays (SAM)__ , that - despite the name - is not restricted for microarray analysis [1] but serves as a blue print for any permutation test.
 When performing a microarray of differentially expressed genes, you capture a snapshot of transcriptional activity in different biological states (for example control vs. heat stress) and want to identify differences in those states.  
 Therefore, all genes in a cell are measured, which leads to an immense amount of data __(high throughput method)__.
@@ -103,11 +104,11 @@ To compare different states a statistic is calculated for each observed gene and
 More extreme statistics are more likely to be true changes and less likely to occur by chance.
 With a high statistic, the chances are high to find a real difference between control and treatment. 
 
-<center><img style="max-width:50%" src="../img/7_SAM/DataPrep.png"></img></center>
+<center><img style="max-width:50%" src="../img/7_SAM/DataPrep.png"></img>
 
 
 _Figure 1: Sample workflow._
-
+</center>
 In figure 1 two samples, control and treatment, are compared.
 Each consists of three repeated measurements. The goal is to identify changes between the states.
 For that, the statistic is calculated. 
@@ -122,25 +123,25 @@ In this implemented version of SAM the t statistic is used.
 This score of means relative to their standard deviation is sufficient to condense all replicate measurements into one score for each gene.
 *)
 
-(**<center>*)
 (***hide***)
 System.IO.File.ReadAllText "../img/7_SAM/observedChart.html"
 (*** include-it-raw ***)
 
 (**
 _Figure 2: Histogram of statistical scores of the observed dataset._
-</center>
-*)
-(**
+
+
 When observing the histogram in figure 2, which shows the distribution of the statistics of the measured (observed) data from each gene, it is obvious that distribution is right-skewed. 
 The shape of this histogram will be important later when comparing the observed data to the expected (permuted) data. 
 
 # s0
 Ideally, the variance of the statistic is only dependent on the statistic and not on the standard deviation (si). 
 *)
+
 (***hide***)
-System.IO.File.ReadAllText "../img/7_SAM/observedChart.html"
+System.IO.File.ReadAllText "../img/7_SAM/s0with0.html"
 (*** include-it-raw ***)
+
 (**
 _Figure 3: Statistics vs. their variance_
 
@@ -157,6 +158,10 @@ It is chosen as a percentile of si that minimizes the coefficient of variation o
 
 
 *)
+
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/s0est.html"
+(*** include-it-raw ***)
 
 (**
 _Figure 4: Statistics vs. their variance with s0 included._ 
@@ -187,6 +192,7 @@ One more advantage is the ability to estimate the false discovery rate by estima
 System.IO.File.ReadAllText "../img/7_SAM/observedVsExpectedHisto.html"
 (*** include-it-raw ***)
 
+
 (**
 _Figure 5: Histogram of statistics of expected and observed datasets._
 
@@ -196,8 +202,12 @@ The expected scores, in contrast, are more centered.
 The mode of the distributions with a bin-width of 0.5 is 0.11 for the observed data and 0.17 for the expected data.
 As mentioned previously, higher statistics indicate a higher possibility of real changes, and therefore differential gene expression can be expected.
 To investigate this further, the observed statistics are compared to the expected statistics.
+*)
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/scores.html"
+(*** include-it-raw ***)
 
-Figure Winkelhalbierende & Scores 
+(**
 
 _Figure 6: observed vs. expected statistics. The red line indicates the bisecting angle, the black dots represent statistics._ 
 
@@ -218,9 +228,12 @@ To ensure that the differences are always increasing (or decreasing for the lowe
 With that delta, the same step is performed on the expected datasets, where ideally no genes should be significant. 
 The genes outside of the previously determined cuts are counted, and declared as false positive. 
 With the information on how many genes are significant by chance (false positives), it is possible to calculate the False Discovery Rate by dividing the false positives through the amount of significant genes.
+*)
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/SAM005.html"
+(*** include-it-raw ***)
 
-SAM 05 Figure
-
+(**
 
 _Figure 7: SAM results with FDR of 5%._
 The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold.
@@ -232,15 +245,18 @@ By increasing delta, the FDR decreases, and statistics have to be more extreme i
 
 
 To clarify the meaning of the delta, a comparison with an FDR of 10% will be shown. 
+*)
 
-SAM 10 Figure
+(***hide***)
+System.IO.File.ReadAllText "../img/7_SAM/SAM010.html"
+(*** include-it-raw ***)
 
+(**
 _Figure 8: SAM results with FDR of 10 %._
 The black line indicates the bisecting angle, the purple dashed line next to it the delta threshold. 
 Lower and upper cuts are marked by grey dashed lines.
 Points colored red indicate genes that are downregulated, green indicates upregulation. 
 
-(**<center>**)
 _Table 1: SAM Results with different FDRs._ 
 
 |       | FDR 5% | FDR 10% |
@@ -257,7 +273,7 @@ _Table 1: SAM Results with different FDRs._
 |__median false positives__| 125 | 400| 
 
 
-</center>
+
 
 
 Comparing the results with an FDR of 5% and 10%, it shows that s0 and pi0 remain unchanged because they are dependent on the dataset, not the FDR.
@@ -368,9 +384,5 @@ SAM is a modular blue print for permutation tests, that is not limited to microa
 - Larsson O, Wahlestedt C, Timmons J A, Considerations when using the significance analysis of microarrays (SAM) algorithm, 2005 [DOI:10.1186/1471-2105-6-129](https://pubmed.ncbi.nlm.nih.gov/15921534/)
 
 
-
-*)
-
-(**
 
 *)
