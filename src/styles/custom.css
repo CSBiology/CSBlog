@@ -1,4 +1,12 @@
-﻿.navbar.is-dark {
+﻿pre {
+    font-size: 1em !important;
+}
+
+.content table {
+    width: unset !important;
+}
+
+.navbar.is-dark {
     background-color: #44546a !important;
 }
 
@@ -16006,7 +16014,7 @@ span.CodeMirror-selectedtext {
     .jp-RenderedJavaScript pre,
     .jp-RenderedHTMLCommon pre {
         color: var(--jp-content-font-color1);
-        font-size: var(--jp-code-font-size);
+        /* font-size: var(--jp-code-font-size); */
         border: none;
         margin: 0px;
         padding: 0px;
@@ -16371,10 +16379,7 @@ span.CodeMirror-selectedtext {
     .jp-RenderedHTMLCommon pre,
     .jp-RenderedHTMLCommon code {
         border: 0;
-        background-color: var(--jp-layout-color0);
         color: var(--jp-content-font-color1);
-        font-family: var(--jp-code-font-family);
-        font-size: inherit;
         line-height: var(--jp-code-line-height);
         padding: 0;
         white-space: pre-wrap;

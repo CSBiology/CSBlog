@@ -10,7 +10,7 @@ open System.Diagnostics
 let processConvertedNotebook (content:string) =
     let nb_start_tag = """<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">"""
     let body_start_index = content.IndexOf(nb_start_tag) + nb_start_tag.Length
-    let body_end_index = content.IndexOf "</body>" + 1
+    let body_end_index = content.LastIndexOf "</body>" + 1
     content[body_start_index .. body_end_index]
 
 let generate (ctx : SiteContents) (projectRoot: string) (page: string) =

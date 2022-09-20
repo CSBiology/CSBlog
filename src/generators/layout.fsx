@@ -10,7 +10,7 @@ open Globals
 
 let layout (ctx : SiteContents) activePost bodyCnt =
 
-    let siteInfo = ctx.TryGetValue<Globalloader.SiteInfo>() 
+    let siteInfo = ctx.TryGetValue<Globalloader.SiteInfo>()
     let ttl =
         siteInfo
         |> Option.map (fun si -> si.title)
