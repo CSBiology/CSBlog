@@ -25,3 +25,4 @@ This also comes with the advantage that we now support **all programming languag
 - run `conda init` (if you chose not to add conda to path, you'll need to navigate to the conda install location)
 - run `conda install nbconvert -y` (this is the tool that is used by the blog to convert `.ipynb` files to html)
 - `dotnet tool restore`
+- `dotnet fornax watch`
