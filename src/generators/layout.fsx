@@ -50,6 +50,10 @@ let layout (ctx : SiteContents) activePost bodyCnt =
             link [Rel "stylesheet"; Type "text/css"; Href "https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"]
             script [Src "https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"] []
             script [Src (prefixPath "/js/main.js")] []
+            script [Type "text/x-mathjax-config;executed=true"] [!!"MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}})"]
+            script [Type "text/javascript"; Src "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML%2CSafe.js&ver=4.1"] []
+            //script [] [!!"MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}"]
+            //script [Src "https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"][]
         ]
         body [] [
             div [Class "columns is-fullheight m-0"] [
