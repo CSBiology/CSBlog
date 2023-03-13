@@ -32,12 +32,12 @@ let layout (ctx : SiteContents) activePost bodyCnt =
             script [] [!!"""MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}"""]
             script [Src """https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"""] []
             link [Rel "stylesheet"; Href "https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"]
-            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/notebook.css")]
-            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/custom.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "styles/notebook.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "styles/custom.css")]
         ]
         body [] [
             nav [
-                Class "navbar is-csb-darkblue is-dark is-spaced"
+                Class "navbar is-dark is-spaced"
                 Role "navigation"
                 HtmlProperties.Custom("aria-label","main navigation")
             ] [
@@ -97,22 +97,22 @@ let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) a
             script [] [!!"""MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}"""]
             script [Src """https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"""] []
             link [Rel "stylesheet"; Href "https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"]
-            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/notebook.css")]
-            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/custom.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "styles/notebook.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "styles/custom.css")]
         ]
         body [] [
             div [Class "columns is-fullheight m-0"] [
                 div [Class "column is-2 is-paddingless box m-0"] [
                     aside [Class "menu p-4"; Id "graph-menu"] [
                         div [Class "content"] [
-                            h3 [Class "title is-capitalized is-inline-block is-emphasized-darkmagenta mb-4"] [!! "Table of contents"]
+                            h3 [Class "title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4"] [!! "Table of contents"]
                             toc
                         ]
                     ]
                 ]
                 div [Class "column is-10 is-paddingless pl-1 pr-6"] [
                     nav [
-                        Class "navbar is-csb-darkblue is-dark is-spaced"
+                        Class "navbar is-dark is-spaced"
                         Role "navigation"
                         HtmlProperties.Custom("aria-label","main navigation")
                     ] [
@@ -143,17 +143,17 @@ let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) a
                             ]
                         ]
                     ]
-                    section [Class "hero is-small has-bg-darkmagenta"] [
+                    section [Class "hero is-small is-warning is-bold"] [
                         div [Class "hero-body"] [
                             div [Class "container has-text-justified"] [
                                 div [Class "main-TextField"] [
-                                    h1 [Class "title is-capitalized is-white is-inline-block is-emphasized-magenta mb-4"] [!! post_config.title]
+                                    h1 [Class "title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4"] [!! post_config.title]
                                     div [Class "block"] [
-                                        h3 [Class "subtitle is-white is-block"] [
+                                        h3 [Class "subtitle is-black is-block"] [
                                             !! $"Posted on {post_config.date.Year}-{post_config.date.Month}-{post_config.date.Day} by"
-                                            a [Href post_config.author_link; Class "is-aquamarine"] [!! post_config.author]
+                                            a [Href post_config.author_link; Class "is-csb-darkblue"] [!! post_config.author]
                                             !! $" in "
-                                            a [Href category_url; Class "is-aquamarine"] [!! (post_config.category |> PostCategory.toString)]
+                                            a [Href category_url; Class "is-csb-darkblue"] [!! (post_config.category |> PostCategory.toString)]
                                         ]
                                     ]
                                 ]
@@ -183,15 +183,15 @@ let postPreview (post:NotebookPost) =
                     ]
                 ]
             ]
-        div [Class "card-header is-emphasized-darkmagenta"] [
-            h1 [Class "card-header-title is-size-4"] [a [Href post_url; Class "is-magenta"] [!!post.post_config.title]]
+        div [Class "card-header is-emphasized-csb-darkblue"] [
+            h1 [Class "card-header-title is-size-4"] [a [Href post_url; Class "is-csb-orange"] [!!post.post_config.title]]
         ]
         div [Class "card-content is-size-6"] [
             if has_summary then div [Class "content"] [!!post.post_config.summary.Value]
             !! $"Posted on {post.post_config.date.Year}-{post.post_config.date.Month}-{post.post_config.date.Day} by "
-            a [Href post.post_config.author_link; Class "is-aquamarine"] [!! post.post_config.author]
+            a [Href post.post_config.author_link; Class "is-csb-orange"] [!! post.post_config.author]
             !! "in "
-            a [Href post_category_url; Class "is-aquamarine"] [!! (post.post_config.category |> PostCategory.toString)]
+            a [Href post_category_url; Class "is-csb-orange"] [!! (post.post_config.category |> PostCategory.toString)]
         ]
     ]
 

@@ -22,12 +22,12 @@ let generate (ctx : SiteContents) (projectRoot: string) (page: string) =
     |> List.map (fun (category, posts) ->
         Path.Combine([|projectRoot; "_public"; "posts"; "categories"; $"{category}.html"|]),
         Layout.layout ctx "Posts" [
-            section [Class "hero is-small has-bg-darkmagenta"] [
+            section [Class "hero is-small is-warning is-bold"] [
                 div [Class "hero-body"] [
                     div [Class "container has-text-centered"] [
                         div [Class "main-TextField"] [
-                            h1 [Class "title is-capitalized is-white is-inline-block is-emphasized-aquamarine mb-4"] [!! $"{category |> PostCategory.toString} posts"]
-                            h3 [Class "subtitle is-size-4 is-white mt-4"] [!! (category |> PostCategory.getDescription)]
+                            h1 [Class "title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4"] [!! $"{category |> PostCategory.toString} posts"]
+                            h3 [Class "subtitle is-size-4 is-black mt-4"] [!! (category |> PostCategory.getDescription)]
                         ]
                     ]
                 ]

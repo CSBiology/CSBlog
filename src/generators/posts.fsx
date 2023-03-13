@@ -39,7 +39,7 @@ let getTOC (content:string) =
         |> List.map (fun link ->
             let title = link.Replace("-"," ").Replace("#","")
             li [] [
-                a [Href link; Class "is-aquamarine"] [!!title]
+                a [Href link; Class "is-csb-darkblue"] [!!title]
             ]
         )
     )
