@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <Authors>CSB OSS contributors</Authors>
-    <Description>The blog about all things CSB</Description>
-    <RepositoryUrl>https://github.com/CSBiology/BIO-BTE-12-V-4</RepositoryUrl>
-  </PropertyGroup>
-
-</Project>

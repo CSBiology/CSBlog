@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "fsdocs-tool": {
-      "version": "14.0.1",
+    "fornax": {
+      "version": "0.15.1",
       "commands": [
-        "fsdocs"
+        "fornax"
       ]
     }
   }
