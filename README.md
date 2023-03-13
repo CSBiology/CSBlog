@@ -1,32 +1,46 @@
 # CSBlog v3
+The fslab blog
 
-this new version of our blog aims to get rid of all the baggage caused by fsdocs and package incompatibilities.
+## Build the blog
 
-Additionally, it should make authoring content a lot easier.
+### Prerequisites
 
-**Blog posts are now a single `.ipynb` notebook. Thats it.**
+- [.NET 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- Any conda distribution (e.g. [anaconda](https://www.anaconda.com/) or [miniconda](https://docs.conda.io/en/latest/miniconda.html))
 
-This also comes with the advantage that we now support **all programming languages that provide a kernel for jupyter**.
+- `dotnet tool restore` to install the `fornax` tool that is used to build the website
+- `conda create --name csblog --file requirements.txt` to set up the conda environment
 
-## How to author content:
+### develop locally in watch mode
 
-- select a fitting category in the [`src/posts/`](src/posts/) subfolder
-- if you need a new category, create a new folder
-- create a notebook file using your language of choice. 
-- write your post as a combination of code and markdown cells.
-- make sure to **execute all cells and save the notebook with output, do not clear cell output** (or the output will also be removed from the rendered website)
+- `conda activate csblog` (this has to be done once for each development session)
+- go into the `/src` folder: `cd src`
+- `dotnet fornax watch` to start the site generator in watch mode
+- go to `127.0.0.1:8080` to see the blog
 
-## How to develop/inspect the website locally
 
-! Note that this is only needed if you want to preview the website locally. 
+## add content
 
-- install `dotnet sdk 6.x.x +`
-- install a conda distribution (i would recommend [miniconda](https://docs.conda.io/en/latest/miniconda.html) for a minimal installation, or [anaconda](https://www.anaconda.com/) if you need the full thing for other use cases as well)
-- run `conda init` (if you chose not to add conda to path, you'll need to navigate to the conda install location)
-- run `conda install nbconvert -y` (this is the tool that is used by the blog to convert `.ipynb` files to html)
-- `dotnet tool restore`
-- `dotnet fornax watch` in ./src
+posts are generated from the contents of folders in `/src/posts`.
 
+To add a new post:
+- add a **folder with the name of your post** to `/src/posts`
+- create a `post_config.md` file. this file should *only* create metadata about your post, and must have this structure:
+    ```
+    ---
+    title: <your post title>
+    author: <your name>
+    author_link: <a link>
+    category: <post category>
+    date: <YYYY-MM-DD>
+    ---
+    ```
+    - `title` is the title of your post
+    - `author` is the author of the post (most likely your name)
+    - `author_link` is a link that will be associated with your name. You can for example link your github or twitter account here
+    - `category` is one of `progress`, `studynote`, `advanced`
+    - `date` is the date of submission in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+- create a `post.ipynb` file that contains your blogpost. This notebook will be parsed and rendered to a html site. **do not forget to save the notebook with cell output**, as the notebook will not be executed on site generation.
 ## Troubleshooting
 
 ```powershell
