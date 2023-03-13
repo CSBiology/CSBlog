@@ -19,15 +19,15 @@ type PostCategory =
 
     static member toString (pc: PostCategory) =
         match pc with
-        | Progress      -> "progress"
-        | StudyNote -> "Data Science"
+        | Progress      -> "Progress Reports"
+        | StudyNote -> "Study Notes"
         | Advanced    -> "Advanced"
         | Other o     -> o
 
     static member getDescription (pc: PostCategory) =
         match pc with
-        | Progress      -> "Progress reports"
-        | StudyNote -> "Study notes are short informational posts on a wide range of topics"
+        | Progress -> "Tell others what you are working on."
+        | StudyNote -> "Short, informational posts on a wide range of topics"
         | Advanced    -> "Detailed, well-researched posts. These posts often include thesis summaries."
         | Other o     -> o
 

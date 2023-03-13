@@ -2,7 +2,6 @@
 #load "../globals.fsx"
 #if !FORNAX
 #load "../loaders/globalloader.fsx"
-#load "../loaders/notebookloader.fsx"
 #load "../loaders/postloader.fsx"
 #endif
 
@@ -17,30 +16,6 @@ let layout (ctx : SiteContents) activePost bodyCnt =
         siteInfo
         |> Option.map (fun si -> si.title)
         |> Option.defaultValue ""
-
-    let graphs = ctx.TryGetValues<Notebookloader.Notebook>() |> Option.defaultValue [] |> List.ofSeq
-
-    let menuItems =
-        graphs
-        |> List.groupBy (fun n -> n.category)
-        |> List.map (fun (category,notebooks) ->
-            [
-                p [Class "menu-label"] [!!category]
-                ul [Class "menu-list"] (
-                    notebooks
-                    |> List.map (fun nb ->
-                        let isActive = nb.filename = activePost
-                        a [
-                            Href (Globals.prefixUrl nb.htmlPath)
-                            if isActive then Class "is-active"
-                        ] [!!nb.title]
-                    )
-                )
-            ]
-        )
-        |> List.concat
-
-    let menu = aside [Class "menu p-4"; Id "menu"] menuItems
 
     html [] [
         head [] [
@@ -58,46 +33,42 @@ let layout (ctx : SiteContents) activePost bodyCnt =
             script [Src """https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"""] []
             link [Rel "stylesheet"; Href "https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"]
             link [Rel "stylesheet"; Href (Globals.prefixUrl "style/notebook.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/custom.css")]
         ]
         body [] [
-            div [Class "columns is-fullheight m-0"] [
-                div [Class "column is-2 is-paddingless box m-0"] [menu]
-                div [Class "column is-10 is-paddingless pl-1"] [
-                    nav [
-                        Class "navbar is-csb-darkblue is-dark is-spaced"
-                        Role "navigation"
-                        HtmlProperties.Custom("aria-label","main navigation")
-                    ] [
-                        div [Class "navbar-brand"] [
-                            a [Class "navbar-item"; Href (Globals.prefixUrl "/")] [
-                                img [Src (Globals.prefixUrl "/img/logo_small.png");]
-                            ]
-                            a [
-                                Role "button"
-                                Class "navbar-burger burger"
-                                HtmlProperties.Custom("aria-label","menu")
-                                HtmlProperties.Custom ("aria-expanded", "false")
-                                HtmlProperties.Custom ("data-target","navbar")
-                            ] [
-                                span [ HtmlProperties.Custom ("aria-hidden","true")] []
-                                span [ HtmlProperties.Custom ("aria-hidden","true")] []
-                                span [ HtmlProperties.Custom ("aria-hidden","true")] []
-                            ]
-                        ]
-                        div [Id "navbar"; Class "navbar-menu"] [
-                            div [Class "navbar-start"] [
-                                a [Class "navbar-item"] [!!"Home"]
-                                a [Class "navbar-item"] [!!"About"]
-                            ]
-                            div [Class "navbar-end"] [
-                               a [Href"#"; Class "navbar-item"] [i [Class "fa fa-search"] []]
-                               a [Href"#"; Class "navbar-item"] [i [Class "fa fa-shopping-bag"] []]
-                            ]
-                        ]
+            nav [
+                Class "navbar is-csb-darkblue is-dark is-spaced"
+                Role "navigation"
+                HtmlProperties.Custom("aria-label","main navigation")
+            ] [
+                div [Class "navbar-brand"] [
+                    a [Class "navbar-item"; Href (Globals.prefixUrl "/")] [
+                        img [Src (Globals.prefixUrl "/img/logo_small.png");]
                     ]
-                    yield! bodyCnt
+                    a [
+                        Role "button"
+                        Class "navbar-burger burger"
+                        HtmlProperties.Custom("aria-label","menu")
+                        HtmlProperties.Custom ("aria-expanded", "false")
+                        HtmlProperties.Custom ("data-target","navbar")
+                    ] [
+                        span [ HtmlProperties.Custom ("aria-hidden","true")] []
+                        span [ HtmlProperties.Custom ("aria-hidden","true")] []
+                        span [ HtmlProperties.Custom ("aria-hidden","true")] []
+                    ]
+                ]
+                div [Id "navbar"; Class "navbar-menu"] [
+                    div [Class "navbar-start"] [
+                        a [Class "navbar-item"] [!!"Home"]
+                        a [Class "navbar-item"] [!!"About"]
+                    ]
+                    div [Class "navbar-end"] [
+                        a [Href"#"; Class "navbar-item"] [i [Class "fa fa-search"] []]
+                        a [Href"#"; Class "navbar-item"] [i [Class "fa fa-shopping-bag"] []]
+                    ]
                 ]
             ]
+            yield! bodyCnt
         ]
     ]
 
@@ -127,6 +98,7 @@ let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) a
             script [Src """https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"""] []
             link [Rel "stylesheet"; Href "https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"]
             link [Rel "stylesheet"; Href (Globals.prefixUrl "style/notebook.css")]
+            link [Rel "stylesheet"; Href (Globals.prefixUrl "style/custom.css")]
         ]
         body [] [
             div [Class "columns is-fullheight m-0"] [

@@ -27,7 +27,7 @@ let config = {
         // {Script = "less.fsx"; Trigger = OnFileExt ".less"; OutputFile = ChangeExtension "css" }
         {Script = "posts.fsx"; Trigger = Once; OutputFile = MultipleFiles id}
         {Script = "postcategories.fsx"; Trigger = Once; OutputFile = MultipleFiles id}
-        {Script = "notebooks.fsx"; Trigger = Once; OutputFile = MultipleFiles id}
+        //{Script = "notebooks.fsx"; Trigger = Once; OutputFile = MultipleFiles id}
         {Script = "staticfile.fsx"; Trigger = OnFilePredicate staticPredicate; OutputFile = SameFileName }
         {Script = "index.fsx"; Trigger = Once; OutputFile = NewFileName "index.html" }
     ]
