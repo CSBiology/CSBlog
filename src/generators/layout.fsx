@@ -22,6 +22,7 @@ let layout (ctx : SiteContents) activePost bodyCnt =
             meta [CharSet "utf-8"]
             meta [Name "viewport"; Content "width=device-width, initial-scale=1"]
             title [] [!! ttl]
+            link [Rel "icon"; Type "image/png"; Sizes "32x32"; Href (Globals.prefixUrl "img/favicon.png")]
             link [Rel "stylesheet"; Type "text/css"; Href (Globals.prefixUrl "/styles/custom.css")]
             link [Rel "stylesheet"; Type "text/css"; Href "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"]
             link [Rel "stylesheet"; Type "text/css"; Href "https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"]
@@ -43,7 +44,7 @@ let layout (ctx : SiteContents) activePost bodyCnt =
             ] [
                 div [Class "navbar-brand"] [
                     a [Class "navbar-item"; Href (Globals.prefixUrl "/")] [
-                        img [Src (Globals.prefixUrl "/img/logo_small.png");]
+                        img [Src (Globals.prefixUrl "img/logo_small.png");]
                     ]
                     a [
                         Role "button"
@@ -118,7 +119,7 @@ let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) a
                     ] [
                         div [Class "navbar-brand"] [
                             a [Class "navbar-item"; Href (Globals.prefixUrl "/")] [
-                                img [Src (Globals.prefixUrl "/img/logo_small.png");]
+                                img [Src (Globals.prefixUrl "img/logo_small.png");]
                             ]
                             a [
                                 Role "button"
