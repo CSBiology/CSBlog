@@ -1,0 +1,317 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Study-note:-Git" class="is-csb-darkblue">
+                  Study note: Git
+                </a>
+              </li>
+              <li>
+                <a href="#Table-of-contents" class="is-csb-darkblue">
+                  Table of contents
+                </a>
+              </li>
+              <li>
+                <a href="#Collaboration-drives-science" class="is-csb-darkblue">
+                  Collaboration drives science
+                </a>
+              </li>
+              <li>
+                <a href="#Git-to-the-rescue!?" class="is-csb-darkblue">
+                  Git to the rescue!?
+                </a>
+              </li>
+              <li>
+                <a href="#Branches" class="is-csb-darkblue">
+                  Branches
+                </a>
+              </li>
+              <li>
+                <a href="#Commands" class="is-csb-darkblue">
+                  Commands
+                </a>
+              </li>
+              <li>
+                <a href="#GitHub" class="is-csb-darkblue">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="#Practice" class="is-csb-darkblue">
+                  Practice
+                </a>
+              </li>
+              <li>
+                <a href="#Prerequisites" class="is-csb-darkblue">
+                  Prerequisites
+                </a>
+              </li>
+              <li>
+                <a href="#References" class="is-csb-darkblue">
+                  References
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  Study note - git
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2023-2-10 by
+                    <a href="https://github.com/bvenn" class="is-csb-darkblue">
+                      Benedikt Venn
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                      Study Notes
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Study-note:-Git">Study note: Git<a class="anchor-link" href="#Study-note:-Git">&#182;</a></h1><p><em><a href="https://github.com/bvenn">Benedikt Venn</a>, Feb 2023</em></p>
+<h3 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#182;</a></h3><ul>
+<li><a href="#Collaboration-drives-science">Collaboration drives science</a></li>
+<li><a href="#Git-to-the-rescue!?">Git to the rescue!?</a><ul>
+<li><a href="#Commands">Commands</a></li>
+</ul>
+</li>
+<li><a href="#GitHub">GitHub</a></li>
+<li><a href="#Practice">Practice</a></li>
+<li><a href="#References">References</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Collaboration-drives-science">Collaboration drives science<a class="anchor-link" href="#Collaboration-drives-science">&#182;</a></h2><p>Modern science strongly relies on collaborative efforts and distributed expertise. Experiments may require a wide variety of disciplines, often located at various research institutes. Data that is analyzed and updated by a group of scientists or even by a single experimenter, quickly exceeds the level of complexity that can be handled without a defined structure. Especially when work is wrapped up for a thesis or publication the manipulations done to the data lacks in proper description or tracking ability. To emphasize the benefit of version control, let me start with an small example:</p>
+<p>A scientist made some measurements and shows it to the supervisor. The supervisor has some ideas about the analysis, makes some changes and sends the data to the lab head, who again changes the data by reordering some columns. In the end there is the final document with the analyzed data. So far so good. If the student finds a typo in the measurements the struggle begins… Either, the student requests the final results from the lab head, fixes the typo and hopes that the change did not corrupt any of the other data. Or he/she hands the corrected measurements to the supervisor, that reprocesses the data and hands it to the lab head. Whatever option is chosen there is an uncertainty, if all changes made in the first round were performed in the second, or what changes depend on the typo. Good scientific practice obliges all changes to be traceable and requires analysis to be performed in parallel. In day to day routine the folder structure of many collaborative student project more or less looks as follows:</p>
+<p><img src="../../img/git/git_01.png"></img></p>
+<p>There is "some sort" of version control, but in practice the structure won’t be concise for future students working with the project.</p>
+<p>The life journey of a single file of the described experiment is visualized in the following:</p>
+<p><img src="../../img/git/git_02.png"></img></p>
+<p>Fig 2: (A) Data processing pipeline with three people working sequentially on a shared file. (B) Data processing pipeline with three people working simultaneously on local copies of a file. Neither in A, nor in B a tracking of performed changes is possible.</p>
+<p>Since all participants are working on the data simultaneously, so called merge conflicts (or “conflicting changes”) happen. 
+You may know these from apps when several users working on the same document simultaneously and modify the same sentence. Shared documents of e.g. MS Office care for versioning and tracking of changes, but for data files or project directories you need some tooling.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Git-to-the-rescue!?">Git to the rescue!?<a class="anchor-link" href="#Git-to-the-rescue!?">&#182;</a></h2><p>Git is a version control system for tracking changes in computer files. It takes snapshots of files that are located within a repository (repo), a place to store and describe all objects of your work as a maintained digital archive. In the easiest case the repository would be the ‘Bachelor’ folder from the example above. 
+Git enables decentralized version control and coordination between multiple developers. At any time you can revert back to a prior step to look up changes up to this time or to start all over again from the state the project had at this particular moment. Additionally you can inspect</p>
+<ul>
+<li>What has changed</li>
+<li>Who changed it</li>
+<li>When it was changed</li>
+<li>Why it was changed (if proper description is provided)</li>
+</ul>
+<h3 id="Branches">Branches<a class="anchor-link" href="#Branches">&#182;</a></h3><p>Todo: Branches</p>
+<h3 id="Commands">Commands<a class="anchor-link" href="#Commands">&#182;</a></h3><p>There are many commands that can be used with git, but the knowledge of only a few are sufficient to use git as version control system.</p>
+<ul>
+<li><code>git --help</code><ul>
+<li>shows command options</li>
+</ul>
+</li>
+<li><code>git init</code><ul>
+<li>initializes a local git repository</li>
+</ul>
+</li>
+<li><code>git checkout -b &lt;branchname&gt;</code><ul>
+<li>branches are autonomous copies of the main repository</li>
+<li>creates a new branch </li>
+<li>without -b it switches to the specified branch and keeps your uncommitted changes</li>
+</ul>
+</li>
+<li><code>git status</code><ul>
+<li>checks the state of the local repository</li>
+</ul>
+</li>
+<li><code>git clone &lt;pathToRemoteRepository&gt;</code><ul>
+<li>copies a remote repository to your disk as local repository</li>
+</ul>
+</li>
+<li><code>git fetch</code><ul>
+<li>compare remote and local repository to inspect changed on the remote that you don’t have</li>
+</ul>
+</li>
+<li><code>git pull</code><ul>
+<li>add the commits from the remote to your local repository</li>
+</ul>
+</li>
+<li><code>git add &lt;filename|*&gt;</code><ul>
+<li>choose the local edits you want to commit</li>
+</ul>
+</li>
+<li><code>git commit -m &lt;commitmessage&gt;</code><ul>
+<li>save the current (staged) changes as part of the git repository</li>
+<li>the commit message should be concise and describe the change (&lt;70 characters)</li>
+</ul>
+</li>
+<li><code>git push</code><ul>
+<li>add the commits on your local to the remote repository</li>
+</ul>
+</li>
+</ul>
+<p><img src="../../img/git/git_03.png"></img></p>
+<p>Fig 3: git procedures. If you don’t have a local repo, you can <strong>clone</strong> it from the remote. If you have it already, you can <strong>pull</strong> the latest changes. After you changed a single or multiple files you can <strong>add</strong> all you want to commit to the staging area. Then you can add a concise commit message and <strong>commit</strong> it to the local repository. Afterwards you can <strong>push</strong> your updates to the remote repository. If you just want to see, what might have changed in the remote, you can use <strong>fetch</strong>.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="GitHub">GitHub<a class="anchor-link" href="#GitHub">&#182;</a></h2><p>GitHub is a web-based hosting service for git repositories. It makes it easy for a group of people to work on the same project and provides nice visual inspection opportunities for a repository. You do not have to use <a href="https://github.com/">github</a>, there are several alternatives. The corresponding tree of the bachelor repository using git may look like this:</p>
+<p><img src="../../img/git/git_04.png"></img></p>
+<p>Fig 4: Each file in the repository is tracked, so you can go to every point in the past to inspect the state of the file at this moment. Each commit is descripted with: (i) username, (ii) timestamp, (iii) changelog and (iv) a commit message.</p>
+<p>Check out the commit history of e.g. <a href="https://github.com/plotly/Plotly.NET/commits/dev">Plotly.NET</a> to get an idea of how a repository history may look like.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">&#182;</a></h2><h3 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h3><ul>
+<li><p>create GitHub account at <a href="https://github.com/">https://github.com/</a></p>
+</li>
+<li><p>install git at <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p>
+<ul>
+<li>set username using <code>git config --global user.name "FIRST_NAME LAST_NAME"</code> </li>
+<li>set email using <code>git config --global user.email "MY_NAME@example.com"</code> </li>
+</ul>
+</li>
+<li><p>open Visual Studio Code</p>
+</li>
+<li>go to source control and initialize/clone repository <a href="https://github.com/VPTestuser/VPrepo">https://github.com/VPTestuser/VPrepo</a></li>
+<li>open the cloned repository in Visual Studio Code</li>
+<li>create a new branch and give it a name. Note that no spaces are allowed here. </li>
+<li>enter a nickname in the readMe.md at the position you were given</li>
+<li>add the changes to the staging area</li>
+<li>commit your change and give the commit a concise name </li>
+<li>push your changes to the remote repository</li>
+<li>(online) file a pull request from your branch to the main branch</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ul>
+<li><a href="https://git-scm.com/">git</a></li>
+<li><a href="https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html">git commands</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

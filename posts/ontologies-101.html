@@ -1,0 +1,587 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Ontology-1o1" class="is-csb-darkblue">
+                  Ontology 1o1
+                </a>
+              </li>
+              <li>
+                <a href="#Content" class="is-csb-darkblue">
+                  Content
+                </a>
+              </li>
+              <li>
+                <a href="#Introduction" class="is-csb-darkblue">
+                  Introduction
+                </a>
+              </li>
+              <li>
+                <a href="#Ontology-components" class="is-csb-darkblue">
+                  Ontology components
+                </a>
+              </li>
+              <li>
+                <a href="#Classes-(&amp;-Instances)" class="is-csb-darkblue">
+                  Classes (&amp; Instances)
+                </a>
+              </li>
+              <li>
+                <a href="#Relations" class="is-csb-darkblue">
+                  Relations
+                </a>
+              </li>
+              <li>
+                <a href="#Attributes" class="is-csb-darkblue">
+                  Attributes
+                </a>
+              </li>
+              <li>
+                <a href="#Ontology-file-formats" class="is-csb-darkblue">
+                  Ontology file formats
+                </a>
+              </li>
+              <li>
+                <a href="#OWL" class="is-csb-darkblue">
+                  OWL
+                </a>
+              </li>
+              <li>
+                <a href="#OBO" class="is-csb-darkblue">
+                  OBO
+                </a>
+              </li>
+              <li>
+                <a href="#Prot%C3%A9g%C3%A9" class="is-csb-darkblue">
+                  Prot%C3%A9g%C3%A9
+                </a>
+              </li>
+              <li>
+                <a href="#Parsing-OBO-files-in-F" class="is-csb-darkblue">
+                  Parsing OBO files in F
+                </a>
+              </li>
+              <li>
+                <a href="#Creating-an-ontology" class="is-csb-darkblue">
+                  Creating an ontology
+                </a>
+              </li>
+              <li>
+                <a href="#References" class="is-csb-darkblue">
+                  References
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  ontology 1o1
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2023-2-17 by
+                    <a href="https://github.com/omaus" class="is-csb-darkblue">
+                      Oliver Maus
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                      Study Notes
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Ontology-1o1">Ontology 1o1<a class="anchor-link" href="#Ontology-1o1">&#182;</a></h1><p><em><a href="https://github.com/omaus">Oliver Maus</a>, Feb 2023</em></p>
+<h3 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h3><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#ontology-components">Ontology components</a><ul>
+<li><a href="#classes--instances">Classes (&amp; Instances)</a></li>
+<li><a href="#attributes">Attributes</a></li>
+<li><a href="#relations">Relations</a></li>
+</ul>
+</li>
+<li><a href="#ontology-file-formats">Ontology file formats</a><ul>
+<li><a href="#owl">OWL</a></li>
+<li><a href="#obo">OBO</a></li>
+</ul>
+</li>
+<li><a href="#protégé">Protégé</a></li>
+<li><a href="#parsing-obo-files-in-f">Parsing OBO files in F#</a></li>
+<li><a href="#creating-an-ontology">Creating an ontology</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><blockquote><p>In computer science, an ontology is a way of organizing knowledge in a structured and hierarchical manner. It consists of a set of classes or concepts, each with its own properties and relationships to other classes. Ontologies are used to help machines reason about information in a more intelligent and automated way, leading to more effective decision-making and problem-solving.<br>
+-- <cite>ChatGPT</cite></p>
+</blockquote>
+<p>Ontologies, as we know them in computer science, hail from the concept of ontology in philosophy, more precisely, the field of metaphysics.<br>
+There, "ontology" describes the doctrine of being and existence. It is mainly about the categorization of entities (which can be abstract or material), of processes and properties, and of events. 
+In this point, the philosophical concept of ontology agrees with that of computer science. The <em>ontology</em> of computer science, however, does not focus on philosophical issues but on representations of the categorized concepts and their relations to each other.</p>
+<p>Ontologies have become more and more important in computer science since they allow for a standardized set of terms (so-called <em>controlled vocabularies</em>) which describe the things you are engaging with and putting them in a structure, guided by rules. This way, it becomes easier for humans to learn and communicate about a topic since ontologies also have a teaching nature on the one hand, and for machines to order these terms in a similar way to human understanding on the other hand.<br>
+Especially in the field of research data management, ontologies prove very useful because they achieve a compromise between human- and machine-readability and thus may lead to fewer miscommunications and errors. In the <strong>FAIR data principles</strong>, the I (for interoparability) can be achieved with the help of ontologies. This is done in, for example, the DataPLANT consortium.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Ontology-components">Ontology components<a class="anchor-link" href="#Ontology-components">&#182;</a></h2><p>As mentioned before, ontologies consist of several elements which are called 'components'. In the following I will cover the 3 most important ones:<br>
+(for a full set of all components, look <a href="https://en.wikipedia.org/wiki/Ontology_components">here</a>)</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Classes-(&amp;-Instances)">Classes (&amp; Instances)<a class="anchor-link" href="#Classes-(&amp;-Instances)">&#182;</a></h3><p>Very similarly to OOP, <em>classes</em> are concepts (conceptual blueprints) of objects that can be instantiated (which results in an <em>instance</em>). If, e.g., there is the <em>class</em> "Cat", "Garfield" would be an <em>instance</em> of it.<br>
+Classes can also have (an infinite amount of) subclasses. In the following graph, the domain of the kingdoms of life is (partially) represented as a class with subclasses:</p>
+<p><img src=../../img/ontologies/classes_subclasses.png style="max-width:45%"></img></p>
+<p>An instance of the subclass "Felis catus" (Cat):</p>
+<p><img src=../../img/ontologies/classes_subclasses_instance.png style="max-width:25%"></img></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Relations">Relations<a class="anchor-link" href="#Relations">&#182;</a></h3><p>Objects in an ontology can be <em>related</em> to one another.<br>
+Beneath a set of ontology-specific individual relations, there are some relations that are seen in many ontologies or even every one:</p>
+<ul>
+<li>is_a: Describes the relation between a subclass and a class which leads to a child-term parent-term relation. The </li>
+</ul>
+<p><img src=../../img/ontologies/classes_subclasses_relations.png style="max-width:45%"></img></p>
+<ul>
+<li>part_of: Describes the relation between subclasses and a class where the class can only be instantiated if <strong>every</strong> subclass is present (as instance). E.g. a "cell" cannot exist without all of its crucial parts, therefore "cell membrane" is part_of "cell".</li>
+</ul>
+<p><img src=../../img/ontologies/part_of.png style="max-width:25%"></img></p>
+<ul>
+<li>xref: Describes cross-reference between different ontologies. Often used for synonyms when dealing with multiple ontologies at once. E.g. "Organism" in OBI ontology can be xref of "organism" in NCBIT ontology.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Attributes">Attributes<a class="anchor-link" href="#Attributes">&#182;</a></h3><p><em>Attributes</em> are properties that are related (via <em>relations</em>) to objects (classes and/or their instances). "Garfield" from above could have the attribute "orange fur" via a "has_a" relation.</p>
+<p><img src=../../img/ontologies/attributes.png style="max-width:25%"></img></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Ontology-file-formats">Ontology file formats<a class="anchor-link" href="#Ontology-file-formats">&#182;</a></h2><p>There are many different file formats for ontologies. I will cover 2 of the most important (and most widely used) ones.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="OWL">OWL<a class="anchor-link" href="#OWL">&#182;</a></h3><p>Web Ontology Language (OWL) is a knowledge representation language for ontologies. Its own file format has the extension .owl.<br>
+OWL uses different language implementations for its structure. Though there are several different ones, the most important ones are the XML and RDF implementations.</p>
+<p>Here is an example of an ontology only consisting of the class "Felis_catus", its instance "Garfield" which has the attribute "orange_fur" via a "has_a" relation:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;Ontology</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span>
+     <span class="na">xml:base=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span>
+     <span class="na">xmlns:rdf=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span>
+     <span class="na">xmlns:xml=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span>
+     <span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>
+     <span class="na">xmlns:rdfs=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span>
+     <span class="na">ontologyIRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2/&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;owl&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;rdf&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;xml&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;xsd&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;rdfs&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Declaration&gt;</span>
+        <span class="nt">&lt;Class</span> <span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Declaration&gt;</span>
+    <span class="nt">&lt;Declaration&gt;</span>
+        <span class="nt">&lt;ObjectProperty</span> <span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Declaration&gt;</span>
+    <span class="nt">&lt;Declaration&gt;</span>
+        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Declaration&gt;</span>
+    <span class="nt">&lt;Declaration&gt;</span>
+        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Declaration&gt;</span>
+    <span class="nt">&lt;ClassAssertion&gt;</span>
+        <span class="nt">&lt;Class</span> <span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/ClassAssertion&gt;</span>
+    <span class="nt">&lt;ObjectPropertyAssertion&gt;</span>
+        <span class="nt">&lt;ObjectProperty</span> <span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/ObjectPropertyAssertion&gt;</span>
+<span class="nt">&lt;/Ontology&gt;</span>
+</pre></div>
+<p>While the OWL format is very mighty and due to XML easily parsable, it is not that simple to read and understand (as a human). Due to this, based on OWL, OBO has been founded.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="OBO">OBO<a class="anchor-link" href="#OBO">&#182;</a></h3><p>OBO is a format developed by the Open Biological and Biomedical Ontologies Foundry (OBOFoundry). While this file format is based on the principles of OWL, it uses a vastly different language implementation in a slightly YAML style syntax. The same minimalistic ontology as in the OWL example, this time in OBO (flat file) format:</p>
+<div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000000</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span><span class="w"></span>
+<span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OWL:0000000 ! Thing</span><span class="w"></span>
+
+<span class="p p-Indicator">[</span><span class="nv">Instance</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000001</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Garfield</span><span class="w"></span>
+<span class="nt">instance_of</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span><span class="w"></span>
+<span class="nt">property_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a orange_fur</span><span class="w"></span>
+
+<span class="p p-Indicator">[</span><span class="nv">Typedef</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000002</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a</span><span class="w"></span>
+
+<span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000003</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orange_fur</span><span class="w"></span>
+</pre></div>
+<p>OBO is used as the primary format for ontologies in the DataPLANT consortium. OBO files have the extension .obo.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Prot%C3%A9g%C3%A9">Prot&#233;g&#233;<a class="anchor-link" href="#Prot%C3%A9g%C3%A9">&#182;</a></h2><p>Protégé is a free tool for creating ontologies. It supports reading OWL ontologies, creating and editing ontologies as well as exporting them in different formats (including OWL and OBO, although the latter one not in its easy-to-read flat file format).</p>
+<p><img src=../../img/ontologies/protege.png style="max-width:60%"></img></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Parsing-OBO-files-in-F">Parsing OBO files in F<a class="anchor-link" href="#Parsing-OBO-files-in-F">&#182;</a></h2><p>The BioFSharp library offers OBO parsing functionality:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp"</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO"</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharpAux"</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux.IO</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">myTerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">createOboTerm</span><span class="w"> </span><span class="s">"ID:0001"</span><span class="w"> </span><span class="s">"myTerm"</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span><span class="w"></span>
+<span class="n">myterm</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div><div></div><div></div><div><strong>Installed Packages</strong><ul><li><span>BioFSharp, 1.2.1</span></li><li><span>BioFSharp.IO, 1.2.1</span></li><li><span>fsharpaux, 1.0.0</span></li></ul></div></div>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table><thead><tr><th>Id</th><th>Name</th><th>Namespace</th><th>Definition</th><th>Relationship</th><th>Related_synonym</th><th>IsA</th><th>Synonym</th><th>ExactSynonym</th><th>BroadSynonym</th><th>NarrowSynonym</th><th>XrefAnalog</th><th>Comment</th><th>IsObsolete</th><th>Replacedby</th><th>Consider</th><th>AltId</th><th>DisjointFrom</th><th>Subset</th><th>IntersectionOf</th><th>..</th></tr></thead><tbody><tr><td><div class="dni-plaintext"><pre>ID:0001</pre></div></td><td><div class="dni-plaintext"><pre>myTerm</pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre></pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td><td><div class="dni-plaintext"><pre>[  ]</pre></div></td></tr></tbody></table><style>
+.dni-code-hint {
+    font-style: italic;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dni-treeview {
+    white-space: nowrap;
+}
+.dni-treeview td {
+    vertical-align: top;
+    text-align: start;
+}
+details.dni-treeview {
+    padding-left: 1em;
+}
+table td {
+    text-align: start;
+}
+table tr { 
+    vertical-align: top; 
+    margin: 0em 0px;
+}
+table tr td pre 
+{ 
+    vertical-align: top !important; 
+    margin: 0em 0px !important;
+} 
+table th {
+    text-align: start;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Users\revil\OneDrive\Desktop\garfield_ontology.obo"</span><span class="w"></span>
+
+<span class="nn">Seq</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">fp</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table><thead><tr><th><i>index</i></th><th>Id</th><th>Name</th><th>Namespace</th><th>Definition</th><th>Relationship</th><th>Related_synonym</th><th>IsA</th><th>Synonym</th><th>ExactSynonym</th><th>BroadSynonym</th><th>NarrowSynonym</th><th>XrefAnalog</th><th>Comment</th><th>IsObsolete</th><th>Replacedby</th><th>Consider</th><th>AltId</th><th>DisjointFrom</th><th>Subset</th><th>IntersectionOf</th><th>..</th></tr></thead><tbody><tr><td>0</td><td>GARFO:0000000</td><td>Felis_catus</td><td></td><td></td><td></td><td></td><td><div class="dni-plaintext"><pre>[ OWL:0000000 ]</pre></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>1</td><td>GARFO:0000003</td><td>orange_fur</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><style>
+.dni-code-hint {
+    font-style: italic;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dni-treeview {
+    white-space: nowrap;
+}
+.dni-treeview td {
+    vertical-align: top;
+    text-align: start;
+}
+details.dni-treeview {
+    padding-left: 1em;
+}
+table td {
+    text-align: start;
+}
+table tr { 
+    vertical-align: top; 
+    margin: 0em 0px;
+}
+table tr td pre 
+{ 
+    vertical-align: top !important; 
+    margin: 0em 0px !important;
+} 
+table th {
+    text-align: start;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Creating-an-ontology">Creating an ontology<a class="anchor-link" href="#Creating-an-ontology">&#182;</a></h2><p>First, you should model your ontology and ask yourself the questions "What do I want to cover?", "What is the scope of my ontology?" and begin with classes and subclasses, followed by relations and attributes. Instances should be covered at last.<br>
+Protégé helps you greatly with structuring and also visualizing it.</p>
+<p>For implementation, I advice you to create the file of your ontology using Protégé or writing it manually (since OBO files are easy to write in their flat file format).
+A nice example can be seen in the DataPLANT broker ontology that gets updated regularly: <a href="https://github.com/nfdi4plants/nfdi4plants_ontology/blob/main/dpbo.obo">https://github.com/nfdi4plants/nfdi4plants_ontology/blob/main/dpbo.obo</a></p>
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p><a href="https://chat.openai.com/chat">https://chat.openai.com/chat</a><br>
+<a href="https://en.wikipedia.org/wiki/Ontology_components">https://en.wikipedia.org/wiki/Ontology_components</a><br>
+<a href="https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html">https://owlcollab.github.io/oboformat/doc/GO.format.obo-1_4.html</a><br>
+<a href="https://csbiology.github.io/BioFSharp//Obo.html">https://csbiology.github.io/BioFSharp//Obo.html</a></p>
+
+</div>
+</div>
+</div>
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

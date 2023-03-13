@@ -1,0 +1,823 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#What-is-Fable-and-how-to-use-it" class="is-csb-darkblue">
+                  What is Fable and how to use it
+                </a>
+              </li>
+              <li>
+                <a href="#Content" class="is-csb-darkblue">
+                  Content
+                </a>
+              </li>
+              <li>
+                <a href="#What-is-Fable" class="is-csb-darkblue">
+                  What is Fable
+                </a>
+              </li>
+              <li>
+                <a href="#Fable-Example" class="is-csb-darkblue">
+                  Fable Example
+                </a>
+              </li>
+              <li>
+                <a href="#Fable-Template" class="is-csb-darkblue">
+                  Fable Template
+                </a>
+              </li>
+              <li>
+                <a href="#Fable-REPL-code" class="is-csb-darkblue">
+                  Fable REPL code
+                </a>
+              </li>
+              <li>
+                <a href="#FSharp-to-JS" class="is-csb-darkblue">
+                  FSharp to JS
+                </a>
+              </li>
+              <li>
+                <a href="#JS-in-FSharp" class="is-csb-darkblue">
+                  JS in FSharp
+                </a>
+              </li>
+              <li>
+                <a href="#Installing-the-shuffle-npm-package" class="is-csb-darkblue">
+                  Installing the shuffle npm package
+                </a>
+              </li>
+              <li>
+                <a href="#Dynamic-casting" class="is-csb-darkblue">
+                  Dynamic casting
+                </a>
+              </li>
+              <li>
+                <a href="#Use-dynamic-casting-to-access-members." class="is-csb-darkblue">
+                  Use dynamic casting to access members.
+                </a>
+              </li>
+              <li>
+                <a href="#Setting-up-an-interface" class="is-csb-darkblue">
+                  Setting up an interface
+                </a>
+              </li>
+              <li>
+                <a href="#Typesafety?" class="is-csb-darkblue">
+                  Typesafety?
+                </a>
+              </li>
+              <li>
+                <a href="#Goal" class="is-csb-darkblue">
+                  Goal
+                </a>
+              </li>
+              <li>
+                <a href="#Option-1:-Search-and-explicit-import." class="is-csb-darkblue">
+                  Option 1: Search and explicit import.
+                </a>
+              </li>
+              <li>
+                <a href="#Option-2:-Anonymous-records-and-createObject" class="is-csb-darkblue">
+                  Option 2: Anonymous records and createObject
+                </a>
+              </li>
+              <li>
+                <a href="#Alternative-1" class="is-csb-darkblue">
+                  Alternative 1
+                </a>
+              </li>
+              <li>
+                <a href="#Alternative-2" class="is-csb-darkblue">
+                  Alternative 2
+                </a>
+              </li>
+              <li>
+                <a href="#Option-3:-F%23-Record-type" class="is-csb-darkblue">
+                  Option 3: F%23 Record type
+                </a>
+              </li>
+              <li>
+                <a href="#Further-reading" class="is-csb-darkblue">
+                  Further reading
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  How to Fable
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2021-10-1 by
+                    <a href="https://github.com/freymaurer" class="is-csb-darkblue">
+                      Kevin Frey
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/Advanced.html" class="is-csb-darkblue">
+                      Advanced
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="What-is-Fable-and-how-to-use-it">What is Fable and how to use it<a class="anchor-link" href="#What-is-Fable-and-how-to-use-it">&#182;</a></h1><p><em><a href="https://github.com/Freymaurer">Kevin Frey</a></em></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h2><ul>
+<li><a href="#What-is-Fable">What is Fable?</a></li>
+<li><a href="#Fable-Example">Fable Example</a><ul>
+<li><a href="#Fable-Template">Fable Template</a></li>
+<li><a href="#Fable-REPL-code">Fable REPL code</a></li>
+</ul>
+</li>
+<li><a href="#FSharp-to-JS">F# to JS</a></li>
+<li><a href="#JS-in-F#">JS in F#</a><ul>
+<li><a href="#Dynamic-casting">Dynamic casting</a></li>
+<li><a href="#Setting-up-an-interface">Setting up an interface</a></li>
+<li><a href="#Typesafety">Typesafety?</a></li>
+</ul>
+</li>
+<li><a href="#Further-reading">Further reading</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="What-is-Fable">What is Fable<a class="anchor-link" href="#What-is-Fable">&#182;</a></h2><blockquote><p>Fable is a compiler that lets you use F# to build applications that run in the JavaScript ecosystem.</p>
+</blockquote>
+<p>What does this exactly mean?</p>
+<p>You can write F# code and let fable translate it to javascript. (The following window shows <a href="https://fable.io/repl/">Fable REPL</a> and in-browser tool live translating F# code to javascript.)</p>
+<iframe height="600px" width="100%" src="https://fable.io/repl/#?code=LYewJgrgNgpgBAFRBATgOgKoDsCWIsDOAsAFCkD05cAYiiMHABYAuzADgQFyVggDGBNMBx86BEADNmaPvXIwsAWggFyvZlhjNyEgowCGKNuWbIUFKgDUcBHMzjNG8KDiwBrOPoBGIAG7wJEBQ4UBR4V0CUYH1mPCw4fDgYfT5GBxA2EQs4AE1kOD59eP0ocTgJVzAQoOdklFwsAHM4MPFUPhgCT3sWdi5KXQMjNCDG8lJSDIU4AGUATwJmGGAJklBIWDgAERtRHGEsGJgwbDiugF5VuGu4SioEJ3KQKCgQAHdXZrC2VoVmLsc8AIEDsCQknjgbCg+jmnwKhjAaFINwcczY8BmIPslxIKJRAB84AAJOr-ZF466EgDCUAgXmIuIpcEJO30oCwYAZTOZszY+jAnSuNzucAAgttdih9q4jlVTolCsVSiA4F54CpjukWjAfp0-g5Higih5JBCoTC4YUUIjyddmGj4AAlY1wHHckWOnW-LD-A3wI3uMHw61dABMcDQaDgAEYAAy2vGEywlCDwU2uZgJglijpZm6EgDSnzzlLgAEVUwoSzyAFIpNxCikinYEPYHWVweWEeFKsr7KHLfUgLwAKxgfGYiiCOD+muAyzVKEE1cWMREIQXMGCAHEtKKXs73AQABQASld1ZRAG04LCYFAqqLc4zuSjInAcB-4uHIzHY3BeFvGcHzgZNaXCS88TvEC6z4BsX1fa5oKqCsYCrBDEOQuAiyaOAAF1G1uShEEYGwPy6fRtVka1UXRA0YgKegvFcToIUxUEiiqSjDzcJEEJFABJZgAHIulkYB2S1DVVRARw4E9ajOU8DkJVbKV2yWOVcHwLo3iceJvm9WJcLAGJ9D4lF7ToqkEVdOAAG9ZixTgnLsABueTjRcni4AAX0IkUHjI8S2AgJYKLgFxFm1XUCD+OESigP1gyU1xkoFOCLJuWB7AkaAoC2ccPDdJkr0Jd9gVBNKbxJQx-g81l2U5DyaTpAgPJmPkBQIPCAJASC3yCFoXTSni0F3Zh9ygHiT3PXgBqZLDHPY5hzkq5gPJ484Aw8XzmQIsh+OIoKuhgAAPNkB0YrB-BQX1KOEmzrWEhJR3HexTAhRYpSaLLrhyuA9HeAAFaFYSaJ6qmPPgXMh88SopAGdpmZgfuaBHX2iZhUgKNAfI+RwFsJJ94EUAA+OAACIScponsLhcmqZwxpaYwplCVQ6ZGcpzmsFZxDS1gjxuaF-mBaTFN4HiRnvrhLBqwB9aUbRi82YpLGcb4NAVrgAnGDp1r6Tgbm+FpekxcQlkcDZfAlO5sBraaggLdfQlOv5VjuYILrOhd7lCVqu6um5pw6ud6tkdRuE4AAaipoNKdjwGsWV4tDpRQLSNOi7gCun4Mwol5kqtVLikhMG4Qy3iEwB-OfSmyHZtV7l3xLr9ynywq4L6ha6+YCR4kpgBSZ24GPIG3lBi0IdskvT0IgGwCNN4AHlNFFDlgZ+5hIbPZumSRzi7M0N5ZgWJZgDxzj6DPas8peLveKvANEQAOXO5hj3vgqirQAAZBQjRHCnl6tWfEFNx6MBBhXGeNEyYUz7gPKmI9Kbz0OgmJe+hV7r03tvXeaCUSYOwTADeYAt4ZnwRg5ea8SG4IoQiW+6DDpAA&html=DwCwLgtgNgfAsAKAAQqaApgQwCb2ag4CdMTJcMABwFp0BHAVwEsA3AXgCIBhAewDsw6AdQAqAT0roOSAMb9BAzoIAeYAPThoAbhkhMAJwDOJNgzAAzagA4OeQhqy5EhAEY9sYu6mBq3HvD6asEA&css=Q"></iframe><p><br></p>
+<p>Target runtime is JavaScript! <em>All code execution will be done on a JavaScript level</em>. Fable output can only be executed in the Browser.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Fable-Example">Fable Example<a class="anchor-link" href="#Fable-Example">&#182;</a></h2><p>The Fable application with the final code can be found in the root directory of the <a href="https://github.com/CSBiology/CSBlog">CSBlog</a> repository.</p>
+<ul>
+<li>Download <code>How2Fable.zip</code> (if you download the whole repo, you will need to move the zip out of it, or it will lead to depedency issues and it will not run)</li>
+<li>Unzip it </li>
+<li>Open powershell/commandline in the unzipped <code>How2Fable</code> folder.</li>
+<li><code>npm install</code></li>
+<li><code>npm start</code></li>
+<li>open browser at <code>localhost:8080</code></li>
+</ul>
+<p>All further examples are based on the standard Fable template, which you can install as described <a href="https://fable.io/docs/2-steps/your-first-fable-project.html">here</a>.</p>
+<h3 id="Fable-Template">Fable Template<a class="anchor-link" href="#Fable-Template">&#182;</a></h3><p>Short summary:</p>
+<ul>
+<li><code>dotnet new --install Fable.Template</code> &#10142; install newest Fable template.</li>
+<li><code>dotnet new fable</code> &#10142; create new Fable template in open folder.</li>
+<li><code>npm install</code> &#10142; install all JS dependencies.</li>
+<li><code>npm start</code> &#10142; install all .NET dependencies and start local webpack server with fable output.</li>
+</ul>
+<p>You can find the example project in the CSBlogpost repository (<em>How2Fable</em>-Folder).</p>
+<p>First to the important elements in the fable folder:</p>
+<ul>
+<li><code>package.json</code><ul>
+<li><code>scripts</code> defines for example <code>npm start</code> as <code>dotnet fable watch src --run webpack-dev-server</code></li>
+<li><code>devDependencies</code> reference of all JS dependencies.</li>
+</ul>
+</li>
+<li><code>webpack.config.js</code> all settings for webapplication. For exmaple, determines localhost port.</li>
+<li><code>public\index.html</code> the base <a href="https://www.w3schools.com/html/default.asp">html</a> page displayed in browser.</li>
+<li><code>public\bundle.js</code> all Fable output bundled together.</li>
+<li><code>src</code>, this folder contains the F# project, which will be compiled to JS.<ul>
+<li>Can use <a href="https://fsprojects.github.io/Paket/">paket</a> or nuget references in <code>.fsproj</code> file for dependencies.</li>
+<li>Can consist of multiple <code>.fs</code> files.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Fable-REPL-code">Fable REPL code<a class="anchor-link" href="#Fable-REPL-code">&#182;</a></h3><p>In the next step I added the code from the Fable REPL above to the Fable template project and adjusted the button for it.
+This will result in a button (which can be found in the <code>index.html</code>), which displays on-click one drawn card.</p>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!--index.html--&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Fable is running<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You can click on this button:<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!--This is our button--&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">/// </span><span class="w"></span>
+<span class="k">module</span><span class="w"> </span><span class="nn">Cards</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// The following represents the suit of a playing card.</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Suit</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Hearts</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Clubs</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Diamonds</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Spades</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// A Discriminated Union can also be used to represent the rank of a playing card.</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Rank</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="sd">/// Represents the rank of cards 2 .. 10</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Ace</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">King</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Queen</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Jack</span><span class="w"></span>
+
+<span class="w">        </span><span class="sd">/// Discriminated Unions can also implement object-oriented members.</span><span class="w"></span>
+<span class="w">        </span><span class="k">static</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">GetAllRanks</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="o">[</span><span class="w"> </span><span class="k">yield</span><span class="w"> </span><span class="n">Ace</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">yield</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
+<span class="w">              </span><span class="k">yield</span><span class="w"> </span><span class="n">Jack</span><span class="w"></span>
+<span class="w">              </span><span class="k">yield</span><span class="w"> </span><span class="n">Queen</span><span class="w"></span>
+<span class="w">              </span><span class="k">yield</span><span class="w"> </span><span class="n">King</span><span class="w"> </span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This is a record type that combines a Suit and a Rank.</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// It&#39;s common to use both Records and Discriminated Unions when representing data.</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Card</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Suit</span><span class="o">:</span><span class="w"> </span><span class="n">Suit</span><span class="o">;</span><span class="w"> </span><span class="n">Rank</span><span class="o">:</span><span class="w"> </span><span class="n">Rank</span><span class="w"> </span><span class="o">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This computes a list representing all the cards in the deck.</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fullDeck</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">[|</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">suit</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="n">Hearts</span><span class="o">;</span><span class="w"> </span><span class="n">Diamonds</span><span class="o">;</span><span class="w"> </span><span class="n">Clubs</span><span class="o">;</span><span class="w"> </span><span class="n">Spades</span><span class="o">]</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="n">rank</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nn">Rank</span><span class="p">.</span><span class="n">GetAllRanks</span><span class="bp">()</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">                  </span><span class="k">yield</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Suit</span><span class="o">=</span><span class="n">suit</span><span class="o">;</span><span class="w"> </span><span class="n">Rank</span><span class="o">=</span><span class="n">rank</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This example converts a &#39;Card&#39; object to a string.</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">showPlayingCard</span><span class="w"> </span><span class="o">(</span><span class="n">c</span><span class="o">:</span><span class="w"> </span><span class="n">Card</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">rankString</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="n">Rank</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Ace</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Ace&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">King</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;King&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Queen</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Queen&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Jack</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Jack&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">n</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">suitString</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">c</span><span class="o">.</span><span class="n">Suit</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Clubs</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;clubs&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Diamonds</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;diamonds&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Spades</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;spades&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">Hearts</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;hearts&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="n">rankString</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; of &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">suitString</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This example prints all the cards in a playing deck.</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">printAllCards</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">card</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">fullDeck</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">            </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%s&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">showPlayingCard</span><span class="w"> </span><span class="n">card</span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">drawOneAndPrintCard</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">rand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Random</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="n">fullDeck</span><span class="o">.[</span><span class="n">rand</span><span class="o">.</span><span class="n">Next</span><span class="o">(</span><span class="n">fullDeck</span><span class="o">.</span><span class="n">Length</span><span class="o">)]</span><span class="w"> </span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="o">(</span><span class="n">showPlayingCard</span><span class="o">)</span><span class="w"></span>
+
+<span class="c1">// Mutable variable to count the number of times we clicked the button</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">mutable</span><span class="w"> </span><span class="n">drawnCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+
+<span class="c1">// Get a reference to our button (in file: index.html) and cast the Element to an HTMLButtonElement.</span><span class="w"></span>
+<span class="sd">/// The last step is necessary as the compiler does otherwise not understand which type the html element has.</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">myButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">&quot;.my-button&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="nn">Browser</span><span class="p">.</span><span class="nn">Types</span><span class="p">.</span><span class="n">HTMLButtonElement</span><span class="w"></span>
+
+<span class="c1">// Register our listener</span><span class="w"></span>
+<span class="n">myButton</span><span class="o">.</span><span class="n">onclick</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">drawnCard</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">Cards</span><span class="p">.</span><span class="n">drawOneAndPrintCard</span><span class="bp">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">myButton</span><span class="o">.</span><span class="n">innerText</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;You pulled: %s &quot;</span><span class="w"> </span><span class="n">drawnCard</span><span class="w"></span>
+</pre></div>
+<p>The example will at this point, and after clicking the button, look like this:</p>
+<p><img src="./../../img/How2Fable_example1.png" alt="Image of Fable with the code implemented"></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="FSharp-to-JS">FSharp to JS<a class="anchor-link" href="#FSharp-to-JS">&#182;</a></h2><p>How can Fable translate our F# code to JS? Because most functions of the core F# libraries were redone in JS and Fable downloads these functions to <code>src\.fable</code>.
+These are then used to compile the F# source files into their JS counterparts. After <code>npm start</code>, Fable will create <code>.fs.js</code> (default) files from all F# source files.
+For example <code>App.fs</code>  &#10142; <code>App.fs.js</code>. If we look into these, we can see that the modules are imported from the <code>.fable</code> folder and used to translate our code.
+This translated code will be used for the webpack app.</p>
+<p>To further showcase this, I created a new source file <code>SearchMe.fs</code> with just one binding and call this binding from the App.fs file.
+This is necessary, as <code>App.fs</code> is defined as our app entry in the <code>webpack.config.js</code> and Fable will only compile referenced F# code to JS, to minimize bloat.</p>
+<div class="highlight"><pre><span></span><span class="sd">/// SearchMe.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="k">module</span><span class="w"> </span><span class="nn">SearchMe</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">iAmAVeryLongAndEasilySearchableName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello World&quot;</span><span class="w"></span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;{SearchMe.iAmAVeryLongAndEasilySearchableName}&quot;</span><span class="w"></span>
+</pre></div>
+<p><code>npm run build</code> will bundle all Fable-compiled JS files into <code>public\bundle.js</code>. This file will contain imports from <code>./src/.fable/</code>, 
+but also one for each F# source file. If we search it for <code>iAmAVeryLongAndEasilySearchableName</code> or <code>drawOneAndPrintCard</code> we will find the respective JS code.</p>
+<p><br></p>
+<p>Because Fable can only compile code patterns and the functions from the modules in <code>src\.fable</code> it is <strong>not</strong> possible to compile any F# library with Fable out of the box.</p>
+<p>If we add <code>&lt;PackageReference Include="FSharp.Stats" Version="0.4.3" /&gt;</code> to <code>App.fsproj</code> it will return an error.</p>
+<div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Stats</span><span class="w"></span>
+
+<span class="c1">// Example from https://fslab.org/FSharp.Stats/BasicStats.html</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">mean1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="o">[</span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">2</span><span class="o">;</span><span class="w"> </span><span class="mi">19</span><span class="o">;</span><span class="w"> </span><span class="mi">24</span><span class="o">;</span><span class="w"> </span><span class="mi">6</span><span class="o">;</span><span class="w"> </span><span class="mi">23</span><span class="o">;</span><span class="w"> </span><span class="mi">47</span><span class="o">;</span><span class="w"> </span><span class="mi">24</span><span class="o">;</span><span class="w"> </span><span class="mi">54</span><span class="o">;</span><span class="w"> </span><span class="mi">77</span><span class="o">;]</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">meanBy</span><span class="w"> </span><span class="kt">float</span><span class="w"></span>
+
+<span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;{mean1}&quot;</span><span class="w"></span>
+</pre></div>
+<p>Error in powershell/cmd.</p>
+<div class="highlight"><pre><span></span><span class="n">F</span><span class="c"># compilation finished in 59ms</span>
+<span class="n">C</span><span class="p">:/</span><span class="n">Users</span><span class="p">/</span><span class="n">User</span><span class="p">/</span><span class="n">source</span><span class="p">/</span><span class="n">repos</span><span class="p">/</span><span class="n">How2Fable</span><span class="p">/</span><span class="n">src</span><span class="p">/</span><span class="n">App</span><span class="p">.</span><span class="n">fs</span><span class="p">(</span><span class="n">70</span><span class="p">,</span><span class="n">13</span><span class="p">):</span> <span class="p">(</span><span class="n">70</span><span class="p">,</span><span class="n">18</span><span class="p">)</span> <span class="n">error</span> <span class="n">FSHARP</span><span class="p">:</span> <span class="n">The</span> <span class="n">namespace</span> <span class="s1">&#39;Stats&#39;</span> <span class="n">is</span> <span class="n">not</span> <span class="n">defined</span><span class="p">.</span> <span class="p">(</span><span class="n">code</span> <span class="n">39</span><span class="p">)</span>
+<span class="n">C</span><span class="p">:/</span><span class="n">Users</span><span class="p">/</span><span class="n">User</span><span class="p">/</span><span class="n">source</span><span class="p">/</span><span class="n">repos</span><span class="p">/</span><span class="n">How2Fable</span><span class="p">/</span><span class="n">src</span><span class="p">/</span><span class="n">App</span><span class="p">.</span><span class="n">fs</span><span class="p">(</span><span class="n">74</span><span class="p">,</span><span class="n">12</span><span class="p">):</span> <span class="p">(</span><span class="n">74</span><span class="p">,</span><span class="n">18</span><span class="p">)</span> <span class="n">error</span> <span class="n">FSHARP</span><span class="p">:</span> <span class="n">The</span> <span class="n">value</span><span class="p">,</span> <span class="n">constructor</span><span class="p">,</span> <span class="n">namespace</span> <span class="n">or</span> <span class="nb">type </span><span class="s1">&#39;meanBy&#39;</span> <span class="n">is</span> <span class="n">not</span> <span class="n">defined</span><span class="p">.</span> <span class="n">Maybe</span> <span class="n">you</span> <span class="n">want</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span><span class="p">:</span>
+   <span class="n">maxBy</span>
+   <span class="n">minBy</span>
+   <span class="n">maxBy</span>
+   <span class="n">minBy</span> <span class="p">(</span><span class="n">code</span> <span class="n">39</span><span class="p">)</span>
+<span class="n">Watching</span> <span class="n">src</span>
+</pre></div>
+<p>Fable has no idea about the <code>Seq.meanBy</code> function and cannot translate it to JS. For a list of Fable compatible libraries you can look 
+<a href="https://fable.io/docs/dotnet/compatibility.html">here</a> for F# Core libraries and <a href="https://fable.io/resources.html#Libraries">here</a> for community ressources.</p>
+<p>It is also <strong>possible to make F# libraries Fable compatible</strong> as described <a href="https://fable.io/docs/your-fable-project/author-a-fable-library.html">here</a>. 
+This was for example done for the <a href="https://github.com/nfdi4plants/ISADotNet/blob/developer/src/ISADotnet/ISADotNet.fsproj#L65">ISADotNet library</a> with a 
+conditional trigger, to publish two nuget package versions. One with and one without Fable compatibility.</p>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!--App.fsproj--&gt;</span>
+<span class="nt">&lt;ItemGroup</span> <span class="na">Condition=</span><span class="s">&quot; &#39;$(PackageId)&#39; == &#39;ISADotNet.Fable&#39; &quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Content</span> <span class="na">Include=</span><span class="s">&quot;*.fsproj; **\*.fs; **\*.fsi&quot;</span> <span class="na">PackagePath=</span><span class="s">&quot;fable\&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/ItemGroup&gt;</span>
+</pre></div>
+<p>This code is a modified version of the build target from the <a href="https://github.com/CSBiology/KnowledgeBase/blob/main/knowledgebase/devops/library-development/full-guide.md#packing-a-nuget-package">libary development knowledgebase article</a>.</p>
+<div class="highlight"><pre><span></span><span class="sd">/// build.fsx</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">pack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">BuildTask</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">&quot;Pack&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">clean</span><span class="o">;</span><span class="w"> </span><span class="n">build</span><span class="o">;</span><span class="w"> </span><span class="n">runTests</span><span class="o">;</span><span class="w"> </span><span class="n">copyBinaries</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">promptYesNo</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;creating stable package with version %s OK?&quot;</span><span class="w"> </span><span class="n">stableVersionTag</span><span class="w"> </span><span class="o">)</span><span class="w"> </span>
+<span class="w">        </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="o">!!</span><span class="w"> </span><span class="s">&quot;src/**/*.*proj&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">iter</span><span class="w"> </span><span class="o">(</span><span class="nn">Fake</span><span class="p">.</span><span class="nn">DotNet</span><span class="p">.</span><span class="nn">DotNet</span><span class="p">.</span><span class="n">pack</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                </span><span class="k">let</span><span class="w"> </span><span class="nv">msBuildParams</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">                    </span><span class="o">{</span><span class="n">p</span><span class="o">.</span><span class="n">MSBuildParams</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
+<span class="w">                        </span><span class="n">Properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">([</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Version&quot;</span><span class="o">,</span><span class="n">stableVersionTag</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;PackageReleaseNotes&quot;</span><span class="o">,</span><span class="w">  </span><span class="o">(</span><span class="n">release</span><span class="o">.</span><span class="n">Notes</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">replaceCommitLink</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">concat</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                        </span><span class="o">]</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">MSBuildParams</span><span class="o">.</span><span class="n">Properties</span><span class="o">)</span><span class="w"></span>
+<span class="w">                    </span><span class="o">}</span><span class="w"></span>
+<span class="w">                </span><span class="o">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">p</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
+<span class="w">                        </span><span class="n">MSBuildParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msBuildParams</span><span class="w"></span>
+<span class="w">                        </span><span class="n">OutputPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="n">pkgDir</span><span class="w"></span>
+<span class="w">                </span><span class="o">}</span><span class="w"></span>
+<span class="w">            </span><span class="o">))</span><span class="w"></span>
+<span class="w">            </span><span class="sd">/// This is used to create ISADotNet.Fable with the Fable subfolder as explained here:</span><span class="w"></span>
+<span class="w">            </span><span class="sd">/// https://fable.io/docs/your-fable-project/author-a-fable-library.html</span><span class="w"></span>
+<span class="w">            </span><span class="s">&quot;src/ISADotNet/ISADotNet.fsproj&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Fake</span><span class="p">.</span><span class="nn">DotNet</span><span class="p">.</span><span class="nn">DotNet</span><span class="p">.</span><span class="n">pack</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                </span><span class="k">let</span><span class="w"> </span><span class="nv">msBuildParams</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">                    </span><span class="o">{</span><span class="n">p</span><span class="o">.</span><span class="n">MSBuildParams</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
+<span class="w">                        </span><span class="n">Properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">([</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;PackageId&quot;</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;ISADotNet.Fable&quot;</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Version&quot;</span><span class="o">,</span><span class="n">stableVersionTag</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;Description&quot;</span><span class="o">,</span><span class="s">&quot;Fable compliant release for the ISA compliant experimental metadata toolkit in F#. Additionally to the compiled library, it is shipped with the uncompiled code.&quot;</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;PackageTags&quot;</span><span class="o">,</span><span class="s">&quot;F# FSharp dotnet .Net bioinformatics biology datascience metadata investigation study assay ISA Json Fable&quot;</span><span class="w"></span>
+<span class="w">                            </span><span class="s">&quot;PackageReleaseNotes&quot;</span><span class="o">,</span><span class="w">  </span><span class="o">(</span><span class="n">release</span><span class="o">.</span><span class="n">Notes</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">replaceCommitLink</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">concat</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                        </span><span class="o">]</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">p</span><span class="o">.</span><span class="n">MSBuildParams</span><span class="o">.</span><span class="n">Properties</span><span class="o">)</span><span class="w"></span>
+<span class="w">                    </span><span class="o">}</span><span class="w"></span>
+<span class="w">                </span><span class="k">let</span><span class="w"> </span><span class="nv">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="w"></span>
+<span class="w">                </span><span class="o">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">p</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
+<span class="w">                        </span><span class="n">MSBuildParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msBuildParams</span><span class="w"></span>
+<span class="w">                        </span><span class="n">OutputPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="n">pkgDir</span><span class="w"></span>
+<span class="w">                </span><span class="o">}</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">failwith</span><span class="w"> </span><span class="s">&quot;aborted&quot;</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+</pre></div>
+<p><em>(ISADotNet was changed and is at the time of writing not Fable compatible, because of the JSON parser library.)</em></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="JS-in-FSharp">JS in FSharp<a class="anchor-link" href="#JS-in-FSharp">&#182;</a></h2><p>Some of the following text is based on an explanation from the awesome guys at <a href="https://twitter.com/compositionalit">@compositionalit</a>!</p>
+<p>One of the big advantages of Fable is not only that F# code becomes accessible with JavaScript, but also that one can use JavaScript libraries in F#.</p>
+<p>The javascript library that we'll be interacting with is <a href="https://www.npmjs.com/package/shuffle">shuffle</a>, because why should we implement a all those cards functions if they already exist ..</p>
+<h3 id="Installing-the-shuffle-npm-package">Installing the shuffle npm package<a class="anchor-link" href="#Installing-the-shuffle-npm-package">&#182;</a></h3><ol>
+<li>Install the <code>shuffle</code> package using <code>npm</code> or <code>yarn</code></li>
+</ol>
+<div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="n">shuffle</span>
+</pre></div>
+<h3 id="Dynamic-casting">Dynamic casting<a class="anchor-link" href="#Dynamic-casting">&#182;</a></h3><div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Fable.Core.JsInterop</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">shuffle</span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importDefault</span><span class="w"> </span><span class="s">&quot;shuffle&quot;</span><span class="w"></span>
+
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">shuffle</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+<blockquote><p>For more information on import statements in fable visit the <a href="https://safe-stack.github.io/docs/recipes/javascript/import-js-module/">SAFE documentation</a> or the <a href="https://fable.io/docs/">offical Fable docs</a>.</p>
+</blockquote>
+<ol>
+<li><p>To check that the package has been brought in add <code>console.log(shuffle)</code> within the <code>App.fs</code> file</p>
+</li>
+<li><p>Open the browsers console window (Shift + ⌘ + J (on macOS) or Shift + CTRL + J (on Windows/Linux)) and you should see something like:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="p">{</span> <span class="nb">Object</span>
+    <span class="nx">playingCards</span><span class="o">:</span> <span class="nx">ƒ</span> <span class="p">()</span>
+    <span class="nx">shuffle</span><span class="o">:</span> <span class="nx">ƒ</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+    <span class="p">[[</span><span class="nx">Prototype</span><span class="p">]]</span><span class="o">:</span> <span class="nb">Object</span> <span class="p">}</span>
+</pre></div>
+<p>If you've done something wrong such as mispelling the import you may see:</p>
+<div class="highlight"><pre><span></span><span class="nx">client</span><span class="o">:</span><span class="mf">159</span> <span class="p">.</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">App</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nx">js</span>
+<span class="nx">Module</span> <span class="nx">not</span> <span class="nx">found</span><span class="o">:</span> <span class="ne">Error</span><span class="o">:</span> <span class="nx">Can</span><span class="s1">&#39;t resolve &#39;</span><span class="nx">shufle</span><span class="s1">&#39; in &#39;</span><span class="nx">C</span><span class="o">:</span><span class="err">\</span><span class="nx">Users</span><span class="err">\</span><span class="nx">User</span><span class="err">\</span><span class="nx">source</span><span class="err">\</span><span class="nx">repos</span><span class="err">\</span><span class="nx">How2Fable</span><span class="err">\</span><span class="nx">src</span><span class="err">&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Use-dynamic-casting-to-access-members.">Use dynamic casting to access members.<a class="anchor-link" href="#Use-dynamic-casting-to-access-members.">&#182;</a></h3><p>Dynamic casting relies on your understanding of the code. The <code>?</code> operator allows us to access any members of our JsInterop elements.</p>
+<p>The following is taken from the official documentation. We want to access those functions with the <code>?</code> operator.</p>
+<div class="highlight"><pre><span></span><span class="c1">// shuffle documentation in JavaScript</span>
+<span class="kd">var</span> <span class="nx">Shuffle</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;shuffle&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">deck</span> <span class="o">=</span> <span class="nx">Shuffle</span><span class="p">.</span><span class="nx">shuffle</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">card</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nx">draw</span><span class="p">();</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// Dynamic casting in F# </span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">shuffle</span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importDefault</span><span class="w"> </span><span class="s">&quot;shuffle&quot;</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">deck</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shuffle</span><span class="o">?</span><span class="n">shuffle</span><span class="bp">()</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">card</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deck</span><span class="o">?</span><span class="n">draw</span><span class="bp">()</span><span class="w"></span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">card</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+<p>We check our console and see that it worked and we got a random card consisting of 3 values: suit, description and sort.
+In addition a <code>card</code> has two more members <code>toShortDisplayString</code> and <code>toString</code>. Which we can access in the same way.</p>
+<div class="highlight"><pre><span></span><span class="c1">// console.log(card)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="p">{</span><span class="nx">suit</span><span class="o">:</span> <span class="s1">&#39;Spade&#39;</span><span class="p">,</span> <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;Ten&#39;</span><span class="p">,</span> <span class="nx">sort</span><span class="o">:</span> <span class="mf">10</span><span class="p">,</span> <span class="nx">toString</span><span class="o">:</span> <span class="nx">ƒ</span><span class="p">,</span> <span class="nx">toShortDisplayString</span><span class="o">:</span> <span class="nx">ƒ</span><span class="p">}</span>
+<span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Ten&quot;</span>
+<span class="nx">sort</span><span class="o">:</span> <span class="mf">10</span>
+<span class="nx">suit</span><span class="o">:</span> <span class="s2">&quot;Spade&quot;</span>
+<span class="nx">toShortDisplayString</span><span class="o">:</span> <span class="nx">ƒ</span> <span class="p">()</span>
+<span class="nx">toString</span><span class="o">:</span> <span class="nx">ƒ</span> <span class="p">()</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="c1">// F#</span><span class="w"></span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">card</span><span class="o">?</span><span class="n">toShortDisplayString</span><span class="bp">()</span><span class="o">)</span><span class="w"></span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="o">(</span><span class="n">card</span><span class="o">?</span><span class="n">toString</span><span class="bp">()</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+<pre><code>10S
+Ten of Spades</code></pre>
+<p>We implement our dynamic casting functions for a button, by duplicating the button functionality with <code>myButton2</code>.</p>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!--index.html--&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Fable is running<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You can click on this button:<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!--This is our new button--&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button2&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Fable.Core.JsInterop</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">mutable</span><span class="w"> </span><span class="n">drawnCard2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">myButton2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">&quot;.my-button2&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="nn">Browser</span><span class="p">.</span><span class="nn">Types</span><span class="p">.</span><span class="n">HTMLButtonElement</span><span class="w"></span>
+<span class="n">myButton2</span><span class="o">.</span><span class="n">onclick</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">drawnCard2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">JsInteropDynamicCasting</span><span class="p">.</span><span class="n">deck</span><span class="o">?</span><span class="n">drawRandom</span><span class="bp">()</span><span class="o">?</span><span class="n">toString</span><span class="bp">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">myButton2</span><span class="o">.</span><span class="n">innerText</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;You pulled: %s &quot;</span><span class="w"> </span><span class="n">drawnCard2</span><span class="w"></span>
+</pre></div>
+<p>And it works! 🎉</p>
+<p><img src="./../../img/How2Fable_example2.png" alt="Fable example for dynamic casting button"></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Setting-up-an-interface">Setting up an interface<a class="anchor-link" href="#Setting-up-an-interface">&#182;</a></h3><p>Rather than unsafely accessing the <code>shuffle</code> it would be better to use an interface 
+so that we can use the normal <code>.</code> notation to call methods on <code>shuffle</code>.</p>
+<p>Declare an interface type called <code>Shuffle</code>. This interface will have to be declared before:</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">Shuffle</span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importDefault</span><span class="w"> </span><span class="s">&quot;shuffle&quot;</span><span class="w"></span>
+</pre></div>
+<p>The interface will need an <code>abstract</code> member called <code>shuffle</code> that is a function of type <code>unit -&gt; obj</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">Shuffle</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">shuffle</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">obj</span><span class="w"></span>
+</pre></div>
+<p>Update the <code>shuffle</code> import to use the new type <code>Shuffle</code> rather than <code>obj</code>.</p>
+<div class="highlight"><pre><span></span><span class="gd">--  let Shuffle: obj        = importDefault &quot;shuffle&quot;</span><span class="w"></span>
+<span class="gi">++  let Shuffle: Shuffle    = importDefault &quot;shuffle&quot;</span><span class="w"></span>
+</pre></div>
+<p>In the end you can write Fable bindings for all functions of the npm library which could look like the following:</p>
+<div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="nn">JsInteropInterface</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">open</span><span class="w"> </span><span class="nn">Fable.Core.JsInterop</span><span class="w">   </span>
+
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Cards</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">suit</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">get</span><span class="o">,</span><span class="w"> </span><span class="n">set</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">description</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">get</span><span class="o">,</span><span class="w"> </span><span class="n">set</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">sort</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">get</span><span class="o">,</span><span class="w"> </span><span class="n">set</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">toString</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">toShortDisplayString</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Deck</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">cards</span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="bp">[]</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">draw</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Cards</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">draw</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Cards</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">drawRandom</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Cards</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">drawRandom</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Cards</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">putOnTopOfDeck</span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">putOnTopOfDeck</span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">putOnBottomOfDeck</span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">putOnBottomOfDeck</span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Shuffle</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">shuffle</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Deck</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">shuffle</span><span class="o">:</span><span class="w"> </span><span class="k">&#39;</span><span class="n">a</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Deck</span><span class="w"></span>
+<span class="w">        </span><span class="k">abstract</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">playingCards</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">obj</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">Shuffle</span><span class="o">:</span><span class="w"> </span><span class="n">Shuffle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importAll</span><span class="w"> </span><span class="s">&quot;shuffle&quot;</span><span class="w"></span>
+</pre></div>
+<p>With this done we can update our <code>myButton2</code> to use our typesafe bindings. While we are at it, we change the mutable to an <code>option</code> and 
+stop initializing a new deck everytime we press the button.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">mutable</span><span class="w"> </span><span class="n">drawnCard2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">deck</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Shuffle</span><span class="p">.</span><span class="n">shuffle</span><span class="bp">()</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">myButton2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">&quot;.my-button2&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="nn">Browser</span><span class="p">.</span><span class="nn">Types</span><span class="p">.</span><span class="n">HTMLButtonElement</span><span class="w"></span>
+<span class="n">myButton2</span><span class="o">.</span><span class="n">onclick</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">drawnCard2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">deck</span><span class="o">.</span><span class="n">draw</span><span class="bp">()</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">Some</span><span class="w"></span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="n">deck</span><span class="o">.</span><span class="n">length</span><span class="w"></span>
+<span class="w">    </span><span class="n">myButton2</span><span class="o">.</span><span class="n">innerText</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;You pulled: %s &quot;</span><span class="w"> </span><span class="o">(</span><span class="n">drawnCard2</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">toString</span><span class="bp">()</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Typesafety?">Typesafety?<a class="anchor-link" href="#Typesafety?">&#182;</a></h3><p>JavaScript is not type safe and while we are writing F# we use the JS runtime to execute our code. This is best shown in the following example.
+The implemented <code>deck.putOnTopOfDeck</code> if of type <code>Cards -&gt; unit</code> or <code>Cards [] -&gt; unit</code>. Sadly, the author of <code>shuffle</code> did not intend us to add more standard cards to the deck 
+and does <strong>not</strong> expose the create function for us to use in Fable. Altough there are some options on how to circumvent this.</p>
+<h4 id="Goal">Goal<a class="anchor-link" href="#Goal">&#182;</a></h4><p>Add a button which puts a specific card on top of the deck with <code>deck.putOnTopOfDeck</code>.</p>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!--index.html--&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Fable is running<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>You can click on this button:<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="cm">&lt;!--This are our buttons--&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button2&quot;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;my-button3&quot;</span><span class="p">&gt;</span>Is this allowed?<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+<p>Use <code>deck.putOnTopOfDeck</code> (with the array parameter overload, as the single card version seems to be buggy and does <strong>not</strong> work), but we still need the new card.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">myButton3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">&quot;.my-button3&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="nn">Browser</span><span class="p">.</span><span class="nn">Types</span><span class="p">.</span><span class="n">HTMLButtonElement</span><span class="w"></span>
+<span class="n">myButton3</span><span class="o">.</span><span class="n">onclick</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">deck</span><span class="o">.</span><span class="n">putOnTopOfDeck</span><span class="w"> </span><span class="o">[||]</span><span class="w"></span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="n">deck</span><span class="o">.</span><span class="n">length</span><span class="w"></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Option-1:-Search-and-explicit-import.">Option 1: Search and explicit import.<a class="anchor-link" href="#Option-1:-Search-and-explicit-import.">&#182;</a></h4><p>It is possible to search through the JS library (<code>"\node_modules\shuffle\src\playingCard.js"</code>) to find the <code>card</code> creation and definition logic.
+And even though it is not exported to the main <code>index.js</code> we can access the exact file and use it to create <code>Cards</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">playingCard</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">importDefault</span><span class="w"> </span><span class="o">(</span><span class="s">&quot;../node_modules/shuffle/src/playingCard.js&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="c1">// createNew is a Fable function to simulate the JS `new` operator</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">newCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createNew</span><span class="w"> </span><span class="n">playingCard</span><span class="w"> </span><span class="o">(</span><span class="s">&quot;Heart&quot;</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;Five&quot;</span><span class="o">,</span><span class="w"> </span><span class="mi">5</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="n">Cards</span><span class="w"></span>
+</pre></div>
+<p>This is only necessary because the author did not intend this behavior, instead we are meant to write our own card type, as shown in the following example from the docs.</p>
+<div class="highlight"><pre><span></span><span class="c1">// shuffle docs in JavaScript</span>
+<span class="kd">var</span> <span class="nx">Shuffle</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;shuffle&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">goFish</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="nx">number</span><span class="o">:</span> <span class="mf">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="nx">number</span><span class="o">:</span> <span class="mf">2</span><span class="p">},</span> <span class="p">...];</span>
+<span class="kd">var</span> <span class="nx">deck</span> <span class="o">=</span> <span class="nx">Shuffle</span><span class="p">.</span><span class="nx">shuffle</span><span class="p">({</span><span class="nx">deck</span><span class="o">:</span> <span class="nx">goFish</span><span class="p">});</span>
+</pre></div>
+<p>But more on that later.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Option-2:-Anonymous-records-and-createObject">Option 2: Anonymous records and createObject<a class="anchor-link" href="#Option-2:-Anonymous-records-and-createObject">&#182;</a></h4><p>We could imitate the JS <code>card</code> object with different options. Fable translates F# anonymous records to JS objects.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">newCard</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Cards</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!!{|</span><span class="n">suit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Heart&quot;</span><span class="o">;</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Five&quot;</span><span class="o">;</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="o">|}</span><span class="w"></span>
+</pre></div>
+<p>Although <code>deck.putOnTopOfDeck</code> is of type <code>Cards [] -&gt; unit</code> we can handle the anonymous record as such, because of the <code>!!</code> operator. 
+It more or less tells the dotnet compiler to not worry about typesafety for whatever follows it. Therefore we can declare <code>newCard : Cards</code>.</p>
+<p>If we just add this card to the input array we will get an error, because we try to call the <code>toString()</code> method on the drawn cards and our anonymous record type has no such member.
+<em>But</em> we can replace <code>drawnCard2.Value.toString()</code> with for example <code>drawnCard2.Value.suit</code> and it will work just fine! 🎉
+The Javascript compiler will try to access the <code>suit</code> member and both <code>Cards</code> as well as our anonymous record have this member and we can change the print command accordingly.</p>
+<p>Fable provides us with even more alternatives, which work just like the anonymous record type as they will <strong>not</strong> contain the <code>toString()</code> method.</p>
+<h5 id="Alternative-1">Alternative 1<a class="anchor-link" href="#Alternative-1">&#182;</a></h5><div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">newCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">createEmpty</span><span class="o">&lt;</span><span class="n">Cards</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">newCard</span><span class="o">.</span><span class="n">suit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Heart&quot;</span><span class="w"></span>
+<span class="n">newCard</span><span class="o">.</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Five&quot;</span><span class="w"></span>
+<span class="n">newCard</span><span class="o">.</span><span class="n">sort</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+</pre></div>
+<h5 id="Alternative-2">Alternative 2<a class="anchor-link" href="#Alternative-2">&#182;</a></h5><div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">newCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jsOptions</span><span class="o">&lt;</span><span class="n">Cards</span><span class="o">&gt;(</span><span class="k">fun</span><span class="w"> </span><span class="n">newCard</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="n">newCard</span><span class="o">.</span><span class="n">suit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Heart&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">newCard</span><span class="o">.</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;Five&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">newCard</span><span class="o">.</span><span class="n">sort</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="o">)</span><span class="w"></span>
+</pre></div>
+<p><br></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Option-3:-F%23-Record-type">Option 3: F# Record type<a class="anchor-link" href="#Option-3:-F%23-Record-type">&#182;</a></h4><p>As we just saw we can circumvent type safety quite easily and the author already intends us to write our own card type, so we will do exactly that. <sub>(Please do not cringe about the following joke)</sub></p>
+<div class="highlight"><pre><span></span><span class="sd">/// App.fs</span><span class="w"></span>
+<span class="sd">///</span><span class="w"></span>
+<span class="c1">// https://fable.io/docs/communicate/fable-from-js.html</span><span class="w"></span>
+<span class="o">[&lt;</span><span class="n">AttachMembers</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">type</span><span class="w"> </span><span class="nc">MyCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Name</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="o">}</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="o">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">toString</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="s">&quot;Exodia&quot;</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;{this.Name} 😱. That means you win!&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">anythingElse</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;{anythingElse}?? ..&quot;</span><span class="w"></span>
+</pre></div>
+<p>This type is rather different to the <code>Cards</code> type, except it also contains a <code>.toString()</code> method. So we will tell 
+the typesafe dotnet compiler to not worry and will add our "Joker" to the pile of poker cards.
+Because the only time we interact with the card will be when we call the <code>.toString()</code> method it will work without any problems.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">myButton3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="o">(</span><span class="s">&quot;.my-button3&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">:?&gt;</span><span class="w"> </span><span class="nn">Browser</span><span class="p">.</span><span class="nn">Types</span><span class="p">.</span><span class="n">HTMLButtonElement</span><span class="w"></span>
+<span class="n">myButton3</span><span class="o">.</span><span class="n">onclick</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">newCard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!!</span><span class="nn">MyCard</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">&quot;Exodia&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">deck</span><span class="o">.</span><span class="n">putOnTopOfDeck</span><span class="w"> </span><span class="o">[|</span><span class="n">newCard</span><span class="o">|]</span><span class="w"></span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="w"> </span><span class="n">deck</span><span class="o">.</span><span class="n">length</span><span class="w"></span>
+</pre></div>
+<p><img src="./../../img/How2Fable_example3.png" alt="Fable example ignoring type safety button"></p>
+<p>This is an extreme example on how JS and F# will interact through Fable. By ignoring the F# typesafety with <code>!!</code> or 
+using dynamic casting we make our code error-prone. It would be better to write the bindings in a way to directly work with the intended card type, 
+as all functions will work independently of the card type used.</p>
+<p>Using existing JS libraries for Fable applications can safe a lot of time, so knowing how to use the – often – excellent work of other 
+programmers is valuable know-how... and result in less time wasted recreating already existing libraries.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Further-reading">Further reading<a class="anchor-link" href="#Further-reading">&#182;</a></h2><ul>
+<li><a href="https://fable.io/docs/">Official Fable docs</a></li>
+<li><a href="https://www.compositional-it.com/news-blog/">Computational IT Blogs</a></li>
+</ul>
+<p>Blogpost ressources</p>
+<ul>
+<li><a href="https://fable.io/repl/">Fable REPL</a></li>
+<li><a href="https://fable.io/docs/dotnet/compatibility.html">Fable compatible F# Core libraries</a></li>
+<li><a href="https://fable.io/resources.html#Libraries">Fable compatible community ressources</a></li>
+<li><a href="https://www.npmjs.com/package/shuffle">Shuffle</a></li>
+<li><a href="https://safe-stack.github.io/docs/intro/">SAFE stack</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

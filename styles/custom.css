@@ -1,0 +1,100 @@
+.main-TextField {
+    padding: 1.5rem 3rem;
+    max-width: 100%;
+    margin: 1rem 2rem;
+    border-radius: 10px;
+  }
+.main-TextField .main-text {
+    text-align: justify;
+}
+@media only screen and (max-width: 1024px) {
+    .main-TextField {
+        margin: 2rem;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .main-TextField {
+        margin: 1rem 1.5rem;
+    }
+}
+.main-text .column {
+    margin: 0 0.5rem;
+}
+
+.main-title {
+    font-size: 5rem;
+  }
+
+@media only screen and (max-width: 1024px) {
+    .main-title {
+        font-size: 3rem;
+    }
+}
+
+.is-strongly-emphasized-black {
+    border-bottom: 10px solid #0a0a0a;
+}
+
+.is-emphasized-black {
+    border-bottom: 4px solid #0a0a0a;
+}
+
+.is-black {
+    color: #0a0a0a !important;
+}
+
+.is-white {
+    color: #f0f2f4 !important;
+}
+
+.is-csb-orange {
+    color: #EA7D3B !important;
+}
+
+.has-bg-csb-orange {
+    background-color: #EA7D3B !important;
+}
+
+.is-emphasized-csb-orange {
+    border-bottom: 4px solid #EA7D3B !important;
+}
+
+.is-strongly-emphasized-csb-orange {
+    border-bottom: 10px solid #EA7D3B !important;
+}
+
+.is-csb-darkblue {
+    color: #303b4a !important;
+}
+
+.has-bg-csb-darkblue {
+    background-color: #303b4a !important;
+}
+
+.is-emphasized-csb-darkblue {
+    border-bottom: 4px solid #303b4a !important
+}
+
+.is-cadet-gray {
+    color: #82A6B1;
+}
+
+.has-bg-cadet-gray{
+    background-color: #82A6B1 !important;
+}
+
+.is-emphasized-cadet-gray {
+    border-bottom: 4px solid #82A6B1 !important
+}
+
+.is-strongly-emphasized-cadet-gray {
+    border-bottom: 10px solid #82A6B1 !important
+}
+
+a:hover {
+    color: #0a0a0a
+}
+
+html {
+    background-color: #f0f2f4;
+}

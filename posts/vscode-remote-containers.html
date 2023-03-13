@@ -1,0 +1,658 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#VS-Code-Remote-Container-and-the-ARC" class="is-csb-darkblue">
+                  VS Code Remote Container and the ARC
+                </a>
+              </li>
+              <li>
+                <a href="#Requirements" class="is-csb-darkblue">
+                  Requirements
+                </a>
+              </li>
+              <li>
+                <a href="#Set-up" class="is-csb-darkblue">
+                  Set up
+                </a>
+              </li>
+              <li>
+                <a href="#Folderstructure" class="is-csb-darkblue">
+                  Folderstructure
+                </a>
+              </li>
+              <li>
+                <a href="#How-to-start" class="is-csb-darkblue">
+                  How to start
+                </a>
+              </li>
+              <li>
+                <a href="#%E2%9A%A0%EF%B8%8F-.devcontainer-MUST-be-on-root-level" class="is-csb-darkblue">
+                  %E2%9A%A0%EF%B8%8F .devcontainer MUST be on root level
+                </a>
+              </li>
+              <li>
+                <a href="#How-to-open/access-not-displayed-files" class="is-csb-darkblue">
+                  How to open/access not displayed files
+                </a>
+              </li>
+              <li>
+                <a href="#Dependencies" class="is-csb-darkblue">
+                  Dependencies
+                </a>
+              </li>
+              <li>
+                <a href="#Review-Assay-file" class="is-csb-darkblue">
+                  Review Assay file
+                </a>
+              </li>
+              <li>
+                <a href="#Data-analysis" class="is-csb-darkblue">
+                  Data analysis
+                </a>
+              </li>
+              <li>
+                <a href="#Data-access" class="is-csb-darkblue">
+                  Data access
+                </a>
+              </li>
+              <li>
+                <a href="#Visualisation-1" class="is-csb-darkblue">
+                  Visualisation 1
+                </a>
+              </li>
+              <li>
+                <a href="#Visualisation-2" class="is-csb-darkblue">
+                  Visualisation 2
+                </a>
+              </li>
+              <li>
+                <a href="#Metadata-access" class="is-csb-darkblue">
+                  Metadata access
+                </a>
+              </li>
+              <li>
+                <a href="#Data-transformation" class="is-csb-darkblue">
+                  Data transformation
+                </a>
+              </li>
+              <li>
+                <a href="#Verdict" class="is-csb-darkblue">
+                  Verdict
+                </a>
+              </li>
+              <li>
+                <a href="#Outlook" class="is-csb-darkblue">
+                  Outlook
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  Visualizing relationships between sets with Plotly.NET
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2022-4-25 by
+                    <a href="https://github.com/freymaurer" class="is-csb-darkblue">
+                      Kevin Frey
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/Advanced.html" class="is-csb-darkblue">
+                      Advanced
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="VS-Code-Remote-Container-and-the-ARC">VS Code Remote-Container and the ARC<a class="anchor-link" href="#VS-Code-Remote-Container-and-the-ARC">&#182;</a></h1><p><em><a href="https://github.com/Joott">Jonathan Ott</a></em>, <em><a href="https://github.com/Freymaurer">Kevin Frey</a></em> ~ <em>last updated: 2022-04-25</em></p>
+<p>In this blogpost I will deal with the question how computational data analysis could look like in a reproducible environment. You can read more about FAIR data and the important concepts on the <a href="https://www.nfdi4plants.de">DataPLANT website</a>. DataPLANT's research data management is built around the <strong>ARC</strong> (<a href="https://www.nfdi4plants.de/content/learn-more/annotated-research-context.html">Annotated Research Context</a>), a folder and file structure to not only annotate research data but also to store and share it. Workflows and Runs also refer to computational data analysis done on the produced data. It is important that not only laboratory experiments are reproducible, but also the data analysis is repeatable. Therefore, i propose using Visual Studio Code <a href="https://code.visualstudio.com/docs/remote/containers"><code>Remote-Containers</code></a> for scripting in an ARC environment. This VS Code extensions allows us to connect with our personal VS Code instance to a VS Code Server instance inside a docker container. Inside of the docker container runs defined development environment, which allows any user to recreate the environment under which the data analysis was originally performed.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Requirements">Requirements<a class="anchor-link" href="#Requirements">&#182;</a></h2><ul>
+<li>Installed <a href="https://docs.docker.com/get-docker/">Docker</a>.</li>
+<li>VS Code with <a href="https://code.visualstudio.com/docs/remote/containers"><code>Remote-Containers</code></a> extension.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Set-up">Set up<a class="anchor-link" href="#Set-up">&#182;</a></h2><p>This blogpost assumes that an ARC was already created (with the <a href="https://nfdi4plants.org/content/service.html">ArcCommander</a>) and the data annotated (with <a href="https://github.com/nfdi4plants/Swate#swate">Swate</a>). The example ARC I will link for this blogpost was reduced to a minimal version for ease of use.</p>
+<p>To use remote containers we need 3 things:</p>
+<ul>
+<li>a <code>.devcontainer</code> folder with the following files:<ul>
+<li><code>.devcontainer/devcontainer.json</code></li>
+<li><code>.devcontainer/settings.vscode.json</code></li>
+</ul>
+</li>
+<li><code>Dockerfile</code></li>
+</ul>
+<p>For this example I will use a devcontainer "designed" for an F# development environment. Let's start with a look at the devcontainer.json</p>
+<div class="highlight"><pre><span></span><span class="err">//</span><span class="w"> </span><span class="err">devco</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ner</span><span class="err">.jso</span><span class="kc">n</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FSharpCodeContainer&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../Dockerfile&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">Docker</span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">e</span><span class="kc">n</span><span class="err">viro</span><span class="kc">n</span><span class="err">me</span><span class="kc">nt</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;appPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8080</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">        </span><span class="s2">&quot;ionide.ionide-fsharp&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">F#</span><span class="w"> </span><span class="err">ex</span><span class="kc">tens</span><span class="err">io</span><span class="kc">n</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;ms-vscode.csharp&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;editorconfig.editorconfig&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;ms-dotnettools.dotnet-interactive-vscode&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">allows</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">crea</span><span class="kc">te</span><span class="w"> </span><span class="err">juyp</span><span class="kc">ter</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">te</span><span class="err">books</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">.NET</span><span class="w"> </span><span class="err">ker</span><span class="kc">nel</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;cweijan.vscode-office&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">ca</span><span class="kc">n</span><span class="w"> </span><span class="err">display</span><span class="w"> </span><span class="err">.xlsx</span><span class="w"> </span><span class="kc">f</span><span class="err">iles</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">VS</span><span class="w"> </span><span class="err">Code</span><span class="w"></span>
+<span class="w">    </span><span class="p">],</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+<p>Here we can specify, which extensions the VS Code Server instance in our docker container should be running. We also reference the dockerfile which should be used to build the container. There we specify that we for example want to use the .NET sdk 6.0.</p>
+<div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">mcr.microsoft.com/dotnet/sdk:6.0</span>
+<span class="c"># Dockerfile</span>
+
+<span class="c"># Copy endpoint specific user settings into container to specify</span>
+<span class="c"># .NET Core should be used as the runtime.</span>
+<span class="k">COPY</span><span class="w"> </span>.devcontainer/settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
+
+<span class="c"># Install git, process tools</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get update <span class="o">&amp;&amp;</span> apt-get -y install git procps
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspaces/FSharpCodespace/dependencies</span>
+</pre></div>
+<blockquote><p>👀 If you want to go along the example, you can download the minimal arc (<code>arc-bio-bte-06-l-7-small.zip</code>) from the <a href="https://github.com/CSBiology/CSBlog">CSBlog repository</a>.</p>
+</blockquote>
+<h2 id="Folderstructure">Folderstructure<a class="anchor-link" href="#Folderstructure">&#182;</a></h2>
+<pre><code>+-- assays
+|   +-- VP21_WC
+|       +-- dataset
+|       |   +-- WCAnnotated_Ratio.txt
+|       +-- isa.assay.xlsx
++-- runs
+|    +-- VP21_WC
+|        +-- data-analysis.ipynb
+|        +-- analyze.yml
+|        +-- data-analysis.fsx
++-- workflows
+|    +-- FSharpContainer
+|    |   +-- Dockerfile
+|    |   +-- .devcontainer
+|    |       +-- devcontainer.json
+|    |       +-- settings.vscode.json
+|    +--FSharpContainer.cwl</code></pre>
+<p>There are more folders and files in there, but let's focus on these for now.</p>
+<ul>
+<li><code>assays\VP21_WC\dataset\WCAnnotated_Ratio.txt</code> is the file that contains the data. It is a tab separated file and contains the 14N/15N ratios (<a href="https://training.galaxyproject.org/training-material/topics/proteomics/tutorials/protein-quant-sil/tutorial.html">ref</a>) for the proteins of interest.</li>
+<li><code>assays\VP21_WC\isa.assay.xlsx</code> contains the metadata information for the experiment. Growthconditions, <a href="https://pubmed.ncbi.nlm.nih.gov/26791984/">QconCat proteins</a>, and biological replicates to name a few.</li>
+<li><code>runs\VP21_WC\data-analysis.ipynb</code> is the notebook that contains the data analysis. It is a <a href="https://jupyter-notebook.readthedocs.io/en/stable/">Jupyter Notebook</a> with .NET Kernel and F# code.</li>
+<li><code>workflows\FSharpContainer\</code> contains the information for the VS Code remote container.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="How-to-start">How to start<a class="anchor-link" href="#How-to-start">&#182;</a></h2><ol>
+<li>Open the <code>workflows\FSharpContainer\</code> folder on root level as workspace in VS Code.</li>
+<li>Click on the new bottom left <code>&gt;&lt;</code> button and <code>Reopen in container</code>.</li>
+<li>This will create the container in docker (needs to be running) and binds the workspace and all changes into the docker dev environment.</li>
+<li>All changes are computed in the docker environment but reflected to the local files.</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="%E2%9A%A0%EF%B8%8F-.devcontainer-MUST-be-on-root-level">&#9888;&#65039; .devcontainer MUST be on root level<a class="anchor-link" href="#%E2%9A%A0%EF%B8%8F-.devcontainer-MUST-be-on-root-level">&#182;</a></h2><p>In an <em>ARC</em> we don't want to have the .devcontainer folder in the root of the project. But instead we want to have it under <em>workflows</em>.
+So to start the devcontainer with VS Code we need to open the exact parent folder of <code>.devcontainer</code> folder. In this case <code>arc-bio-bte-06-l-7-small/workflows/FSharpCodeContainer</code>.</p>
+<p>This means most files in the mounted volume will not be displayed in the VS Code file explorer.</p>
+<p>This issue is also mentioned <a href="https://github.com/microsoft/vscode-remote-release/issues/2413">here</a>.</p>
+<h3 id="How-to-open/access-not-displayed-files">How to open/access not displayed files<a class="anchor-link" href="#How-to-open/access-not-displayed-files">&#182;</a></h3><ul>
+<li><kbd>Ctrl</kbd> + <kbd>O</kbd> to use VS Code <code>Open File...</code> . </li>
+<li><code>File</code> -&gt; <code>Open Folder...</code> to rescope workspace to base folder.</li>
+</ul>
+<blockquote><p>👀 If you downloaded the example arc open <code>runs\VP21_WC\data-analysis.ipynb</code> and follow along from there. All content will be the same, but you can run the code in the jupyter notebook.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Dependencies">Dependencies<a class="anchor-link" href="#Dependencies">&#182;</a></h2><p>We start by importing all required nuget packages.</p>
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Deedle, 2.3.0&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET, 2.0.0-preview.16&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET.Interactive, 2.0.0-preview.16&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharp.Stats, 0.4.1&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharpAux&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: BIO-BTE-06-L-7_Aux, 0.0.9&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet, 0.4.0-preview.4&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.XLSX, 0.4.0-preview.4&quot;</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.IO, 0.0.2&quot;</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">Deedle</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET.LayoutObjects</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Stats</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">System.IO</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">BIO_BTE_06_L_7_Aux.Deedle_Aux</span><span class="w"></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Review-Assay-file">Review Assay file<a class="anchor-link" href="#Review-Assay-file">&#182;</a></h2><p>The devcontainer has the <code>Office Viewer</code> extension installed so we can open <code>/workspaces/blogpost-playground/arc-bio-bte-06-l-7-small/assays/VP21_WC/isa.assay.xlsx</code> without leaving the VS Code environment!</p>
+<p>Some important things to note from the isa.assay.xlsx file.</p>
+<ul>
+<li>In the <code>Cultivation</code> sheet we can see that the experiment used 3 biological replicates.</li>
+<li>In <code>Protein Extraction</code> we can see, that the replicates were split into 4 samples each with different quantities of Q-Protein:<ul>
+<li><code>Parameter [15N Calvin-Benson cycle QconCAT mass#3]</code></li>
+<li><code>Parameter [15N Photosynthesis QconCAT mass#4]</code></li>
+</ul>
+</li>
+<li>Any further processing was done equally on all those samples.</li>
+<li>All data processing ends in one file <code>../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt</code>. <ul>
+<li>⚠️ Normally the computational part should be better annotated, but for this minimal example we just have to know that the result file contains 14N/15N ratios for all peptides of the two used Q-Proteins. ⚠️</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Data-analysis">Data analysis<a class="anchor-link" href="#Data-analysis">&#182;</a></h2><h3 id="Data-access">Data access<a class="anchor-link" href="#Data-access">&#182;</a></h3><p>We start by accessing our data and reading it into an <a href="https://fslab.org/packages.html">Deedle frame</a>.</p>
+<div class="highlight"><pre><span></span><span class="o">[&lt;</span><span class="n">Literal</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">dataPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt&quot;</span><span class="w"></span>
+
+<span class="c1">// quality control, check dilution series. In this example mean should always increase by times 5.</span><span class="w"></span>
+<span class="k">type</span><span class="w"> </span><span class="nc">Qprot</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">CBB</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">PS</span><span class="w"></span>
+
+<span class="k">type</span><span class="w"> </span><span class="nc">PeptideIon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">ProteinGroup</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">  </span>
+<span class="w">        </span><span class="n">Synonym</span><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">        </span><span class="n">StringSequence</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">        </span><span class="n">PepSequenceID</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
+<span class="w">        </span><span class="n">Charge</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
+<span class="w">        </span><span class="n">QProt</span><span class="w">           </span><span class="o">:</span><span class="w"> </span><span class="n">Qprot</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">rowKeyColNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[|</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;StringSequence&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Charge&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Synonym&quot;</span><span class="o">|]</span><span class="w"></span>
+
+<span class="sd">/// Open .xlsx file and index rows with column information. Then drop those columns</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">readQuantAndProtFrame</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">frame</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Frame</span><span class="p">.</span><span class="n">ReadCsv</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="k">true</span><span class="o">,</span><span class="n">separators</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">indexRowsUsing</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">pGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">                </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39;;&#39;</span><span class="w"></span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">sort</span><span class="w"></span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">concat</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="o">{</span><span class="w"></span>
+<span class="w">                </span><span class="n">ProteinGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pGroup</span><span class="w"></span>
+<span class="w">                </span><span class="n">StringSequence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;StringSequence&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">PepSequenceID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">Charge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;Charge&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">Synonym</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;Synonym&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">QProt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">                    </span><span class="k">match</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newCBB&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newPS&quot;</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="k">true</span><span class="o">,</span><span class="w"> </span><span class="k">false</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CBB</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="k">false</span><span class="o">,</span><span class="w"> </span><span class="k">true</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">PS</span><span class="w">  </span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">anythingElse</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">failwith</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;Error! unexpected input in cbb ps matching: {anythingElse}&quot;</span><span class="w"> </span>
+<span class="w">            </span><span class="o">}</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// The following works on a mutable frame, so we can drop all columns we don&#39;t need without forwarding the frame to the next column to drop.</span><span class="w"></span>
+<span class="w">    </span><span class="n">rowKeyColNames</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="n">frame</span><span class="o">.</span><span class="n">DropColumn</span><span class="o">(</span><span class="n">name</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">    </span><span class="n">frame</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readQuantAndProtFrame</span><span class="w"> </span><span class="n">dataPath</span><span class="w"></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Visualisation-1">Visualisation 1<a class="anchor-link" href="#Visualisation-1">&#182;</a></h4><p>Check the current state with:</p>
+<div class="highlight"><pre><span></span><span class="n">data</span><span class="w"> </span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">take</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+</pre></div>
+<details>
+<summary>Image of table data</summary>
+
+![Image of table data](./../../img/5_devcontainer_arc/data_table.png)
+
+</details>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Visualisation-2">Visualisation 2<a class="anchor-link" href="#Visualisation-2">&#182;</a></h4><p>Display the same data as boxplot:</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">createBoxPlot</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">f</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">x</span><span class="o">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="n">s</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">                </span><span class="kt">string</span><span class="w"> </span><span class="n">k</span><span class="o">,</span><span class="w"> </span><span class="n">values</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">BoxPlot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="o">,</span><span class="w"> </span><span class="n">Orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">StyleParam</span><span class="p">.</span><span class="nn">Orientation</span><span class="p">.</span><span class="n">Vertical</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">MinMax</span><span class="o">=(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">100</span><span class="o">))</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withLegend</span><span class="o">(</span><span class="k">false</span><span class="o">)</span><span class="w"></span>
+
+<span class="n">createBoxPlot</span><span class="w"> </span><span class="n">data</span><span class="w"></span>
+</pre></div>
+<details>
+<summary>Image data as boxplot</summary>
+
+![Image data as boxplot](./../../img/5_devcontainer_arc/data_boxplot.png)
+
+</details><p><br></p>
+<p>This plot shows the 15N/14N ratio of all detected Q-Protein peptides.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Metadata-access">Metadata access<a class="anchor-link" href="#Metadata-access">&#182;</a></h3><p>Next we want to calculate the mean for all peptides over the biological replicates.</p>
+<p>We want to access the metadata from <code>assays\VP21_WC\isa.assay.xlsx</code>. We can traverse the annotation tables of the .xlsx file with the <a href="https://github.com/nfdi4plants/ISADotNet">ISADotNet</a> library.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">normalizeFileName</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">HasExtension</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">ChangeExtension</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;wiff&quot;</span><span class="o">)</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">ISADotNet</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">arcIO.NET</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">assayFilePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/isa.assay.xlsx&quot;</span><span class="w"></span>
+
+<span class="sd">/// Put these functions into a separate code block. Run them once and then work in a new block, </span><span class="w"></span>
+<span class="sd">/// to avoid getting an error when you have the .xlsx file open somewhere else</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">_</span><span class="o">,_,_,</span><span class="n">myAssayFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">XLSX</span><span class="p">.</span><span class="nn">AssayFile</span><span class="p">.</span><span class="nn">Assay</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">assayFilePath</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">inOutMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">createInOutMap</span><span class="w"> </span><span class="n">myAssayFile</span><span class="w"></span>
+</pre></div>
+<p>Because we know we have the sample names in the <code>isa.assay.xlsx</code> files as column headers we can use them to access related metadata information.</p>
+<div class="highlight"><pre><span></span><span class="sd">/// Get one specific value for an output column</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">getColumnParam</span><span class="w"> </span><span class="o">(</span><span class="n">sheetName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">paramName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">fileName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileName</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">normalizeFileName</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">tryGetParameter</span><span class="w"> </span><span class="c1">// can only get Parameter [xxx]</span><span class="w"></span>
+<span class="w">        </span><span class="n">inOutMap</span><span class="w"> </span>
+<span class="w">        </span><span class="n">sheetName</span><span class="w"> </span><span class="c1">// Excel Sheet</span><span class="w"></span>
+<span class="w">        </span><span class="n">paramName</span><span class="w"> </span><span class="c1">// Excel column name in []</span><span class="w"></span>
+<span class="w">        </span><span class="n">fN</span><span class="w"> </span><span class="c1">// last &quot;Sample Name&quot; in assay file, without file extension</span><span class="w"></span>
+<span class="w">        </span><span class="n">myAssayFile</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Option</span><span class="p">.</span><span class="n">defaultValue</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">head</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">float</span><span class="w"></span>
+
+<span class="sd">/// The column parameter names in isa.assay.xlsx</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">cbc_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Calvin-Benson cycle QconCAT mass #3&quot;</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">ps_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Photosynthesis QconCAT mass #4&quot;</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">getCBC_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">getPS_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">ps_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"></span>
+
+<span class="sd">/// example access</span><span class="w"></span>
+<span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="s">&quot;WCGr2_U1&quot;</span><span class="w"> </span><span class="c1">// 0.9</span><span class="w"></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Data-transformation">Data transformation<a class="anchor-link" href="#Data-transformation">&#182;</a></h3><p>Map over all samples to extract Q-Protein quantities and calculate the mean over all samples with the same quantities <em>(the biological replicates)</em>.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">cbc_ps_data</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">data</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// col keys as row keys</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// Adjust keys to represent dilution series.</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">mapRowKeys</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">rk</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;cbc: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getCBC_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;ps: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getPS_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">rk</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// Calculate mean for all rows with the same value in cbc and ps q-protein quantity (aka. the biological replicates)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">applyLevel</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">cbc</span><span class="o">,</span><span class="n">ps</span><span class="o">,_)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="o">)</span><span class="w"> </span><span class="nn">Stats</span><span class="p">.</span><span class="n">mean</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// Swap rows keys back to column keys</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
+
+<span class="n">cbc_ps_data</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+</pre></div>
+<p>Image data mean as table</p>
+<p><img src="./../../img/5_devcontainer_arc/data_table_mean.png" alt="Image data mean as table"></p>
+<p>Image data mean as boxplot</p>
+<p><img src="./../../img/5_devcontainer_arc/data_boxplot_mean.png" alt="Image data mean as boxplot"></p>
+<p>Last we want to show only ratios for peptides related to a specific protein.</p>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">plotPeptidesOf</span><span class="w"> </span><span class="o">(</span><span class="n">ratios</span><span class="o">:</span><span class="w"> </span><span class="n">Frame</span><span class="o">&lt;</span><span class="n">PeptideIon</span><span class="o">,</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">prot</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">ratios</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// filter data to only show peptides of the given protein</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">filterRows</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">Synonym</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">ProteinGroup</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">pep</span><span class="w"> </span><span class="o">(</span><span class="n">values</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">qprotAmounts</span><span class="o">,</span><span class="n">ratios</span><span class="o">,</span><span class="n">fileLabel</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="n">values</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">dataColumnName</span><span class="w"> </span><span class="n">ratio</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">                    </span><span class="k">let</span><span class="w"> </span><span class="nv">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataColumnName</span><span class="w"></span>
+<span class="w">                    </span><span class="k">let</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">QProt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CBB</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">cbc</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">ps</span><span class="w"></span>
+<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="w"></span>
+<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">last</span><span class="w"></span>
+<span class="w">                    </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="n">ratio</span><span class="o">,</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip3</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">Point</span><span class="o">(</span><span class="n">qprotAmounts</span><span class="o">,</span><span class="w"> </span><span class="n">ratios</span><span class="o">,</span><span class="w"> </span><span class="n">MultiText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileLabel</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTraceName</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;S:%s_C:%i&quot;</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">StringSequence</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">Charge</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withXAxisStyle</span><span class="o">(</span><span class="s">&quot;qProt Amount&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTitle</span><span class="w"> </span><span class="o">(</span><span class="n">prot</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span><span class="w"></span>
+
+<span class="n">plotPeptidesOf</span><span class="w"> </span><span class="n">cbc_ps_data</span><span class="w"> </span><span class="s">&quot;rbcL&quot;</span><span class="w"></span>
+</pre></div>
+<p><img src="./../../img/5_devcontainer_arc/data_rbcL.png" alt="Image: Measured ratios for all Q-Peptides related to rbcL"></p>
+<p>Thats it for a minimal example on how we can interopt VS Code remote containers and the ARC.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Verdict">Verdict<a class="anchor-link" href="#Verdict">&#182;</a></h2><ul>
+<li>Remote containers allow scripting in an ARC to be reproducible and often with a lower set of requirements (only VS Code with the extension and docker).</li>
+<li>Scripting is handled intuitively (personal settings from VS Code are used), any files dropped into folderstructure are mounted to the container.</li>
+<li>Still some minor issues:<ul>
+<li>.devcontainer must be at root level for the active VS Code workspace.</li>
+<li>lacking some computational prowess (at least out of the box).</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Outlook">Outlook<a class="anchor-link" href="#Outlook">&#182;</a></h2><p>The especially attentive reader might have noticed, that we listed some files under <a href="#folderstructure">folderstructure</a>, which were not mentioned yet.</p>
+<ul>
+<li><code>workflows\FSharpContainer.cwl</code></li>
+<li><code>runs\VP21_WC\analyze.yml</code></li>
+<li><code>runs\VP21_WC\data-analysis.fsx</code></li>
+</ul>
+<p>A finished <strong>ARC</strong> will feature a  <a href="https://www.commonwl.org">CWL</a> file which is meant to automatically run the complete computational pipeline. Thus, it has a dual function as an indirect annotation of the computational process. A standard CWL file will create a docker container which will run the computational pipeline.</p>
+<p>If we manage to create CWL, Dockerfile and VS Code devcontainer in a combined manner to reuse the docker file or even the dockercontainer we would reduce maintenance issues and further generalize the workflow.</p>
+<p>So in the future it should be possible to run the CWL pipeline with the same settings as the VS Code remote container.</p>
+
+</div>
+</div>
+</div>
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

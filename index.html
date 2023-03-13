@@ -1,182 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>CSBlog
-</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="">
-    <link rel="shortcut icon" type="image/x-icon" href="/CSBlog//img/favicon.ico">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
-
-    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-default.css" />
-    <link type="text/css" rel="stylesheet" href="/CSBlog/content/fsdocs-custom.css" />
-    <script type="text/javascript" src="/CSBlog/content/fsdocs-tips.js"></script>
-    <script type="text/javascript" src="/CSBlog/content/init.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css">
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
-    <!-- END SEARCH BOX: this adds support for the search box -->
-    
-</head> 
-
-<body>
-    <div class="columns is-fullheight m-0">
-        <div id="fsdocs-menu" class="column is-2 is-paddingless">
-            <aside class="menu">
-                <div class="container is-paddingless is-marginless has-background-dark">
-                    <a href="/CSBlog/">
-                        <figure class="image is-128x128 container">
-                            <img src="/CSBlog/img/logo.png">
-                        </figure>
-                    </a>
-                    <h2 class="title has-text-centered has-text-white pb-4">CSBlog</h2>
-                </div>
-                <div class="content">
-                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
-                    <div id="header">
-                        <div class="field">
-                            <div class="control has-icons-left has-icons-right searchbox" id="fsdocs-searchbox">
-                                <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END SEARCH BOX: this adds support for the search box -->
-                    <ul class="navbar-nav">
-                        <li class="nav-header">
-  Overview
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/about.html">
-    About
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/blogposts_overview.html">
-    Blog posts
-  </a>
-</li>             
-<li class="nav-header">
-  Documentation
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/documentation.html">
-    Creating a Documentation
-  </a>
-</li>             
-<li class="nav-header">
-  Visualization
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/WorkshopSeries_3_plotly.html">
-    Introduction to Data visualization using Plotly.NET
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/4_set_relationships.html">
-    Visualizing relationships between sets with Plotly.NET
-  </a>
-</li>             
-<li class="nav-header">
-  Implementation
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/0_how2JSONSchema.html">
-    How to develop and use a JSON Schema
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/consoleTools.html">
-    Console apps: Above and beyond
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/1_how2Fable.html">
-    How to use Fable
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/3_sequence_features.html">
-    Modelling and visualizing sequence features with BioFSharp and Plotly.NET
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/Community_detection_or_Principal_Component_Analysis_- Different_apporaches_to_analyze_big_datasets.html">
-    Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/Computation_expressions.html">
-    Computation expressions: Usage examples
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/6_LabelEfficiencyCalculator.html">
-    Label Efficiency Calculator
-  </a>
-</li>             
-<li class="nav-header">
-  Learning resources
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/4_qvalues.html">
-    q values
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/5_devcontainer_arc.html">
-    VS Code Remote-Container and the ARC
-  </a>
-</li>             
-<li class="nav-item">
-  <a class="nav-link" href="/CSBlog/posts/7_SAM.html">
-    SAM
-  </a>
-</li>
-                    </ul>
-                </div>
-            </aside>
-        </div>
-        <div class="column is-10 is-paddingless">
-            <div class="section pt-4">
-                <div class="container" id="fsdocs-content">
-                    <h1><a name="CSBlog" class="anchor" href="#CSBlog">CSBlog</a></h1>
-<p><img src="img/CSB.png" alt="CSB" /></p>
-<p>Welcome to the CSBlog.
-This is the place where members of the department of Computational Systems Biology of the TU Kaiserslautern blog about their work,
-research, and other loosely related stuff.</p>
-<p>For more information about our research and our group in general, head to our <a href="https://csb.bio.uni-kl.de/">website</a>.
-If you want to take a look at our projects, head over to our <a href="https://github.com/CSBiology">github page</a></p>
-<p>BlogPosts are accessible on the sidebar.</p>
-
-                </div>
-            </div>
-        </div>
-        
-    </div>
-
-    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
-    <script type="text/javascript">var fsdocs_search_baseurl = '/CSBlog/'</script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
-    <script type="text/javascript" src="/CSBlog/content/fsdocs-search.js"></script>
-    <!-- END SEARCH BOX: this adds support for the search box -->
-</body>
-<footer>
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://csbiology.github.io/CSBlog//img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
     <script>
-        bulmaCollapsible.attach('.is-collapsible');
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
     </script>
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+          <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+        </a>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+          <a class="navbar-item">
+            About
+          </a>
+        </div>
+        <div class="navbar-end">
+          <a href="#" class="navbar-item">
+            <i class="fa fa-search"></i>
+          </a>
+          <a href="#" class="navbar-item">
+            <i class="fa fa-shopping-bag"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <section class="hero is-small is-warning is-bold">
+      <div class="hero-body">
+        <div class="container has-text-justified">
+          <div class="main-TextField">
+            <div class="media mb-4">
+              <figure class="image is-128x128">
+                <img src="https://csbiology.github.io/CSBlog//img/CSB.svg"/>
+              </figure>
+              <div class="media-content">
+                <h1 class="main-title is-capitalized is-black is-inline-block is-strongly-emphasized-csb-orange mb-4">
+                  The CSBlog
+                </h1>
+              </div>
+            </div>
+            <div class="block">
+              <h2 class="subtitle is-size-4 is-block is-darkblue">
+                This is the place where members of the department of Computational Systems Biology of the TU Kaiserslautern blog about their work, research, and other loosely related stuff.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container has-text-justified mt-2">
+        <div class="main-TextField">
+          <div class="columns">
+            <div class="column is-6">
+              <div class="content">
+                <h1 class="title is-capitalized is-inline-block is-emphasized-csb-darkblue is-size-3">
+                  Latest post
+                </h1>
+                <div class="card pt-2">
+                  <div class="card-header is-emphasized-csb-darkblue">
+                    <h1 class="card-header-title is-size-4">
+                      <a href="https://csbiology.github.io/CSBlog//posts/console-tools.html" class="is-csb-orange">
+                        Ontology 1o1
+                      </a>
+                    </h1>
+                  </div>
+                  <div class="card-content is-size-6">
+                    <div class="content">
+                      A conceptual introduction for ontologies.
+                    </div>
+                    Posted on 2023-2-17 by 
+                    <a href="https://github.com/omaus" class="is-csb-orange">
+                      Oliver Maus
+                    </a>
+                    in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-orange">
+                      Study Notes
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="content">
+                <h1 class="title is-capitalized is-inline-block is-emphasized-csb-darkblue is-size-3">
+                  Browse categories
+                </h1>
+                <div class="container">
+                  <ul class="mt-0">
+                    <li>
+                      <h3 class="subtitle mb-1 is-size-4">
+                        <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-orange">
+                          Study Notes [8]
+                        </a>
+                      </h3>
+                      <p class="is-size-6">
+                        Short, informational posts on a wide range of topics
+                      </p>
+                    </li>
+                    <li>
+                      <h3 class="subtitle mb-1 is-size-4">
+                        <a href="https://csbiology.github.io/CSBlog//posts/categories/Advanced.html" class="is-csb-orange">
+                          Advanced [5]
+                        </a>
+                      </h3>
+                      <p class="is-size-6">
+                        Detailed, well-researched posts. These posts often include thesis summaries.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

@@ -1,0 +1,1071 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Computation-expressions:-Usage-examples" class="is-csb-darkblue">
+                  Computation expressions: Usage examples
+                </a>
+              </li>
+              <li>
+                <a href="#Content" class="is-csb-darkblue">
+                  Content
+                </a>
+              </li>
+              <li>
+                <a href="#What-are-Computation-expressions?" class="is-csb-darkblue">
+                  What are Computation expressions?
+                </a>
+              </li>
+              <li>
+                <a href="#Bind-based-computation-expressions" class="is-csb-darkblue">
+                  Bind based computation expressions
+                </a>
+              </li>
+              <li>
+                <a href="#Introduction" class="is-csb-darkblue">
+                  Introduction
+                </a>
+              </li>
+              <li>
+                <a href="#Option-builder" class="is-csb-darkblue">
+                  Option builder
+                </a>
+              </li>
+              <li>
+                <a href="#Yield-based-computation-expressions" class="is-csb-darkblue">
+                  Yield based computation expressions
+                </a>
+              </li>
+              <li>
+                <a href="#Introduction" class="is-csb-darkblue">
+                  Introduction
+                </a>
+              </li>
+              <li>
+                <a href="#List-builder" class="is-csb-darkblue">
+                  List builder
+                </a>
+              </li>
+              <li>
+                <a href="#Extended-list-builder" class="is-csb-darkblue">
+                  Extended list builder
+                </a>
+              </li>
+              <li>
+                <a href="#Math-builder" class="is-csb-darkblue">
+                  Math builder
+                </a>
+              </li>
+              <li>
+                <a href="#Custom-Operator-based-computation-expressions" class="is-csb-darkblue">
+                  Custom Operator based computation expressions
+                </a>
+              </li>
+              <li>
+                <a href="#Cake-builder" class="is-csb-darkblue">
+                  Cake builder
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  Computation expressions: Usage examples
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2022-5-5 by
+                    <a href="https://github.com/hlweil" class="is-csb-darkblue">
+                      Heinrich Lukas Weil
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                      Study Notes
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Computation-expressions:-Usage-examples">Computation expressions: Usage examples<a class="anchor-link" href="#Computation-expressions:-Usage-examples">&#182;</a></h1><p><em><a href="https://github.com/hlweil">Heinrich Lukas Weil</a></em></p>
+<h2 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h2><ul>
+<li><a href="#What-are-Computation-expressions?">What are Computation expressions?</a></li>
+<li><a href="#Bind-based-computation-expressions">Bind based computation expressions</a><ul>
+<li><a href="#Option-builder">Option builder</a></li>
+</ul>
+</li>
+<li><a href="#Yield-based-computation-expressions">Yield based computation expressions</a><ul>
+<li><a href="#List-builder">List builder</a></li>
+<li><a href="#Extended-List-builder">Extended list builder</a></li>
+<li><a href="#Math-builder">Math builder</a></li>
+</ul>
+</li>
+<li><a href="#Custom-Operator-based-computation-expressions">Custom Operator based computation expressions</a><ul>
+<li><a href="#Cake-builder">Cake builder</a></li>
+</ul>
+</li>
+<li><a href="#Further-reading">Further reading</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="What-are-Computation-expressions?">What are Computation expressions?<a class="anchor-link" href="#What-are-Computation-expressions?">&#182;</a></h2><p>This question has been thoroughly answered in technical precision in many places over the internet (Check out <a href="#Further-reading">Further reading</a>). My aim here is not trying to give a better explanation.
+Instead, in this blogpost, I want to focus on practicle use cases of computation expressions. So, to answer this question in the context of this blogbost:
+<em>Computation expressions are a versatile tool to express complex behaviour in a simple syntax</em>. 
+You open a computation expression (CE) with the following syntax:</p>
+<div class="highlight"><pre><span></span><span class="n">computation</span><span class="o">-</span><span class="n">expression</span><span class="o">-</span><span class="n">name</span><span class="w"> </span><span class="o">{</span><span class="n">computation</span><span class="o">-</span><span class="n">expression</span><span class="o">-</span><span class="n">body</span><span class="o">}</span><span class="w"></span>
+</pre></div>
+<p>Inside these <code>{ }</code> brackets, an encapsulated environment with its own set of predefined rules exist. 
+These rules create a behaviour in the background that can be complex or simple, while exposing an easy to grasp language to the user. 
+An user can also create their own <code>Computation expression builder</code> with it`s own set of behaviours for every function. 
+There are around 20 different Members with predefined names a programmer can implement, exposing around 10 different keywords to the user. The full list can be found <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions#creating-a-new-type-of-computation-expression">here</a>.
+The possibilities for different computation expressions are basically limitless. As a starting point for programmers new to computation expressions I therefore want to present a few often used ways for creating their own Computation Expression builder.</p>
+<h2 id="Bind-based-computation-expressions"><em>Bind</em> based computation expressions<a class="anchor-link" href="#Bind-based-computation-expressions">&#182;</a></h2><h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h3><p>Bind based computation expressions make especially use of the <code>let!</code> and the <code>return</code> keywords.
+Here is an example for an 'async' computation expression, taken from <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions">the official F# reference</a>:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">fetchAndDownload</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Keyword for starting the async computation expression</span><span class="w"></span>
+<span class="w">    </span><span class="n">async</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="nn">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// client.AsyncDownloadData returns a value of type Async&lt;byte []&gt;.</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// but by using the let! keyword, bound to "data" is actually the unwrapped inner value of type byte [].</span><span class="w"></span>
+<span class="w">        </span><span class="k">let!</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">AsyncDownloadData</span><span class="w"> </span><span class="n">url</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// This unwrapped value can then conveniently fed into a follow up function.</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="nn">Text</span><span class="p">.</span><span class="nn">Encoding</span><span class="p">.</span><span class="nn">ASCII</span><span class="p">.</span><span class="n">GetString</span><span class="w"> </span><span class="n">data</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// The computation expression is finished by returning the result string.</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// This value is again wrapped in the Async wrapper type, resulting in a return value of type Async&lt;string&gt;.</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">processedData</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The main idea here is, that you can work on the return values directly, rather than on the values wrapped into the Async type. 
+All the waiting for the thread to finish, wrapping and unwrapping is done implicitly for you, simply by using the <code>let!</code> keyword.</p>
+<p><img src="../../img/CE_Bind.png"></img></p>
+<h3 id="Option-builder">Option builder<a class="anchor-link" href="#Option-builder">&#182;</a></h3><p>So, let's get started creating our own Computation expression builder. This option builder again can be</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">OptionBuilder</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Return method wraps the final return value in an option</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Return</span><span class="o">(</span><span class="n">value</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="n">Option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Return {value}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">Some</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Bind method contains logic for unwrapping the option value and expects an expression that has an option as an return value</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Bind</span><span class="o">(</span><span class="n">wrappedValue</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="n">option</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="n">option</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Bind {wrappedValue}"</span><span class="w"></span>
+<span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">wrappedValue</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="n">unwrappedValue</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">            </span><span class="n">f</span><span class="w"> </span><span class="n">unwrappedValue</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="w"></span>
+<span class="c1">// For easier initialization of the computation expression</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OptionBuilder</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>This is an very easy implementation that can be used to work on optional values in an easy way. 
+Inside the initialized computation expression, the <code>Return</code> method can be called by using the <code>return</code> keyword. The <code>Bind</code> method can be called by using the <code>let!</code> keyword.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">addOptions</span><span class="w"> </span><span class="n">aO</span><span class="w"> </span><span class="n">bO</span><span class="w"> </span><span class="n">cO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">option</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">let!</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aO</span><span class="w"></span>
+<span class="w">        </span><span class="k">let!</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bO</span><span class="w"></span>
+<span class="w">        </span><span class="k">let!</span><span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cO</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+<span class="n">addOptions</span><span class="w"> </span><span class="o">(</span><span class="n">Some</span><span class="w"> </span><span class="mi">5</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Some</span><span class="w"> </span><span class="mi">4</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">Some</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"></span>
+<span class="c1">//Bind Some(5)</span><span class="w"></span>
+<span class="c1">//Bind Some(4)</span><span class="w"></span>
+<span class="c1">//Bind Some(10)</span><span class="w"></span>
+<span class="c1">//Return 19</span><span class="w"></span>
+<span class="c1">//val it : int option = Some 19</span><span class="w"></span>
+<span class="n">addOptions</span><span class="w"> </span><span class="o">(</span><span class="n">Some</span><span class="w"> </span><span class="mi">5</span><span class="o">)</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="o">(</span><span class="n">Some</span><span class="w"> </span><span class="mi">10</span><span class="o">)</span><span class="w"></span>
+<span class="c1">//Bind Some(5)</span><span class="w"></span>
+<span class="c1">//Bind </span><span class="w"></span>
+<span class="c1">//val it : int option = None</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+(1,16): error CS1002: ; expected
+
+(1,22): error CS1002: ; expected
+
+(2,12): error CS1002: ; expected
+
+(3,14): error CS1002: ; expected
+
+(3,20): error CS1002: ; expected
+
+(4,14): error CS1002: ; expected
+
+(4,20): error CS1002: ; expected
+
+(5,14): error CS1002: ; expected
+
+(5,20): error CS1002: ; expected
+
+(6,27): error CS1002: ; expected
+
+(8,18): error CS1003: Syntax error, &#39;,&#39; expected
+
+(8,27): error CS1003: Syntax error, &#39;,&#39; expected
+
+(8,36): error CS1003: Syntax error, &#39;,&#39; expected
+
+(8,39): error CS1002: ; expected
+
+(14,18): error CS1003: Syntax error, &#39;,&#39; expected
+
+(14,21): error CS1002: ; expected
+
+(14,32): error CS1003: Syntax error, &#39;,&#39; expected</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>As expected, in the first case, the <code>Bind</code> method gets called <code>3 times</code>, and the resulting value is 19.
+In the second case, the resulting <code>None</code> was also expected. What is interesting to notice here, 
+is that the <code>Bind</code> method gets called only two times. 
+This can actually be a great feature, as in cases like these, you don't want the program to continue executing when something doesn't work out.
+This is especially the case, when each computation is time intensive.
+A good explanation for why this happens can be found <a href="https://en.wikibooks.org/wiki/F_Sharp_Programming/Computation_Expressions#:~:text=an%20imperative%20style.-,The%20Maybe%20Monad,-A%20well%2Dknown">here</a></p>
+<h2 id="Yield-based-computation-expressions"><em>Yield</em> based computation expressions<a class="anchor-link" href="#Yield-based-computation-expressions">&#182;</a></h2><h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h3><p>Yield based computation expressions make especially use of the <code>yield</code>, <code>yield!</code> and <code>for</code> keywords. 
+The main aim here is usually collecting values and returning some kind of collection. 
+Here is an example for a <code>seq</code> computation expression:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="n">seq</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Implicit yielding of single values</span><span class="w"></span>
+<span class="w">    </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="mi">2</span><span class="w"></span>
+<span class="w">    </span><span class="mi">3</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Explicit yielding of a collection</span><span class="w"></span>
+<span class="w">    </span><span class="k">yield</span><span class="o">!</span><span class="w"> </span><span class="o">[</span><span class="mi">4</span><span class="o">;</span><span class="mi">5</span><span class="o">;</span><span class="mi">6</span><span class="o">]</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table><thead><tr><th><i>index</i></th><th>value</th></tr></thead><tbody><tr><td>0</td><td><div class="dni-plaintext"><pre>1</pre></div></td></tr><tr><td>1</td><td><div class="dni-plaintext"><pre>2</pre></div></td></tr><tr><td>2</td><td><div class="dni-plaintext"><pre>3</pre></div></td></tr><tr><td>3</td><td><div class="dni-plaintext"><pre>4</pre></div></td></tr><tr><td>4</td><td><div class="dni-plaintext"><pre>5</pre></div></td></tr><tr><td>5</td><td><div class="dni-plaintext"><pre>6</pre></div></td></tr></tbody></table><style>
+.dni-code-hint {
+    font-style: italic;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dni-treeview {
+    white-space: nowrap;
+}
+.dni-treeview td {
+    vertical-align: top;
+    text-align: start;
+}
+details.dni-treeview {
+    padding-left: 1em;
+}
+table td {
+    text-align: start;
+}
+table tr { 
+    vertical-align: top; 
+    margin: 0em 0px;
+}
+table tr td pre 
+{ 
+    vertical-align: top !important; 
+    margin: 0em 0px !important;
+} 
+table th {
+    text-align: start;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The basic structure of operations performed in the seq computation expression can be seen in the following picture.
+Each value get's yielded seperately and then combined step by step into a single sequence.</p>
+<p><img src=../../img/ontologies/classes_subclasses_relations.png></img></p>
+<h3 id="List-builder">List builder<a class="anchor-link" href="#List-builder">&#182;</a></h3><p>So let's build our own bare minimum list builder:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">ListBuilder</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="sd">/// This will be exposed to the user as `yield`</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Yield</span><span class="o">(</span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Yield {v}"</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span><span class="n">v</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// This will combine the yielded values in the background</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Combine</span><span class="o">(</span><span class="n">v1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Combine {v1} with {v2}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">v1</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">v2</span><span class="w"></span>
+<span class="w">    </span><span class="sd">/// This method is needed. It can be used to lazily evaluate the operations in the CE. Instead here, we just directly execute the given function.</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Delay</span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay"</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay result: {res}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">res</span><span class="w"></span>
+<span class="c1">// For easier initialization of the computation expression</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ListBuilder</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>So let's test it out</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="kt">list</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="mi">2</span><span class="w"></span>
+<span class="w">    </span><span class="mi">3</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 1</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 2</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 3</span><span class="w"></span>
+<span class="c1">//Delay result: [3]</span><span class="w"></span>
+<span class="c1">//Combine [2] with [3]</span><span class="w"></span>
+<span class="c1">//Delay result: [2; 3]</span><span class="w"></span>
+<span class="c1">//Combine [1] with [2; 3]</span><span class="w"></span>
+<span class="c1">//Delay result: [1; 2; 3]</span><span class="w"></span>
+<span class="c1">//val it : int list = [1; 2; 3]</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Delay
+Yield 1
+Delay
+Yield 2
+Delay
+Yield 3
+Delay result: [3]
+Combine [2] with [3]
+Delay result: [2; 3]
+Combine [1] with [2; 3]
+Delay result: [1; 2; 3]
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table><thead><tr><th><i>index</i></th><th>value</th></tr></thead><tbody><tr><td>0</td><td><div class="dni-plaintext"><pre>1</pre></div></td></tr><tr><td>1</td><td><div class="dni-plaintext"><pre>2</pre></div></td></tr><tr><td>2</td><td><div class="dni-plaintext"><pre>3</pre></div></td></tr></tbody></table><style>
+.dni-code-hint {
+    font-style: italic;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dni-treeview {
+    white-space: nowrap;
+}
+.dni-treeview td {
+    vertical-align: top;
+    text-align: start;
+}
+details.dni-treeview {
+    padding-left: 1em;
+}
+table td {
+    text-align: start;
+}
+table tr { 
+    vertical-align: top; 
+    margin: 0em 0px;
+}
+table tr td pre 
+{ 
+    vertical-align: top !important; 
+    margin: 0em 0px !important;
+} 
+table th {
+    text-align: start;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Something to note here is that the <code>yielding</code> takes place from <code>top to bottom</code>, while the <code>combining</code> is actually done from <code>bottom to top</code>.</p>
+<h3 id="Extended-list-builder">Extended list builder<a class="anchor-link" href="#Extended-list-builder">&#182;</a></h3><p>Of course in many cases you don't only want to yield single values but also expect more complex programming constructs to be usable. 
+In the following is shown an extended version of the previously implemented list builder:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">ExtendedListBuilder</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+
+<span class="w">    </span><span class="sd">/// This will be exposed to the user as `yield`</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Yield</span><span class="o">(</span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Yield {v}"</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span><span class="n">v</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This will combine the yielded values in the background</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Combine</span><span class="o">(</span><span class="n">v1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Combine {v1} with {v2}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">v1</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">v2</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This method is needed. It can be used to lazily evaluate the operations in the CE. Instead here, we just directly execute the given function.</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Delay</span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay"</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay result: {res}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">res</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// Is called in empty else branches</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Zero</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Zero"</span><span class="w"></span>
+<span class="w">        </span><span class="bp">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// Allows for using for loops in the computation expression</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">For</span><span class="o">(</span><span class="n">vs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">U</span><span class="w"> </span><span class="n">seq</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">U</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"For"</span><span class="w"></span>
+<span class="w">        </span><span class="n">vs</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">collect</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This will allow for using the yield! method</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">YieldFrom</span><span class="o">(</span><span class="n">vs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"YieldFrom {vs}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">vs</span><span class="w"></span>
+
+
+<span class="c1">// For easier initialization of the computation expression</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">extList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExtendedListBuilder</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Again let's test it out.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="n">extList</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="mi">2</span><span class="w"></span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">[</span><span class="mi">3</span><span class="o">;</span><span class="mi">4</span><span class="o">]</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">        </span><span class="n">i</span><span class="w"></span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">yield</span><span class="o">!</span><span class="w"> </span><span class="o">[</span><span class="mi">5</span><span class="o">;</span><span class="mi">6</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">true</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+
+<span class="o">}</span><span class="w"></span>
+
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 1</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 2</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//For</span><span class="w"></span>
+<span class="c1">//Yield 3</span><span class="w"></span>
+<span class="c1">//Yield 4</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//YieldFrom [5; 6]</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Yield 7</span><span class="w"></span>
+<span class="c1">//Delay result: [7]</span><span class="w"></span>
+<span class="c1">//Combine [5; 6] with [7]</span><span class="w"></span>
+<span class="c1">//Delay result: [5; 6; 7]</span><span class="w"></span>
+<span class="c1">//Combine [3; 4] with [5; 6; 7]</span><span class="w"></span>
+<span class="c1">//Delay result: [3; 4; 5; ... ]</span><span class="w"></span>
+<span class="c1">//Combine [2] with [3; 4; 5; ... ]</span><span class="w"></span>
+<span class="c1">//Delay result: [2; 3; 4; ... ]</span><span class="w"></span>
+<span class="c1">//Combine [1] with [2; 3; 4; ... ]</span><span class="w"></span>
+<span class="c1">//Delay result: [1; 2; 3; ... ]</span><span class="w"></span>
+<span class="c1">//val it : int list = [1; 2; 3; 4; 5; 6; 7]</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>One important thing to note here: The values returned in the <code>for</code> expression actually get <code>yielded</code> by the <code>Yield</code> method. 
+In the case of <code>yield!</code>, only the <code>YieldFrom</code> method gets called. This means, that the input of type <code>'U</code> in the <code>For</code> method is actually already a yielded value.</p>
+<h3 id="Math-builder">Math builder<a class="anchor-link" href="#Math-builder">&#182;</a></h3><p>Another thing you can do is to add a <code>Run</code> method. This method will be executed at the end of the Computation expression.
+We can also combine this with the ability of the Computation expression to store a state in itself. By this we can control what exactly Run will do:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="sd">/// Used to specify which mathematical operation should be applied on the float list to reduce it</span><span class="w"></span>
+<span class="k">type</span><span class="w"> </span><span class="nc">MathOperation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Sum</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Multiply</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">Custom</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="o">(</span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">float</span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// Apply the given operation on the float list, resulting in a single float</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Apply</span><span class="o">(</span><span class="n">vals</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Sum</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">vals</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">sum</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Multiply</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">vals</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">reduce</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">Custom</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">vals</span><span class="w"></span>
+
+
+<span class="k">type</span><span class="w"> </span><span class="nc">MathBuilder</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+
+<span class="w">    </span><span class="c1">// Mutable math operation state, default value is Sum</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">mutable</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sum</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// When the user yields a value of type MathOperation, this will not be added to the list of values but overwrite the state of the operation variable</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Yield</span><span class="o">(</span><span class="n">newOperation</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">MathOperation</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">operation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">newOperation</span><span class="w"></span>
+<span class="w">        </span><span class="bp">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// User can yield ints</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Yield</span><span class="o">(</span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Yield {v}"</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span><span class="kt">float</span><span class="w"> </span><span class="n">v</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// User can yield floats</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Yield</span><span class="o">(</span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Yield {v}"</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span><span class="n">v</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This will combine the yielded values in the background</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Combine</span><span class="o">(</span><span class="n">v1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="o">,</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Combine {v1} with {v2}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">v1</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="n">v2</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This method is needed. It can be used to lazily evaluate the operations in the CE. Instead here, we just directly execute the given function.</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Delay</span><span class="o">(</span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay"</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Delay result: {res}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">res</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// Is called in empty else branches</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Zero</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Zero"</span><span class="w"></span>
+<span class="w">        </span><span class="bp">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// Allows for using for loops in the computation expression</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">For</span><span class="o">(</span><span class="n">vs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">U</span><span class="w"> </span><span class="n">seq</span><span class="o">,</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">U</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"For"</span><span class="w"></span>
+<span class="w">        </span><span class="n">vs</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">collect</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This will allow for using the yield! method</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">YieldFrom</span><span class="o">(</span><span class="n">vs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">'</span><span class="n">T</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"YieldFrom {vs}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">vs</span><span class="w"></span>
+
+<span class="w">    </span><span class="sd">/// This will run the operation on the final float list, returning a single float as output of the compuation expression.</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Run</span><span class="o">(</span><span class="n">vs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Run {vs}"</span><span class="w"></span>
+<span class="w">        </span><span class="n">operation</span><span class="o">.</span><span class="n">Apply</span><span class="w"> </span><span class="n">vs</span><span class="w"></span>
+
+<span class="c1">// For easier initialization of the computation expression</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">math</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MathBuilder</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>So let's test this out</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="n">math</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="mi">2</span><span class="w"></span>
+<span class="w">    </span><span class="mi">3</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+
+<span class="c1">// Results in 6</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">factorial</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">math</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Multiply</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">            </span><span class="n">i</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+
+<span class="n">factorial</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//Delay</span><span class="w"></span>
+<span class="c1">//For</span><span class="w"></span>
+<span class="c1">//Yield 1</span><span class="w"></span>
+<span class="c1">//Yield 2</span><span class="w"></span>
+<span class="c1">//Yield 3</span><span class="w"></span>
+<span class="c1">//Yield 4</span><span class="w"></span>
+<span class="c1">//Delay result: [1; 2; 3; ... ]</span><span class="w"></span>
+<span class="c1">//Combine [] with [1; 2; 3; ... ]</span><span class="w"></span>
+<span class="c1">//Delay result: [1; 2; 3; ... ]</span><span class="w"></span>
+<span class="c1">//Run [1; 2; 3; ... ]</span><span class="w"></span>
+<span class="c1">//val it : float = 24.0</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>As you can see this approach can be used to further tune the Computation expression in a very generic way.</p>
+<h2 id="Custom-Operator-based-computation-expressions"><em>Custom Operator</em> based computation expressions<a class="anchor-link" href="#Custom-Operator-based-computation-expressions">&#182;</a></h2><h3 id="Cake-builder">Cake builder<a class="anchor-link" href="#Cake-builder">&#182;</a></h3><p>Besides the basic keywords shared between all computation expressions, one can also define their own keywords by using the <code>CustomOperation</code> class.
+Methods with this</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">Cake</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
+<span class="w">        </span><span class="n">Filling</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">        </span><span class="n">PackagedAsPresent</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">member</span><span class="w"> </span><span class="n">Default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="o">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="w"></span>
+<span class="w">            </span><span class="n">Filling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Strawberry"</span><span class="w"></span>
+<span class="w">            </span><span class="n">PackagedAsPresent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="w"></span>
+<span class="w">        </span><span class="o">}</span><span class="w"></span>
+
+<span class="k">type</span><span class="w"> </span><span class="nc">CakeBuilder</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="nf">Yield</span><span class="w"> </span><span class="o">(</span><span class="bp">()</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Cake</span><span class="p">.</span><span class="n">Default</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="nf">Zero</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Cake</span><span class="p">.</span><span class="n">Default</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">[&lt;</span><span class="n">CustomOperation</span><span class="o">(</span><span class="s">"size"</span><span class="o">)&gt;]</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="nf">Size</span><span class="w"> </span><span class="o">(</span><span class="n">cake</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Cake</span><span class="o">,</span><span class="w"> </span><span class="n">i</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">{</span><span class="n">cake</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="o">}</span><span class="w"></span>
+<span class="w">  </span>
+<span class="w">    </span><span class="o">[&lt;</span><span class="n">CustomOperation</span><span class="o">(</span><span class="s">"filling"</span><span class="o">)&gt;]</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="nf">Filling</span><span class="w"> </span><span class="o">(</span><span class="n">cake</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Cake</span><span class="o">,</span><span class="w"> </span><span class="n">s</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">{</span><span class="n">cake</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Filling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">[&lt;</span><span class="n">CustomOperation</span><span class="o">(</span><span class="s">"package"</span><span class="o">)&gt;]</span><span class="w"></span>
+<span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="nf">PackageAsPresent</span><span class="w"> </span><span class="o">(</span><span class="n">cake</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Cake</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">{</span><span class="n">cake</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">PackagedAsPresent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="o">}</span><span class="w"></span>
+
+
+<span class="k">let</span><span class="w"> </span><span class="nv">cake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CakeBuilder</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Let's bake some cakes</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="n">cake</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="bp">()</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+
+<span class="c1">//val it : Cake = { Size = 30</span><span class="w"></span>
+<span class="c1">//                  Filling = "Strawberry"</span><span class="w"></span>
+<span class="c1">//                  PackagedAsPresent = false }</span><span class="w"></span>
+
+<span class="n">cake</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="mi">1800</span><span class="w"></span>
+<span class="w">    </span><span class="n">filling</span><span class="w"> </span><span class="s">"Irish coffee cream"</span><span class="w"></span>
+<span class="w">    </span><span class="n">package</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+
+<span class="c1">//val it : Cake = { Size = 1800</span><span class="w"></span>
+<span class="c1">//                  Filling = "Irish coffee cream"</span><span class="w"></span>
+<span class="c1">//                  PackagedAsPresent = true }</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="n">For</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">good</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">kind</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">computation</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">[</span><span class="n">Saturn</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//saturnframework.org/explanations/routing.html)</span><span class="w"></span>
+<span class="o">##</span><span class="w"> </span><span class="n">Further</span><span class="w"> </span><span class="n">reading</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">Basic</span><span class="w"> </span><span class="n">introduction</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//en.wikibooks.org/wiki/F_Sharp_Programming/Computation_Expressions)</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">In</span><span class="w"> </span><span class="n">depth</span><span class="w"> </span><span class="n">introduction</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//fsharpforfunandprofit.com/series/computation-expressions/)</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">Official</span><span class="w"> </span><span class="n">reference</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//docs.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions)</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">Good</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">practical</span><span class="w"> </span><span class="n">introduction</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//www.youtube.com/watch?v=pC4ZIeOmgB0)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

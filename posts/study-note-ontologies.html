@@ -1,0 +1,597 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Study-note:-Ontologies" class="is-csb-darkblue">
+                  Study note: Ontologies
+                </a>
+              </li>
+              <li>
+                <a href="#What-is-an-ontology?" class="is-csb-darkblue">
+                  What is an ontology?
+                </a>
+              </li>
+              <li>
+                <a href="#Role-cardinality" class="is-csb-darkblue">
+                  Role cardinality
+                </a>
+              </li>
+              <li>
+                <a href="#Design-rules" class="is-csb-darkblue">
+                  Design rules
+                </a>
+              </li>
+              <li>
+                <a href="#OBO" class="is-csb-darkblue">
+                  OBO
+                </a>
+              </li>
+              <li>
+                <a href="#Gene-Ontology" class="is-csb-darkblue">
+                  Gene Ontology
+                </a>
+              </li>
+              <li>
+                <a href="#References" class="is-csb-darkblue">
+                  References
+                </a>
+              </li>
+              <li>
+                <a href="#Practice" class="is-csb-darkblue">
+                  Practice
+                </a>
+              </li>
+              <li>
+                <a href="#Task-1" class="is-csb-darkblue">
+                  Task 1
+                </a>
+              </li>
+              <li>
+                <a href="#Task-2" class="is-csb-darkblue">
+                  Task 2
+                </a>
+              </li>
+              <li>
+                <a href="#Task-3" class="is-csb-darkblue">
+                  Task 3
+                </a>
+              </li>
+              <li>
+                <a href="#Task-4" class="is-csb-darkblue">
+                  Task 4
+                </a>
+              </li>
+              <li>
+                <a href="#Task-5" class="is-csb-darkblue">
+                  Task 5
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  Study note - ontologies
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2023-2-10 by
+                    <a href="https://github.com/bvenn" class="is-csb-darkblue">
+                      Benedikt Venn
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                      Study Notes
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Study-note:-Ontologies">Study note: Ontologies<a class="anchor-link" href="#Study-note:-Ontologies">&#182;</a></h1><p><em><a href="https://github.com/bvenn">Benedikt Venn</a>, Feb 2023</em></p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="What-is-an-ontology?">What is an ontology?<a class="anchor-link" href="#What-is-an-ontology?">&#182;</a></h2><p><em>An ontology is a formal specification of the terms in the domain (taxonomy) and relations among them</em>. It defines a common vocabulary for researchers. These can be used by domain experts to share and annotate information in their fields, to categorize observations, and to extract and aggregate information from a huge data sets in an semi-automated manner.
+The main components of an ontology are <strong>classes</strong> - the entities within the domain - and <strong>roles</strong> which are the properties of the classes. To fill this abstract definition of an ontology with something tangible, in the following an ontology for bioentities is generated.</p>
+<p>A <strong>class</strong> of <em>Protein</em> represent all proteins. Cytochrom c oxidase (COX) is an <strong>instance</strong> of the <em>Protein</em> class. A class can have several subclasses, e.g. <em>Membrane protein</em>/<em>Globular protein</em> or <em>Enzymatic</em>/<em>Structural</em> etc. that are more specific than the superclass. Consequently every instance of class <em>Membrane protein</em> also is an instance of class '<em>Protein</em>. <strong>Roles</strong> describe properties of the single instances. A protein e.g. could have the roles (i) <em>mass</em>, (ii) <em>sequence</em>, (iii) <em>localization</em>, and (iv) <em>full name</em>. These are properties of all instances of the <em>Protein</em> class. The <em>membrane protein</em> subclass may have additional properties, that are specific to this kind of protein, e.g. <em>number of transmembrane domains</em>. The value types of the roles could be primitive types (string, int, float), or instances of another class. <em>Compartment</em> for example could be the value of field <em>localization</em>. <em>Compartment</em> itself could have several roles and relationships.</p>
+<p><img src="../../img/ontologies/ontology_venn_01.png"></img></p>
+<p>Fig. 1: Some classes, instances and relations of the cell domain. The interdependence (inverse relation) of COX and Mitochondrion (blue arrows) is not mandatory.</p>
+<p style="text-align: center;"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Role-cardinality">Role cardinality<a class="anchor-link" href="#Role-cardinality">&#182;</a></h3><p>The cardinality defines how many values a role can have. The mass is distinct and the same for a single protein indicating a single cardinality, while present-in is a multi-cardinality role of the <em>Compartment</em> class. Sometimes is can necessary to set the cardinality of a subclass role to zero.
+If an instance can be assigned to more than one ‘class branch’ an additional class can be defined, that has several superclasses. Consequently it inherits the roles from all its superclasses.</p>
+<h3 id="Design-rules">Design rules<a class="anchor-link" href="#Design-rules">&#182;</a></h3><ul>
+<li>If B is a subclass of A and C is a subclass of B, then C is a subclass of A</li>
+<li>Synonyms for the same concept do not represent different classes</li>
+<li>Avoid class cycles (C is a B, B is a A, and A is a C)</li>
+<li>All siblings must be at the same level of generality (e.g. children of proteins should <strong>not</strong> be <code>structural proteins</code> and <code>small HSPs</code>)</li>
+<li>If a class has only one subclass, consider remodeling or completing the ontology</li>
+<li>If a class has more than a dozen subclasses, consider intermediate categories</li>
+</ul>
+<h2 id="OBO">OBO<a class="anchor-link" href="#OBO">&#182;</a></h2><p>The <a href="obofoundry.org">Open Biological and Biomedical Ontologies (OBO) Foundry</a> is a collection of ontologies relevant for life sciences. Additionally, obo defines a file format, that unifies the distribution of ontologies that is based on the principles of the Web Ontology Language (OWL).</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Gene-Ontology">Gene Ontology<a class="anchor-link" href="#Gene-Ontology">&#182;</a></h3><p>The GeneOntology (GO) provides a uniform way to describe the functions of gene products from organisms across all kingdoms of life and thereby enable analysis of genomic data. It can be found <a href="http://current.geneontology.org/ontology/go.obo">here</a>.</p>
+<p>Example of a GO class in OBO format:</p>
+
+<pre><code>[Term]
+id: GO:0000269
+name: toxin export channel activity
+namespace: molecular_function
+def: "Enables the energy independent passage of toxins, sized less than 1000 Da, across a membrane towards the outside of the cell. The transmembrane portions of porins consist exclusively of beta-strands which form a beta-barrel. They are found in the outer membranes of Gram-negative bacteria, mitochondria, plastids and possibly acid-fast Gram-positive bacteria." [GOC:mtg_transport]
+is_a: GO:0015288 ! porin activity
+is_a: GO:0019534 ! toxin transmembrane transporter activity</code></pre>
+<p>A class is initialized with the <code>[Term]</code> keyword. Roles are separated from its corresponding values by a colon. A term can be accessed by its unique <em>id</em> that points to this entry. You can see two is_a relationships of ‘toxin export channel activity’. Thereby it is clear that it represents a subclass of the two superclasses <code>porin activity</code> and <code>toxin transmembrane transporter activity</code>. If a protein is assigned to GO term 0000269 it automatically is a children of GO:0015288 and GO:0019534.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ol>
+<li>Noy and McGuinnes, Ontology Development 101: A Guide to Creating Your First Ontology, Stanford Knowledge Systems Laboratory Technical Report, 2001</li>
+<li><a href="https://obofoundry.org/">The Open Biological and Biomedical Ontology</a></li>
+<li>Ashburner et al., Gene ontology: tool for the unification of biology, Nat Genet, 2000, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037419/">doi:10.1038/75556</a></li>
+</ol>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Practice">Practice<a class="anchor-link" href="#Practice">&#182;</a></h2><p>The goal is to visualize a subbranch of the gene ontology using <a href="https://github.com/CSBiology/BioFSharp">BioFSharp.IO</a> for parsing and <a href="https://github.com/fslaborg/Cyjs.NET">Cyjs.NET</a> for visualization. Parsing describes the process of analyzing a text according to a defined set of rules (e.g. the OBO file format convention).</p>
+<h3 id="Task-1">Task 1<a class="anchor-link" href="#Task-1">&#182;</a></h3><ul>
+<li>read in the GO ontology as <code>string array</code> </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharp.Data"</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO, 2.0.0-preview.3"</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: Cyjs.NET, 0.0.4"</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Data</span><span class="w">    </span><span class="c1">//required for data download </span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span><span class="w">   </span><span class="c1">//required for parsing</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Cyjs.NET</span><span class="w">       </span><span class="c1">//required for visualization</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">getRawString</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">Http</span><span class="p">.</span><span class="n">RequestString</span><span class="w"> </span><span class="n">url</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">'\n'</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">goUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"http://current.geneontology.org/ontology/go.obo"</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">goRawData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getRawString</span><span class="w"> </span><span class="n">goUrl</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div><div></div><div></div><div><strong>Installed Packages</strong><ul><li><span>BioFSharp.IO, 2.0.0-preview.3</span></li><li><span>Cyjs.NET, 0.0.4</span></li><li><span>FSharp.Data, 5.0.2</span></li></ul></div></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-2">Task 2<a class="anchor-link" href="#Task-2">&#182;</a></h3><ul>
+<li>parse the data using the OBO parser of ´BioFSharp.IO´<ul>
+<li>set the verbosity parameter to <code>false</code> to </li>
+<li>convert the <code>seq&lt;OboTerm&gt;</code> into a <code>Oboterm []</code> after parsing</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">BioFSharp</span><span class="p">.</span><span class="nn">IO</span><span class="p">.</span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span><span class="w"> </span><span class="k">false</span><span class="w"> </span><span class="n">goRawData</span><span class="w">  </span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toArray</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-3">Task 3<a class="anchor-link" href="#Task-3">&#182;</a></h3><ul>
+<li>filter obo terms that have <code>GO:0071704</code> as <code>id</code>, <code>relationship</code> or <code>is_A</code> relationship and call the filtered triple sequence goElements</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">getElements</span><span class="w"> </span><span class="o">(</span><span class="n">terms</span><span class="o">:</span><span class="nn">Obo</span><span class="p">.</span><span class="n">OboTerm</span><span class="bp">[]</span><span class="o">)</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">terms</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">filter</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">||</span><span class="w"></span>
+<span class="w">        </span><span class="nn">List</span><span class="p">.</span><span class="n">exists</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">rel</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">rel</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">id</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Name</span><span class="w"></span>
+<span class="w">        </span><span class="c1">//sometimes a relationship can be stored as dedicated relationship rather than a isA role</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Relationships</span><span class="w"></span>
+<span class="w">        </span><span class="n">target</span><span class="w"> </span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">singleTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">' '</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">head</span><span class="w"></span>
+<span class="w">            </span><span class="n">label</span><span class="o">,</span><span class="n">source</span><span class="o">,</span><span class="w"> </span><span class="n">singleTarget</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">concat</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">goElements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="s">"GO:0071704"</span><span class="w"> </span>
+<span class="n">goElements</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<table><thead><tr><th><i>index</i></th><th>Item1</th><th>Item2</th><th>Item3</th></tr></thead><tbody><tr><td>0</td><td>carbohydrate metabolic process</td><td>GO:0005975</td><td>GO:0044238</td></tr><tr><td>1</td><td>carbohydrate metabolic process</td><td>GO:0005975</td><td>GO:0071704</td></tr><tr><td>2</td><td>cellular aldehyde metabolic process</td><td>GO:0006081</td><td>GO:0044237</td></tr><tr><td>3</td><td>cellular aldehyde metabolic process</td><td>GO:0006081</td><td>GO:0071704</td></tr><tr><td>4</td><td>organic acid metabolic process</td><td>GO:0006082</td><td>GO:0044237</td></tr><tr><td>5</td><td>organic acid metabolic process</td><td>GO:0006082</td><td>GO:0044281</td></tr><tr><td>6</td><td>organic acid metabolic process</td><td>GO:0006082</td><td>GO:0071704</td></tr><tr><td>7</td><td>lipid metabolic process</td><td>GO:0006629</td><td>GO:0044238</td></tr><tr><td>8</td><td>lipid metabolic process</td><td>GO:0006629</td><td>GO:0071704</td></tr><tr><td>9</td><td>glutathione metabolic process</td><td>GO:0006749</td><td>GO:0071704</td></tr><tr><td>10</td><td>flavonoid metabolic process</td><td>GO:0009812</td><td>GO:0071704</td></tr><tr><td>11</td><td>carbon fixation</td><td>GO:0015977</td><td>GO:0071704</td></tr><tr><td>12</td><td>ether metabolic process</td><td>GO:0018904</td><td>GO:0044281</td></tr><tr><td>13</td><td>ether metabolic process</td><td>GO:0018904</td><td>GO:0071704</td></tr><tr><td>14</td><td>dimethyl sulfoxide metabolic process</td><td>GO:0018907</td><td>GO:0006790</td></tr><tr><td>15</td><td>dimethyl sulfoxide metabolic process</td><td>GO:0018907</td><td>GO:0071704</td></tr><tr><td>16</td><td>nitroglycerin metabolic process</td><td>GO:0018937</td><td>GO:0006805</td></tr><tr><td>17</td><td>nitroglycerin metabolic process</td><td>GO:0018937</td><td>GO:0006807</td></tr><tr><td>18</td><td>nitroglycerin metabolic process</td><td>GO:0018937</td><td>GO:0071704</td></tr><tr><td>19</td><td>2-nitropropane metabolic process</td><td>GO:0018938</td><td>GO:0006805</td></tr><tr><td colspan="4"><i>... (more)</i></td></tr></tbody></table><style>
+.dni-code-hint {
+    font-style: italic;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dni-treeview {
+    white-space: nowrap;
+}
+.dni-treeview td {
+    vertical-align: top;
+    text-align: start;
+}
+details.dni-treeview {
+    padding-left: 1em;
+}
+table td {
+    text-align: start;
+}
+table tr { 
+    vertical-align: top; 
+    margin: 0em 0px;
+}
+table tr td pre 
+{ 
+    vertical-align: top !important; 
+    margin: 0em 0px !important;
+} 
+table th {
+    text-align: start;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-4">Task 4<a class="anchor-link" href="#Task-4">&#182;</a></h3><ul>
+<li>create vertices and edges</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">getCytoVertices</span><span class="w"> </span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="n">seq</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">input</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">collect</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="o">,</span><span class="n">s</span><span class="o">,</span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">s</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">t</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="o">[|</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">stylingSource</span><span class="o">;</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">stylingTarget</span><span class="o">|]</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">getCytoEdges</span><span class="w"> </span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="n">seq</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">input</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">mapi</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="o">,</span><span class="n">s</span><span class="o">,</span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">styling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Elements</span><span class="p">.</span><span class="n">edge</span><span class="w"> </span><span class="o">(</span><span class="s">"e"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">i</span><span class="o">)</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">styling</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">goVertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="n">goElements</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">goEdges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="n">goElements</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-5">Task 5<a class="anchor-link" href="#Task-5">&#182;</a></h3><ul>
+<li>create and show CyGraph</li>
+<li>is there any parent of <code>GO:0071704</code>? <ul>
+<li>Answer: <strong><em>__</em></strong></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">cytoGraph</span><span class="w"> </span><span class="n">vertices</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">initEmpty</span><span class="w"> </span><span class="bp">()</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">vertices</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">edges</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withStyle</span><span class="w"> </span><span class="s">"node"</span><span class="w"> </span>
+<span class="w">        </span><span class="o">[</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"circle"</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=.</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Border</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#A00975"</span><span class="w"></span>
+<span class="w">        </span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withStyle</span><span class="w"> </span><span class="s">"edge"</span><span class="w"> </span>
+<span class="w">        </span><span class="o">[</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Line</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#3D1244"</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Curve</span><span class="p">.</span><span class="n">style</span><span class="w"> </span><span class="s">"bezier"</span><span class="w"></span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Target</span><span class="p">.</span><span class="nn">Arrow</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"triangle"</span><span class="w"></span>
+<span class="w">        </span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withLayout</span><span class="w"> </span><span class="o">(</span><span class="nn">Layout</span><span class="p">.</span><span class="n">initBreadthfirst</span><span class="w"> </span><span class="n">id</span><span class="o">)</span><span class="w">  </span>
+
+<span class="c1">// Send the cytograph to the browser</span><span class="w"></span>
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">goVertices</span><span class="w"> </span><span class="n">goEdges</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js"></script>
+</head>
+<body> <style>#e89e1de76a3 { width: 1300px; height: 1000px; display: block } </style>
+<div id="e89e1de76a3"></div>
+<script type="text/javascript">
+            var renderCyjs_d756597165f44fed9cebeea2b212d80d = function() {
+            var fsharpCyjsRequire = requirejs.config({context:'fsharp-cyjs',paths:{cyjs:'https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min'}}) || require;
+            fsharpCyjsRequire(['cyjs'], function(Cyjs) {
+            var graphdata = {"container":document.getElementById('e89e1de76a3'),"elements":[{"data":{"id":"GO:0005975","label":"carbohydrate metabolic process GO:0005975","weight":24}},{"data":{"id":"GO:0044238","label":"carbohydrate metabolic process GO:0044238","weight":24}},{"data":{"id":"GO:0005975","label":"carbohydrate metabolic process GO:0005975","weight":24}},{"data":{"id":"GO:0071704","label":"carbohydrate metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0006081","label":"cellular aldehyde metabolic process GO:0006081","weight":24}},{"data":{"id":"GO:0044237","label":"cellular aldehyde metabolic process GO:0044237","weight":24}},{"data":{"id":"GO:0006081","label":"cellular aldehyde metabolic process GO:0006081","weight":24}},{"data":{"id":"GO:0071704","label":"cellular aldehyde metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0006082","label":"organic acid metabolic process GO:0006082","weight":24}},{"data":{"id":"GO:0044237","label":"organic acid metabolic process GO:0044237","weight":24}},{"data":{"id":"GO:0006082","label":"organic acid metabolic process GO:0006082","weight":24}},{"data":{"id":"GO:0044281","label":"organic acid metabolic process GO:0044281","weight":24}},{"data":{"id":"GO:0006082","label":"organic acid metabolic process GO:0006082","weight":24}},{"data":{"id":"GO:0071704","label":"organic acid metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0006629","label":"lipid metabolic process GO:0006629","weight":24}},{"data":{"id":"GO:0044238","label":"lipid metabolic process GO:0044238","weight":24}},{"data":{"id":"GO:0006629","label":"lipid metabolic process GO:0006629","weight":24}},{"data":{"id":"GO:0071704","label":"lipid metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0006749","label":"glutathione metabolic process GO:0006749","weight":24}},{"data":{"id":"GO:0071704","label":"glutathione metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0009812","label":"flavonoid metabolic process GO:0009812","weight":24}},{"data":{"id":"GO:0071704","label":"flavonoid metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0015977","label":"carbon fixation GO:0015977","weight":24}},{"data":{"id":"GO:0071704","label":"carbon fixation GO:0071704","weight":24}},{"data":{"id":"GO:0018904","label":"ether metabolic process GO:0018904","weight":24}},{"data":{"id":"GO:0044281","label":"ether metabolic process GO:0044281","weight":24}},{"data":{"id":"GO:0018904","label":"ether metabolic process GO:0018904","weight":24}},{"data":{"id":"GO:0071704","label":"ether metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018907","label":"dimethyl sulfoxide metabolic process GO:0018907","weight":24}},{"data":{"id":"GO:0006790","label":"dimethyl sulfoxide metabolic process GO:0006790","weight":24}},{"data":{"id":"GO:0018907","label":"dimethyl sulfoxide metabolic process GO:0018907","weight":24}},{"data":{"id":"GO:0071704","label":"dimethyl sulfoxide metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018937","label":"nitroglycerin metabolic process GO:0018937","weight":24}},{"data":{"id":"GO:0006805","label":"nitroglycerin metabolic process GO:0006805","weight":24}},{"data":{"id":"GO:0018937","label":"nitroglycerin metabolic process GO:0018937","weight":24}},{"data":{"id":"GO:0006807","label":"nitroglycerin metabolic process GO:0006807","weight":24}},{"data":{"id":"GO:0018937","label":"nitroglycerin metabolic process GO:0018937","weight":24}},{"data":{"id":"GO:0071704","label":"nitroglycerin metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018938","label":"2-nitropropane metabolic process GO:0018938","weight":24}},{"data":{"id":"GO:0006805","label":"2-nitropropane metabolic process GO:0006805","weight":24}},{"data":{"id":"GO:0018938","label":"2-nitropropane metabolic process GO:0018938","weight":24}},{"data":{"id":"GO:0034641","label":"2-nitropropane metabolic process GO:0034641","weight":24}},{"data":{"id":"GO:0018938","label":"2-nitropropane metabolic process GO:0018938","weight":24}},{"data":{"id":"GO:0071704","label":"2-nitropropane metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018942","label":"organometal metabolic process GO:0018942","weight":24}},{"data":{"id":"GO:0044237","label":"organometal metabolic process GO:0044237","weight":24}},{"data":{"id":"GO:0018942","label":"organometal metabolic process GO:0018942","weight":24}},{"data":{"id":"GO:0071704","label":"organometal metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018945","label":"organosilicon metabolic process GO:0018945","weight":24}},{"data":{"id":"GO:0006805","label":"organosilicon metabolic process GO:0006805","weight":24}},{"data":{"id":"GO:0018945","label":"organosilicon metabolic process GO:0018945","weight":24}},{"data":{"id":"GO:0071704","label":"organosilicon metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0018954","label":"pentaerythritol tetranitrate metabolic process GO:0018954","weight":24}},{"data":{"id":"GO:0006805","label":"pentaerythritol tetranitrate metabolic process GO:0006805","weight":24}},{"data":{"id":"GO:0018954","label":"pentaerythritol tetranitrate metabolic process GO:0018954","weight":24}},{"data":{"id":"GO:0006807","label":"pentaerythritol tetranitrate metabolic process GO:0006807","weight":24}},{"data":{"id":"GO:0018954","label":"pentaerythritol tetranitrate metabolic process GO:0018954","weight":24}},{"data":{"id":"GO:0071704","label":"pentaerythritol tetranitrate metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0019330","label":"aldoxime metabolic process GO:0019330","weight":24}},{"data":{"id":"GO:0006807","label":"aldoxime metabolic process GO:0006807","weight":24}},{"data":{"id":"GO:0019330","label":"aldoxime metabolic process GO:0019330","weight":24}},{"data":{"id":"GO:0071704","label":"aldoxime metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0019637","label":"organophosphate metabolic process GO:0019637","weight":24}},{"data":{"id":"GO:0006793","label":"organophosphate metabolic process GO:0006793","weight":24}},{"data":{"id":"GO:0019637","label":"organophosphate metabolic process GO:0019637","weight":24}},{"data":{"id":"GO:0071704","label":"organophosphate metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0030638","label":"polyketide metabolic process GO:0030638","weight":24}},{"data":{"id":"GO:0019748","label":"polyketide metabolic process GO:0019748","weight":24}},{"data":{"id":"GO:0030638","label":"polyketide metabolic process GO:0030638","weight":24}},{"data":{"id":"GO:0071704","label":"polyketide metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0035383","label":"thioester metabolic process GO:0035383","weight":24}},{"data":{"id":"GO:0006790","label":"thioester metabolic process GO:0006790","weight":24}},{"data":{"id":"GO:0035383","label":"thioester metabolic process GO:0035383","weight":24}},{"data":{"id":"GO:0071704","label":"thioester metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0042180","label":"cellular ketone metabolic process GO:0042180","weight":24}},{"data":{"id":"GO:0044237","label":"cellular ketone metabolic process GO:0044237","weight":24}},{"data":{"id":"GO:0042180","label":"cellular ketone metabolic process GO:0042180","weight":24}},{"data":{"id":"GO:0044281","label":"cellular ketone metabolic process GO:0044281","weight":24}},{"data":{"id":"GO:0042180","label":"cellular ketone metabolic process GO:0042180","weight":24}},{"data":{"id":"GO:0071704","label":"cellular ketone metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0042197","label":"halogenated hydrocarbon metabolic process GO:0042197","weight":24}},{"data":{"id":"GO:0006805","label":"halogenated hydrocarbon metabolic process GO:0006805","weight":24}},{"data":{"id":"GO:0042197","label":"halogenated hydrocarbon metabolic process GO:0042197","weight":24}},{"data":{"id":"GO:0071704","label":"halogenated hydrocarbon metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0042620","label":"poly(3-hydroxyalkanoate) metabolic process GO:0042620","weight":24}},{"data":{"id":"GO:0071704","label":"poly(3-hydroxyalkanoate) metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0042743","label":"hydrogen peroxide metabolic process GO:0042743","weight":24}},{"data":{"id":"GO:0071704","label":"hydrogen peroxide metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0042743","label":"hydrogen peroxide metabolic process GO:0042743","weight":24}},{"data":{"id":"GO:0072593","label":"hydrogen peroxide metabolic process GO:0072593","weight":24}},{"data":{"id":"GO:0043170","label":"macromolecule metabolic process GO:0043170","weight":24}},{"data":{"id":"GO:0071704","label":"macromolecule metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0046500","label":"S-adenosylmethionine metabolic process GO:0046500","weight":24}},{"data":{"id":"GO:0006790","label":"S-adenosylmethionine metabolic process GO:0006790","weight":24}},{"data":{"id":"GO:0046500","label":"S-adenosylmethionine metabolic process GO:0046500","weight":24}},{"data":{"id":"GO:0071704","label":"S-adenosylmethionine metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0050993","label":"dimethylallyl diphosphate metabolic process GO:0050993","weight":24}},{"data":{"id":"GO:0006793","label":"dimethylallyl diphosphate metabolic process GO:0006793","weight":24}},{"data":{"id":"GO:0050993","label":"dimethylallyl diphosphate metabolic process GO:0050993","weight":24}},{"data":{"id":"GO:0071704","label":"dimethylallyl diphosphate metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0071704","label":"organic substance metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0008152","label":"organic substance metabolic process GO:0008152","weight":24}},{"data":{"id":"GO:0120246","label":"acetylenic compound metabolic process GO:0120246","weight":24}},{"data":{"id":"GO:0071704","label":"acetylenic compound metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0120252","label":"hydrocarbon metabolic process GO:0120252","weight":24}},{"data":{"id":"GO:0071704","label":"hydrocarbon metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:0120254","label":"olefinic compound metabolic process GO:0120254","weight":24}},{"data":{"id":"GO:0071704","label":"olefinic compound metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1900558","label":"austinol metabolic process GO:1900558","weight":24}},{"data":{"id":"GO:0071704","label":"austinol metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1900561","label":"dehydroaustinol metabolic process GO:1900561","weight":24}},{"data":{"id":"GO:0019748","label":"dehydroaustinol metabolic process GO:0019748","weight":24}},{"data":{"id":"GO:1900561","label":"dehydroaustinol metabolic process GO:1900561","weight":24}},{"data":{"id":"GO:0071704","label":"dehydroaustinol metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1900585","label":"arugosin metabolic process GO:1900585","weight":24}},{"data":{"id":"GO:0019748","label":"arugosin metabolic process GO:0019748","weight":24}},{"data":{"id":"GO:1900585","label":"arugosin metabolic process GO:1900585","weight":24}},{"data":{"id":"GO:0071704","label":"arugosin metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1900619","label":"acetate ester metabolic process GO:1900619","weight":24}},{"data":{"id":"GO:0071704","label":"acetate ester metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901055","label":"trimethylenediamine metabolic process GO:1901055","weight":24}},{"data":{"id":"GO:0006807","label":"trimethylenediamine metabolic process GO:0006807","weight":24}},{"data":{"id":"GO:1901055","label":"trimethylenediamine metabolic process GO:1901055","weight":24}},{"data":{"id":"GO:0071704","label":"trimethylenediamine metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901125","label":"candicidin metabolic process GO:1901125","weight":24}},{"data":{"id":"GO:0071704","label":"candicidin metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901135","label":"carbohydrate derivative metabolic process GO:1901135","weight":24}},{"data":{"id":"GO:0071704","label":"carbohydrate derivative metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901360","label":"organic cyclic compound metabolic process GO:1901360","weight":24}},{"data":{"id":"GO:0071704","label":"organic cyclic compound metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901440","label":"poly(hydroxyalkanoate) metabolic process GO:1901440","weight":24}},{"data":{"id":"GO:0071704","label":"poly(hydroxyalkanoate) metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901564","label":"organonitrogen compound metabolic process GO:1901564","weight":24}},{"data":{"id":"GO:0006807","label":"organonitrogen compound metabolic process GO:0006807","weight":24}},{"data":{"id":"GO:1901564","label":"organonitrogen compound metabolic process GO:1901564","weight":24}},{"data":{"id":"GO:0071704","label":"organonitrogen compound metabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901575","label":"organic substance catabolic process GO:1901575","weight":24}},{"data":{"id":"GO:0009056","label":"organic substance catabolic process GO:0009056","weight":24}},{"data":{"id":"GO:1901575","label":"organic substance catabolic process GO:1901575","weight":24}},{"data":{"id":"GO:0071704","label":"organic substance catabolic process GO:0071704","weight":24}},{"data":{"id":"GO:1901576","label":"organic substance biosynthetic process GO:1901576","weight":24}},{"data":{"id":"GO:0009058","label":"organic substance biosynthetic process GO:0009058","weight":24}},{"data":{"id":"GO:1901576","label":"organic substance biosynthetic process GO:1901576","weight":24}},{"data":{"id":"GO:0071704","label":"organic substance biosynthetic process GO:0071704","weight":24}},{"data":{"id":"GO:1901615","label":"organic hydroxy compound metabolic process GO:1901615","weight":24}},{"data":{"id":"GO:0071704","label":"organic hydroxy compound metabolic process GO:0071704","weight":24}},{"data":{"id":"e0","source":"GO:0005975","target":"GO:0044238","weight":0.3}},{"data":{"id":"e1","source":"GO:0005975","target":"GO:0071704","weight":0.3}},{"data":{"id":"e2","source":"GO:0006081","target":"GO:0044237","weight":0.3}},{"data":{"id":"e3","source":"GO:0006081","target":"GO:0071704","weight":0.3}},{"data":{"id":"e4","source":"GO:0006082","target":"GO:0044237","weight":0.3}},{"data":{"id":"e5","source":"GO:0006082","target":"GO:0044281","weight":0.3}},{"data":{"id":"e6","source":"GO:0006082","target":"GO:0071704","weight":0.3}},{"data":{"id":"e7","source":"GO:0006629","target":"GO:0044238","weight":0.3}},{"data":{"id":"e8","source":"GO:0006629","target":"GO:0071704","weight":0.3}},{"data":{"id":"e9","source":"GO:0006749","target":"GO:0071704","weight":0.3}},{"data":{"id":"e10","source":"GO:0009812","target":"GO:0071704","weight":0.3}},{"data":{"id":"e11","source":"GO:0015977","target":"GO:0071704","weight":0.3}},{"data":{"id":"e12","source":"GO:0018904","target":"GO:0044281","weight":0.3}},{"data":{"id":"e13","source":"GO:0018904","target":"GO:0071704","weight":0.3}},{"data":{"id":"e14","source":"GO:0018907","target":"GO:0006790","weight":0.3}},{"data":{"id":"e15","source":"GO:0018907","target":"GO:0071704","weight":0.3}},{"data":{"id":"e16","source":"GO:0018937","target":"GO:0006805","weight":0.3}},{"data":{"id":"e17","source":"GO:0018937","target":"GO:0006807","weight":0.3}},{"data":{"id":"e18","source":"GO:0018937","target":"GO:0071704","weight":0.3}},{"data":{"id":"e19","source":"GO:0018938","target":"GO:0006805","weight":0.3}},{"data":{"id":"e20","source":"GO:0018938","target":"GO:0034641","weight":0.3}},{"data":{"id":"e21","source":"GO:0018938","target":"GO:0071704","weight":0.3}},{"data":{"id":"e22","source":"GO:0018942","target":"GO:0044237","weight":0.3}},{"data":{"id":"e23","source":"GO:0018942","target":"GO:0071704","weight":0.3}},{"data":{"id":"e24","source":"GO:0018945","target":"GO:0006805","weight":0.3}},{"data":{"id":"e25","source":"GO:0018945","target":"GO:0071704","weight":0.3}},{"data":{"id":"e26","source":"GO:0018954","target":"GO:0006805","weight":0.3}},{"data":{"id":"e27","source":"GO:0018954","target":"GO:0006807","weight":0.3}},{"data":{"id":"e28","source":"GO:0018954","target":"GO:0071704","weight":0.3}},{"data":{"id":"e29","source":"GO:0019330","target":"GO:0006807","weight":0.3}},{"data":{"id":"e30","source":"GO:0019330","target":"GO:0071704","weight":0.3}},{"data":{"id":"e31","source":"GO:0019637","target":"GO:0006793","weight":0.3}},{"data":{"id":"e32","source":"GO:0019637","target":"GO:0071704","weight":0.3}},{"data":{"id":"e33","source":"GO:0030638","target":"GO:0019748","weight":0.3}},{"data":{"id":"e34","source":"GO:0030638","target":"GO:0071704","weight":0.3}},{"data":{"id":"e35","source":"GO:0035383","target":"GO:0006790","weight":0.3}},{"data":{"id":"e36","source":"GO:0035383","target":"GO:0071704","weight":0.3}},{"data":{"id":"e37","source":"GO:0042180","target":"GO:0044237","weight":0.3}},{"data":{"id":"e38","source":"GO:0042180","target":"GO:0044281","weight":0.3}},{"data":{"id":"e39","source":"GO:0042180","target":"GO:0071704","weight":0.3}},{"data":{"id":"e40","source":"GO:0042197","target":"GO:0006805","weight":0.3}},{"data":{"id":"e41","source":"GO:0042197","target":"GO:0071704","weight":0.3}},{"data":{"id":"e42","source":"GO:0042620","target":"GO:0071704","weight":0.3}},{"data":{"id":"e43","source":"GO:0042743","target":"GO:0071704","weight":0.3}},{"data":{"id":"e44","source":"GO:0042743","target":"GO:0072593","weight":0.3}},{"data":{"id":"e45","source":"GO:0043170","target":"GO:0071704","weight":0.3}},{"data":{"id":"e46","source":"GO:0046500","target":"GO:0006790","weight":0.3}},{"data":{"id":"e47","source":"GO:0046500","target":"GO:0071704","weight":0.3}},{"data":{"id":"e48","source":"GO:0050993","target":"GO:0006793","weight":0.3}},{"data":{"id":"e49","source":"GO:0050993","target":"GO:0071704","weight":0.3}},{"data":{"id":"e50","source":"GO:0071704","target":"GO:0008152","weight":0.3}},{"data":{"id":"e51","source":"GO:0120246","target":"GO:0071704","weight":0.3}},{"data":{"id":"e52","source":"GO:0120252","target":"GO:0071704","weight":0.3}},{"data":{"id":"e53","source":"GO:0120254","target":"GO:0071704","weight":0.3}},{"data":{"id":"e54","source":"GO:1900558","target":"GO:0071704","weight":0.3}},{"data":{"id":"e55","source":"GO:1900561","target":"GO:0019748","weight":0.3}},{"data":{"id":"e56","source":"GO:1900561","target":"GO:0071704","weight":0.3}},{"data":{"id":"e57","source":"GO:1900585","target":"GO:0019748","weight":0.3}},{"data":{"id":"e58","source":"GO:1900585","target":"GO:0071704","weight":0.3}},{"data":{"id":"e59","source":"GO:1900619","target":"GO:0071704","weight":0.3}},{"data":{"id":"e60","source":"GO:1901055","target":"GO:0006807","weight":0.3}},{"data":{"id":"e61","source":"GO:1901055","target":"GO:0071704","weight":0.3}},{"data":{"id":"e62","source":"GO:1901125","target":"GO:0071704","weight":0.3}},{"data":{"id":"e63","source":"GO:1901135","target":"GO:0071704","weight":0.3}},{"data":{"id":"e64","source":"GO:1901360","target":"GO:0071704","weight":0.3}},{"data":{"id":"e65","source":"GO:1901440","target":"GO:0071704","weight":0.3}},{"data":{"id":"e66","source":"GO:1901564","target":"GO:0006807","weight":0.3}},{"data":{"id":"e67","source":"GO:1901564","target":"GO:0071704","weight":0.3}},{"data":{"id":"e68","source":"GO:1901575","target":"GO:0009056","weight":0.3}},{"data":{"id":"e69","source":"GO:1901575","target":"GO:0071704","weight":0.3}},{"data":{"id":"e70","source":"GO:1901576","target":"GO:0009058","weight":0.3}},{"data":{"id":"e71","source":"GO:1901576","target":"GO:0071704","weight":0.3}},{"data":{"id":"e72","source":"GO:1901615","target":"GO:0071704","weight":0.3}}],"style":[{"selector":"node","style":{"shape":"circle","content":"data(label)","border-color":"#A00975"}},{"selector":"edge","style":{"line-color":"#3D1244","curve-style":"bezier","target-arrow-shape":"triangle"}}],"layout":{"name":"breadthfirst"}}
+
+            var cy = cytoscape( graphdata );
+
+            cy.userZoomingEnabled( false );
+
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderCyjs_d756597165f44fed9cebeea2b212d80d();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderCyjs_d756597165f44fed9cebeea2b212d80d();
+            }
+</script>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

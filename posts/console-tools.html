@@ -1,0 +1,1263 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      CSBlog
+    </title>
+    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Console-apps:-Above-and-beyond" class="is-csb-darkblue">
+                  Console apps: Above and beyond
+                </a>
+              </li>
+              <li>
+                <a href="#Content" class="is-csb-darkblue">
+                  Content
+                </a>
+              </li>
+              <li>
+                <a href="#What-are-console-apps?" class="is-csb-darkblue">
+                  What are console apps?
+                </a>
+              </li>
+              <li>
+                <a href="#How-do-.NET-console-apps-work?" class="is-csb-darkblue">
+                  How do .NET console apps work?
+                </a>
+              </li>
+              <li>
+                <a href="#.*proj-file" class="is-csb-darkblue">
+                  .*proj file
+                </a>
+              </li>
+              <li>
+                <a href="#Program.fs-file" class="is-csb-darkblue">
+                  Program.fs file
+                </a>
+              </li>
+              <li>
+                <a href="#Framework-dependent-vs.-self-contained" class="is-csb-darkblue">
+                  Framework dependent vs. self contained
+                </a>
+              </li>
+              <li>
+                <a href="#Single-file-vs.-folder" class="is-csb-darkblue">
+                  Single file vs. folder
+                </a>
+              </li>
+              <li>
+                <a href="#How-to-create-an-F%23-console-app-in-.NET" class="is-csb-darkblue">
+                  How to create an F%23 console app in .NET
+                </a>
+              </li>
+              <li>
+                <a href="#Via-.NET-CLI" class="is-csb-darkblue">
+                  Via .NET CLI
+                </a>
+              </li>
+              <li>
+                <a href="#Via-Visual-Studio" class="is-csb-darkblue">
+                  Via Visual Studio
+                </a>
+              </li>
+              <li>
+                <a href="#Building-vs.-publishing" class="is-csb-darkblue">
+                  Building vs. publishing
+                </a>
+              </li>
+              <li>
+                <a href="#Via-.NET-CLI" class="is-csb-darkblue">
+                  Via .NET CLI
+                </a>
+              </li>
+              <li>
+                <a href="#Via-FAKE" class="is-csb-darkblue">
+                  Via FAKE
+                </a>
+              </li>
+              <li>
+                <a href="#Via-Visual-Studio" class="is-csb-darkblue">
+                  Via Visual Studio
+                </a>
+              </li>
+              <li>
+                <a href="#How-to-extend-console-apps" class="is-csb-darkblue">
+                  How to extend console apps
+                </a>
+              </li>
+              <li>
+                <a href="#Argu" class="is-csb-darkblue">
+                  Argu
+                </a>
+              </li>
+              <li>
+                <a href="#Spectre.Console" class="is-csb-darkblue">
+                  Spectre.Console
+                </a>
+              </li>
+              <li>
+                <a href="#ConsoleToolMenu" class="is-csb-darkblue">
+                  ConsoleToolMenu
+                </a>
+              </li>
+              <li>
+                <a href="#NLog" class="is-csb-darkblue">
+                  NLog
+                </a>
+              </li>
+              <li>
+                <a href="#App-conventions" class="is-csb-darkblue">
+                  App conventions
+                </a>
+              </li>
+              <li>
+                <a href="#Data-folders" class="is-csb-darkblue">
+                  Data folders
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+              <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item">
+                Home
+              </a>
+              <a class="navbar-item">
+                About
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                  Ontology 1o1
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2023-2-17 by
+                    <a href="https://github.com/omaus" class="is-csb-darkblue">
+                      Oliver Maus
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                      Study Notes
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Console-apps:-Above-and-beyond">Console apps: Above and beyond<a class="anchor-link" href="#Console-apps:-Above-and-beyond">&#182;</a></h1><p><em><a href="https://github.com/omaus">Oliver Maus</a></em></p>
+<h2 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h2><ul>
+<li><a href="#what-are-console-apps">What are console apps?</a></li>
+<li><a href="#how-do-net-console-apps-work">How do .NET console apps work?</a><ul>
+<li><a href="#proj-file">.*proj file</a></li>
+<li><a href="#framework-dependent-vs-self-contained">Framework-dependent vs. self-contained</a></li>
+<li><a href="#single-file-vs-folder">Single file vs. folder</a></li>
+</ul>
+</li>
+<li><a href="#how-to-create-an-f-console-app-in-net">How to create an F# console app in .NET</a><ul>
+<li><a href="#via-net-cli">Via .NET CLI</a></li>
+<li><a href="#via-visual-studio">Via Visual Studio</a></li>
+<li><a href="#building-vs-publishing">Building vs. publishing</a><ul>
+<li><a href="#via-net-cli-1">Via .NET CLI</a></li>
+<li><a href="#via-fake">Via FAKE</a></li>
+<li><a href="#via-visual-studio">Via Visual Studio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#how-to-extend-console-apps">How to extend console apps</a><ul>
+<li><a href="#argu">Argu</a></li>
+<li><a href="#spectreconsole">Spectre.Console</a></li>
+<li><a href="#consoletoolmenu">ConsoleToolMenu</a></li>
+<li><a href="#nlog">NLog</a></li>
+</ul>
+</li>
+<li><a href="#app-conventions">App conventions</a><ul>
+<li><a href="#data-folders">Data folders</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="What-are-console-apps?">What are console apps?<a class="anchor-link" href="#What-are-console-apps?">&#182;</a></h2><p>Console apps are, as the name suggests, applications that run in a console. That is any command-line interface (CLI) that can serve as an output for such an application.<br>
+In Windows, these are the Command Prompt (CMD), PowerShell (PS), and – optionally – Windows Terminal (WT).<br>
+Console apps, in contrast to applications with graphical user interfaces (GUIs), in general, do not support the use of a mouse but instead focus solely on keyboard usage.</p>
+<p><img src="../../img/wt.png" alt=""><br>
+<strong>Your best friend.</strong></p>
+<p><br></p>
+<p>Console apps are the easiest way to create an application with very little overhead, since most modern programming language frameworks offer support for creating them. Besides, the complexity of a simple console app is often a lot lower than a GUI-based application of the same functionality, and makes it much easier to create an easily accessible API by calling the console app through a CLI from another application.</p>
+<h2 id="How-do-.NET-console-apps-work?">How do .NET console apps work?<a class="anchor-link" href="#How-do-.NET-console-apps-work?">&#182;</a></h2><p>The .NET ecosystem allows for its core languages C#, F#, and Visual Basic.NET to create console app barebones that work (roughly) the same. You can choose between requiring a .NET SDK installed on your system to execute them, or to have everything packed in a file or folder.<br>
+Through various ways, .NET allows for modifying your console app beyond the code that it works on (which we will cover later).</p>
+<h3 id=".*proj-file">.*proj file<a class="anchor-link" href="#.*proj-file">&#182;</a></h3><p>C#, F#, and Visual Basic.NET applications and libraries are realized as projects. The information about a project is stored in its <a href="https://docs.microsoft.com/en-us/dotnet/core/project-sdk/overview#project-files">project file</a>. Depending on the language you use, those project file are either ending with <code>.csproj</code>, <code>.fsproj</code>, or <code>.vbproj</code> as file extension. These files are based on the <a href="https://www.tutorialspoint.com/xml/xml_overview.htm">XML standard</a> and thus can be easily read and edited by developers themselves without the need of other tools to alter them.</p>
+<p><strong>The minimum project file for an F# console app:</strong></p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;PropertyGroup&gt;</span>                               <span class="cm">&lt;!--Contains all properties of the project--&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>                <span class="cm">&lt;!--If this is not `Exe`, it won&#39;t be built into an executable file--&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>   <span class="cm">&lt;!--The framework version the project shall be based upon--&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+  <span class="nt">&lt;ItemGroup&gt;</span>                                   <span class="cm">&lt;!--Contains all files to be compiled when building the project, in chronological order--&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<h3 id="Program.fs-file">Program.fs file<a class="anchor-link" href="#Program.fs-file">&#182;</a></h3><p>Every new console app starts with a "Program.fs" source file which only consists of a "Hello From F#" print command.<br>
+Of course you don't need to stick with this. You can rename this file and change the code as you like but you have to make sure that there's at least 1 source file present to be compiled.
+It's important to know that when executing your app, the function called last will be the starting point of your program. In earlier versions of .NET, the compiler needed a starting point specified and it had to be a function itself (most often titled "main") but since .NET 6 this is not true anymore. Though, you can still use the "main function" approach.</p>
+<p><strong>The starting Program.fs in .NET 6:</strong></p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="c1">// For more information see https://aka.ms/fsharp-console-apps</span><span class="w"></span>
+<span class="n">printfn</span><span class="w"> </span><span class="s">"Hello from F#"</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>The starting Program.fs in .NET 5 and earlier:</strong></p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="c1">// Learn more about F# at http://docs.microsoft.com/dotnet/fsharp</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">System</span><span class="w"></span>
+
+<span class="c1">// Define a function to construct a message to print</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="n">whom</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">sprintf</span><span class="w"> </span><span class="s">"from %s"</span><span class="w"> </span><span class="n">whom</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="n">argv</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="s">"F#"</span><span class="w"> </span><span class="c1">// Call the function</span><span class="w"></span>
+<span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Hello world %s"</span><span class="w"> </span><span class="n">message</span><span class="w"></span>
+<span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="c1">// return an integer exit code</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>As you can see, in .NET 5 and earlier the starting point is specified via the <code>[&lt;EntryPoint&gt;]</code> attribute. The <code>argv</code> parameter will be the arguments put behind the call of the executable in the CLI. Since this is not done per se in .NET 6, you need to capture it via a <code>System.Console</code> method:</p>
+<p><strong>The starting Program.fs in .NET 6 with inclusion and usage of the input arguments:</strong></p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">userInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="nn">Environment</span><span class="p">.</span><span class="n">GetCommandLineArgs</span><span class="bp">()</span><span class="w">      </span><span class="c1">// first argument will always be the filepath to the executable</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Array</span><span class="p">.</span><span class="n">skip</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">args</span><span class="w"></span>
+
+<span class="n">printfn</span><span class="w"> </span><span class="s">"Hello from F# with userInput: %A"</span><span class="w"> </span><span class="n">userInput</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>The starting Program.fs in .NET 5 and earlier with usage of the input arguments:</strong></p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">open</span><span class="w"> </span><span class="nn">System</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="n">whom</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="n">sprintf</span><span class="w"> </span><span class="s">"from %s"</span><span class="w"> </span><span class="n">whom</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="n">argv</span><span class="w"> </span><span class="o">=</span><span class="w">     </span><span class="c1">// `argv` will always exclude the filepath to the executable</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="s">"F#"</span><span class="w"></span>
+<span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Hello %s with userInput: %A"</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">argv</span><span class="w"></span>
+<span class="w">    </span><span class="mi">0</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Both apps will result in the following output when calling them:</p>
+<div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">testFolder</span><span class="p">\</span><span class="n">minimumConsoleAppNet6</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="n">Debug</span><span class="p">\</span><span class="n">net6</span><span class="p">.</span><span class="n">0</span><span class="p">\</span><span class="n">win-x64</span><span class="p">\</span><span class="n">publish</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">minimumConsoleAppNet6</span><span class="p">.</span><span class="n">exe</span> <span class="n">Hello</span><span class="p">,</span> <span class="n">too</span><span class="p">!</span>
+
+<span class="nb">PS </span><span class="n">C</span><span class="p">:\</span><span class="n">testFolder</span><span class="p">\</span><span class="n">minimumConsoleAppNet5</span><span class="p">\</span><span class="n">bin</span><span class="p">\</span><span class="n">Debug</span><span class="p">\</span><span class="n">net5</span><span class="p">.</span><span class="n">0</span><span class="p">\</span><span class="n">win-x64</span><span class="p">\</span><span class="n">publish</span><span class="p">&gt;</span> <span class="p">.\</span><span class="n">minimumConsoleAppNet5</span><span class="p">.</span><span class="n">exe</span> <span class="n">Hello</span><span class="p">,</span> <span class="n">too</span><span class="p">!</span>
+
+<span class="c"># output:</span>
+<span class="n">Hello</span> <span class="n">from</span> <span class="n">F</span><span class="c"># with userInput: [|&quot;Hello&quot;; &quot;too!&quot;|]</span>
+</pre></div>
+<h3 id="Framework-dependent-vs.-self-contained">Framework-dependent vs. self-contained<a class="anchor-link" href="#Framework-dependent-vs.-self-contained">&#182;</a></h3><p>As written before, it is your choice of what is to be required when executing your console app. When deploying framework-dependent, the runtime (i.e. the .NET SDK) <em>must</em> be installed for your app to be executable. When deploying self-contained, the runtime is already packed into your app. Both options have their (dis)advantages: In a framework-dependent scenario, the user might need to install the .NET SDK on his device before being able to use your program. This can be annoying for the users of your app, depending on if they work with the .NET framework regularly or having nothing to do with it.<br>
+Self-contained executables need more space since they pack the runtime into them (hence the name). This also leads to the problem that the runtime is device-dependent: The .NET SDK for Linux differs from that for Windows which differs from that for MacOS, meaning that you must choose for which operating system (OS) you want to deploy your tool.
+In the project file, the deployment type is written into the property group. If you choose self-contained, you need to specify the target runtime:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;SelfContained&gt;</span>true<span class="nt">&lt;/SelfContained&gt;</span>                 <span class="cm">&lt;!--If this is set to false or is absent, deployment type will be framework-dependent--&gt;</span>
+    <span class="nt">&lt;RuntimeIdentifier&gt;</span>win-x64<span class="nt">&lt;/RuntimeIdentifier&gt;</span>      <span class="cm">&lt;!--The OS your app shall run on--&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p>For a list of runtimes you can deploy to, look <a href="https://docs.microsoft.com/en-us/dotnet/core/rid-catalog#using-rids">here</a>.</p>
+<h3 id="Single-file-vs.-folder">Single file vs. folder<a class="anchor-link" href="#Single-file-vs.-folder">&#182;</a></h3><p>Default is that your console app will be deployed as an executable file inside a folder with all libraries and other files needed for the execution. Sometimes, especially when you don't have an installer for your application (which will mostly be the case) or you don't want your app users to handle <a href="https://experience.dropbox.com/resources/what-is-a-zip-file">ZIP archives</a>, it might be a good choice to use single file-deployment. In that case, the whole folder content will be packed into a single file which itself will serve as an archive that gets extracted</p>
+<ul>
+<li>into the user's temp folder at runtime and then executed (.NET 5).  </li>
+<li>directly into the memory and then executed (.NET 6).<br>
+Using the single file deployment comes at the cost of a slightly slower startup time due to the extraction process.</li>
+</ul>
+<p><img src="../../img/SelfExtractNet5.png" alt=""><br>
+<strong>Our minimum console app in its extracted state (.NET 5).</strong></p>
+<p><br></p>
+<p>This is what our project file for single file deployment would look like:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;PublishSingleFile&gt;</span>true<span class="nt">&lt;/PublishSingleFile&gt;</span>                             <span class="cm">&lt;!--If this is set to false or is absent, deployment type will be folder--&gt;</span>
+    <span class="nt">&lt;IncludeAllContentForSelfExtract&gt;</span>true<span class="nt">&lt;/IncludeAllContentForSelfExtract&gt;</span> <span class="cm">&lt;!--Only needed in .NET versions below 6 to generate &quot;real&quot; single files--&gt;</span>
+    <span class="nt">&lt;RuntimeIdentifier&gt;</span>win-x64<span class="nt">&lt;/RuntimeIdentifier&gt;</span>                          <span class="cm">&lt;!--`&lt;SelfContained&gt;` is missing, since `&lt;PublishSingleFile&gt;` sets this to true, but the runtime identifier is still needed--&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p>Unfortunately, even for our small example app (which does nothing else than printing a single string), the required space is quite large (~ 65 MB). This is due to the large .NET SDK runtime shipped. Luckily, there are some features we can use to decrease the file size:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;PublishSingleFile&gt;</span>true<span class="nt">&lt;/PublishSingleFile&gt;</span>
+    <span class="nt">&lt;RuntimeIdentifier&gt;</span>win-x64<span class="nt">&lt;/RuntimeIdentifier&gt;</span>
+    <span class="nt">&lt;EnableCompressionInSingleFile&gt;</span>true<span class="nt">&lt;/EnableCompressionInSingleFile&gt;</span>     <span class="cm">&lt;!--Applies compression like in ZIP archives--&gt;</span>
+    <span class="nt">&lt;PublishTrimmed&gt;</span>true<span class="nt">&lt;/PublishTrimmed&gt;</span>                                   <span class="cm">&lt;!--Checks during compiletime (into CIL) for unused core libraries and classes and excludes them--&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p><code>&lt;EnableCompression&gt;</code> decreases file size by about 50 %. This comes at the cost of a higher startup time.<br>
+<code>&lt;PublishTrimmed&gt;</code> decreases file size depending on the number of unused libraries and classes but compiletime is noticeably increased. Since this feature is still in beta stage, it is possible that the resulting app does not start or fails under special circumstances, though this seems rarely to be the case (I personally never encountered it).</p>
+<p>There are a lot (!) of different properties you can set in your project file. I won't cover all of them here, but here are a few other things that might be important to you:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;PublishSingleFile&gt;</span>true<span class="nt">&lt;/PublishSingleFile&gt;</span>
+    <span class="nt">&lt;RuntimeIdentifier&gt;</span>win-x64<span class="nt">&lt;/RuntimeIdentifier&gt;</span>
+    <span class="nt">&lt;CultureInvariant&gt;</span>true<span class="nt">&lt;/CultureInvariant&gt;</span>       <span class="cm">&lt;!--Depending on the regional settings of your system, you might get problems with different signs (`,`, `.`, and so on)--&gt;</span>
+                                                    <span class="cm">&lt;!--Due to this, it is best practice to set `&lt;CultureInvariant&gt;` to true, so that you don&#39;t have to expect parsing errors--&gt;</span>
+    <span class="nt">&lt;InvariantGlobalization&gt;</span>true<span class="nt">&lt;/InvariantGlobalization&gt;</span>   <span class="cm">&lt;!--Comparable to the setting above--&gt;</span>
+    <span class="nt">&lt;ServerGarbageCollection&gt;</span>true<span class="nt">&lt;/ServerGarbageCollection&gt;</span>     <span class="cm">&lt;!--Important to set this to true if you don&#39;t want to expect performance problems due to garbage collection--&gt;</span>
+    <span class="nt">&lt;Version&gt;</span>0.0.1<span class="nt">&lt;/Version&gt;</span>                    <span class="cm">&lt;!--There are 3 version settings: `&lt;Version&gt;`, `AssemblyVersion&gt;, and `FileVersion`. `&lt;Version&gt;` is an informal version tag of your application--&gt;</span>
+    <span class="nt">&lt;AssemblyVersion&gt;</span>0.0.1.0<span class="nt">&lt;/AssemblyVersion&gt;</span>  <span class="cm">&lt;!--`&lt;AssemblyVersion&gt;` is the version tag that you can access to while using your app via `System.Reflection.Assembly.GetExecutingAssembly()`--&gt;</span>
+    <span class="nt">&lt;FileVersion&gt;</span>0.0.1.0<span class="nt">&lt;/FileVersion&gt;</span>          <span class="cm">&lt;!--This is the version tag that you can see when rightclicking on your app and looking at the properties. It defaults to 1.0.0.0--&gt;</span>
+                                                <span class="cm">&lt;!--Keep in mind that the versioning follows the `(Major).(Minor).(Build).(Revision)` pattern (except `&lt;Version&gt;` tag)--&gt;</span>
+
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p><em>(<a href="https://dotnetcoretutorials.com/2021/11/10/single-file-apps-in-net-6/">Further reading</a>)</em></p>
+<h2 id="How-to-create-an-F%23-console-app-in-.NET">How to create an F# console app in .NET<a class="anchor-link" href="#How-to-create-an-F%23-console-app-in-.NET">&#182;</a></h2><p>There are several ways to start a console app written in F#. As prerequisite you need to have the .NET SDK installed.</p>
+<h3 id="Via-.NET-CLI">Via .NET CLI<a class="anchor-link" href="#Via-.NET-CLI">&#182;</a></h3><p>With the .NET SDK installed, you already are able to create a console app barebone into your folder with any CLI using the following command:</p>
+<div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">new</span> <span class="n">console</span> <span class="n">-lang</span> <span class="s2">&quot;F#&quot;</span> <span class="p">-</span><span class="n">-framework</span> <span class="n">net6</span><span class="p">.</span><span class="n">0</span>    <span class="c"># or any other .NET version you want to use</span>
+</pre></div>
+<p>You can also specify an output path (<code>-o [yourPath]</code>) and a name (<code>-n [desiredName]</code>).</p>
+<p>The console app will consist of the project file (as seen above) and the Program.fs file.</p>
+<h3 id="Via-Visual-Studio">Via Visual Studio<a class="anchor-link" href="#Via-Visual-Studio">&#182;</a></h3><p>Open a new Visual Studio instance:</p>
+<p><img src="../../img/CreateANewProjectWindow1.png" alt=""><br>
+<strong>Select F# Console Application. If not present, filter for F# language.</strong></p>
+<p><br></p>
+<p><img src="../../img/CreateANewProjectWindow2.png" alt=""><br>
+<strong>Choose name and location of your console app.</strong></p>
+<p><br></p>
+<p><img src="../../img/CreateANewProjectWindow3.png" alt=""><br>
+<strong>Choose your target .NET version.</strong></p>
+<p><br></p>
+<h3 id="Building-vs.-publishing">Building vs. publishing<a class="anchor-link" href="#Building-vs.-publishing">&#182;</a></h3><p>When creating a file from the project, <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild?view=vs-2022">MSBuild (the Microsoft Build Engine)</a> takes the information from the project file to determine what and how to build. But you are not restricted to that. Most of the MSBuild information can be given directly when deploying the app (see below).<br>
+As compiling methods you can choose between building and publishing. When building, all files and dependencies get compiled and an executable will be created. When publishing, building will be executed but on top it will be taken into account that the result shall be used as a whole (in the shape of a file or a folder), thus putting everything together and making it deployable. For normal, you <em>build</em> libraries to use them and <em>build</em> console apps to test them but you <em>publish</em> console apps when you want to distribute them. Since publishing is special to apps in general (but not to libraries), we will focus on it in the following.</p>
+<h4 id="Via-.NET-CLI">Via .NET CLI<a class="anchor-link" href="#Via-.NET-CLI">&#182;</a></h4><p>Using a CLI, publishing your project works as follows:</p>
+<div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">publish</span>
+</pre></div>
+<p>when executed in the folder where project file is located, otherwise the path to the project file containing folder or to the project file itself must be given:</p>
+<div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">publish</span> <span class="n">C</span><span class="p">:\</span><span class="n">testFolder</span><span class="p">\</span><span class="n">minimumConsoleAppNet6</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="n">C</span><span class="p">:\</span><span class="n">testFolder</span><span class="p">\</span><span class="n">minimumConsoleAppNet6</span><span class="p">\</span><span class="n">minimumConsoleAppNet6</span><span class="p">.</span><span class="n">fsproj</span>
+
+<span class="c"># relative paths are possible too</span>
+</pre></div>
+<p>As written earlier, you can give a lot of arguments into MSBuild, e.g.:</p>
+<div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">publish</span> <span class="n">-o</span> <span class="no">[path]</span>                        <span class="c"># output directory</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="o">-f</span> <span class="no">[framework]</span>                   <span class="c"># target framework, e.g. `net6.0`</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="n">-r</span> <span class="no">[rID]</span>                         <span class="c"># target runtime, `[rID]` being the runtime identifier, as seen in the project file above</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="p">-</span><span class="n">-self-contained</span> <span class="no">[true]</span><span class="p">/</span><span class="no">[false]</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="n">-p</span><span class="p">:</span><span class="no">[propName]</span><span class="p">=</span><span class="no">[value]</span>            <span class="c"># `[propName]` is the name of the property you want to set, [value] the value you want to set it to, e.g.</span>
+<span class="n">dotnet</span> <span class="n">publish</span> <span class="n">-p</span><span class="p">:</span><span class="n">PublishSingleFile</span><span class="p">=</span><span class="n">true</span>
+</pre></div>
+<p>For a full list of commands, look <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish">here</a>.</p>
+<h4 id="Via-FAKE">Via FAKE<a class="anchor-link" href="#Via-FAKE">&#182;</a></h4><p><a href="https://fake.build/">FAKE</a> is a nice tool that aids with automatizing building, publishing and deploying. It also allows to chain Unit Tests while doing so.<br>
+If you already have a FAKE build script ready, it is very easy to extend it with a publishing task:<br>
+(If not, you might want to look into the FAKE build scripts we use in our repositories)</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="c1">// we start with a simple build</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">publishBinariesWin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">BuildTask</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">"PublishBinariesWin"</span><span class="w"> </span><span class="o">[</span><span class="n">clean</span><span class="o">.</span><span class="n">IfNeeded</span><span class="o">;</span><span class="w"> </span><span class="n">build</span><span class="o">.</span><span class="n">IfNeeded</span><span class="o">]</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">outputPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s/win-x64"</span><span class="w"> </span><span class="n">publishDir</span><span class="w"></span>
+<span class="w">    </span><span class="n">solutionFile</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">DotNet</span><span class="p">.</span><span class="n">publish</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// and then call MSBuild to run with the arguments we parse into it:</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">standardParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Fake</span><span class="p">.</span><span class="nn">DotNet</span><span class="p">.</span><span class="nn">MSBuild</span><span class="p">.</span><span class="nn">CliArguments</span><span class="p">.</span><span class="n">Create</span><span class="w"> </span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="o">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">p</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                </span><span class="c1">// set some of the properties...</span><span class="w"></span>
+<span class="w">                </span><span class="n">Runtime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="s">"win-x64"</span><span class="w"></span>
+<span class="w">                </span><span class="n">Configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">DotNet</span><span class="p">.</span><span class="nn">BuildConfiguration</span><span class="p">.</span><span class="n">fromString</span><span class="w"> </span><span class="n">configuration</span><span class="w"></span>
+<span class="w">                </span><span class="n">OutputPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="n">outputPath</span><span class="w"></span>
+<span class="w">                </span><span class="n">MSBuildParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">standardParams</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                        </span><span class="n">Properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w">      </span><span class="c1">// here you can set all the properties that were not treated before</span><span class="w"></span>
+<span class="w">                            </span><span class="s">"Version"</span><span class="o">,</span><span class="w"> </span><span class="n">stableVersionTag</span><span class="w"></span>
+<span class="w">                            </span><span class="s">"Platform"</span><span class="o">,</span><span class="w"> </span><span class="s">"x64"</span><span class="w"></span>
+<span class="w">                            </span><span class="s">"PublishSingleFile"</span><span class="o">,</span><span class="w"> </span><span class="s">"true"</span><span class="w"></span>
+<span class="w">                        </span><span class="o">]</span><span class="w"></span>
+<span class="w">                </span><span class="o">};</span><span class="w"></span>
+<span class="w">        </span><span class="o">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">)</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Via-Visual-Studio">Via Visual Studio<a class="anchor-link" href="#Via-Visual-Studio">&#182;</a></h4><p><img src="../../img/Publish1.png" alt=""><br>
+<strong>Right click on your project file in the solution explorer and choose "Publish...".</strong></p>
+<p><br></p>
+<p><img src="../../img/Publish2.png" alt=""><br>
+<strong>Choose your desired output target (e.g. "Folder" if you like to get your executable file in a folder).</strong></p>
+<p><br></p>
+<p><img src="../../img/Publish3.png" alt=""><br>
+<strong>Set the output path.</strong></p>
+<p><br></p>
+<p><img src="../../img/Publish4.png" alt=""><br>
+<strong>By clicking on "Show all settings" you can apply additional settings like deployment type, target runtime, etc. Finish the publishing via clicking on "Publish" at the top.</strong></p>
+<h2 id="How-to-extend-console-apps">How to extend console apps<a class="anchor-link" href="#How-to-extend-console-apps">&#182;</a></h2><p>You now know how to create and deploy console apps but of course you want more than just printing Hello to the World.<br>
+The most common extension of your current console app (besides adding code) is the addition of further source files. You can either just create the file in the project folder and add it to the project file...</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;SecondSourceFile.fs&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p>...or use the Visual Studio interface for that:</p>
+<p><img src="../../img/AddFile1.png" alt=""></p>
+<p><br></p>
+<p>Keep in mind that your executing source file (most often Program.fs) must be at the last position!</p>
+<p><br></p>
+<p>What will also often be the case, is that you will want to use external libraries inside your tool. <a href="https://www.nuget.org/">NuGet</a> is the best source for that. To add a NuGet package to your app, you can either add the line for it to the project file, or use the .NET CLI or Visual Studio for doing so:</p>
+<div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">add</span> <span class="n">package</span> <span class="no">[packageName]</span>    <span class="c"># with `[packageName]` being, e.g., `FSharpAux`</span>
+</pre></div>
+<p><img src="../../img/ManageNuGet1.png" alt=""></p>
+<p><br></p>
+<p><img src="../../img/ManageNuGet2.png" alt=""></p>
+<p><br></p>
+<p>The resulting project file:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;OutputType&gt;</span>Exe<span class="nt">&lt;/OutputType&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>net6.0<span class="nt">&lt;/TargetFramework&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;Compile</span> <span class="na">Include=</span><span class="s">&quot;Program.fs&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">&quot;FSharpAux&quot;</span> <span class="na">Version=</span><span class="s">&quot;1.1.0&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+<p>There are a few very helpful libraries for console apps that I want to show you in the following.</p>
+<h3 id="Argu">Argu<a class="anchor-link" href="#Argu">&#182;</a></h3><p><a href="https://fsprojects.github.io/Argu/">Argu</a> is a library which facilitates the creation of command-line argument parsing a lot for you. It allows you to create commands and infinitely nestable subcommands for your console app. It comes with built-in error parsing and creating a simple help-command that grows along the commands you add.<br>
+Due to its implementation in F#, it is especially simple to use in F# console apps.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: Argu, 6.1.1"</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">Argu</span><span class="w"></span>
+
+<span class="c1">// Union type for a kind of command</span><span class="w"></span>
+<span class="k">type</span><span class="w"> </span><span class="nc">MainCommands</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// each field is a command. Specific properties are realized via attributes</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">CliPrefix</span><span class="o">(</span><span class="nn">CliPrefix</span><span class="p">.</span><span class="n">None</span><span class="o">)&gt;]</span><span class="w">                         </span><span class="n">PrintHWFs</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">CliPrefix</span><span class="o">(</span><span class="nn">CliPrefix</span><span class="p">.</span><span class="n">None</span><span class="o">)&gt;]</span><span class="w">                         </span><span class="n">PrintHWfrom</span><span class="w">     </span><span class="k">of</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the `ParseResults&lt;yourType&gt;` type makes subcommands possible (see below)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">CliPrefix</span><span class="o">(</span><span class="nn">CliPrefix</span><span class="p">.</span><span class="n">None</span><span class="o">)&gt;][&lt;</span><span class="n">AltCommandLine</span><span class="o">(</span><span class="s">"-e"</span><span class="o">)&gt;]</span><span class="w"> </span><span class="n">PrintHWextended</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">ParseResults</span><span class="o">&lt;</span><span class="n">SubCommands</span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the `IArgParserTemplates` allows for adding usage descriptions which are shown when calling `--help` or giving a wrong input argument</span><span class="w"></span>
+<span class="w">    </span><span class="k">interface</span><span class="w"> </span><span class="n">IArgParserTemplate</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Usage</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWFs</span><span class="w">         </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Print Hello World"</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWfrom</span><span class="w"> </span><span class="o">_</span><span class="w">     </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Print Hello World from someone"</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWextended</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Print Hello World from someone to someone"</span><span class="w"></span>
+
+<span class="ow">and</span><span class="w"> </span><span class="n">SubCommands</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">To</span><span class="w">       </span><span class="k">of</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">FromTo</span><span class="w">   </span><span class="k">of</span><span class="w"> </span><span class="n">sender</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">receiver</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="k">interface</span><span class="w"> </span><span class="n">IArgParserTemplate</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="k">member</span><span class="w"> </span><span class="n">this</span><span class="p">.</span><span class="nf">Usage</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="o">_</span><span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Receiver of the message"</span><span class="w"></span>
+<span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">FromTo</span><span class="w"> </span><span class="o">_</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Sender and receiver of the message"</span><span class="w"></span>
+
+<span class="c1">// initialization of the parser</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">ArgumentParser</span><span class="p">.</span><span class="n">Create</span><span class="o">&lt;</span><span class="n">MainCommands</span><span class="o">&gt;</span><span class="bp">()</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="n">argv</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">// parse the user's command-line arguments</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">pr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="o">.</span><span class="n">ParseCommandLine</span><span class="o">(</span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="o">,</span><span class="w"> </span><span class="n">raiseOnUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// return the results</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">ar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pr</span><span class="o">.</span><span class="n">GetAllResults</span><span class="bp">()</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// this is the actual control flow: What shall happen if the user gives what argument, what second argument, and so on</span><span class="w"></span>
+<span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">ar</span><span class="o">.</span><span class="n">Length</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"No input."</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="n">ar</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="w"> </span><span class="o">(</span><span class="w"></span>
+<span class="w">                </span><span class="k">fun</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                    </span><span class="k">match</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWFs</span><span class="w">         </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Hello World from F#!"</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWfrom</span><span class="w"> </span><span class="n">p</span><span class="w">     </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Hello World from {p}!"</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">PrintHWextended</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                        </span><span class="n">p</span><span class="o">.</span><span class="n">GetAllResults</span><span class="bp">()</span><span class="w"></span>
+<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="w"> </span><span class="o">(</span><span class="w"></span>
+<span class="w">                            </span><span class="k">fun</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                                </span><span class="k">match</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                                </span><span class="o">|</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">p2</span><span class="w">             </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Hello World from F# to {p2}!"</span><span class="w"></span>
+<span class="w">                                </span><span class="o">|</span><span class="w"> </span><span class="n">FromTo</span><span class="w"> </span><span class="o">(</span><span class="n">p2</span><span class="o">,</span><span class="n">p3</span><span class="o">)</span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="o">$</span><span class="s">"Hello World from {p2} to {p3}!"</span><span class="w"></span>
+<span class="w">                        </span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">with</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"%A"</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
+<span class="w">    </span><span class="mi">0</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Notable examples:</p>
+<ul>
+<li><a href="https://github.com/nfdi4plants/arcCommander">ArcCommander</a></li>
+<li><a href="https://github.com/CSBiology/ProteomIQon">ProteomIqon</a></li>
+</ul>
+<h3 id="Spectre.Console">Spectre.Console<a class="anchor-link" href="#Spectre.Console">&#182;</a></h3><p>Another library extending command-line argument parsing is <a href="https://spectreconsole.net/">Spectre.Console</a>. Compared to Argu, it is less intuitive to use in an F# project due to its object-oriented (OO) design. Aside from that, it comes with a load of extra features like table depiction, tree construction, live updates, charts, and even pixel drawings!</p>
+<p>Setting a table:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: Spectre.Console, 0.43.0"</span><span class="w"></span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharpAux, 1.1.0"</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">System</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">System.IO</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">System.Threading</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Spectre.Console</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// a test file for our purposes</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">table</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">File</span><span class="p">.</span><span class="n">ReadAllLines</span><span class="o">(</span><span class="nn">Path</span><span class="p">.</span><span class="n">Combine</span><span class="o">(</span><span class="s">"c:"</span><span class="o">,</span><span class="w"> </span><span class="s">"testFolder"</span><span class="o">,</span><span class="w"> </span><span class="s">"table.tsv"</span><span class="o">))</span><span class="w"></span>
+<span class="w">        </span><span class="n">file</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="w"></span>
+<span class="w">            </span><span class="k">fun</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">Split</span><span class="o">(</span><span class="sc">'\t'</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">array2D</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// initialize a new table and set the border style</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">spectreTable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Table</span><span class="bp">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">spectreTable</span><span class="o">.</span><span class="n">Border</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">TableBorder</span><span class="p">.</span><span class="n">HeavyHead</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="o">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="w"> </span><span class="o">..]</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="o">[</span><span class="mi">1</span><span class="w"> </span><span class="o">..,</span><span class="mi">0</span><span class="w"> </span><span class="o">..]</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// apply some markup to our strings</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">markupdCols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">($</span><span class="s">"[bold][italic]{s}[/][/]"</span><span class="o">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">markupdRows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">        </span><span class="n">rows</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array2D</span><span class="p">.</span><span class="n">mapColI</span><span class="w"> </span><span class="o">(</span><span class="w"></span>
+<span class="w">            </span><span class="k">fun</span><span class="w"> </span><span class="n">iCol</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">iCol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">                    </span><span class="k">match</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">80</span><span class="w">     </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[red]{s}[/]"</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">80</span><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[green]{s}[/]"</span><span class="w"></span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w">                 </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">failwith</span><span class="w"> </span><span class="s">"cannot happen"</span><span class="w"></span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="n">s</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// add columns and rows to the table</span><span class="w"></span>
+<span class="w">    </span><span class="n">spectreTable</span><span class="o">.</span><span class="n">AddColumns</span><span class="o">(</span><span class="n">markupdCols</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">rows</span><span class="o">.</span><span class="n">GetLength</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">        </span><span class="n">spectreTable</span><span class="o">.</span><span class="n">AddRow</span><span class="o">(</span><span class="n">markupdRows</span><span class="o">.[</span><span class="n">i</span><span class="o">,</span><span class="mi">0</span><span class="w"> </span><span class="o">..])</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">spectreTable</span><span class="o">.</span><span class="n">Title</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">TableTitle</span><span class="o">(</span><span class="s">"Musterpeople"</span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// display the table</span><span class="w"></span>
+<span class="w">    </span><span class="nn">AnsiConsole</span><span class="p">.</span><span class="n">Write</span><span class="o">(</span><span class="n">spectreTable</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Construct a tree:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">type</span><span class="w"> </span><span class="nc">Dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Name</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">    </span><span class="n">Subdirs</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Dir</span><span class="w"> </span><span class="bp">[]</span><span class="w"></span>
+<span class="w">    </span><span class="n">Files</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">FileInfo</span><span class="w"> </span><span class="bp">[]</span><span class="w"></span>
+<span class="o">}</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// special markup for special files</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">matchFileExt</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".jpg"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[orange1]{f}[/]"</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".png"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[gold1]{f}[/]"</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".txt"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".xlsx"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[green]{f}[/]"</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".pub"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[darkslategray3]{f}[/]"</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="o">(</span><span class="s">".rtf"</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">$</span><span class="s">"[blue]{f}[/]"</span><span class="w"></span>
+<span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rec</span><span class="w"> </span><span class="n">constructDir</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="n">DirectoryInfo</span><span class="w"> </span><span class="n">path</span><span class="o">).</span><span class="n">Name</span><span class="w"></span>
+<span class="w">        </span><span class="n">Files</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nn">Directory</span><span class="p">.</span><span class="n">GetFiles</span><span class="o">(</span><span class="n">path</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">FileInfo</span><span class="w"></span>
+<span class="w">        </span><span class="n">Subdirs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">            </span><span class="nn">Directory</span><span class="p">.</span><span class="n">GetDirectories</span><span class="o">(</span><span class="n">path</span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">constructDir</span><span class="w"></span>
+<span class="w">    </span><span class="o">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">topDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constructDir</span><span class="w"> </span><span class="s">@"C:\testFolder\testDir"</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// add a node with every new file and folder but only check folders for files and subfolders</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rec</span><span class="w"> </span><span class="n">addNode</span><span class="w"> </span><span class="o">(</span><span class="n">node</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TreeNode</span><span class="o">)</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">dir</span><span class="o">.</span><span class="n">Subdirs</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">di</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">addNode</span><span class="w"> </span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="n">AddNode</span><span class="o">(</span><span class="n">di</span><span class="o">.</span><span class="n">Name</span><span class="o">))</span><span class="w"> </span><span class="n">di</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">        </span><span class="n">dir</span><span class="o">.</span><span class="n">Files</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">fi</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">node</span><span class="o">.</span><span class="n">AddNode</span><span class="o">(</span><span class="n">fi</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">matchFileExt</span><span class="o">))</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">        </span><span class="n">node</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// initialize tree and style it</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tree</span><span class="o">(</span><span class="n">topDir</span><span class="o">.</span><span class="n">Name</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">root</span><span class="o">.</span><span class="n">Style</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Style</span><span class="o">(</span><span class="nn">Color</span><span class="p">.</span><span class="n">Red1</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">root</span><span class="o">.</span><span class="n">Guide</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">TreeGuide</span><span class="p">.</span><span class="n">Line</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// add the nodes</span><span class="w"></span>
+<span class="w">    </span><span class="n">root</span><span class="o">.</span><span class="n">AddNodes</span><span class="o">(</span><span class="n">topDir</span><span class="o">.</span><span class="n">Files</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">fi</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">fi</span><span class="o">.</span><span class="n">Name</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">matchFileExt</span><span class="o">))</span><span class="w"></span>
+<span class="w">    </span><span class="n">topDir</span><span class="o">.</span><span class="n">Subdirs</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">fun</span><span class="w"> </span><span class="n">di</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="n">addNode</span><span class="w"> </span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="n">AddNode</span><span class="o">(</span><span class="n">di</span><span class="o">.</span><span class="n">Name</span><span class="o">))</span><span class="w"> </span><span class="n">di</span><span class="w"></span>
+<span class="w">    </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+
+<span class="w">    </span><span class="nn">AnsiConsole</span><span class="p">.</span><span class="n">Write</span><span class="o">(</span><span class="n">root</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Building a Bar Chart:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">noOfContributionsIn2021</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="o">[|(</span><span class="s">"muehlhaus"</span><span class="o">,</span><span class="w"> </span><span class="mi">158</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"geodels"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"MikhayN"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"HLWeil"</span><span class="o">,</span><span class="w"> </span><span class="mi">463</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="s">"ZimmerD"</span><span class="o">,</span><span class="w"> </span><span class="mi">273</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"kMutagene"</span><span class="o">,</span><span class="w"> </span><span class="mi">1858</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"bvenn"</span><span class="o">,</span><span class="w"> </span><span class="mi">260</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"Etschbeijer"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="s">"bellacapilla"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"Joott"</span><span class="o">,</span><span class="w"> </span><span class="mi">754</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"Freymaurer"</span><span class="o">,</span><span class="w"> </span><span class="mi">710</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"SchuckL"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="s">"omaus"</span><span class="o">,</span><span class="w"> </span><span class="mi">609</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"ZimmerA"</span><span class="o">,</span><span class="w"> </span><span class="mi">352</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"LibraChris"</span><span class="o">,</span><span class="w"> </span><span class="mi">121</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"CMR248"</span><span class="o">,</span><span class="w"> </span><span class="mi">122</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="s">"JessicaFaryadMarani"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"zieglerSe"</span><span class="o">,</span><span class="w"> </span><span class="mi">18</span><span class="o">);</span><span class="w"> </span><span class="o">(</span><span class="s">"Falkenei"</span><span class="o">,</span><span class="w"> </span><span class="mi">7</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="s">"vLeidel"</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">)|]</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">filter</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">person</span><span class="o">,</span><span class="n">conts</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">conts</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">sortByDescending</span><span class="w"> </span><span class="n">snd</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[|</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Red</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Gold1</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Lime</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Yellow</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Blue</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Fuchsia</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Silver</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Teal</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Olive</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Maroon</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">White</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">LightSteelBlue1</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">LightPink1</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Green</span><span class="w"></span>
+<span class="w">        </span><span class="nn">Color</span><span class="p">.</span><span class="n">Aqua</span><span class="w"></span>
+<span class="w">    </span><span class="o">|]</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Random</span><span class="bp">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// initialize bar chart with style</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">barChart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BarChart</span><span class="bp">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">barChart</span><span class="o">.</span><span class="n">Width</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">100</span><span class="w"></span>
+<span class="w">    </span><span class="n">barChart</span><span class="o">.</span><span class="n">Label</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">"[underline]No. of GitHub contributions (in 2021)[/]"</span><span class="w"></span>
+<span class="w">    </span><span class="n">barChart</span><span class="o">.</span><span class="n">CenterLabel</span><span class="bp">()</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// add a bar with a new color (and make sure the color is unique)</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rec</span><span class="w"> </span><span class="n">addWithColor</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">usedColors</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colors</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">shuffleFisherYates</span><span class="w"> </span><span class="n">rnd</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">head</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">cond1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">noOfContributionsIn2021</span><span class="o">.</span><span class="n">Length</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">cond2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">usedColors</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">cond1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">cond2</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="n">barChart</span><span class="o">.</span><span class="n">AddItem</span><span class="o">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">noOfContributionsIn2021</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">fst</span><span class="o">,</span><span class="w"> </span>
+<span class="w">                </span><span class="n">noOfContributionsIn2021</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">snd</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">float</span><span class="o">,</span><span class="w"> </span>
+<span class="w">                </span><span class="n">color</span><span class="w"></span>
+<span class="w">            </span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">            </span><span class="n">addWithColor</span><span class="w"> </span><span class="o">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">color</span><span class="w"> </span><span class="o">::</span><span class="w"> </span><span class="n">usedColors</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">elif</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">usedColors</span><span class="w"> </span><span class="k">then</span><span class="w"></span>
+<span class="w">            </span><span class="n">addWithColor</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">usedColors</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">addWithColor</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="bp">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="nn">AnsiConsole</span><span class="p">.</span><span class="n">Write</span><span class="o">(</span><span class="n">barChart</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>(Re)Drawing a picture:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: System.Drawing.Common, 6.0.0"</span><span class="w"></span>
+
+<span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">bm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="nn">Drawing</span><span class="p">.</span><span class="n">Bitmap</span><span class="o">(</span><span class="s">@"C:\testFolder\testDir\sp.png"</span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">xMax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bm</span><span class="o">.</span><span class="n">Width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">yMax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bm</span><span class="o">.</span><span class="n">Height</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// initialize a canvas with width and height</span><span class="w"></span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">cnvs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Canvas</span><span class="o">(</span><span class="n">xMax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">,</span><span class="n">yMax</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">yMax</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">xMax</span><span class="w"> </span><span class="k">do</span><span class="w"></span>
+<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bm</span><span class="o">.</span><span class="n">GetPixel</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="o">(</span><span class="n">px</span><span class="o">.</span><span class="n">R</span><span class="o">,</span><span class="w"> </span><span class="n">px</span><span class="o">.</span><span class="n">G</span><span class="o">,</span><span class="w"> </span><span class="n">px</span><span class="o">.</span><span class="n">B</span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// set pixel after pixel for our picture</span><span class="w"></span>
+<span class="w">            </span><span class="n">cnvs</span><span class="o">.</span><span class="n">SetPixel</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">,</span><span class="n">col</span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+
+<span class="w">    </span><span class="nn">AnsiConsole</span><span class="p">.</span><span class="n">Write</span><span class="o">(</span><span class="n">cnvs</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="bp">()</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Starting a live update:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">[&lt;</span><span class="n">EntryPoint</span><span class="o">&gt;]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// initialize a status report</span><span class="w"></span>
+<span class="w">    </span><span class="nn">AnsiConsole</span><span class="p">.</span><span class="n">Status</span><span class="bp">()</span><span class="o">.</span><span class="n">Start</span><span class="o">(</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// first message</span><span class="w"></span>
+<span class="w">        </span><span class="s">"Initiating looong list..."</span><span class="o">,</span><span class="w"> </span>
+<span class="w">        </span><span class="k">fun</span><span class="w"> </span><span class="n">stCtxt</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">            </span><span class="c1">// do our stuff</span><span class="w"></span>
+<span class="w">            </span><span class="nn">List</span><span class="p">.</span><span class="n">init</span><span class="w"> </span><span class="mi">100000000</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// update message after task is done</span><span class="w"></span>
+<span class="w">            </span><span class="n">stCtxt</span><span class="o">.</span><span class="n">Status</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">"Done."</span><span class="w"></span>
+<span class="w">            </span><span class="nn">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="ConsoleToolMenu">ConsoleToolMenu<a class="anchor-link" href="#ConsoleToolMenu">&#182;</a></h3><p>A library written by myself that shall provide a simple text-based interface. Its purpose lies especially in offering easy-to-create menu-like structures via the creation of <code>Options</code> that can be infinitely nested and assembled with actions that get called when choosing a bullet point.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">open</span><span class="w"> </span><span class="nn">ConsoleToolMenu</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">ConsoleToolMenu.Functions</span><span class="w"></span>
+
+<span class="c1">// initialize the options you want to have</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[|</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// each option consists of a name and an action that gets triggered when the option is chosen</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Option</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">"Option 1"</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Option 1 was chosen"</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Option</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">"Option 2"</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Option 2 was chosen"</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// options can serve as folders, inhabiting other options</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Option</span><span class="p">.</span><span class="n">createFolder</span><span class="w"> </span>
+<span class="w">        </span><span class="s">"Option 3"</span><span class="w"> </span>
+<span class="w">        </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"Option 3 was chosen"</span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">(</span><span class="nn">Array</span><span class="p">.</span><span class="n">map2</span><span class="w"> </span>
+<span class="w">            </span><span class="nn">Option</span><span class="p">.</span><span class="n">create</span><span class="w"> </span>
+<span class="w">            </span><span class="o">[|</span><span class="s">"SubOption1"</span><span class="o">;</span><span class="w"> </span><span class="s">"SubOption2"</span><span class="o">|]</span><span class="w"> </span>
+<span class="w">            </span><span class="o">[|(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"SubOption 1 was chosen"</span><span class="o">);</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"SubOption 2 was chosen"</span><span class="o">|]</span><span class="w"></span>
+<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Option</span><span class="p">.</span><span class="n">createFolder</span><span class="w"> </span>
+<span class="w">        </span><span class="s">"Option 4"</span><span class="w"> </span>
+<span class="w">        </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="bp">()</span><span class="o">)</span><span class="w"> </span>
+<span class="w">        </span><span class="o">[|</span><span class="nn">Option</span><span class="p">.</span><span class="n">createFolder</span><span class="w"> </span>
+<span class="w">            </span><span class="s">"SubOption 1b"</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="bp">()</span><span class="o">)</span><span class="w"> </span><span class="o">[|</span><span class="w"></span>
+<span class="w">                </span><span class="nn">Option</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="s">"SubSubOption 1"</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">printfn</span><span class="w"> </span><span class="s">"SubSubOption 1 chosen"</span><span class="o">)</span><span class="w"></span>
+<span class="w">            </span><span class="o">|]</span><span class="w"></span>
+<span class="w">        </span><span class="o">|]</span><span class="w"></span>
+<span class="o">|]</span><span class="w"></span>
+
+<span class="c1">// choose the look of your cursor</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">SelectionPointer</span><span class="p">.</span><span class="n">create</span><span class="w"> </span><span class="sc">'&gt;'</span><span class="w"></span>
+
+<span class="c1">// add messages for start and end</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">startMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hello there"</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">endMsg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Goodbye there"</span><span class="w"></span>
+<span class="c1">// start the menu. Use Up and Down arrow keys, and Enter and Escape to navigate</span><span class="w"></span>
+<span class="n">start</span><span class="w"> </span><span class="n">cursor</span><span class="w"> </span><span class="n">startMsg</span><span class="w"> </span><span class="n">endMsg</span><span class="w"> </span><span class="n">options</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="NLog">NLog<a class="anchor-link" href="#NLog">&#182;</a></h3><p>Logging is an important part of any bigger application. It makes debugging and app usage documentation much easier and logging libraries also often offer customization of the console appearance to some extent.<br>
+One of the largest logging libraries in the .NET ecosystem is <a href="https://nlog-project.org/">NLog</a>. It allows for writing to several targets (files and the console itself, e.g.) and can be customized via an XML-settings file or directly in code.<br>
+Like Spectre.Console, it is a C# library which means we have to use it in an OO way.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: NLog, 4.7.13"</span><span class="w"></span>
+
+<span class="k">open</span><span class="w"> </span><span class="nn">System.IO</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">NLog</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">NLog.Config</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">NLog.Targets</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">NLog.Conditions</span><span class="w"></span>
+
+<span class="c1">// we start with initializing the base config object which can be modified</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LoggingConfiguration</span><span class="bp">()</span><span class="w"></span>
+
+<span class="c1">// we initialize the first console target</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">consoleTarget1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ColoredConsoleTarget</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span><span class="w"></span>
+<span class="c1">// and set its layout to a new one we created. The string is parsed internally similar to how interpolated strings work</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">layoutConsole1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Layouts</span><span class="p">.</span><span class="n">SimpleLayout</span><span class="o">(</span><span class="s">@"${message} ${exception}"</span><span class="o">)</span><span class="w"></span>
+<span class="n">consoleTarget1</span><span class="o">.</span><span class="n">Layout</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">layoutConsole1</span><span class="w"></span>
+
+<span class="c1">// a second target that differs from the first one</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">consoleTarget2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ColoredConsoleTarget</span><span class="o">(</span><span class="s">"console"</span><span class="o">)</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">layoutConsole2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Layouts</span><span class="p">.</span><span class="n">SimpleLayout</span><span class="o">(</span><span class="s">@"${level:uppercase=true} ${message} ${exception}"</span><span class="o">)</span><span class="w"></span>
+<span class="n">consoleTarget2</span><span class="o">.</span><span class="n">Layout</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">layoutConsole2</span><span class="w"></span>
+
+<span class="c1">// a file target, for writing into a text file</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">fileTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileTarget</span><span class="o">(</span><span class="s">"file"</span><span class="o">)</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">folderPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">Combine</span><span class="o">(</span><span class="s">"C:"</span><span class="o">,</span><span class="w"> </span><span class="s">"testFolder"</span><span class="o">,</span><span class="w"> </span><span class="s">"minimumConsoleAppNet6"</span><span class="o">)</span><span class="w"></span>
+<span class="c1">// we set filename and layout for the file target</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">fileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Layouts</span><span class="p">.</span><span class="n">SimpleLayout</span><span class="o">(</span><span class="nn">Path</span><span class="p">.</span><span class="n">Combine</span><span class="w"> </span><span class="o">(</span><span class="n">folderPath</span><span class="o">,</span><span class="w"> </span><span class="s">@"minimumConsoleAppNet6.log"</span><span class="o">))</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">layoutFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Layouts</span><span class="p">.</span><span class="n">SimpleLayout</span><span class="o">(</span><span class="s">"${longdate} ${level:uppercase=true} ${message} ${exception}"</span><span class="o">)</span><span class="w"></span>
+<span class="n">fileTarget</span><span class="o">.</span><span class="n">FileName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fileName</span><span class="w"></span>
+<span class="n">fileTarget</span><span class="o">.</span><span class="n">Layout</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">layoutFile</span><span class="w"></span>
+
+<span class="c1">// the targets are added to the config object</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddTarget</span><span class="o">(</span><span class="n">consoleTarget1</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddTarget</span><span class="o">(</span><span class="n">consoleTarget2</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddTarget</span><span class="o">(</span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+
+<span class="c1">// we define rules for colors that shall differ from the default color theme (which is black background, grey font)</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">warnColorRule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsoleRowHighlightingRule</span><span class="bp">()</span><span class="w"></span>
+<span class="n">warnColorRule</span><span class="o">.</span><span class="n">Condition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConditionParser</span><span class="p">.</span><span class="n">ParseExpression</span><span class="o">(</span><span class="s">"level == LogLevel.Warn"</span><span class="o">)</span><span class="w"></span>
+<span class="n">warnColorRule</span><span class="o">.</span><span class="n">ForegroundColor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConsoleOutputColor</span><span class="p">.</span><span class="n">Yellow</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">errorColorRule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsoleRowHighlightingRule</span><span class="bp">()</span><span class="w"></span>
+<span class="n">errorColorRule</span><span class="o">.</span><span class="n">Condition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConditionParser</span><span class="p">.</span><span class="n">ParseExpression</span><span class="o">(</span><span class="s">"level == LogLevel.Error"</span><span class="o">)</span><span class="w"></span>
+<span class="n">errorColorRule</span><span class="o">.</span><span class="n">ForegroundColor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConsoleOutputColor</span><span class="p">.</span><span class="n">Red</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">fatalColorRule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ConsoleRowHighlightingRule</span><span class="bp">()</span><span class="w"></span>
+<span class="n">fatalColorRule</span><span class="o">.</span><span class="n">Condition</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConditionParser</span><span class="p">.</span><span class="n">ParseExpression</span><span class="o">(</span><span class="s">"level == LogLevel.Fatal"</span><span class="o">)</span><span class="w"></span>
+<span class="n">fatalColorRule</span><span class="o">.</span><span class="n">ForegroundColor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConsoleOutputColor</span><span class="p">.</span><span class="n">Red</span><span class="w"></span>
+<span class="n">fatalColorRule</span><span class="o">.</span><span class="n">BackgroundColor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nn">ConsoleOutputColor</span><span class="p">.</span><span class="n">DarkYellow</span><span class="w"></span>
+
+<span class="c1">// now we add the newly defined rules to the console target</span><span class="w"></span>
+<span class="n">consoleTarget2</span><span class="o">.</span><span class="n">RowHighlightingRules</span><span class="o">.</span><span class="n">Add</span><span class="o">(</span><span class="n">warnColorRule</span><span class="o">)</span><span class="w"></span>
+<span class="n">consoleTarget2</span><span class="o">.</span><span class="n">RowHighlightingRules</span><span class="o">.</span><span class="n">Add</span><span class="o">(</span><span class="n">errorColorRule</span><span class="o">)</span><span class="w"></span>
+<span class="n">consoleTarget2</span><span class="o">.</span><span class="n">RowHighlightingRules</span><span class="o">.</span><span class="n">Add</span><span class="o">(</span><span class="n">fatalColorRule</span><span class="o">)</span><span class="w"></span>
+
+<span class="c1">// we declare which message of a log level goes to which target</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Info</span><span class="o">,</span><span class="w"> </span><span class="n">consoleTarget1</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Info</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Trace</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"> </span><span class="c1">// here, we only write Trace and Debug log level into the file but don't show them in the console</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Debug</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Warn</span><span class="o">,</span><span class="w"> </span><span class="n">consoleTarget2</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Warn</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Error</span><span class="o">,</span><span class="w"> </span><span class="n">consoleTarget2</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Error</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Fatal</span><span class="o">,</span><span class="w"> </span><span class="n">consoleTarget2</span><span class="o">)</span><span class="w"></span>
+<span class="n">config</span><span class="o">.</span><span class="n">AddRuleForOneLevel</span><span class="o">(</span><span class="nn">LogLevel</span><span class="p">.</span><span class="n">Fatal</span><span class="o">,</span><span class="w"> </span><span class="n">fileTarget</span><span class="o">)</span><span class="w"></span>
+
+<span class="c1">// set the config for the logger</span><span class="w"></span>
+<span class="nn">LogManager</span><span class="p">.</span><span class="n">Configuration</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">config</span><span class="w"></span>
+
+<span class="c1">// finally, we bind a logger of the name "NLog logger" to the name log which we will use afterwards</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">LogManager</span><span class="p">.</span><span class="n">GetLogger</span><span class="o">(</span><span class="s">"NLog logger"</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Notable examples:</p>
+<ul>
+<li><a href="https://github.com/CSBiology/ProteomIQon">ProteomIqon</a></li>
+<li><a href="https://github.com/nfdi4plants/arcCommander">ArcCommander</a></li>
+</ul>
+<h2 id="App-conventions">App conventions<a class="anchor-link" href="#App-conventions">&#182;</a></h2><p>Stylewise, there are a few things to know:</p>
+<ul>
+<li>When tackling the naming of commands and subcommands, try to stick closely to easy to follow names. Look at the dotnet CLI or the Git CLI for impressions<ul>
+<li>This is especially important when designing your app API-wise</li>
+</ul>
+</li>
+<li><code>--[word]</code> or <code>-[letter]</code> for argument specifiers (as in Argu!)</li>
+<li>Not directly related to APIs, but it is common to return an <a href="https://en.wikipedia.org/wiki/Exit_status">exit integer</a>:<ul>
+<li>0 for successfull termination</li>
+<li>1 to 255 for any error</li>
+<li>Do this via returning the exit code as the last integer (see .NET 5 Program.fs example above) or use <code>System.Environment.Exit(code)</code></li>
+</ul>
+</li>
+<li>Try to keep your executing source file (default: Program.fs) as clean as possible. Like when working with libraries, try not to pack all the code into 1 source file but instead distribute it according to functionality into modules and classes within respective source files</li>
+</ul>
+<h3 id="Data-folders">Data folders<a class="anchor-link" href="#Data-folders">&#182;</a></h3><p>The following does not solely apply to console apps but to all applications in general:<br>
+More complex apps might need to read or save config or user-specific data. Best practice is to follow common standards for doing so, like <a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG Base Directory Specification</a> which is based on Linux or <a href="https://github.com/dirs-dev/directories-rs#design-goals">directories</a> which is platform-independent.</p>
+
+</div>
+</div>
+</div>
+</div>
+</
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
