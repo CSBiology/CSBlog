@@ -1,11 +1,18 @@
 let mutable pageRoot = ""
 
-#if !WATCH
-pageRoot <- "/CSBlog"
+// fix urls when deployed to base url (e.g. on gh pages via subdomain)
+#if WATCH
+let urlPrefix =
+  ""
+#else
+let urlPrefix =
+  "https://fslab.org/blog"
 #endif
 
-let prefixPath p = $"{pageRoot}{p}"
+/// returns a fixed urlby prefixing `urlPrefix`
+let prefixUrl url = sprintf "%s/%s" urlPrefix url
 
+/// injects websocket code necessary for hot reload on local preview via `dotnet fornax watch`
 let injectWebsocketCode (webpage:string) =
     let websocketScript =
         """
