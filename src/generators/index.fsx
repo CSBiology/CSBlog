@@ -20,17 +20,22 @@ let browse_categories_display (posts: NotebookPost list) =
     div [Class "content"] [
         h1 [Class "title is-capitalized is-inline-block is-emphasized-csb-darkblue is-size-3"] [!!"Browse categories"]
         div [Class "container"] [
-            ul [Class "mt-0"] (
-                posts
-                |> List.countBy (fun p -> p.post_config.category)
-                |> List.map (fun (c,count) ->
-                    let link = Globals.prefixUrl $"posts/categories/{c}.html"
-                    li [] [
-                        h3 [Class "subtitle mb-1 is-size-4"] [a [Href link; Class "orange-link"] [!! $"{c |> PostCategory.toString} [{count}]"] ]
-                        p [Class "is-size-6"] [!! (c |> PostCategory.getDescription)]
-                    ]
-                )
-            )
+            ul [Class "mt-0"] [
+                li [] [
+                    h3 [Class "subtitle mb-1 is-size-4"] [a [Href (Globals.prefixUrl "posts/all_posts.html"); Class "orange-link"] [!! $"All [{posts.Length}]"] ]
+                    p [Class "is-size-6"] [!! "Full post timeline"]
+                ]
+                yield!
+                    posts
+                    |> List.countBy (fun p -> p.post_config.category)
+                    |> List.map (fun (c,count) ->
+                        let link = Globals.prefixUrl $"posts/categories/{c}.html"
+                        li [] [
+                            h3 [Class "subtitle mb-1 is-size-4"] [a [Href link; Class "orange-link"] [!! $"{c |> PostCategory.toString} [{count}]"] ]
+                            p [Class "is-size-6"] [!! (c |> PostCategory.getDescription)]
+                        ]
+                    )
+            ]
         ]
     ]
 
@@ -43,7 +48,6 @@ let generate' (ctx : SiteContents) (_: string) =
         |> List.ofSeq
 
     let latest_post = posts |> List.minBy (fun p -> System.DateTime.Now.Ticks - p.post_config.date.Ticks)
-
 
     Layout.layout ctx "" [
         section [Class "hero is-small is-warning is-bold"] [

@@ -36,7 +36,7 @@ let navBar =
         HtmlProperties.Custom("aria-label","main navigation")
     ] [
         div [Class "navbar-brand"] [
-            a [Class "navbar-item"; Href (Globals.prefixUrl "/")] [
+            a [Class "navbar-item"; Href (Globals.prefixUrl "")] [
                 img [Src (Globals.prefixUrl "img/logo_small.png");]
             ]
             a [
@@ -53,8 +53,8 @@ let navBar =
         ]
         div [Id "navbar"; Class "navbar-menu"] [
             div [Class "navbar-start"] [
-                a [Class "navbar-item"] [!!"Home"]
-                a [Class "navbar-item"] [!!"About"]
+                a [Class "navbar-item"; Href (Globals.prefixUrl "")] [!!"Home"]
+                a [Class "navbar-item"; Href (Globals.prefixUrl "posts/all_posts.html")] [!!"Posts"]
             ]
             div [Class "navbar-end"] [
                 a [Href"#"; Class "navbar-item"] [i [Class "fa fa-search"] []]
