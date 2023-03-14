@@ -1,5 +1,5 @@
 ---
-title: "Visualizing relationships between sets with Plotly.NET"
+title: "VS Code Remote-Container and the ARC"
 author: Kevin Frey
 author_link: https://github.com/freymaurer
 category: advanced

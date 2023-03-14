@@ -1,5 +1,5 @@
 ---
-title: "How to JSON Schema"
+title: "How to develop and use a JSON Schema"
 author: Oliver Maus
 author_link: https://github.com/omaus
 category: advanced

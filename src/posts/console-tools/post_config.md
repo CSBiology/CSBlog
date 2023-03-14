@@ -1,8 +1,8 @@
 ---
-title: "Ontology 1o1"
+title: "Console apps: Above and beyond"
 author: Oliver Maus
 author_link: https://github.com/omaus
-category: studynote
-date: 2023-02-17
-summary: A conceptual introduction for ontologies.
+category: advanced
+date: 2022-03-18
+summary: A deep-dive on creating console applications.
 ---

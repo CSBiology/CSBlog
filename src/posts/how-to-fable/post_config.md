@@ -1,5 +1,5 @@
 ---
-title: "How to Fable"
+title: "What is Fable and how to use it"
 author: Kevin Frey
 author_link: https://github.com/freymaurer
 category: advanced
