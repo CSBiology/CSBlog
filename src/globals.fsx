@@ -6,7 +6,7 @@ let urlPrefix =
   ""
 #else
 let urlPrefix =
-  "https://csbiology.github.io/CSBlog/"
+  "https://csbiology.github.io/CSBlog"
 #endif
 
 /// returns a fixed urlby prefixing `urlPrefix`
