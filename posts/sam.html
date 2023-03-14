@@ -5,15 +5,16 @@
     <title>
       CSBlog
     </title>
-    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://csbiology.github.io/CSBlog//img/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
-    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script src="https://csbiology.github.io/CSBlog//js/main.js"></script>
     <script>
       MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <script defer="true" src="https://kit.fontawesome.com/0d3e0ea7a6.js" crossOrigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
@@ -28,32 +29,32 @@
             </h3>
             <ul>
               <li>
-                <a href="#SAM" class="is-csb-darkblue">
+                <a href="#SAM" class="orange-link">
                   SAM
                 </a>
               </li>
               <li>
-                <a href="#Table-of-contents" class="is-csb-darkblue">
-                  Table of contents
+                <a href="#Introduction" class="orange-link">
+                  Introduction
                 </a>
               </li>
               <li>
-                <a href="#Statistics" class="is-csb-darkblue">
+                <a href="#Statistics" class="orange-link">
                   Statistics
                 </a>
               </li>
               <li>
-                <a href="#s0" class="is-csb-darkblue">
+                <a href="#s0" class="orange-link">
                   s0
                 </a>
               </li>
               <li>
-                <a href="#Permuted-data" class="is-csb-darkblue">
+                <a href="#Permuted-data" class="orange-link">
                   Permuted data
                 </a>
               </li>
               <li>
-                <a href="#Significance" class="is-csb-darkblue">
+                <a href="#Significance" class="orange-link">
                   Significance
                 </a>
               </li>
@@ -64,7 +65,7 @@
       <div class="column is-10 is-paddingless pl-1 pr-6">
         <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
               <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
             </a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
@@ -75,11 +76,11 @@
           </div>
           <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item">
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
                 Home
               </a>
-              <a class="navbar-item">
-                About
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//posts/all_posts.html">
+                Posts
               </a>
             </div>
             <div class="navbar-end">
@@ -96,17 +97,17 @@
           <div class="hero-body">
             <div class="container has-text-justified">
               <div class="main-TextField">
-                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-orange mb-4">
                   SAM - Significance Analysis of Microarrays
                 </h1>
                 <div class="block">
                   <h3 class="subtitle is-black is-block">
                     Posted on 2022-6-2 by
-                    <a href="https://github.com/zieglerse" class="is-csb-darkblue">
+                    <a href="https://github.com/zieglerse" class="orange-link">
                       Selina Ziegler
                     </a>
                      in 
-                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="orange-link">
                       Study Notes
                     </a>
                   </h3>
@@ -124,31 +125,12 @@
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="SAM">SAM<a class="anchor-link" href="#SAM">&#182;</a></h1><p><em><a href="https://github.com/ZieglerSe">Selina Ziegler</a></em> ~ <em>last updated: Feb 2023</em></p>
-<h2 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#182;</a></h2><ul>
-<li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Statistics">Statistics</a></li>
-<li><a href="#s0">s0</a></li>
-<li><a href="#Permuted-data">Permuted data</a></li>
-<li><a href="#Significance">Significance</a></li>
-<li><a href="#Modules-of-SAM">Modules of SAM</a><ul>
-<li><a href="#pi0">pi0</a></li>
-<li><a href="#Delta">Delta</a></li>
-<li><a href="#Cuts">Cuts</a></li>
-<li><a href="#FDR">FDR</a></li>
-</ul>
-</li>
-<li><a href="#Limitations">Limitations</a></li>
-<li><a href="#Alternatives">Alternatives</a></li>
-<li><a href="#References">References</a>
-## Introduction 
-This blogpost deals with a statistical analysis for gene expression microarray experiments, called <strong>Significance Analysis of Microarrays (SAM)</strong> , that - despite the name - is not restricted for microarray analysis [1] but serves as a blue print for any permutation test.
+<h1 id="SAM">SAM<a class="anchor-link" href="#SAM">&#182;</a></h1><h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>This blogpost deals with a statistical analysis for gene expression microarray experiments, called <strong>Significance Analysis of Microarrays (SAM)</strong> , that - despite the name - is not restricted for microarray analysis [1] but serves as a blue print for any permutation test.
 When performing a microarray of differentially expressed genes, you capture a snapshot of transcriptional activity in different biological states (for example control vs. heat stress) and want to identify differences in those states.<br>
 Therefore, all genes in a cell are measured, which leads to an immense amount of data <strong>(high throughput method)</strong>.
 Those experiments can be used to identify all <strong>differentially expressed genes</strong>, not only small subsets contrary to traditional approaches. 
 Those identifications can lead to the <strong>discovery of new functional roles or mechanisms</strong> of genes involved in (stress) responses. 
-The main goal is therefore to identify all differentially expressed genes with a controlled number of false positives. </li>
-</ul>
+The main goal is therefore to identify all differentially expressed genes with a controlled number of false positives.</p>
 <p>This approach leads to the following problems handling immense datasets in contrast to traditional analysis:</p>
 <ul>
 <li>The need of computational capacity and  </li>
@@ -487,6 +469,163 @@ With the information on how many genes are significant by chance (false positive
       
     </
         </div>
+        <footer class="footer is-dark">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB - Computational Systems Biology
+                  </h3>
+                </div>
+                <div class="block">
+                  <p>
+                    CSB is the department of 
+                    <a href="https://csb.bio.uni-kl.de/" class="footer-link">
+                      Prof. Dr. Timo Mühlhaus
+                    </a>
+                     at 
+                    <a href="https://rptu.de/" class="footer-link">
+                      RPTU Kaiserslauern.
+                    </a>
+                  </p>
+                </div>
+                <div class="block">
+                  <p>
+                    This website is mainly intended for internal purposes. It is maintained by members of the department.
+                  </p>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-code-branch"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/CSBlog">
+                      website source code
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="far fa-handshake"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/orgs/CSBiology/people">
+                      csb contributors
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology">
+                      the csb organisation on github
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/BioFSharp">
+                      BioFSharp - Computational Biology toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/ProteomIQon">
+                      ProteomIQon - Computational Protemics toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FsSpreadsheet">
+                      FsSpreadsheet - Multi-target Spreadsheet datamodel
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/DynamicObj">
+                      DynamicObj - System.Dynamic for F#
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FSharpAux">
+                      FSharpAux - Auxiliary functions for F#
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    These projects are originally CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/plotly/Plotly.NET">
+                      Plotly.NET - .NET graphing library
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/fslaborg/FSharp.Stats">
+                      FSharp.Stats - datascience in F#
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    Further reading and partner projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-vial"></i>
+                    </span>
+                    <a class="footer-link" href="https://fslab.org">
+                      FsLab - the F# data science stack
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-graduation-cap"></i>
+                    </span>
+                    <a class="footer-link" href="https://csb.bio.uni-kl.de/#teaching">
+                      CSB teaching materials
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </body>

@@ -5,15 +5,16 @@
     <title>
       CSBlog
     </title>
-    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://csbiology.github.io/CSBlog//img/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
-    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script src="https://csbiology.github.io/CSBlog//js/main.js"></script>
     <script>
       MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <script defer="true" src="https://kit.fontawesome.com/0d3e0ea7a6.js" crossOrigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
@@ -28,42 +29,37 @@
             </h3>
             <ul>
               <li>
-                <a href="#Visualizing-relationships-between-sets-with-Plotly.NET" class="is-csb-darkblue">
+                <a href="#Visualizing-relationships-between-sets-with-Plotly.NET" class="orange-link">
                   Visualizing relationships between sets with Plotly.NET
                 </a>
               </li>
               <li>
-                <a href="#Table-of-contents" class="is-csb-darkblue">
-                  Table of contents
-                </a>
-              </li>
-              <li>
-                <a href="#Visualizing-set-relationships-with-Venn-diagrams" class="is-csb-darkblue">
+                <a href="#Visualizing-set-relationships-with-Venn-diagrams" class="orange-link">
                   Visualizing set relationships with Venn diagrams
                 </a>
               </li>
               <li>
-                <a href="#Construction-Venn" class="is-csb-darkblue">
+                <a href="#Construction-Venn" class="orange-link">
                   Construction Venn
                 </a>
               </li>
               <li>
-                <a href="#Usage-Venn" class="is-csb-darkblue">
+                <a href="#Usage-Venn" class="orange-link">
                   Usage Venn
                 </a>
               </li>
               <li>
-                <a href="#Visualizing-set-relationships-with-UpSet-plots" class="is-csb-darkblue">
+                <a href="#Visualizing-set-relationships-with-UpSet-plots" class="orange-link">
                   Visualizing set relationships with UpSet plots
                 </a>
               </li>
               <li>
-                <a href="#Construction-UpSet" class="is-csb-darkblue">
+                <a href="#Construction-UpSet" class="orange-link">
                   Construction UpSet
                 </a>
               </li>
               <li>
-                <a href="#Usage-UpSet" class="is-csb-darkblue">
+                <a href="#Usage-UpSet" class="orange-link">
                   Usage UpSet
                 </a>
               </li>
@@ -74,7 +70,7 @@
       <div class="column is-10 is-paddingless pl-1 pr-6">
         <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
               <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
             </a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
@@ -85,11 +81,11 @@
           </div>
           <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item">
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
                 Home
               </a>
-              <a class="navbar-item">
-                About
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//posts/all_posts.html">
+                Posts
               </a>
             </div>
             <div class="navbar-end">
@@ -106,18 +102,18 @@
           <div class="hero-body">
             <div class="container has-text-justified">
               <div class="main-TextField">
-                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-orange mb-4">
                   Visualizing relationships between sets with Plotly.NET
                 </h1>
                 <div class="block">
                   <h3 class="subtitle is-black is-block">
                     Posted on 2021-10-25 by
-                    <a href="https://github.com/joott" class="is-csb-darkblue">
+                    <a href="https://github.com/joott" class="orange-link">
                       Jonathan Ott
                     </a>
                      in 
-                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
-                      Study Notes
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/Advanced.html" class="orange-link">
+                      Advanced
                     </a>
                   </h3>
                 </div>
@@ -134,19 +130,7 @@
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Visualizing-relationships-between-sets-with-Plotly.NET">Visualizing relationships between sets with Plotly.NET<a class="anchor-link" href="#Visualizing-relationships-between-sets-with-Plotly.NET">&#182;</a></h1><h3 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#182;</a></h3><ul>
-<li><a href="#Visualizing-set-relationships-with-Venn-diagrams">Visualizing set relationships with Venn diagrams</a><ul>
-<li><a href="#Construction-Venn">Construction Venn</a></li>
-<li><a href="#Usage-Venn">Usage Venn</a></li>
-</ul>
-</li>
-<li><a href="#Visualizing-set-relationships-with-UpSet-plots">Visualizing set relationships with UpSet plots</a><ul>
-<li><a href="#Construction-UpSet">Construction UpSet</a></li>
-<li><a href="#Usage-UpSet">Usage UpSet</a></li>
-</ul>
-</li>
-</ul>
-<p>Visualizing and understanding relationships between sets plays an important role in analyzing data at hand. A widely used visualization method is the 
+<h1 id="Visualizing-relationships-between-sets-with-Plotly.NET">Visualizing relationships between sets with Plotly.NET<a class="anchor-link" href="#Visualizing-relationships-between-sets-with-Plotly.NET">&#182;</a></h1><p>Visualizing and understanding relationships between sets plays an important role in analyzing data at hand. A widely used visualization method is the 
 <a href="https://en.wikipedia.org/wiki/Venn_diagram">Venn diagram</a>. But Venn diagrams are limited in their capability. While two, three, or even four sets may be easily visualizable, they struggle 
 with higher set counts. To address this issue, the concept of <a href="https://upset.app/">UpSet</a> plots was developed by Lex et al. in 2014. In this blogpost I will demonstrate how to visualize 
 sets with Venn diagrams and UpSet plots. I use a dataframe containing information about movies as source for our sets. The comparisons will be based on the genre of the movies.</p>
@@ -1390,6 +1374,163 @@ table th {
 </div>
 </
         </div>
+        <footer class="footer is-dark">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB - Computational Systems Biology
+                  </h3>
+                </div>
+                <div class="block">
+                  <p>
+                    CSB is the department of 
+                    <a href="https://csb.bio.uni-kl.de/" class="footer-link">
+                      Prof. Dr. Timo Mühlhaus
+                    </a>
+                     at 
+                    <a href="https://rptu.de/" class="footer-link">
+                      RPTU Kaiserslauern.
+                    </a>
+                  </p>
+                </div>
+                <div class="block">
+                  <p>
+                    This website is mainly intended for internal purposes. It is maintained by members of the department.
+                  </p>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-code-branch"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/CSBlog">
+                      website source code
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="far fa-handshake"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/orgs/CSBiology/people">
+                      csb contributors
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology">
+                      the csb organisation on github
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/BioFSharp">
+                      BioFSharp - Computational Biology toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/ProteomIQon">
+                      ProteomIQon - Computational Protemics toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FsSpreadsheet">
+                      FsSpreadsheet - Multi-target Spreadsheet datamodel
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/DynamicObj">
+                      DynamicObj - System.Dynamic for F#
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FSharpAux">
+                      FSharpAux - Auxiliary functions for F#
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    These projects are originally CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/plotly/Plotly.NET">
+                      Plotly.NET - .NET graphing library
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/fslaborg/FSharp.Stats">
+                      FSharp.Stats - datascience in F#
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    Further reading and partner projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-vial"></i>
+                    </span>
+                    <a class="footer-link" href="https://fslab.org">
+                      FsLab - the F# data science stack
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-graduation-cap"></i>
+                    </span>
+                    <a class="footer-link" href="https://csb.bio.uni-kl.de/#teaching">
+                      CSB teaching materials
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </body>

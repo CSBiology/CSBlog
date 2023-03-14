@@ -5,15 +5,16 @@
     <title>
       CSBlog
     </title>
-    <link rel="stylesheet" type="text/css" href="https://csbiology.github.io/CSBlog///styles/custom.css"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://csbiology.github.io/CSBlog//img/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
-    <script src="https://csbiology.github.io/CSBlog///js/main.js"></script>
+    <script src="https://csbiology.github.io/CSBlog//js/main.js"></script>
     <script>
       MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <script defer="true" src="https://kit.fontawesome.com/0d3e0ea7a6.js" crossOrigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/notebook.css"/>
     <link rel="stylesheet" href="https://csbiology.github.io/CSBlog//styles/custom.css"/>
@@ -28,42 +29,37 @@
             </h3>
             <ul>
               <li>
-                <a href="#Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets" class="is-csb-darkblue">
+                <a href="#Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets" class="orange-link">
                   Study note: Community detection or Principal Component Analysis   Different apporaches to analyze big datasets
                 </a>
               </li>
               <li>
-                <a href="#Content" class="is-csb-darkblue">
-                  Content
-                </a>
-              </li>
-              <li>
-                <a href="#Introduction" class="is-csb-darkblue">
+                <a href="#Introduction" class="orange-link">
                   Introduction
                 </a>
               </li>
               <li>
-                <a href="#Loading-the-previous-graph" class="is-csb-darkblue">
+                <a href="#Loading-the-previous-graph" class="orange-link">
                   Loading the previous graph
                 </a>
               </li>
               <li>
-                <a href="#Modularity" class="is-csb-darkblue">
+                <a href="#Modularity" class="orange-link">
                   Modularity
                 </a>
               </li>
               <li>
-                <a href="#PCA---Principal-component-analysis" class="is-csb-darkblue">
+                <a href="#PCA---Principal-component-analysis" class="orange-link">
                   PCA   Principal component analysis
                 </a>
               </li>
               <li>
-                <a href="#Ontology-Enrichment" class="is-csb-darkblue">
+                <a href="#Ontology-Enrichment" class="orange-link">
                   Ontology Enrichment
                 </a>
               </li>
               <li>
-                <a href="#Further-reading" class="is-csb-darkblue">
+                <a href="#Further-reading" class="orange-link">
                   Further reading
                 </a>
               </li>
@@ -74,7 +70,7 @@
       <div class="column is-10 is-paddingless pl-1 pr-6">
         <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <a class="navbar-item" href="https://csbiology.github.io/CSBlog///">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
               <img src="https://csbiology.github.io/CSBlog//img/logo_small.png"/>
             </a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
@@ -85,11 +81,11 @@
           </div>
           <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item">
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//">
                 Home
               </a>
-              <a class="navbar-item">
-                About
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog//posts/all_posts.html">
+                Posts
               </a>
             </div>
             <div class="navbar-end">
@@ -106,17 +102,17 @@
           <div class="hero-body">
             <div class="container has-text-justified">
               <div class="main-TextField">
-                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-orange mb-4">
                   Community detection or Principal Component Analysis - Different apporaches to analyze big datasets
                 </h1>
                 <div class="block">
                   <h3 class="subtitle is-black is-block">
                     Posted on 2022-1-13 by
-                    <a href="https://github.com/librachris" class="is-csb-darkblue">
+                    <a href="https://github.com/librachris" class="orange-link">
                       Christopher Lux
                     </a>
                      in 
-                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="is-csb-darkblue">
+                    <a href="https://csbiology.github.io/CSBlog//posts/categories/StudyNote.html" class="orange-link">
                       Study Notes
                     </a>
                   </h3>
@@ -134,27 +130,7 @@
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets">Study note: Community detection or Principal Component Analysis - Different apporaches to analyze big datasets<a class="anchor-link" href="#Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets">&#182;</a></h1><p><em><a href="https://github.com/LibraChris">Christopher Lux</a></em>, Jan 2022</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Content">Content<a class="anchor-link" href="#Content">&#182;</a></h2><ul>
-<li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Loading-the-previous-graph">Loading the previous graph</a></li>
-<li><a href="#Modularity">Modularity</a></li>
-<li><a href="#PCA-Principal-component-analysis">PCA - Principal component analysis</a></li>
-<li><a href="#Ontology-Enrichment">Ontology Enrichment</a></li>
-<li><a href="#Further-reading">Further reading</a></li>
-</ul>
-
+<h1 id="Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets">Study note: Community detection or Principal Component Analysis - Different apporaches to analyze big datasets<a class="anchor-link" href="#Study-note:-Community-detection-or-Principal-Component-Analysis---Different-apporaches-to-analyze-big-datasets">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -1063,6 +1039,163 @@ and should always be considered when thinking about your dataflow.</p>
 </div>
 </
         </div>
+        <footer class="footer is-dark">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB - Computational Systems Biology
+                  </h3>
+                </div>
+                <div class="block">
+                  <p>
+                    CSB is the department of 
+                    <a href="https://csb.bio.uni-kl.de/" class="footer-link">
+                      Prof. Dr. Timo Mühlhaus
+                    </a>
+                     at 
+                    <a href="https://rptu.de/" class="footer-link">
+                      RPTU Kaiserslauern.
+                    </a>
+                  </p>
+                </div>
+                <div class="block">
+                  <p>
+                    This website is mainly intended for internal purposes. It is maintained by members of the department.
+                  </p>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-code-branch"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/CSBlog">
+                      website source code
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="far fa-handshake"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/orgs/CSBiology/people">
+                      csb contributors
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology">
+                      the csb organisation on github
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/BioFSharp">
+                      BioFSharp - Computational Biology toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/ProteomIQon">
+                      ProteomIQon - Computational Protemics toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FsSpreadsheet">
+                      FsSpreadsheet - Multi-target Spreadsheet datamodel
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/DynamicObj">
+                      DynamicObj - System.Dynamic for F#
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FSharpAux">
+                      FSharpAux - Auxiliary functions for F#
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    These projects are originally CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/plotly/Plotly.NET">
+                      Plotly.NET - .NET graphing library
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/fslaborg/FSharp.Stats">
+                      FSharp.Stats - datascience in F#
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    Further reading and partner projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-vial"></i>
+                    </span>
+                    <a class="footer-link" href="https://fslab.org">
+                      FsLab - the F# data science stack
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-graduation-cap"></i>
+                    </span>
+                    <a class="footer-link" href="https://csb.bio.uni-kl.de/#teaching">
+                      CSB teaching materials
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </body>

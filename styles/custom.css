@@ -98,3 +98,39 @@ a:hover {
 html {
     background-color: #f0f2f4;
 }
+
+.footer.is-dark {
+    background-color: #363636;
+    color: #fff;
+}
+
+.footer {
+    margin-top: 0 auto;
+}
+
+.footer-link {
+    color: #EA7D3B
+}
+
+.footer-link:hover {
+    color: #f0f2f4;
+    border-bottom: 1px solid #EA7D3B
+}
+
+.orange-link {
+    color: #EA7D3B !important;
+}
+
+.orange-link:hover {
+    color: #303b4a !important;
+    border-bottom: 1px solid #EA7D3B
+}
+
+.darkblue-link {
+    color: #303b4a
+}
+
+.darkblue-link:hover {
+    color: #EA7D3B;
+    border-bottom: 1px solid #303b4a
+}
