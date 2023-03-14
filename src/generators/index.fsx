@@ -26,7 +26,7 @@ let browse_categories_display (posts: NotebookPost list) =
                 |> List.map (fun (c,count) ->
                     let link = Globals.prefixUrl $"posts/categories/{c}.html"
                     li [] [
-                        h3 [Class "subtitle mb-1 is-size-4"] [a [Href link; Class "is-csb-orange"] [!! $"{c |> PostCategory.toString} [{count}]"] ]
+                        h3 [Class "subtitle mb-1 is-size-4"] [a [Href link; Class "orange-link"] [!! $"{c |> PostCategory.toString} [{count}]"] ]
                         p [Class "is-size-6"] [!! (c |> PostCategory.getDescription)]
                     ]
                 )
@@ -65,7 +65,7 @@ let generate' (ctx : SiteContents) (_: string) =
                 ]
             ]
         ]
-        section [] [
+        section [HtmlProperties.Style [MinHeight "30vh"]] [
             div [Class "container has-text-justified mt-2"] [
                 div [Class "main-TextField"] [
                     div [Class "columns"] [

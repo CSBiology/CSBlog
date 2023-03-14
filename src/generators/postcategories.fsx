@@ -26,7 +26,7 @@ let generate (ctx : SiteContents) (projectRoot: string) (page: string) =
                 div [Class "hero-body"] [
                     div [Class "container has-text-centered"] [
                         div [Class "main-TextField"] [
-                            h1 [Class "title is-capitalized is-black is-inline-block is-emphasized-csb-darkblue mb-4"] [!! $"{category |> PostCategory.toString} posts"]
+                            h1 [Class "title is-capitalized is-black is-inline-block is-emphasized-csb-orange mb-4"] [!! $"{category |> PostCategory.toString} posts"]
                             h3 [Class "subtitle is-size-4 is-black mt-4"] [!! (category |> PostCategory.getDescription)]
                         ]
                     ]
