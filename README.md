@@ -42,6 +42,26 @@ To add a new post:
     - `category` is one of `progress`, `studynote`, `advanced`
     - `date` is the date of submission in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
 - create a `post.ipynb` file that contains your blogpost. This notebook will be parsed and rendered to a html site. **do not forget to save the notebook with cell output**, as the notebook will not be executed on site generation.
+
+### `post_config` Dos and Don'ts
+
+- **Don't** use unguarded `:` characters, as they are used to separate keys and values
+    ```
+    title: Yes: No <- nope
+    ```
+- **Do** guard sentences in `"` quotation marks. That way, you can even use `:` in your post titles and summaries
+    ```
+    title: "Yes: No" <- yes
+    ```
+    
+### `post.ipynb` Dos and Don'ts
+
+- **Do** save notebook cell output. Notebooks are **not** run on site generation
+
+- **Don't** put tables of content into your notebooks. TOC are generated on site generation for each post
+
+- **Don't** use headers (any level of `#`) in markdown to emphasize text - it will be put into the table of contents and you might not want that if you only want to put emphasis. use `**` for that.
+
 ## Troubleshooting
 
 ```powershell
