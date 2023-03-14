@@ -34,6 +34,8 @@ To add a new post:
     author_link: <a link>
     category: <post category>
     date: <YYYY-MM-DD>
+    summary: <one-sentence summary of your post>
+    preview_image: <images/your_image.png>
     ---
     ```
     - `title` is the title of your post
@@ -41,6 +43,9 @@ To add a new post:
     - `author_link` is a link that will be associated with your name. You can for example link your github or twitter account here
     - `category` is one of `progress`, `studynote`, `advanced`
     - `date` is the date of submission in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+    - `summary` **OPTIONAL**. A one-sentence summary of your post. think about it as the hook for readers to click on it.
+    - `preview_image` **OPTIONAL**. A link to an image that will be put on top of the post preview. Please use a small, 3 by 1 image for this. 
+    
 - create a `post.ipynb` file that contains your blogpost. This notebook will be parsed and rendered to a html site. **do not forget to save the notebook with cell output**, as the notebook will not be executed on site generation.
 
 ### `post_config` Dos and Don'ts
