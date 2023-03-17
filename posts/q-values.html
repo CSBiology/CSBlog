@@ -402,7 +402,7 @@ table th {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="../../img/04_qvalues/qvalue_01.png"></img></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/04_qvalues/qvalue_01.png"></img></p>
 <p><em>Fig 1: p value distribution of the null hypothesis.</em></p>
 <p>10,000 tests are performed, each with new randomly drawn samples. This corresponds to an experiment in which <strong>none of the features changed</strong> 
 Note, that the mean intensities are arbitrary and must not be the same for all features! In the presented case all feature intensities are in average 10.
@@ -450,7 +450,7 @@ differing</strong> distributions. Therefore a third populations is generated, th
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="../../img/04_qvalues/qvalue_02.png"></img>
+<p><img src="https://csbiology.github.io/CSBlog/img/04_qvalues/qvalue_02.png"></img>
 <em>Fig 2: p value distribution of the alternative hypothesis. Blue coloring indicate p values deriving from distribution A and B (null). 
 Orange coloring indicate p values deriving from distribution A and C (truly differing).</em></p>
 <p>The pvalue distribution of the tests resulting from truly differing populations are <strong>right skewed</strong>, while the null tests again show a homogeneous distribution between 0 and 1. Many, but not all of the tests that come from the truly differing populations are below 0.05, and therefore would be reported as significant.
@@ -581,10 +581,10 @@ Consequently, a set of reported significant features together with the <strong>F
 somehow incorporate the uncertainty that is introduced by the total number of tests performed. In the simulated case of 7,000 null tests and 3,000 tests resulting from truly 
 differing distributions above, the FDR can be calculated exactly. Therefore at e.g. a p value of 0.05 the number of false positives (blue in red box) are divided by the number 
 of significant reported tests (false positives + true positives).</p>
-<p><img style="max-width:75%" src="../../img/04_qvalues/qvalue_03.png"></img></p>
+<p><img style="max-width:75%" src="https://csbiology.github.io/CSBlog/img/04_qvalues/qvalue_03.png"></img></p>
 <p><em>Fig 4: p value distribution of the alternative hypothesis.</em></p>
 <p>Given the conditions described in the first chapter, the FDR of this experiment with a p value threshold of 0.05 is 0.173. Out of the 2019 reported significant comparisons, in average 350 are expected to be false positives, which gives an straight forward interpretation of the data confidence. In real-world experiments the proportion of null tests and tests deriving from an actual difference is of course unknown. <strong>The proportion of null tests however tends to be distributed equally in the p value histogram.</strong> By identification of the average null frequency, a proportion of FP and TP can be determined, and the FDR can be defined. This frequency estimate is called $\pi_0$, which leads to an FDR definition of:</p>
-<p><img style="max-width:75%" src="../../img/04_qvalues/qvalue_04.png"></img></p>
+<p><img style="max-width:75%" src="https://csbiology.github.io/CSBlog/img/04_qvalues/qvalue_04.png"></img></p>
 <p><em>Fig 5: FDR calculation on simulated data.</em></p>
 
 </div>

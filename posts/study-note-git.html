@@ -161,10 +161,10 @@
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Collaboration-drives-science">Collaboration drives science<a class="anchor-link" href="#Collaboration-drives-science">&#182;</a></h2><p>Modern science strongly relies on collaborative efforts and distributed expertise. Experiments may require a wide variety of disciplines, often located at various research institutes. Data that is analyzed and updated by a group of scientists or even by a single experimenter, quickly exceeds the level of complexity that can be handled without a defined structure. Especially when work is wrapped up for a thesis or publication the manipulations done to the data lacks in proper description or tracking ability. To emphasize the benefit of version control, let me start with an small example:</p>
 <p>A scientist made some measurements and shows it to the supervisor. The supervisor has some ideas about the analysis, makes some changes and sends the data to the lab head, who again changes the data by reordering some columns. In the end there is the final document with the analyzed data. So far so good. If the student finds a typo in the measurements the struggle begins… Either, the student requests the final results from the lab head, fixes the typo and hopes that the change did not corrupt any of the other data. Or he/she hands the corrected measurements to the supervisor, that reprocesses the data and hands it to the lab head. Whatever option is chosen there is an uncertainty, if all changes made in the first round were performed in the second, or what changes depend on the typo. Good scientific practice obliges all changes to be traceable and requires analysis to be performed in parallel. In day to day routine the folder structure of many collaborative student project more or less looks as follows:</p>
-<p><img src="../../img/git/git_01.png"></img></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/git/git_01.png"></img></p>
 <p>There is "some sort" of version control, but in practice the structure won’t be concise for future students working with the project.</p>
 <p>The life journey of a single file of the described experiment is visualized in the following:</p>
-<p><img src="../../img/git/git_02.png"></img></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/git/git_02.png"></img></p>
 <p>Fig 2: (A) Data processing pipeline with three people working sequentially on a shared file. (B) Data processing pipeline with three people working simultaneously on local copies of a file. Neither in A, nor in B a tracking of performed changes is possible.</p>
 <p>Since all participants are working on the data simultaneously, so called merge conflicts (or “conflicting changes”) happen. 
 You may know these from apps when several users working on the same document simultaneously and modify the same sentence. Shared documents of e.g. MS Office care for versioning and tracking of changes, but for data files or project directories you need some tooling.</p>
@@ -234,7 +234,7 @@ Git enables decentralized version control and coordination between multiple deve
 </ul>
 </li>
 </ul>
-<p><img src="../../img/git/git_03.png"></img></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/git/git_03.png"></img></p>
 <p>Fig 3: git procedures. If you don’t have a local repo, you can <strong>clone</strong> it from the remote. If you have it already, you can <strong>pull</strong> the latest changes. After you changed a single or multiple files you can <strong>add</strong> all you want to commit to the staging area. Then you can add a concise commit message and <strong>commit</strong> it to the local repository. Afterwards you can <strong>push</strong> your updates to the remote repository. If you just want to see, what might have changed in the remote, you can use <strong>fetch</strong>.</p>
 
 </div>
@@ -248,7 +248,7 @@ Git enables decentralized version control and coordination between multiple deve
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="GitHub">GitHub<a class="anchor-link" href="#GitHub">&#182;</a></h2><p>GitHub is a web-based hosting service for git repositories. It makes it easy for a group of people to work on the same project and provides nice visual inspection opportunities for a repository. You do not have to use <a href="https://github.com/">github</a>, there are several alternatives. The corresponding tree of the bachelor repository using git may look like this:</p>
-<p><img src="../../img/git/git_04.png"></img></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/git/git_04.png"></img></p>
 <p>Fig 4: Each file in the repository is tracked, so you can go to every point in the past to inspect the state of the file at this moment. Each commit is descripted with: (i) username, (ii) timestamp, (iii) changelog and (iv) a commit message.</p>
 <p>Check out the commit history of e.g. <a href="https://github.com/plotly/Plotly.NET/commits/dev">Plotly.NET</a> to get an idea of how a repository history may look like.</p>
 

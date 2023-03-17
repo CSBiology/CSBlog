@@ -211,7 +211,7 @@
 <h1 id="Console-apps:-Above-and-beyond">Console apps: Above and beyond<a class="anchor-link" href="#Console-apps:-Above-and-beyond">&#182;</a></h1><h2 id="What-are-console-apps?">What are console apps?<a class="anchor-link" href="#What-are-console-apps?">&#182;</a></h2><p>Console apps are, as the name suggests, applications that run in a console. That is any command-line interface (CLI) that can serve as an output for such an application.<br>
 In Windows, these are the Command Prompt (CMD), PowerShell (PS), and – optionally – Windows Terminal (WT).<br>
 Console apps, in contrast to applications with graphical user interfaces (GUIs), in general, do not support the use of a mouse but instead focus solely on keyboard usage.</p>
-<p><img src="../../img/wt.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/wt.png" alt=""><br>
 <strong>Your best friend.</strong></p>
 <p><br></p>
 <p>Console apps are the easiest way to create an application with very little overhead, since most modern programming language frameworks offer support for creating them. Besides, the complexity of a simple console app is often a lot lower than a GUI-based application of the same functionality, and makes it much easier to create an easily accessible API by calling the console app through a CLI from another application.</p>
@@ -404,7 +404,7 @@ In the project file, the deployment type is written into the property group. If 
 <li>directly into the memory and then executed (.NET 6).<br>
 Using the single file deployment comes at the cost of a slightly slower startup time due to the extraction process.</li>
 </ul>
-<p><img src="../../img/SelfExtractNet5.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/SelfExtractNet5.png" alt=""><br>
 <strong>Our minimum console app in its extracted state (.NET 5).</strong></p>
 <p><br></p>
 <p>This is what our project file for single file deployment would look like:</p>
@@ -477,13 +477,13 @@ Using the single file deployment comes at the cost of a slightly slower startup 
 <p>You can also specify an output path (<code>-o [yourPath]</code>) and a name (<code>-n [desiredName]</code>).</p>
 <p>The console app will consist of the project file (as seen above) and the Program.fs file.</p>
 <h3 id="Via-Visual-Studio">Via Visual Studio<a class="anchor-link" href="#Via-Visual-Studio">&#182;</a></h3><p>Open a new Visual Studio instance:</p>
-<p><img src="../../img/CreateANewProjectWindow1.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/CreateANewProjectWindow1.png" alt=""><br>
 <strong>Select F# Console Application. If not present, filter for F# language.</strong></p>
 <p><br></p>
-<p><img src="../../img/CreateANewProjectWindow2.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/CreateANewProjectWindow2.png" alt=""><br>
 <strong>Choose name and location of your console app.</strong></p>
 <p><br></p>
-<p><img src="../../img/CreateANewProjectWindow3.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/CreateANewProjectWindow3.png" alt=""><br>
 <strong>Choose your target .NET version.</strong></p>
 <p><br></p>
 <h3 id="Building-vs.-publishing">Building vs. publishing<a class="anchor-link" href="#Building-vs.-publishing">&#182;</a></h3><p>When creating a file from the project, <a href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild?view=vs-2022">MSBuild (the Microsoft Build Engine)</a> takes the information from the project file to determine what and how to build. But you are not restricted to that. Most of the MSBuild information can be given directly when deploying the app (see below).<br>
@@ -559,16 +559,16 @@ If you already have a FAKE build script ready, it is very easy to extend it with
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Via-Visual-Studio">Via Visual Studio<a class="anchor-link" href="#Via-Visual-Studio">&#182;</a></h4><p><img src="../../img/Publish1.png" alt=""><br>
+<h4 id="Via-Visual-Studio">Via Visual Studio<a class="anchor-link" href="#Via-Visual-Studio">&#182;</a></h4><p><img src="https://csbiology.github.io/CSBlog/img/Publish1.png" alt=""><br>
 <strong>Right click on your project file in the solution explorer and choose "Publish...".</strong></p>
 <p><br></p>
-<p><img src="../../img/Publish2.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/Publish2.png" alt=""><br>
 <strong>Choose your desired output target (e.g. "Folder" if you like to get your executable file in a folder).</strong></p>
 <p><br></p>
-<p><img src="../../img/Publish3.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/Publish3.png" alt=""><br>
 <strong>Set the output path.</strong></p>
 <p><br></p>
-<p><img src="../../img/Publish4.png" alt=""><br>
+<p><img src="https://csbiology.github.io/CSBlog/img/Publish4.png" alt=""><br>
 <strong>By clicking on "Show all settings" you can apply additional settings like deployment type, target runtime, etc. Finish the publishing via clicking on "Publish" at the top.</strong></p>
 <h2 id="How-to-extend-console-apps">How to extend console apps<a class="anchor-link" href="#How-to-extend-console-apps">&#182;</a></h2><p>You now know how to create and deploy console apps but of course you want more than just printing Hello to the World.<br>
 The most common extension of your current console app (besides adding code) is the addition of further source files. You can either just create the file in the project folder and add it to the project file...</p>
@@ -584,16 +584,16 @@ The most common extension of your current console app (besides adding code) is t
 <span class="nt">&lt;/Project&gt;</span>
 </pre></div>
 <p>...or use the Visual Studio interface for that:</p>
-<p><img src="../../img/AddFile1.png" alt=""></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/AddFile1.png" alt=""></p>
 <p><br></p>
 <p>Keep in mind that your executing source file (most often Program.fs) must be at the last position!</p>
 <p><br></p>
 <p>What will also often be the case, is that you will want to use external libraries inside your tool. <a href="https://www.nuget.org/">NuGet</a> is the best source for that. To add a NuGet package to your app, you can either add the line for it to the project file, or use the .NET CLI or Visual Studio for doing so:</p>
 <div class="highlight"><pre><span></span><span class="n">dotnet</span> <span class="n">add</span> <span class="n">package</span> <span class="no">[packageName]</span>    <span class="c"># with `[packageName]` being, e.g., `FSharpAux`</span>
 </pre></div>
-<p><img src="../../img/ManageNuGet1.png" alt=""></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/ManageNuGet1.png" alt=""></p>
 <p><br></p>
-<p><img src="../../img/ManageNuGet2.png" alt=""></p>
+<p><img src="https://csbiology.github.io/CSBlog/img/ManageNuGet2.png" alt=""></p>
 <p><br></p>
 <p>The resulting project file:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">&quot;Microsoft.NET.Sdk&quot;</span><span class="nt">&gt;</span>
