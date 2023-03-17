@@ -101,6 +101,16 @@
                   Task 5
                 </a>
               </li>
+              <li>
+                <a href="#Task-6" class="orange-link">
+                  Task 6
+                </a>
+              </li>
+              <li>
+                <a href="#Task-7" class="orange-link">
+                  Task 7
+                </a>
+              </li>
             </ul>
           </div>
         </aside>
@@ -597,6 +607,239 @@ table th {
                 renderCyjs_d756597165f44fed9cebeea2b212d80d();
             }
 </script>
+</body>
+</html>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-6">Task 6<a class="anchor-link" href="#Task-6">&#182;</a></h3><ul>
+<li>create the same network as above with the <code>ms</code> ontology (OBO format) and subbranch <code>MS:1000031</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">msRawData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">getRawString</span><span class="w"> </span><span class="s">@"https://raw.githubusercontent.com/HUPO-PSI/psi-ms-CV/master/psi-ms.obo"</span><span class="w"> </span>
+<span class="w"> </span>
+<span class="k">let</span><span class="w"> </span><span class="nv">ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">BioFSharp</span><span class="p">.</span><span class="nn">IO</span><span class="p">.</span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span><span class="w"> </span><span class="k">false</span><span class="w"> </span><span class="n">msRawData</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toArray</span><span class="w">                                 </span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">msElements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="s">"MS:1000031"</span><span class="w">       </span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">msVertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="n">msElements</span><span class="w">        </span>
+<span class="k">let</span><span class="w"> </span><span class="nv">msEdges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="n">msElements</span><span class="w">              </span>
+
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices</span><span class="w"> </span><span class="n">msEdges</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<html>
+
+<head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js"></script>
+
+</head>
+
+<body> <style>#e29905fd9e2 { width: 1300px; height: 1000px; display: block } </style>
+
+<div id="e29905fd9e2"></div>
+
+<script type="text/javascript">
+
+
+
+            var renderCyjs_92ed709a34b144a7a9df589dbe8efba7 = function() {
+
+            var fsharpCyjsRequire = requirejs.config({context:'fsharp-cyjs',paths:{cyjs:'https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min'}}) || require;
+
+            fsharpCyjsRequire(['cyjs'], function(Cyjs) {
+
+
+
+            var graphdata = {"container":document.getElementById('e29905fd9e2'),"elements":[{"data":{"id":"MS:1000031","label":"instrument model MS:1000031","weight":24}},{"data":{"id":"part_of","label":"instrument model part_of","weight":24}},{"data":{"id":"MS:1000121","label":"SCIEX instrument model MS:1000121","weight":24}},{"data":{"id":"MS:1000031","label":"SCIEX instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000122","label":"Bruker Daltonics instrument model MS:1000122","weight":24}},{"data":{"id":"MS:1000031","label":"Bruker Daltonics instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000124","label":"Shimadzu instrument model MS:1000124","weight":24}},{"data":{"id":"MS:1000031","label":"Shimadzu instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000126","label":"Waters instrument model MS:1000126","weight":24}},{"data":{"id":"MS:1000031","label":"Waters instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000483","label":"Thermo Fisher Scientific instrument model MS:1000483","weight":24}},{"data":{"id":"MS:1000031","label":"Thermo Fisher Scientific instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000488","label":"Hitachi instrument model MS:1000488","weight":24}},{"data":{"id":"MS:1000031","label":"Hitachi instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000489","label":"Varian instrument model MS:1000489","weight":24}},{"data":{"id":"MS:1000031","label":"Varian instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000490","label":"Agilent instrument model MS:1000490","weight":24}},{"data":{"id":"MS:1000031","label":"Agilent instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000491","label":"Dionex instrument model MS:1000491","weight":24}},{"data":{"id":"MS:1000031","label":"Dionex instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000495","label":"Applied Biosystems instrument model MS:1000495","weight":24}},{"data":{"id":"MS:1000031","label":"Applied Biosystems instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1001800","label":"LECO instrument model MS:1001800","weight":24}},{"data":{"id":"MS:1000031","label":"LECO instrument model MS:1000031","weight":24}},{"data":{"id":"e0","source":"MS:1000031","target":"part_of","weight":0.3}},{"data":{"id":"e1","source":"MS:1000121","target":"MS:1000031","weight":0.3}},{"data":{"id":"e2","source":"MS:1000122","target":"MS:1000031","weight":0.3}},{"data":{"id":"e3","source":"MS:1000124","target":"MS:1000031","weight":0.3}},{"data":{"id":"e4","source":"MS:1000126","target":"MS:1000031","weight":0.3}},{"data":{"id":"e5","source":"MS:1000483","target":"MS:1000031","weight":0.3}},{"data":{"id":"e6","source":"MS:1000488","target":"MS:1000031","weight":0.3}},{"data":{"id":"e7","source":"MS:1000489","target":"MS:1000031","weight":0.3}},{"data":{"id":"e8","source":"MS:1000490","target":"MS:1000031","weight":0.3}},{"data":{"id":"e9","source":"MS:1000491","target":"MS:1000031","weight":0.3}},{"data":{"id":"e10","source":"MS:1000495","target":"MS:1000031","weight":0.3}},{"data":{"id":"e11","source":"MS:1001800","target":"MS:1000031","weight":0.3}}],"style":[{"selector":"node","style":{"shape":"circle","content":"data(label)","border-color":"#A00975"}},{"selector":"edge","style":{"line-color":"#3D1244","curve-style":"bezier","target-arrow-shape":"triangle"}}],"layout":{"name":"breadthfirst"}}
+
+            var cy = cytoscape( graphdata );
+
+            cy.userZoomingEnabled( false );
+
+
+
+});
+
+            };
+
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+
+                var script = document.createElement("script");
+
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+
+                script.onload = function(){
+
+                    renderCyjs_92ed709a34b144a7a9df589dbe8efba7();
+
+                };
+
+                document.getElementsByTagName("head")[0].appendChild(script);
+
+            }
+
+            else {
+
+                renderCyjs_92ed709a34b144a7a9df589dbe8efba7();
+
+            }
+
+</script>
+
+ </body>
+
+</html>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Task-7">Task 7<a class="anchor-link" href="#Task-7">&#182;</a></h3><ul>
+<li>expand the graph using elements linked to <code>MS:1000121</code></li>
+<li>triple elements can be appended by <code>Seq.append seq1 seq2</code></li>
+<li>check out the graph</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">msElements2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="s">"MS:1000121"</span><span class="w"></span>
+
+<span class="k">let</span><span class="w"> </span><span class="nv">msVertices2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">msEdges2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span><span class="w"></span>
+
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices2</span><span class="w"> </span><span class="n">msEdges2</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<html>
+
+<head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js"></script>
+
+</head>
+
+<body> <style>#e03fc6d45ba { width: 1300px; height: 1000px; display: block } </style>
+
+<div id="e03fc6d45ba"></div>
+
+<script type="text/javascript">
+
+
+
+            var renderCyjs_332a9a43714641d1b5a4e485ba54749b = function() {
+
+            var fsharpCyjsRequire = requirejs.config({context:'fsharp-cyjs',paths:{cyjs:'https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min'}}) || require;
+
+            fsharpCyjsRequire(['cyjs'], function(Cyjs) {
+
+
+
+            var graphdata = {"container":document.getElementById('e03fc6d45ba'),"elements":[{"data":{"id":"MS:1000031","label":"instrument model MS:1000031","weight":24}},{"data":{"id":"part_of","label":"instrument model part_of","weight":24}},{"data":{"id":"MS:1000121","label":"SCIEX instrument model MS:1000121","weight":24}},{"data":{"id":"MS:1000031","label":"SCIEX instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000122","label":"Bruker Daltonics instrument model MS:1000122","weight":24}},{"data":{"id":"MS:1000031","label":"Bruker Daltonics instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000124","label":"Shimadzu instrument model MS:1000124","weight":24}},{"data":{"id":"MS:1000031","label":"Shimadzu instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000126","label":"Waters instrument model MS:1000126","weight":24}},{"data":{"id":"MS:1000031","label":"Waters instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000483","label":"Thermo Fisher Scientific instrument model MS:1000483","weight":24}},{"data":{"id":"MS:1000031","label":"Thermo Fisher Scientific instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000488","label":"Hitachi instrument model MS:1000488","weight":24}},{"data":{"id":"MS:1000031","label":"Hitachi instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000489","label":"Varian instrument model MS:1000489","weight":24}},{"data":{"id":"MS:1000031","label":"Varian instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000490","label":"Agilent instrument model MS:1000490","weight":24}},{"data":{"id":"MS:1000031","label":"Agilent instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000491","label":"Dionex instrument model MS:1000491","weight":24}},{"data":{"id":"MS:1000031","label":"Dionex instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000495","label":"Applied Biosystems instrument model MS:1000495","weight":24}},{"data":{"id":"MS:1000031","label":"Applied Biosystems instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1001800","label":"LECO instrument model MS:1001800","weight":24}},{"data":{"id":"MS:1000031","label":"LECO instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000121","label":"SCIEX instrument model MS:1000121","weight":24}},{"data":{"id":"MS:1000031","label":"SCIEX instrument model MS:1000031","weight":24}},{"data":{"id":"MS:1000139","label":"4000 QTRAP MS:1000139","weight":24}},{"data":{"id":"MS:1000121","label":"4000 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1000143","label":"API 150EX MS:1000143","weight":24}},{"data":{"id":"MS:1000121","label":"API 150EX MS:1000121","weight":24}},{"data":{"id":"MS:1000144","label":"API 150EX Prep MS:1000144","weight":24}},{"data":{"id":"MS:1000121","label":"API 150EX Prep MS:1000121","weight":24}},{"data":{"id":"MS:1000145","label":"API 2000 MS:1000145","weight":24}},{"data":{"id":"MS:1000121","label":"API 2000 MS:1000121","weight":24}},{"data":{"id":"MS:1000146","label":"API 3000 MS:1000146","weight":24}},{"data":{"id":"MS:1000121","label":"API 3000 MS:1000121","weight":24}},{"data":{"id":"MS:1000147","label":"API 4000 MS:1000147","weight":24}},{"data":{"id":"MS:1000121","label":"API 4000 MS:1000121","weight":24}},{"data":{"id":"MS:1000186","label":"proteomics solution 1 MS:1000186","weight":24}},{"data":{"id":"MS:1000121","label":"proteomics solution 1 MS:1000121","weight":24}},{"data":{"id":"MS:1000187","label":"Q TRAP MS:1000187","weight":24}},{"data":{"id":"MS:1000121","label":"Q TRAP MS:1000121","weight":24}},{"data":{"id":"MS:1000190","label":"QSTAR MS:1000190","weight":24}},{"data":{"id":"MS:1000121","label":"QSTAR MS:1000121","weight":24}},{"data":{"id":"MS:1000194","label":"SymBiot I MS:1000194","weight":24}},{"data":{"id":"MS:1000121","label":"SymBiot I MS:1000121","weight":24}},{"data":{"id":"MS:1000195","label":"SymBiot XVI MS:1000195","weight":24}},{"data":{"id":"MS:1000121","label":"SymBiot XVI MS:1000121","weight":24}},{"data":{"id":"MS:1000651","label":"3200 QTRAP MS:1000651","weight":24}},{"data":{"id":"MS:1000121","label":"3200 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1000652","label":"4800 Plus MALDI TOF/TOF MS:1000652","weight":24}},{"data":{"id":"MS:1000121","label":"4800 Plus MALDI TOF/TOF MS:1000121","weight":24}},{"data":{"id":"MS:1000653","label":"API 3200 MS:1000653","weight":24}},{"data":{"id":"MS:1000121","label":"API 3200 MS:1000121","weight":24}},{"data":{"id":"MS:1000654","label":"API 5000 MS:1000654","weight":24}},{"data":{"id":"MS:1000121","label":"API 5000 MS:1000121","weight":24}},{"data":{"id":"MS:1000655","label":"QSTAR Elite MS:1000655","weight":24}},{"data":{"id":"MS:1000121","label":"QSTAR Elite MS:1000121","weight":24}},{"data":{"id":"MS:1000656","label":"QSTAR Pulsar MS:1000656","weight":24}},{"data":{"id":"MS:1000121","label":"QSTAR Pulsar MS:1000121","weight":24}},{"data":{"id":"MS:1000657","label":"QSTAR XL MS:1000657","weight":24}},{"data":{"id":"MS:1000121","label":"QSTAR XL MS:1000121","weight":24}},{"data":{"id":"MS:1000870","label":"4000 QTRAP MS:1000870","weight":24}},{"data":{"id":"MS:1000121","label":"4000 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1000931","label":"QTRAP 5500 MS:1000931","weight":24}},{"data":{"id":"MS:1000121","label":"QTRAP 5500 MS:1000121","weight":24}},{"data":{"id":"MS:1000932","label":"TripleTOF 5600 MS:1000932","weight":24}},{"data":{"id":"MS:1000121","label":"TripleTOF 5600 MS:1000121","weight":24}},{"data":{"id":"MS:1001482","label":"5800 TOF/TOF MS:1001482","weight":24}},{"data":{"id":"MS:1000121","label":"5800 TOF/TOF MS:1000121","weight":24}},{"data":{"id":"MS:1002533","label":"TripleTOF 6600 MS:1002533","weight":24}},{"data":{"id":"MS:1000121","label":"TripleTOF 6600 MS:1000121","weight":24}},{"data":{"id":"MS:1002577","label":"2000 QTRAP MS:1002577","weight":24}},{"data":{"id":"MS:1000121","label":"2000 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1002578","label":"2500 QTRAP MS:1002578","weight":24}},{"data":{"id":"MS:1000121","label":"2500 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1002579","label":"3500 QTRAP MS:1002579","weight":24}},{"data":{"id":"MS:1000121","label":"3500 QTRAP MS:1000121","weight":24}},{"data":{"id":"MS:1002580","label":"QTRAP 4500 MS:1002580","weight":24}},{"data":{"id":"MS:1000121","label":"QTRAP 4500 MS:1000121","weight":24}},{"data":{"id":"MS:1002581","label":"QTRAP 6500 MS:1002581","weight":24}},{"data":{"id":"MS:1000121","label":"QTRAP 6500 MS:1000121","weight":24}},{"data":{"id":"MS:1002582","label":"QTRAP 6500+ MS:1002582","weight":24}},{"data":{"id":"MS:1000121","label":"QTRAP 6500+ MS:1000121","weight":24}},{"data":{"id":"MS:1002583","label":"TripleTOF 4600 MS:1002583","weight":24}},{"data":{"id":"MS:1000121","label":"TripleTOF 4600 MS:1000121","weight":24}},{"data":{"id":"MS:1002584","label":"TripleTOF 5600+ MS:1002584","weight":24}},{"data":{"id":"MS:1000121","label":"TripleTOF 5600+ MS:1000121","weight":24}},{"data":{"id":"MS:1002585","label":"API 100 MS:1002585","weight":24}},{"data":{"id":"MS:1000121","label":"API 100 MS:1000121","weight":24}},{"data":{"id":"MS:1002586","label":"API 100LC MS:1002586","weight":24}},{"data":{"id":"MS:1000121","label":"API 100LC MS:1000121","weight":24}},{"data":{"id":"MS:1002587","label":"API 165 MS:1002587","weight":24}},{"data":{"id":"MS:1000121","label":"API 165 MS:1000121","weight":24}},{"data":{"id":"MS:1002588","label":"API 300 MS:1002588","weight":24}},{"data":{"id":"MS:1000121","label":"API 300 MS:1000121","weight":24}},{"data":{"id":"MS:1002589","label":"API 350 MS:1002589","weight":24}},{"data":{"id":"MS:1000121","label":"API 350 MS:1000121","weight":24}},{"data":{"id":"MS:1002590","label":"API 365 MS:1002590","weight":24}},{"data":{"id":"MS:1000121","label":"API 365 MS:1000121","weight":24}},{"data":{"id":"MS:1002591","label":"Triple Quad 3500 MS:1002591","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 3500 MS:1000121","weight":24}},{"data":{"id":"MS:1002592","label":"Triple Quad 4500 MS:1002592","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 4500 MS:1000121","weight":24}},{"data":{"id":"MS:1002593","label":"Triple Quad 5500 MS:1002593","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 5500 MS:1000121","weight":24}},{"data":{"id":"MS:1002594","label":"Triple Quad 6500 MS:1002594","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 6500 MS:1000121","weight":24}},{"data":{"id":"MS:1002595","label":"Triple Quad 6500+ MS:1002595","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 6500+ MS:1000121","weight":24}},{"data":{"id":"MS:1002674","label":"X500R QTOF MS:1002674","weight":24}},{"data":{"id":"MS:1000121","label":"X500R QTOF MS:1000121","weight":24}},{"data":{"id":"MS:1003144","label":"Triple Quad 7500 MS:1003144","weight":24}},{"data":{"id":"MS:1000121","label":"Triple Quad 7500 MS:1000121","weight":24}},{"data":{"id":"MS:1003293","label":"ZenoTOF 7600 MS:1003293","weight":24}},{"data":{"id":"MS:1000121","label":"ZenoTOF 7600 MS:1000121","weight":24}},{"data":{"id":"e0","source":"MS:1000031","target":"part_of","weight":0.3}},{"data":{"id":"e1","source":"MS:1000121","target":"MS:1000031","weight":0.3}},{"data":{"id":"e2","source":"MS:1000122","target":"MS:1000031","weight":0.3}},{"data":{"id":"e3","source":"MS:1000124","target":"MS:1000031","weight":0.3}},{"data":{"id":"e4","source":"MS:1000126","target":"MS:1000031","weight":0.3}},{"data":{"id":"e5","source":"MS:1000483","target":"MS:1000031","weight":0.3}},{"data":{"id":"e6","source":"MS:1000488","target":"MS:1000031","weight":0.3}},{"data":{"id":"e7","source":"MS:1000489","target":"MS:1000031","weight":0.3}},{"data":{"id":"e8","source":"MS:1000490","target":"MS:1000031","weight":0.3}},{"data":{"id":"e9","source":"MS:1000491","target":"MS:1000031","weight":0.3}},{"data":{"id":"e10","source":"MS:1000495","target":"MS:1000031","weight":0.3}},{"data":{"id":"e11","source":"MS:1001800","target":"MS:1000031","weight":0.3}},{"data":{"id":"e12","source":"MS:1000139","target":"MS:1000121","weight":0.3}},{"data":{"id":"e13","source":"MS:1000143","target":"MS:1000121","weight":0.3}},{"data":{"id":"e14","source":"MS:1000144","target":"MS:1000121","weight":0.3}},{"data":{"id":"e15","source":"MS:1000145","target":"MS:1000121","weight":0.3}},{"data":{"id":"e16","source":"MS:1000146","target":"MS:1000121","weight":0.3}},{"data":{"id":"e17","source":"MS:1000147","target":"MS:1000121","weight":0.3}},{"data":{"id":"e18","source":"MS:1000186","target":"MS:1000121","weight":0.3}},{"data":{"id":"e19","source":"MS:1000187","target":"MS:1000121","weight":0.3}},{"data":{"id":"e20","source":"MS:1000190","target":"MS:1000121","weight":0.3}},{"data":{"id":"e21","source":"MS:1000194","target":"MS:1000121","weight":0.3}},{"data":{"id":"e22","source":"MS:1000195","target":"MS:1000121","weight":0.3}},{"data":{"id":"e23","source":"MS:1000651","target":"MS:1000121","weight":0.3}},{"data":{"id":"e24","source":"MS:1000652","target":"MS:1000121","weight":0.3}},{"data":{"id":"e25","source":"MS:1000653","target":"MS:1000121","weight":0.3}},{"data":{"id":"e26","source":"MS:1000654","target":"MS:1000121","weight":0.3}},{"data":{"id":"e27","source":"MS:1000655","target":"MS:1000121","weight":0.3}},{"data":{"id":"e28","source":"MS:1000656","target":"MS:1000121","weight":0.3}},{"data":{"id":"e29","source":"MS:1000657","target":"MS:1000121","weight":0.3}},{"data":{"id":"e30","source":"MS:1000870","target":"MS:1000121","weight":0.3}},{"data":{"id":"e31","source":"MS:1000931","target":"MS:1000121","weight":0.3}},{"data":{"id":"e32","source":"MS:1000932","target":"MS:1000121","weight":0.3}},{"data":{"id":"e33","source":"MS:1001482","target":"MS:1000121","weight":0.3}},{"data":{"id":"e34","source":"MS:1002533","target":"MS:1000121","weight":0.3}},{"data":{"id":"e35","source":"MS:1002577","target":"MS:1000121","weight":0.3}},{"data":{"id":"e36","source":"MS:1002578","target":"MS:1000121","weight":0.3}},{"data":{"id":"e37","source":"MS:1002579","target":"MS:1000121","weight":0.3}},{"data":{"id":"e38","source":"MS:1002580","target":"MS:1000121","weight":0.3}},{"data":{"id":"e39","source":"MS:1002581","target":"MS:1000121","weight":0.3}},{"data":{"id":"e40","source":"MS:1002582","target":"MS:1000121","weight":0.3}},{"data":{"id":"e41","source":"MS:1002583","target":"MS:1000121","weight":0.3}},{"data":{"id":"e42","source":"MS:1002584","target":"MS:1000121","weight":0.3}},{"data":{"id":"e43","source":"MS:1002585","target":"MS:1000121","weight":0.3}},{"data":{"id":"e44","source":"MS:1002586","target":"MS:1000121","weight":0.3}},{"data":{"id":"e45","source":"MS:1002587","target":"MS:1000121","weight":0.3}},{"data":{"id":"e46","source":"MS:1002588","target":"MS:1000121","weight":0.3}},{"data":{"id":"e47","source":"MS:1002589","target":"MS:1000121","weight":0.3}},{"data":{"id":"e48","source":"MS:1002590","target":"MS:1000121","weight":0.3}},{"data":{"id":"e49","source":"MS:1002591","target":"MS:1000121","weight":0.3}},{"data":{"id":"e50","source":"MS:1002592","target":"MS:1000121","weight":0.3}},{"data":{"id":"e51","source":"MS:1002593","target":"MS:1000121","weight":0.3}},{"data":{"id":"e52","source":"MS:1002594","target":"MS:1000121","weight":0.3}},{"data":{"id":"e53","source":"MS:1002595","target":"MS:1000121","weight":0.3}},{"data":{"id":"e54","source":"MS:1002674","target":"MS:1000121","weight":0.3}},{"data":{"id":"e55","source":"MS:1003144","target":"MS:1000121","weight":0.3}},{"data":{"id":"e56","source":"MS:1003293","target":"MS:1000121","weight":0.3}}],"style":[{"selector":"node","style":{"shape":"circle","content":"data(label)","border-color":"#A00975"}},{"selector":"edge","style":{"line-color":"#3D1244","curve-style":"bezier","target-arrow-shape":"triangle"}}],"layout":{"name":"breadthfirst"}}
+
+            var cy = cytoscape( graphdata );
+
+            cy.userZoomingEnabled( false );
+
+
+
+});
+
+            };
+
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+
+                var script = document.createElement("script");
+
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+
+                script.onload = function(){
+
+                    renderCyjs_332a9a43714641d1b5a4e485ba54749b();
+
+                };
+
+                document.getElementsByTagName("head")[0].appendChild(script);
+
+            }
+
+            else {
+
+                renderCyjs_332a9a43714641d1b5a4e485ba54749b();
+
+            }
+
+</script>
+
+ </body>
+
+</html>
+</div>
+</div>
+</div>
+</div>
 
         </div>
         <footer class="footer is-dark">
