@@ -14,12 +14,16 @@ open System.Text.RegularExpressions
 let processConvertedNotebook (content:string) =
     let nb_start_tag = """<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">"""
     let body_start_index = content.IndexOf(nb_start_tag) + nb_start_tag.Length
-    let body_end_index = content.IndexOf "</body>" - 1
+    let body_end_index = content.LastIndexOf "</body>" - 1
     let image_url = Globals.prefixUrl "img"
     content[body_start_index .. body_end_index]
         .Replace(
             "src=\"../../img",
             $"src=\"{image_url}"
+        )
+        .Replace(
+            "src=../../img",
+            $"src={image_url}"
         )
 
 let fixNotebookJson (language:string) (nb_path:string) (target_path:string) =
