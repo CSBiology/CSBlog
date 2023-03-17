@@ -1,20 +1,25 @@
 #r "../_lib/Fornax.Core.dll"
 #load "../globals.fsx"
 #load "layout.fsx"
-#if !FORNAX
-#load "../loaders/postloader.fsx"
-#endif
 
 open Postloader
 open Layout
 open Html
+open Globals
 
 open System.IO
 open System.Diagnostics
 
-let categoryTimeline ctx category posts=
+let categoryTimeline ctx category posts =
 
-    Layout.layout ctx "Posts" [
+    let metadata =
+        SiteMetadata.create(
+            title = $"The CsBlog - {PostCategory.toString category} posts",
+            description = $"The {PostCategory.toString category} category contains {PostCategory.getDescription category}"
+        )
+
+
+    Layout.layout ctx metadata "Posts" [
         section [Class "hero is-small is-warning is-bold"] [
             div [Class "hero-body"] [
                 div [Class "container has-text-centered"] [

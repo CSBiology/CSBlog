@@ -9,11 +9,16 @@ open Html
 open Globals
 open Postloader
 
-let headTag (ttl: string) =
+let headTag (metadata: SiteMetadata) =
+
+    let ttl = metadata.Title
+    let metaTags = metadata |> SiteMetadata.toMetaTags
+
     head [] [
             meta [CharSet "utf-8"]
             meta [Name "viewport"; Content "width=device-width, initial-scale=1"]
             title [] [!! ttl]
+            yield! metaTags
             link [Rel "icon"; Type "image/png"; Sizes "32x32"; Href (Globals.prefixUrl "img/favicon.png")]
             link [Rel "stylesheet"; Type "text/css"; Href "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"]
             link [Rel "stylesheet"; Type "text/css"; Href "https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"]
@@ -119,7 +124,7 @@ let footerTag =
         ]
     ]
 
-let layout (ctx : SiteContents) activePost bodyCnt =
+let layout (ctx : SiteContents) (metadata: SiteMetadata) activePost bodyCnt =
 
     let siteInfo = ctx.TryGetValue<Globalloader.SiteInfo>()
     let ttl =
@@ -128,7 +133,7 @@ let layout (ctx : SiteContents) activePost bodyCnt =
         |> Option.defaultValue ""
 
     html [] [
-        headTag ttl
+        headTag metadata
         body [HtmlProperties.Style [MinHeight "80vh"]] [
             navBar
             yield! bodyCnt
@@ -137,7 +142,7 @@ let layout (ctx : SiteContents) activePost bodyCnt =
     ]
 
 
-let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) active bodyCnt =
+let postLayout (ctx : SiteContents) (metadata: SiteMetadata) (post_config:PostConfig) (toc:HtmlElement) active bodyCnt =
     let siteInfo = ctx.TryGetValue<Globalloader.SiteInfo> ()
     let ttl =
         siteInfo
@@ -147,7 +152,7 @@ let postLayout (ctx : SiteContents) (post_config:PostConfig) (toc:HtmlElement) a
     let category_url = Globals.prefixUrl $"posts/categories/{post_config.category}.html"
 
     html [] [
-        headTag ttl
+        headTag metadata
         body [] [
             div [Class "columns is-fullheight m-0"] [
                 div [Class "column is-2 is-paddingless box m-0"] [

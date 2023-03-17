@@ -49,7 +49,13 @@ let generate' (ctx : SiteContents) (_: string) =
 
     let latest_post = posts |> List.minBy (fun p -> System.DateTime.Now.Ticks - p.post_config.date.Ticks)
 
-    Layout.layout ctx "" [
+    let metadata =
+        SiteMetadata.create(
+            title = "The CSBlog - CSB study notes, research insights, and progress reports",
+            description = "This is the place where members of the department of Computational Systems Biology of the TU Kaiserslautern blog about their work, research, and other loosely related stuff."
+        )
+
+    Layout.layout ctx metadata "" [
         section [Class "hero is-small is-warning is-bold"] [
             div [Class "hero-body"] [
                 div [Class "container has-text-justified"] [
