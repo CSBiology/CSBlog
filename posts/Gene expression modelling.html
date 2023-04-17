@@ -1,0 +1,1470 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>
+      Gene expression modelling or how to solve ODEs in F#
+    </title>
+    <meta name="description" content="An introduction to the libary FsODE explained on a simple genregulation model."/>
+    <meta name="tags" content="CSB, Computational Systems Biology, computational biology, bioinformatics, data science, datascience, research, F#, C#, .NET, dotnet"/>
+    <meta name="og:title" content="Gene expression modelling or how to solve ODEs in F#"/>
+    <meta name="og:description" content="An introduction to the libary FsODE explained on a simple genregulation model."/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@fslaborg"/>
+    <meta name="twitter:title" content="Gene expression modelling or how to solve ODEs in F#"/>
+    <meta name="twitter:description" content="An introduction to the libary FsODE explained on a simple genregulation model."/>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://csbiology.github.io/CSBlog/img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/css/bulma-collapsible.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-collapsible@1.0.4/dist/js/bulma-collapsible.min.js"></script>
+    <script src="https://csbiology.github.io/CSBlog/js/main.js"></script>
+    <script>
+      MathJax = {tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}}
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+    <script defer="true" src="https://kit.fontawesome.com/0d3e0ea7a6.js" crossOrigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog/styles/notebook.css"/>
+    <link rel="stylesheet" href="https://csbiology.github.io/CSBlog/styles/custom.css"/>
+  </head>
+  <body>
+    <div class="columns is-fullheight m-0">
+      <div class="column is-2 is-paddingless box m-0">
+        <aside class="menu p-4" id="graph-menu">
+          <div class="content">
+            <h3 class="title is-black is-capitalized is-inline-block is-emphasized-csb-darkblue mb-4">
+              Table of contents
+            </h3>
+            <ul>
+              <li>
+                <a href="#Gene-expression-modelling" class="orange-link">
+                  Gene expression modelling
+                </a>
+              </li>
+              <li>
+                <a href="#or-how-to-solve-ODEs-in-F" class="orange-link">
+                  or how to solve ODEs in F
+                </a>
+              </li>
+              <li>
+                <a href="#Motivation" class="orange-link">
+                  Motivation
+                </a>
+              </li>
+              <li>
+                <a href="#Design-of-a-simple-first-Model" class="orange-link">
+                  Design of a simple first Model
+                </a>
+              </li>
+              <li>
+                <a href="#Modelling-in-F" class="orange-link">
+                  Modelling in F
+                </a>
+              </li>
+              <li>
+                <a href="#Extending-the-model" class="orange-link">
+                  Extending the model
+                </a>
+              </li>
+              <li>
+                <a href="#Activation-(adding-HSF1)" class="orange-link">
+                  Activation (adding HSF1)
+                </a>
+              </li>
+              <li>
+                <a href="#A-complete-gene-expression-model" class="orange-link">
+                  A complete gene expression model
+                </a>
+              </li>
+              <li>
+                <a href="#Completing-the-model" class="orange-link">
+                  Completing the model
+                </a>
+              </li>
+              <li>
+                <a href="#Real-world-modelling" class="orange-link">
+                  Real world modelling
+                </a>
+              </li>
+              <li>
+                <a href="#References" class="orange-link">
+                  References
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+      <div class="column is-10 is-paddingless pl-1 pr-6">
+        <nav class="navbar is-dark is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="https://csbiology.github.io/CSBlog/">
+              <img src="https://csbiology.github.io/CSBlog/img/logo_small.png"/>
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div id="navbar" class="navbar-menu">
+            <div class="navbar-start">
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog/">
+                Home
+              </a>
+              <a class="navbar-item" href="https://csbiology.github.io/CSBlog/posts/all_posts.html">
+                Posts
+              </a>
+            </div>
+            <div class="navbar-end">
+              <a href="#" class="navbar-item">
+                <i class="fa fa-search"></i>
+              </a>
+              <a href="#" class="navbar-item">
+                <i class="fa fa-shopping-bag"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+        <section class="hero is-small is-warning is-bold">
+          <div class="hero-body">
+            <div class="container has-text-justified">
+              <div class="main-TextField">
+                <h1 class="title is-capitalized is-black is-inline-block is-emphasized-csb-orange mb-4">
+                  Gene expression modelling or how to solve ODEs in F#
+                </h1>
+                <div class="block">
+                  <h3 class="subtitle is-black is-block">
+                    Posted on 2023-3-31 by
+                    <a href="https://github.com/fejung" class="orange-link">
+                      Felix Jung
+                    </a>
+                     in 
+                    <a href="https://csbiology.github.io/CSBlog/posts/categories/Advanced.html" class="orange-link">
+                      Advanced
+                    </a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="content jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+          
+
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Gene-expression-modelling">Gene expression modelling<a class="anchor-link" href="#Gene-expression-modelling">&#182;</a></h1><h1 id="or-how-to-solve-ODEs-in-F">or how to solve ODEs in F<a class="anchor-link" href="#or-how-to-solve-ODEs-in-F">&#182;</a></h1><h2 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h2><p>Let's assume you are a biologist and you did a lot of research lately on the model organism <i>Chlamydomonas reinhardtii</i>.You made the big discovery that the production of the heat shock factor, HSF1, is directly proportional to the concentration of $\textrm {Na}^{+}$ in the growth medium. You assume that is the case because HSF1 also regulates the salt stress response of <i>Chlamydomonas reinhardtii</i>. You plan to do more research on this subject to find out in what way the increased HSF1 concentration changes the expression of the genes of <i>Chlamydomonas reinhardtii</i>. The most optimal approach for this problem would be to do RNA-seq with <i>Chlamydomonas reinhardtii</i>. However, your lab group recently did a lot of very expensive experiments and it is unlikely that enough money is available to do another RNA-seq experiment. Especially since you are only interested in the expression change of a handful of genes at the moment. However, your group recently did a proteomics experiment.</p>
+<p>While talking about that problem in one of your group meetings, one of your co-workers comes up with the idea to instead model this system to computationally determine the impact of increased HSF1 concentration in the cell. Afterwards you can validate the model by looking at the protein concentration that got determined by the proteomics experiment.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Design-of-a-simple-first-Model">Design of a simple first Model<a class="anchor-link" href="#Design-of-a-simple-first-Model">&#182;</a></h2><p>Following the plot above, most would be unable to just start modelling a complex systems. Thus, this blog post tries to give a rundown on how to break down the system into smaller subproblems, how to model these subproblems, and finally how to solve the complex problem.<br> 
+The proposed problem is the influence of HSF1 on the gene expression of a subset of genes after HSF1 was upregulated by the extracellular concentration of $\textrm {Na}^{+}$. The smallest subproblem that can be found in this list is the transcription of a gene as it is a one step process where mRNA is produced from a gen. Or in other words the concentration of an mRNA Y is dependent on the transcription rate of a gen X. Furthermore, the actual mRNA concentration is also dependent on the time that the gen produces the mRNA. These simple observations can be formulated as differential equation</p>
+$$ \frac {dmRNA} {dt} = \textrm{expression rate of gen X.}$$<p>For ease of use it is common to represent rates or expression (or later of production) with Greek letters to make the equations easier to read. The expression rate gets named $\beta$ from here on. 
+$$ \frac {dmRNA} {dt} = \beta$$
+Speaking in more mathematical terms the shown differential equation describes how the dependent variable mRNA concentration changes with respect to the independent variable time. This relationship is described by the function $\beta$ which is the transcription rate of the gene.</p>
+<p>Solving a differential equation by hand is a very complicated process. Thus, the solution to differential equations are mostly approximated. There are different approximation methods with the most commonly known being the <a href="https://en.wikipedia.org/wiki/Euler_method">Euler method</a>.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Modelling-in-F">Modelling in F<a class="anchor-link" href="#Modelling-in-F">&#182;</a></h2><p>F# offers a open source library called FsODE which is able to solve differential equations. FsODE can be used like every other F# library by importing it and opening it.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#r "nuget: FsODE, 0.0.2"</span>
+<span class="nb">open</span> <span class="n">FsODE</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div><div></div><div></div><div><strong>Installed Packages</strong><ul><li><span>FsODE, 0.0.2</span></li></ul></div></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The next step in solving a differential equation is to choose the method with which the model should get solved. The default option is called RK546M and is based on the <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge-Kutta Method</a>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="n">let</span> <span class="n">modelContext</span> <span class="o">=</span> <span class="o">//</span><span class="n">OdeContext</span><span class="p">()</span>
+    <span class="n">OdeSolverMethod</span><span class="o">.</span><span class="n">RK546M</span> <span class="o">//</span><span class="n">RK547M</span>
+    <span class="o">|&gt;</span> <span class="n">OdeContext</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The following step is to implement the differential equation. This is done by first generating a model which will contain the differential equation. The model is named dmRNA_dt in the following code block to represent that it models the change of mRNA concentration in respect to time. <br>
+Three parts are required for the model to work. The first is the definition of the dependent variable, which means the variable which values change in dependence on the independent variable, which is the mRA concentration. The second is the differential equation which describes this relationship. The third is an output array that takes the differential equation. It should be noted that the dependent variable and the differential equation must have different names.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Constants</span>
+<span class="n">let</span> <span class="n">beta</span> <span class="o">=</span>    <span class="mf">2.</span> <span class="o">//</span> <span class="n">mRNA</span> <span class="n">transcription</span> <span class="n">constant</span>
+
+<span class="o">//</span><span class="n">the</span> <span class="n">differential</span> <span class="n">equation</span> <span class="k">as</span> <span class="n">model</span>
+<span class="n">let</span> <span class="n">dmRNA_dt</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="o">//</span> <span class="n">P</span> <span class="ow">is</span> <span class="n">just</span> <span class="n">the</span> <span class="n">variable</span> <span class="n">name</span><span class="p">,</span> <span class="n">can</span> <span class="n">also</span> <span class="n">be</span> <span class="n">named</span> <span class="n">mRNA</span><span class="p">,</span><span class="n">Protein</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span>
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="o">//</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dependent</span> <span class="n">variable</span>
+        <span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="o">//</span> <span class="n">differntial</span> <span class="n">equation</span>
+        <span class="n">let</span> <span class="n">mRNA</span><span class="s1">' = beta</span>
+        <span class="o">//</span><span class="n">output</span> <span class="n">array</span>
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNA</span><span class="s1">' |]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Afterwards the start conditions need to be specified, which in this case is the start concentration of mRNA.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Startconcentration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mRNA</span>
+<span class="n">let</span> <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">|</span> 
+    <span class="mf">0.0</span> 
+<span class="o">|</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Solving the model is then done by simulating the model. Which means giving the solving context the start value of the independent variable, the start condition of the dependent variable, and the model. The last parameter to be specified afterwards is the precision of the simulation.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span> <span class="n">function</span> <span class="n">to</span> <span class="n">simulate</span> <span class="n">the</span> <span class="n">model</span>
+<span class="n">let</span> <span class="n">simulation</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> <span class="o">//</span> <span class="n">Start</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">simulation</span>
+        <span class="n">P0</span><span class="p">,</span> <span class="o">//</span> <span class="n">Start</span> <span class="n">parameter</span> <span class="n">of</span> <span class="n">the</span> <span class="n">variable</span> <span class="n">that</span> <span class="n">gets</span> <span class="n">modeled</span>
+        <span class="n">dmRNA_dt</span> <span class="o">//</span><span class="n">the</span> <span class="n">model</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">10</span> <span class="o">//</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">timepoints</span> <span class="n">to</span> <span class="n">model</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span>  <span class="o">//</span><span class="n">stors</span> <span class="n">the</span> <span class="n">calculated</span> <span class="n">values</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Running the simulation is then done by defining the simulation type and specifying for which differential equation the simulation should get solved. The specification is done by calling the index of the dependent variable that were defined in the model. The index starts with 1. Thus, calling Sol.Points 1 specifies the dependent variable mRNA (defined above as let mRNA = P[0]).</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulation</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The complete simulation can be visualized afterwards.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="c1">#r "nuget: Plotly.NET.Interactive, 3.0.2"</span>
+<span class="nb">open</span> <span class="n">Plotly</span><span class="o">.</span><span class="n">NET</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+<div><div></div><div></div><div><strong>Installed Packages</strong><ul><li><span>Plotly.NET.Interactive, 3.0.2</span></li></ul></div></div>
+</div>
+
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
+<pre>Loading extensions from `C:\Users\felix\.nuget\packages\plotly.net.interactive\3.0.2\interactive-extensions\dotnet\Plotly.NET.Interactive.dll`</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="n">mRNA</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA concentration "</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time [s]"</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"mRNA concentration [μM]"</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="dbe3f18e-869c-4cb2-af22-36580e7bba6a"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_dbe3f18e869c4cb2af2236580e7bba6a = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,1.0,2.2799051993878456,4.696201521992631,8.275561267306522,12.910449646510457,18.49057101369708,24.963718120505085,32.351832628768655,40.751854343307144],"y":[0.0,0.4758129104166666,1.0193409669002924,1.8738014797871272,2.814419325300582,3.6250850275545123,4.213074828043046,4.588085574795869,4.803236492898943,4.915054493254059],"marker":{},"line":{"shape":"spline"},"name":"mRNA concentration "}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time [s]"}},"yaxis":{"title":{"text":"mRNA concentration [μM]"}}};
+            var config = {"responsive":true};
+            Plotly.newPlot('dbe3f18e-869c-4cb2-af22-36580e7bba6a', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_dbe3f18e869c4cb2af2236580e7bba6a();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_dbe3f18e869c4cb2af2236580e7bba6a();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Extending-the-model">Extending the model<a class="anchor-link" href="#Extending-the-model">&#182;</a></h2><p>While this simple model describes the production of mRNA in the cell, it does not represent the biological reality. The mRNA concentration in the cell does not increase all the time as mRNA in the cell gets degraded. This makes a lot of sense, as a linear increase of the mRNA concentration as shown in the diagram above would eat resources that are needed for other tasks like metabolism. Thus, the degradation is dependent on the mRNA concentration in the cell, as the cell needs to degrade more mRNA if the mRNA concentration is high, and less if the mRNA concentration is low. Using $\gamma$ as degradation constant it is possible to extend the previous differential equation to
+$$ \frac {dmRNA} {dt} = \beta - \gamma * \textrm{[mRNA]}$$
+Since it is a degradation it needs to be subtracted from the production term.
+Implementing this in F# is identical to the steps before, the only necessary change is the modification of the differential equation.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">constants</span> 
+<span class="n">let</span> <span class="n">beta</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">expression</span> 
+<span class="n">let</span> <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradtation</span> <span class="n">constant</span>
+
+<span class="n">let</span> <span class="n">dmRNA_dt2</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">let</span> <span class="n">mRNA</span><span class="s1">' = beta - gamma* mRNA</span>
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNA</span><span class="s1">' |]</span>
+
+<span class="n">let</span> <span class="n">simulation2</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> <span class="o">//</span> <span class="n">Start</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">simulation</span>
+        <span class="n">P0</span><span class="p">,</span> <span class="o">//</span> <span class="n">Start</span> <span class="n">parameter</span> <span class="n">of</span> <span class="n">the</span> <span class="n">variable</span> <span class="n">that</span> <span class="n">gets</span> <span class="n">modeled</span>
+        <span class="n">dmRNA_dt2</span> <span class="o">//</span><span class="n">the</span> <span class="n">model</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">10</span> <span class="o">//</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">timepoints</span> <span class="n">to</span> <span class="n">model</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span>  <span class="o">//</span><span class="n">stors</span> <span class="n">the</span> <span class="n">calculated</span> <span class="n">values</span>
+
+<span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulation2</span>
+<span class="n">mRNA</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA"</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time [s]"</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"mRNA concentration [μM]"</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="c1b7b69b-929e-4de0-89f6-64711400a4ca"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_c1b7b69b929e4de089f664711400a4ca = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,1.0,2.2799051993878456,4.696201521992631,8.275561267306522,12.910449646510457,18.49057101369708,24.963718120505085,32.351832628768655,40.751854343307144],"y":[0.0,0.4758129104166666,1.0193409669002924,1.8738014797871272,2.814419325300582,3.6250850275545123,4.213074828043046,4.588085574795869,4.803236492898943,4.915054493254059],"marker":{},"line":{"shape":"spline"},"name":"mRNA"}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time"}},"yaxis":{"title":{"text":"mRNA concentration"}}};
+            var config = {"responsive":true};
+            Plotly.newPlot('c1b7b69b-929e-4de0-89f6-64711400a4ca', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_c1b7b69b929e4de089f664711400a4ca();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_c1b7b69b929e4de089f664711400a4ca();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Activation-(adding-HSF1)">Activation (adding HSF1)<a class="anchor-link" href="#Activation-(adding-HSF1)">&#182;</a></h2><p>Extending the simple model according to the influence of HSF1 is a straight forward approach. Assuming HSF1 works as activator the production of mRNA of the affected gens should increase. This can be reflected by inserting a term to the transcription rate of these gens. This term needs to reflect that a higher HSF1 concentration increases the mRNA concentration, whereas a low concentration would keep the mRNA concentration low. Additionally, the term should include a parameter which determines how tightly HSF1 binds to the promotor region of the gen, this parameter is called binding constant. A strong binding constant would mean HSF1 stays on the promotor for a long time, so a lower overall HSF1 concentration is needed to get the desired effect, whereas a weak binding constant reflects that HSF1 can dissociate easily from the promotor region, so a high concentration of HSF1 is needed to get the desired effect. In practise a more common parameter is the dissociation constant, which is the reciprocal value of the binding constant. This leads to 
+$$ \frac {dProteinconcentration} {dt} = \beta* \frac {1}{1+\frac{K_{D}}{A}} - \gamma*Proteinconcentration$$
+with A as concentration of the activator (HSF1) and $K_{D}$ as dissociation constant.</p>
+<p>Side note: The sharp minded reader might recognise that the term that got inserted does not increase the overall transcription of the gene but rather decreases it as the inserted term can never get smaller than 0. However, the way to think about this is that nature can use a higher production constant $\beta$ in a regulated gene expression process compared to an unregulated one, as the regulated gene expression will only be active when it is needed and not always. So, the real increase in production is hidden in $\beta$ and not the activator term.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">constants</span>
+<span class="n">let</span> <span class="n">beta</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="o">//</span><span class="n">mRNA</span> <span class="n">production</span> 
+<span class="n">let</span> <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradtion</span>  
+<span class="n">let</span> <span class="n">K_d</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">dissociation</span>
+<span class="n">let</span> <span class="n">A</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">activator</span> <span class="n">concentration</span>
+
+
+<span class="n">let</span> <span class="n">dP_dt3</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">let</span> <span class="n">mRNA</span><span class="s1">' = beta * 1./(1.+(K_d/A)) - (gamma * mRNA)</span>
+
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNA</span><span class="s1">' |]</span>
+
+<span class="n">let</span> <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">|</span> 
+    <span class="mf">0.0</span>
+<span class="o">|</span><span class="p">]</span>
+
+<span class="n">let</span> <span class="n">simulation3</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> 
+        <span class="n">P0</span><span class="p">,</span>
+        <span class="n">dP_dt3</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">10</span> 
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span> 
+
+
+
+<span class="p">[</span> 
+    <span class="n">mRNA</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"unregulated"</span><span class="p">);</span>
+    <span class="n">let</span> <span class="n">mRNARegulatted</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulation3</span>
+    <span class="n">mRNARegulatted</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"regulated"</span><span class="p">);</span>
+<span class="p">]</span>
+
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">combine</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time"</span><span class="p">,</span> <span class="n">MinMax</span> <span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"Proteinconcentration"</span><span class="p">,</span> <span class="n">MinMax</span> <span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="c4ef7fbb-519c-4c96-aa8d-6ca5ac074191"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_c4ef7fbb519c4c96aa8d6ca5ac074191 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,1.0,2.2799051993878456,4.696201521992631,8.275561267306522,12.910449646510457,18.49057101369708,24.963718120505085,32.351832628768655,40.751854343307144],"y":[0.0,0.4758129104166666,1.0193409669002924,1.8738014797871272,2.814419325300582,3.6250850275545123,4.213074828043046,4.588085574795869,4.803236492898943,4.915054493254059],"marker":{},"line":{"shape":"spline"},"name":"unregulated"},{"type":"scatter","mode":"lines","x":[0.0,1.0,2.27990519945544,4.6962015223458575,8.275561268017169,12.910449647476277,18.49057101486103,24.96371812184708,32.35183263029588,40.75185434504803],"y":[0.0,0.6344172138888889,1.3591212892362656,2.498401973196737,3.7525591006078667,4.833446703583073,5.617433104179521,6.117447433134863,6.404315323905323,6.553405991025129],"marker":{},"line":{"shape":"spline"},"name":"regulated"}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time"},"range":[0,40]},"yaxis":{"title":{"text":"Proteinconcentration"},"range":[0,10]}};
+            var config = {"responsive":true};
+            Plotly.newPlot('c4ef7fbb-519c-4c96-aa8d-6ca5ac074191', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_c4ef7fbb519c4c96aa8d6ca5ac074191();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_c4ef7fbb519c4c96aa8d6ca5ac074191();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="A-complete-gene-expression-model">A complete gene expression model<a class="anchor-link" href="#A-complete-gene-expression-model">&#182;</a></h2><p>The mRNA that gets produced from a gen gets further processed in the cell by getting translated into proteins. Thus, a second differential equation is needed that describes the behavior of the protein concentration. This second differential equation must be dependent on the mRNA concentration, as a high mRNA concentration will lead to a higher protein concentration compared to a low mRNA concentration. Additionally, the protein also needs to be degraded depending on the number of proteins in the cell. This leads to the following differential equations</p>
+$$ \frac {dmRNAconcentration} {dt} = \beta_{1}* \frac {1}{1+ \frac {K_{D}}{A}} - \gamma_{1}*mRNAconcentration$$$$ \frac {dProteinconcentration} {dt} = \beta_{2}* mRNAconcentration - \gamma_{2}*Proteinconcentration$$<p>where both have different production and degradation constants and the protein concentration is directly dependent on the mRNA concentration.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Constants</span>
+<span class="n">let</span> <span class="n">beta1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">prouction</span>
+<span class="n">let</span> <span class="n">gamma1</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradation</span>
+<span class="n">let</span> <span class="n">beta2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span>
+<span class="n">let</span> <span class="n">gamma2</span> <span class="o">=</span> <span class="mf">0.35</span> <span class="o">//</span><span class="n">protein</span> <span class="n">degradation</span>
+<span class="n">let</span> <span class="n">K_d</span> <span class="o">=</span> <span class="mf">5.</span> <span class="o">//</span><span class="n">dissociation</span>
+<span class="n">let</span> <span class="n">A</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">acivator</span> <span class="n">concentration</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">model</span>
+<span class="n">let</span> <span class="n">dP_dtfinal</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="n">let</span> <span class="n">mRNAconcentratoin</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">let</span> <span class="n">Proteinconcentration</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+
+        <span class="n">let</span> <span class="n">mRNAconcentratoin</span><span class="s1">' = beta * 1./(1.+(K_d/A)) - (gamma * mRNAconcentratoin)</span>
+        <span class="n">let</span> <span class="n">Proteinconcentration</span><span class="s1">' = beta2 * mRNAconcentratoin - (gamma2 * Proteinconcentration)</span>
+        
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNAconcentratoin</span><span class="s1">';Proteinconcentration'</span> <span class="o">|</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Start</span> <span class="n">concentrations</span>
+<span class="n">let</span> <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">|</span> 
+    <span class="mf">0.0</span>
+    <span class="mf">0.0</span>
+<span class="o">|</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="n">let</span> <span class="n">simulationFinal</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> 
+        <span class="n">P0</span><span class="p">,</span>
+        <span class="n">dP_dtfinal</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">50</span> 
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span> 
+
+<span class="p">[</span>   
+    <span class="n">let</span> <span class="n">mRNA</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulationFinal</span>
+    <span class="n">mRNA</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA"</span><span class="p">)</span>
+    <span class="n">let</span> <span class="n">proteine</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">2</span> <span class="n">simulationFinal</span>
+    <span class="n">proteine</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Protein"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">combine</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time [s]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"Concentration [μM]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="6e123135-7085-4a94-ade1-7b9d22923f02"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_6e12313570854a94ade17b9d22923f02 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,1.0,1.902080958814763,2.944982480436945,4.218748935798285,5.766058792907235,7.622784829147893,9.832732355899122,12.457586943427973,15.58854677455175,19.365746651605313,24.0194774020227,29.970884403030556,37.58282887998748,46.675470359392406,57.04444655713132,68.97334218364517,83.03946139644059,100.4174041890515,111.12399184128803,120.5940587434511,129.62790542488398,138.8438654758156,149.0518953362165,160.86824418451636,174.2649210285715,188.1077817578651,198.22251913818906,206.64942754642524,214.59098670908674,223.08961364645455,233.35904502458854,246.40331552508744,262.1110704995806,275.3018783307072,284.2485437086774,292.0217804042767,299.76382774781115,308.7277636155324,320.18370383285514,334.9295832491912,351.86795012490563,360.4466988092988,368.01723484451264,375.7345123077965,384.90230967168844,396.8045945953853,412.1295563369225,427.5163913423242,438.0217997472188],"y":[0.0,0.1730228765151515,0.31493260929203415,0.4638086343555484,0.6257889446244727,0.7967237156556245,0.9698144246309892,1.1380279682883225,1.2950499731476763,1.435678456856297,1.556005520868478,1.6535612470034708,1.727396260448834,1.775775163012733,1.801098997699762,1.8121241419316378,1.8163430978376682,1.8177299899793915,1.8181005546600086,1.8181539565623774,1.8181710100678175,1.8181774386494265,1.8181800755713475,1.8181811902298881,1.818181625429647,1.8181817675953986,1.8181818054760965,1.8181818135604375,1.8181818161920604,1.81818181728252,1.8181818177973874,1.8181818180441347,1.8181818181444043,1.8181818181739724,1.8181818181797167,1.818181818180959,1.818181818181423,1.818181818181636,1.8181818181817437,1.8181818181817946,1.8181818181818126,1.818181818181817,1.8181818181818177,1.818181818181818,1.8181818181818181,1.8181818181818181,1.8181818181818181,1.8181818181818181,1.8181818181818181,1.8181818181818181],"marker":{},"line":{"shape":"spline"},"name":"mRNA"},{"type":"scatter","mode":"lines","x":[0.0,1.0,1.902080958814763,2.944982480436945,4.218748935798285,5.766058792907235,7.622784829147893,9.832732355899122,12.457586943427973,15.58854677455175,19.365746651605313,24.0194774020227,29.970884403030556,37.58282887998748,46.675470359392406,57.04444655713132,68.97334218364517,83.03946139644059,100.4174041890515,111.12399184128803,120.5940587434511,129.62790542488398,138.8438654758156,149.0518953362165,160.86824418451636,174.2649210285715,188.1077817578651,198.22251913818906,206.64942754642524,214.59098670908674,223.08961364645455,233.35904502458854,246.40331552508744,262.1110704995806,275.3018783307072,284.2485437086774,292.0217804042767,299.76382774781115,308.7277636155324,320.18370383285514,334.9295832491912,351.86795012490563,360.4466988092988,368.01723484451264,375.7345123077965,384.90230967168844,396.8045945953853,412.1295563369225,427.5163913423242,438.0217997472188],"y":[0.0,0.03922804569128788,0.12482516503954591,0.2592965446738202,0.4499377317022937,0.6925691288018253,0.9727636318150719,1.2703602000010994,1.5644135090483773,1.8368342398698532,2.0742352845657472,2.2683968130093195,2.415864399038615,2.512594577393082,2.5632388705540277,2.5852888284698046,2.593728514769203,2.5965207085200737,2.5978246669387146,2.5979451193922904,2.5976575111280544,2.5974901868736104,2.597436860932197,2.597429519312969,2.597458246467269,2.5976635840051645,2.598921346991612,2.598470279052772,2.597658741966795,2.597450043205875,2.5974144670752266,2.5974118133930495,2.5974384387606366,2.597891678617096,2.599454304338716,2.598078799386834,2.597518622688504,2.597422242737073,2.597409143572018,2.5974131532301046,2.5974967156646716,2.599532405083025,2.5979614587721147,2.5974910393268935,2.597417418310036,2.5974082260004705,2.5974143538660575,2.5975384906397974,2.5990165742921305,2.5988584490401756],"marker":{},"line":{"shape":"spline"},"name":"Protein"}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time"},"range":[0,100]},"yaxis":{"title":{"text":"Concentration"},"range":[0,10]}};
+            var config = {"responsive":true};
+            Plotly.newPlot('6e123135-7085-4a94-ade1-7b9d22923f02', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_6e12313570854a94ade17b9d22923f02();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_6e12313570854a94ade17b9d22923f02();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Completing-the-model">Completing the model<a class="anchor-link" href="#Completing-the-model">&#182;</a></h2><p>The original model had the following structure:</p>
+<ol>
+<li>increased Na+ concentration gets recognised by a receptor which activates the gen which produces HSF1</li>
+<li>HSF1 activates a gen cluster which in turn produces another set of gens.</li>
+<li>These other genes produce a set of proteins that counteract the high salt concentration (they get called salt stress repellents, short SSR, because of that)</li>
+</ol>
+<p>A "complete" model of this schema can ignore the receptor as it does not affect the differential equations if Na+ directly or indirectly effects the gene expression of <em>hsf1</em>. Thus, the following differential equations can be used to model this system</p>
+$$ \frac {dmRNAconcentration_{HSF1}} {dt} = \beta_{1}* \frac {1}{1+ \frac {K_{D Na_{+}}}{A_{Na^{+}}}} - \gamma_{1}*mRNAconcentration_{HSF1}$$$$ \frac {dProteinconcentration_{HSF1}} {dt} = \beta_{2}* mRNAconcentration_{HSF1} - \gamma_{2}*Proteinconcentration_{HSF1}$$$$ \frac {dmRNAconcentration_{SSR}} {dt} = \beta_{3}* \frac {1}{1+ \frac {K_{D HSF1}}{A_{HSF1}}} - \gamma_{3}*mRNAconcentration_{SSR}$$$$ \frac {dProteinconcentration_{SSR}} {dt} = \beta_{4}* mRNAconcentration_{SSR} - \gamma_{4}*Proteinconcentration_{SSR}$$$$ \frac {dNa^{+}} {dt}= - \gamma_{5}*Proteinconcentration_{SSR} $$<p>with SSR representing proteins that counteract the salt stress that is sensed via a high $Na^{+}$ concentration. These differential equations are just two gene expression systems put together. Thus, only the number of equations increased but the actual complexity of every single equation stayed the same.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Constants</span>
+<span class="n">let</span> <span class="n">beta1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">production</span> <span class="n">of</span> <span class="n">hsf</span>
+<span class="n">let</span> <span class="n">gamma1</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">hsf</span>
+<span class="n">let</span> <span class="n">beta2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">HSF</span>
+<span class="n">let</span> <span class="n">gamma2</span> <span class="o">=</span> <span class="mf">0.35</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">HSF</span>
+<span class="n">let</span> <span class="n">beta3</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">production</span> <span class="n">of</span> <span class="n">ssr</span>
+<span class="n">let</span> <span class="n">gamma3</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">ssr</span>
+<span class="n">let</span> <span class="n">beta4</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">SSR</span>
+<span class="n">let</span> <span class="n">gamma4</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">protein</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">SSR</span>
+<span class="n">let</span> <span class="n">gamma5</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">//</span><span class="n">removal</span> <span class="n">of</span> <span class="n">Na</span><span class="o">+</span>
+<span class="n">let</span> <span class="n">K_d_na</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">dissociation</span> <span class="n">of</span> <span class="n">Na</span>
+<span class="n">let</span> <span class="n">K_d_hsf</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">dissociation</span> <span class="n">of</span> <span class="n">HSF</span>
+
+<span class="o">//</span><span class="n">model</span>
+<span class="n">let</span> <span class="n">modelFinal</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="n">let</span> <span class="n">mRNAcHSF</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">let</span> <span class="n">proteincHSF</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">mRNAcSSR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">proteincSSR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">NA</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="n">let</span> <span class="n">mRNAcHSF</span><span class="s1">' = beta1 /(1.+(K_d_na/NA)) - (gamma1 * mRNAcHSF)</span>
+        <span class="n">let</span> <span class="n">proteincHSF</span><span class="s1">' = beta2 * mRNAcHSF - (gamma2 * proteincHSF)</span>
+        <span class="n">let</span> <span class="n">mRNAcSSR</span><span class="s1">' = beta3 /(1.+(K_d_hsf/proteincHSF)) - (gamma3 * mRNAcSSR)</span>
+        <span class="n">let</span> <span class="n">proteincSSR</span><span class="s1">'= beta4 * mRNAcSSR - (gamma4 * proteincSSR)</span>
+        <span class="n">let</span> <span class="n">NA</span><span class="s1">' = -gamma5 *proteincSSR</span>
+        
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNAcHSF</span><span class="s1">';proteincHSF'</span><span class="p">;</span><span class="n">mRNAcSSR</span><span class="s1">';proteincSSR'</span><span class="p">;</span><span class="n">NA</span><span class="s1">'|]</span>
+
+<span class="o">//</span><span class="n">Start</span> <span class="n">concentrations</span>
+<span class="n">let</span> <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">|</span> 
+    <span class="mf">0.0</span>
+    <span class="mf">0.01</span>
+    <span class="mf">0.0</span>
+    <span class="mf">0.0</span>
+    <span class="mf">10.</span>
+<span class="o">|</span><span class="p">]</span>
+
+<span class="n">let</span> <span class="n">simulationFinal</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> 
+        <span class="n">P0</span><span class="p">,</span>
+        <span class="n">modelFinal</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">50</span> 
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span> 
+
+<span class="p">[</span>   
+    <span class="n">let</span> <span class="n">mRNAHSF</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulationFinal</span>
+    <span class="n">mRNAHSF</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA HSF1"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">proteinHSF</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">2</span> <span class="n">simulationFinal</span>
+    <span class="n">proteinHSF</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Protein HSF1"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">mRNASSR</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">3</span> <span class="n">simulationFinal</span>
+    <span class="n">mRNASSR</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA SSR"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">proteinSSR</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">4</span> <span class="n">simulationFinal</span>
+    <span class="n">proteinSSR</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Protein SSR"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">naion</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">5</span> <span class="n">simulationFinal</span>
+    <span class="n">naion</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Natrium"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">combine</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time [s]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">62</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"Concentration [μM]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="4cf0e848-ac31-4a30-bb76-794dd6535244"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_4cf0e848ac314a30bb76794dd6535244 = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,0.1706318774234215,0.3183128688961313,0.46562506627771094,0.636982554558867,0.8454466080731794,1.1023473206775505,1.41943527512701,1.808470757452617,2.2796441036426205,2.8396346914407573,3.490636426000901,4.232490555921208,5.067445638653098,6.003990421462435,7.058527486176174,8.256576419781547,9.63524541821483,11.247947364045395,13.17126419239921,15.508380150198086,18.37100892682959,21.81444463971366,25.65870885028901,29.472223941246913,32.88724587856224,35.83148226636018,38.50027396925041,41.18113572813222,44.03898788138922,47.01189737387798,49.9503332054533,52.75261783610577,55.3855458284998,57.85780046071357,60.18054391567654,62.351429254243776,64.3602817779458,66.19634611037685,67.8497449541552,69.30698073863756,70.55737662531452,71.64298000978681,72.42826976958246,73.11567179792713,73.74571284397489,74.3152383822243,74.7274842197783,75.07475078584568,75.41254029847414],"y":[0.0,0.14499827247861166,0.2554687001507523,0.35339812547271254,0.4536996077523102,0.5585610192066104,0.6659018338355915,0.7713053316731587,0.8689272580648879,0.952873478165551,1.0190281353316755,1.0664293662453288,1.0972602432356882,1.1154421094898619,1.124984214451831,1.1290674186649163,1.1298548089702565,1.1286390807164037,1.1260602220695528,1.1222838092159368,1.1171121695882305,1.1100554664860944,1.1004504965980033,1.088029416297397,1.0735581337163216,1.0583331609319568,1.0429859764833784,1.0268165592698493,1.0078764967763811,0.9839092773529543,0.9535718144416416,0.9162706714160602,0.8712675664575127,0.8170427646378278,0.7508720121122713,0.6688776240491432,0.5662432347623729,0.43733587677892005,0.276220176236816,0.0787491388854698,-0.15155438643206479,-0.39561857844327775,-0.624348361432187,-0.764834716137086,-0.8268531039671847,-0.7892564714495076,-0.6449645073026101,-0.4688568281301905,-0.2843003755256768,-0.09243160362536929],"marker":{},"line":{"shape":"spline"},"name":"mRNA HSF1"},{"type":"scatter","mode":"lines","x":[0.0,0.1706318774234215,0.3183128688961313,0.46562506627771094,0.636982554558867,0.8454466080731794,1.1023473206775505,1.41943527512701,1.808470757452617,2.2796441036426205,2.8396346914407573,3.490636426000901,4.232490555921208,5.067445638653098,6.003990421462435,7.058527486176174,8.256576419781547,9.63524541821483,11.247947364045395,13.17126419239921,15.508380150198086,18.37100892682959,21.81444463971366,25.65870885028901,29.472223941246913,32.88724587856224,35.83148226636018,38.50027396925041,41.18113572813222,44.03898788138922,47.01189737387798,49.9503332054533,52.75261783610577,55.3855458284998,57.85780046071357,60.18054391567654,62.351429254243776,64.3602817779458,66.19634611037685,67.8497449541552,69.30698073863756,70.55737662531452,71.64298000978681,72.42826976958246,73.11567179792713,73.74571284397489,74.3152383822243,74.7274842197783,75.07475078584568,75.41254029847414],"y":[0.01,0.01562082089439458,0.029356125406665413,0.04983524402136613,0.08063030178243588,0.12604366649235368,0.1907388236609912,0.2790186867419745,0.39330363117936806,0.5321663029583978,0.6890417765028234,0.8530241707484689,1.0120965999198621,1.1566731458919308,1.2810290531760522,1.382799022945313,1.4619396928133082,1.519880108605029,1.5589319914918596,1.581855648619875,1.591511245092288,1.5906256797323524,1.581638376242698,1.5668608200388645,1.548747256052579,1.5294808259751278,1.5101600078479076,1.4900171831771938,1.4666725826003888,1.4374804580978042,1.4010279538128734,1.3568804333909323,1.3045373846288566,1.2427367867581758,1.169052365124261,1.0800979080549113,0.971918640071887,0.8401951689389013,0.6806149218240855,0.49018440286281173,0.2708427718431704,0.03348676796893138,-0.2108613262408092,-0.401061691849513,-0.5608855176072001,-0.680783225894872,-0.744759335634936,-0.7520895485509052,-0.7276001392453908,-0.6761986488077806],"marker":{},"line":{"shape":"spline"},"name":"Protein HSF1"},{"type":"scatter","mode":"lines","x":[0.0,0.1706318774234215,0.3183128688961313,0.46562506627771094,0.636982554558867,0.8454466080731794,1.1023473206775505,1.41943527512701,1.808470757452617,2.2796441036426205,2.8396346914407573,3.490636426000901,4.232490555921208,5.067445638653098,6.003990421462435,7.058527486176174,8.256576419781547,9.63524541821483,11.247947364045395,13.17126419239921,15.508380150198086,18.37100892682959,21.81444463971366,25.65870885028901,29.472223941246913,32.88724587856224,35.83148226636018,38.50027396925041,41.18113572813222,44.03898788138922,47.01189737387798,49.9503332054533,52.75261783610577,55.3855458284998,57.85780046071357,60.18054391567654,62.351429254243776,64.3602817779458,66.19634611037685,67.8497449541552,69.30698073863756,70.55737662531452,71.64298000978681,72.42826976958246,73.11567179792713,73.74571284397489,74.3152383822243,74.7274842197783,75.07475078584568,75.41254029847414],"y":[0.0,0.004592841775056478,0.011317261381914615,0.02259248341190943,0.04270862735877888,0.07771038733574417,0.13513045633979975,0.22221610485035675,0.3422945423067118,0.4907278951904759,0.653883333304907,0.8135258792481261,0.9543308633307241,1.0686378273832533,1.1558813276420197,1.2194618537275224,1.2640459327061424,1.2940915611982615,1.3132875824225607,1.3244813756675216,1.329810290417264,1.3308938235230983,1.3289712924858677,1.324989861867947,1.3198298487708844,1.3145205282320176,1.3092827034715067,1.303601651052681,1.2968305030626397,1.288170202969738,1.2770872230936996,1.263298713566005,1.2464170832952863,1.2256432214510984,1.199540535515045,1.1658898003683889,1.1214046228654941,1.0610394257864637,0.9766358346655404,0.854478643626756,0.67149717316982,0.3882518742454119,-0.09022515187223284,-0.781858757248078,-2.0335434155465997,-4.736137532556877,-10.977589364981775,-17.831099237139032,-20.16710631173951,-18.638586055999898],"marker":{},"line":{"shape":"spline"},"name":"mRNA SSR"},{"type":"scatter","mode":"lines","x":[0.0,0.1706318774234215,0.3183128688961313,0.46562506627771094,0.636982554558867,0.8454466080731794,1.1023473206775505,1.41943527512701,1.808470757452617,2.2796441036426205,2.8396346914407573,3.490636426000901,4.232490555921208,5.067445638653098,6.003990421462435,7.058527486176174,8.256576419781547,9.63524541821483,11.247947364045395,13.17126419239921,15.508380150198086,18.37100892682959,21.81444463971366,25.65870885028901,29.472223941246913,32.88724587856224,35.83148226636018,38.50027396925041,41.18113572813222,44.03898788138922,47.01189737387798,49.9503332054533,52.75261783610577,55.3855458284998,57.85780046071357,60.18054391567654,62.351429254243776,64.3602817779458,66.19634611037685,67.8497449541552,69.30698073863756,70.55737662531452,71.64298000978681,72.42826976958246,73.11567179792713,73.74571284397489,74.3152383822243,74.7274842197783,75.07475078584568,75.41254029847414],"y":[0.0,0.0007071166012165917,0.002774100246708034,0.007088193994063708,0.016500933670076427,0.036913100286432764,0.07938734955146165,0.1620473574416618,0.30904559102603,0.5429337291810096,0.8705626807616462,1.2717096053766688,1.7032030171209593,2.1172449259990915,2.478048068887113,2.767624086077121,2.9834945795393355,3.1334180748638847,3.2300655537737497,3.2869085398594993,3.3157605311874825,3.3259503794082574,3.3245133219264735,3.316853390282293,3.306895772068156,3.2943666178062316,3.2801383231276047,3.26608556051142,3.25021475869268,3.2303003576026894,3.2051361982338853,3.17403961247449,3.136117770713026,3.089918616300517,3.0328268946918935,2.960710326115514,2.8676526369557838,2.745077563144767,2.579995797084481,2.3522098361810015,2.0311647581632903,1.5710982326134448,0.8669558015064718,-0.04247876586397081,-1.4882160747394546,-4.154225074315583,-9.615624599136336,-17.216401098319764,-24.840416824466704,-30.55012129488191],"marker":{},"line":{"shape":"spline"},"name":"Protein SSR"},{"type":"scatter","mode":"lines","x":[0.0,0.1706318774234215,0.3183128688961313,0.46562506627771094,0.636982554558867,0.8454466080731794,1.1023473206775505,1.41943527512701,1.808470757452617,2.2796441036426205,2.8396346914407573,3.490636426000901,4.232490555921208,5.067445638653098,6.003990421462435,7.058527486176174,8.256576419781547,9.63524541821483,11.247947364045395,13.17126419239921,15.508380150198086,18.37100892682959,21.81444463971366,25.65870885028901,29.472223941246913,32.88724587856224,35.83148226636018,38.50027396925041,41.18113572813222,44.03898788138922,47.01189737387798,49.9503332054533,52.75261783610577,55.3855458284998,57.85780046071357,60.18054391567654,62.351429254243776,64.3602817779458,66.19634611037685,67.8497449541552,69.30698073863756,70.55737662531452,71.64298000978681,72.42826976958246,73.11567179792713,73.74571284397489,74.3152383822243,74.7274842197783,75.07475078584568,75.41254029847414],"y":[10.0,9.999998010145081,9.999986224426658,9.999951628822757,9.999854577026397,9.999585936526637,9.998861279976632,9.99699276983456,9.992488488849732,9.982554481816692,9.962849638767876,9.927980427349086,9.872659586751045,9.792612754171223,9.684602640758987,9.545825234742747,9.37307471206354,9.16177419872368,8.90479686324051,8.591091208952141,8.205033999722861,7.729517442381361,7.156896083023702,6.5186500878745886,5.887461330735218,5.324230932992218,4.840440983771494,4.403694414860876,3.9669489476055704,3.5039163637974307,3.025592744350574,2.556950488660983,2.1148406476947823,1.7049494876831441,1.3264070032370525,0.9781989001638385,0.6616384371609854,0.3794198919970451,0.13451458616331113,-0.07002623696971388,-0.2306453115981443,-0.34451006407044227,-0.41256797377230947,-0.43041390726853707,-0.40671405502032565,-0.32312899776540804,-0.13789455938795253,0.1330828961988319,0.49893088146993414,0.9703653526938598],"marker":{},"line":{"shape":"spline"},"name":"Natrium"}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time"},"range":[0,62]},"yaxis":{"title":{"text":"Concentration"},"range":[0,10]}};
+            var config = {"responsive":true};
+            Plotly.newPlot('4cf0e848-ac31-4a30-bb76-794dd6535244', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_4cf0e848ac314a30bb76794dd6535244();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_4cf0e848ac314a30bb76794dd6535244();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Coming back to the reality of the biological world. It is very unlikely that the above model actually models the way HSF1 regulates other genes and proteins. A linear model is very slow and unprecise. A more likely model is one that factors in a ultrasensitive HSF1 regulation. The same is likely for the regulation of the hsf1 gene, which should also be modelled as ultrasensitive gene. This can be done by implementing an exponent to the activator part of the function.</p>
+$$ \frac {dmRNAconcentration_{HSF}} {dt} = \beta_{3}* \frac {1}{1+ (\frac {K_{DNa^{+}}}{A_{Na^{+}}})^{n1}} - \gamma_{3}*mRNAconcentration_{HSF}$$$$ \frac {dmRNAconcentration_{SSR}} {dt} = \beta_{3}* \frac {1}{1+ (\frac {K_{D HSF1}}{A_{HSF1}})^{n2}} - \gamma_{3}*mRNAconcentration_{SSR}$$<p>The exponent n describes how strong the ultrasensitive regulation is. One describes a linear correlation, two a quadratic correlation, three a cubic correlation and four a quartic correlation. Higher values are unlikely to be found in the biological context. This exponent is called <a href="https://en.wikipedia.org/wiki/Hill_equation_(biochemistry">hill coefficent</a>).</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-python"><pre><span></span><span class="o">//</span><span class="n">Constants</span>
+<span class="n">let</span> <span class="n">beta1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">production</span> <span class="n">of</span> <span class="n">hsf</span>
+<span class="n">let</span> <span class="n">gamma1</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">hsf</span>
+<span class="n">let</span> <span class="n">beta2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">HSF</span>
+<span class="n">let</span> <span class="n">gamma2</span> <span class="o">=</span> <span class="mf">0.35</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">HSF</span>
+<span class="n">let</span> <span class="n">beta3</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">production</span> <span class="n">of</span> <span class="n">ssr</span>
+<span class="n">let</span> <span class="n">gamma3</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">mRNA</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">ssr</span>
+<span class="n">let</span> <span class="n">beta4</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">//</span><span class="n">protein</span> <span class="n">production</span> <span class="n">of</span> <span class="n">SSR</span>
+<span class="n">let</span> <span class="n">gamma4</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">protein</span> <span class="n">degradation</span> <span class="n">of</span> <span class="n">SSR</span>
+<span class="n">let</span> <span class="n">gamma5</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">//</span><span class="n">removal</span> <span class="n">of</span> <span class="n">Na</span><span class="o">+</span>
+<span class="n">let</span> <span class="n">K_d_na</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">//</span><span class="n">dissociation</span> <span class="n">of</span> <span class="n">Na</span>
+<span class="n">let</span> <span class="n">K_d_hsf</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">//</span><span class="n">dissociation</span> <span class="n">of</span> <span class="n">HSF</span>
+<span class="n">let</span> <span class="n">n1</span> <span class="o">=</span><span class="mi">2</span> <span class="o">//</span><span class="n">hsf</span> <span class="n">hill</span> <span class="n">constant</span>
+<span class="n">let</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">//</span><span class="n">srr</span> <span class="n">hill</span> <span class="n">constant</span>
+
+<span class="o">//</span><span class="n">model</span>
+<span class="n">let</span> <span class="n">modelFinal</span> <span class="p">:</span> <span class="n">Model</span> <span class="o">=</span> 
+    <span class="n">fun</span> <span class="n">P</span> <span class="n">t</span> <span class="o">-&gt;</span>
+        <span class="n">let</span> <span class="n">mRNAcHSF</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">let</span> <span class="n">proteincHSF</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">mRNAcSSR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">proteincSSR</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">let</span> <span class="n">NA</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="n">let</span> <span class="n">mRNAcHSF</span><span class="s1">' = beta1 /(1.+(K_d_na/NA)**n1) - (gamma1 * mRNAcHSF)</span>
+        <span class="n">let</span> <span class="n">proteincHSF</span><span class="s1">' = beta2 * mRNAcHSF - (gamma2 * proteincHSF)</span>
+        <span class="n">let</span> <span class="n">mRNAcSSR</span><span class="s1">' = beta3 /(1.+(K_d_hsf/proteincHSF)**n2) - (gamma3 * mRNAcSSR)</span>
+        <span class="n">let</span> <span class="n">proteincSSR</span><span class="s1">'= beta4 * mRNAcSSR - (gamma4 * proteincSSR)</span>
+        <span class="n">let</span> <span class="n">NA</span><span class="s1">' = -gamma5 *proteincSSR</span>
+        
+        <span class="p">[</span><span class="o">|</span> <span class="n">mRNAcHSF</span><span class="s1">';proteincHSF'</span><span class="p">;</span><span class="n">mRNAcSSR</span><span class="s1">';proteincSSR'</span><span class="p">;</span><span class="n">NA</span><span class="s1">'|]</span>
+
+<span class="o">//</span><span class="n">Start</span> <span class="n">concentrations</span>
+<span class="n">let</span> <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">|</span> 
+    <span class="mf">0.0</span>
+    <span class="mf">0.01</span>
+    <span class="mf">0.0</span>
+    <span class="mf">0.0</span>
+    <span class="mf">10.</span>
+<span class="o">|</span><span class="p">]</span>
+
+<span class="n">let</span> <span class="n">simulationFinal</span> <span class="o">=</span> 
+    <span class="n">modelContext</span><span class="o">.</span><span class="n">OdeInt</span><span class="p">(</span>
+        <span class="mf">0.</span><span class="p">,</span> 
+        <span class="n">P0</span><span class="p">,</span>
+        <span class="n">modelFinal</span>
+    <span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">take</span> <span class="mi">50</span> 
+    <span class="o">|&gt;</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">memorize</span> 
+
+<span class="p">[</span>   
+    <span class="n">let</span> <span class="n">mRNAHSF</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">1</span> <span class="n">simulationFinal</span>
+    <span class="n">mRNAHSF</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA HSF1"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">proteinHSF</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">2</span> <span class="n">simulationFinal</span>
+    <span class="n">proteinHSF</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Protein HSF1"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">mRNASSR</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">3</span> <span class="n">simulationFinal</span>
+    <span class="n">mRNASSR</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"mRNA SSR"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">proteinSSR</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">4</span> <span class="n">simulationFinal</span>
+    <span class="n">proteinSSR</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Protein SSR"</span><span class="p">)</span>
+
+    <span class="n">let</span> <span class="n">naion</span> <span class="o">=</span> <span class="n">SolPoints</span><span class="o">.</span><span class="n">toPoints</span> <span class="mi">5</span> <span class="n">simulationFinal</span>
+    <span class="n">naion</span>
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">Spline</span> 
+    <span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withTraceInfo</span><span class="p">(</span><span class="s2">"Natrium"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">combine</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withXAxisStyle</span><span class="p">(</span><span class="s2">"Time [s]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">62</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="n">Chart</span><span class="o">.</span><span class="n">withYAxisStyle</span><span class="p">(</span><span class="s2">"Concentration [μM]"</span><span class="p">,</span> <span class="n">MinMax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
+
+<div>
+    <div id="86f3f42d-d9ef-49b6-b5dd-29f91e06067b"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script type="text/javascript">
+
+            var renderPlotly_86f3f42dd9ef49b6b5dd29f91e06067b = function() {
+            var fsharpPlotlyRequire = requirejs.config({context:'fsharp-plotly',paths:{plotly:'https://cdn.plot.ly/plotly-2.6.3.min'}}) || require;
+            fsharpPlotlyRequire(['plotly'], function(Plotly) {
+
+            var data = [{"type":"scatter","mode":"lines","x":[0.0,0.08696376604056764,0.1627791963050599,0.23366257744412156,0.304344802600429,0.37761380182663046,0.4559212696676671,0.541735168227651,0.6377073911066709,0.7468765234696699,0.8730108152946525,1.021290243516857,1.2000856695973003,1.4298369003984839,1.7199848157657698,2.0474310124202773,2.400865205694087,2.7898409348309507,3.235621826626422,3.7806366619664384,4.473617056543451,5.280886462085095,6.140593482208622,7.064152677497152,8.081562225784525,9.228425620486275,10.547403113593793,12.094544131386618,13.945896579244705,16.19770122991564,18.957470445743166,22.301300884481034,26.058493274157485,29.80214605337834,33.17907448973302,36.086669530521824,38.660097278085324,41.064214841483015,43.33047125453999,45.405279221957585,47.25540932977869,48.88565920271035,50.33856159329079,51.452252217647235,52.41614628080547,53.29263918243401,54.126743189756475,54.96599363299213,55.821233199916,56.703277431340275],"y":[0.0,0.08317587786872052,0.15111469801581082,0.21101268803803086,0.26745245899190956,0.32268470605232247,0.3782435177546231,0.43526137145220556,0.4945594590340246,0.5567020902001019,0.6220591918085234,0.6909149599127383,0.7637788994414981,0.8433367751006894,0.9250123269868766,0.9970550881838423,1.0563034642263176,1.1047882554808597,1.1446244615078496,1.1774630848579444,1.202995437405886,1.2193094793899395,1.2281147485021986,1.2325680010360933,1.234557904057151,1.2351150482735729,1.2347937039665982,1.233850074485165,1.2323146288936384,1.2300006352070074,1.2264304755384554,1.2206318300281047,1.211144387490916,1.1964282855395494,1.1749936708913076,1.1447484133387638,1.10056473543178,1.0310453590986177,0.9177618827446998,0.7408791660081739,0.5009893237272076,0.2559912644246499,0.094257165754213,0.04388495679607974,0.044010656258319146,0.06295404926449427,0.08616169438636603,0.10827059694401493,0.12682137634007506,0.14130057798850018],"marker":{},"line":{"shape":"spline"},"name":"mRNA HSF1"},{"type":"scatter","mode":"lines","x":[0.0,0.08696376604056764,0.1627791963050599,0.23366257744412156,0.304344802600429,0.37761380182663046,0.4559212696676671,0.541735168227651,0.6377073911066709,0.7468765234696699,0.8730108152946525,1.021290243516857,1.2000856695973003,1.4298369003984839,1.7199848157657698,2.0474310124202773,2.400865205694087,2.7898409348309507,3.235621826626422,3.7806366619664384,4.473617056543451,5.280886462085095,6.140593482208622,7.064152677497152,8.081562225784525,9.228425620486275,10.547403113593793,12.094544131386618,13.945896579244705,16.19770122991564,18.957470445743166,22.301300884481034,26.058493274157485,29.80214605337834,33.17907448973302,36.086669530521824,38.660097278085324,41.064214841483015,43.33047125453999,45.405279221957585,47.25540932977869,48.88565920271035,50.33856159329079,51.452252217647235,52.41614628080547,53.29263918243401,54.126743189756475,54.96599363299213,55.821233199916,56.703277431340275],"y":[0.01,0.01151097533952931,0.015610318418920442,0.021580300966148252,0.029417347107447457,0.0393588452813064,0.05184650511228467,0.06752529251149894,0.08725922043561479,0.11217292832757708,0.14373929255614618,0.18397083134794776,0.23594961371571235,0.3066075294454261,0.3992853744147676,0.505060837055346,0.6172854088004113,0.7355202818497674,0.8617254042494785,1.0005450469772001,1.1517774616672205,1.29459704683999,1.4127271511706325,1.5081548706151848,1.5843726513070846,1.6438323108721669,1.6883683407504764,1.719701252547476,1.7396211279118359,1.7499931455148106,1.752665421509602,1.7490334077838825,1.739670729995397,1.724377920906919,1.7023673337899419,1.6723993285653092,1.6305959374698293,1.5678805605534543,1.470032039746668,1.3205691908364756,1.10962373311115,0.8544694344770161,0.6050742478662787,0.4383663096389077,0.3297730428445269,0.2626891274679717,0.22331997461596517,0.20211790190599876,0.19358194283222502,0.19331588087193421],"marker":{},"line":{"shape":"spline"},"name":"Protein HSF1"},{"type":"scatter","mode":"lines","x":[0.0,0.08696376604056764,0.1627791963050599,0.23366257744412156,0.304344802600429,0.37761380182663046,0.4559212696676671,0.541735168227651,0.6377073911066709,0.7468765234696699,0.8730108152946525,1.021290243516857,1.2000856695973003,1.4298369003984839,1.7199848157657698,2.0474310124202773,2.400865205694087,2.7898409348309507,3.235621826626422,3.7806366619664384,4.473617056543451,5.280886462085095,6.140593482208622,7.064152677497152,8.081562225784525,9.228425620486275,10.547403113593793,12.094544131386618,13.945896579244705,16.19770122991564,18.957470445743166,22.301300884481034,26.058493274157485,29.80214605337834,33.17907448973302,36.086669530521824,38.660097278085324,41.064214841483015,43.33047125453999,45.405279221957585,47.25540932977869,48.88565920271035,50.33856159329079,51.452252217647235,52.41614628080547,53.29263918243401,54.126743189756475,54.96599363299213,55.821233199916,56.703277431340275],"y":[0.0,3.755116626687759E-07,1.0477200993828118E-06,2.703456654171532E-06,6.988898245907154E-06,1.7866666519973973E-05,4.481049109635278E-05,0.00011039575161224497,0.0002683739521661667,0.0006468798533519344,0.0015528844520980014,0.003731632925987309,0.009059026599102658,0.023004568280523267,0.05816120281746283,0.12926970776764607,0.24600531511742085,0.41231152012229916,0.6259587265363047,0.8811954909592142,1.1545016474989198,1.3854672761050066,1.5460210932949905,1.6521290260472172,1.7210004826602723,1.7650035808462425,1.7925956084508616,1.8094452997861823,1.8192292074966896,1.8242813035632142,1.8261136919792635,1.8256599857345917,1.823319536285929,1.8191648514189849,1.8134648674602007,1.8058139606145525,1.7943576232430576,1.7756138307541196,1.7424016817904295,1.6796592785622702,1.5546090196216507,1.3096712840462343,0.9182858129590978,0.5716838264178677,0.33293478123995457,0.19170821254290332,0.11265015452394384,0.06889080339201854,0.046058839358553594,0.03527200789543851],"marker":{},"line":{"shape":"spline"},"name":"mRNA SSR"},{"type":"scatter","mode":"lines","x":[0.0,0.08696376604056764,0.1627791963050599,0.23366257744412156,0.304344802600429,0.37761380182663046,0.4559212696676671,0.541735168227651,0.6377073911066709,0.7468765234696699,0.8730108152946525,1.021290243516857,1.2000856695973003,1.4298369003984839,1.7199848157657698,2.0474310124202773,2.400865205694087,2.7898409348309507,3.235621826626422,3.7806366619664384,4.473617056543451,5.280886462085095,6.140593482208622,7.064152677497152,8.081562225784525,9.228425620486275,10.547403113593793,12.094544131386618,13.945896579244705,16.19770122991564,18.957470445743166,22.301300884481034,26.058493274157485,29.80214605337834,33.17907448973302,36.086669530521824,38.660097278085324,41.064214841483015,43.33047125453999,45.405279221957585,47.25540932977869,48.88565920271035,50.33856159329079,51.452252217647235,52.41614628080547,53.29263918243401,54.126743189756475,54.96599363299213,55.821233199916,56.703277431340275],"y":[0.0,2.9925693912273864E-08,1.2585448328912058E-07,3.6020473077280815E-07,9.6439194934949E-07,2.575500145777738E-06,6.922865942498088E-06,1.869839532069545E-05,5.068021989492174E-05,0.00013790262924142835,0.00037751265024083295,0.0010446080200538707,0.0029548769106705,0.008934896389380564,0.027454963066110314,0.07428042620496052,0.17119618495667582,0.3466500198964248,0.6361134523199614,1.0870165318760507,1.726820484532519,2.4393170319951194,3.067468394917278,3.5675950323351486,3.939651977446451,4.1987103193843005,4.366742154651098,4.467823285300429,4.523807626446569,4.551659413557842,4.562986927437354,4.5648810543793505,4.56151011355792,4.555284788396352,4.543899370448711,4.525670405136693,4.5013416008985745,4.464725360788547,4.403356218558524,4.293982053183122,4.088925336413031,3.699329569253855,3.0289579055725167,2.2997702783676552,1.641464109288386,1.1271469413594244,0.7538107853356377,0.49041817179109454,0.315362897440427,0.20541867916344447],"marker":{},"line":{"shape":"spline"},"name":"Protein SSR"},{"type":"scatter","mode":"lines","x":[0.0,0.08696376604056764,0.1627791963050599,0.23366257744412156,0.304344802600429,0.37761380182663046,0.4559212696676671,0.541735168227651,0.6377073911066709,0.7468765234696699,0.8730108152946525,1.021290243516857,1.2000856695973003,1.4298369003984839,1.7199848157657698,2.0474310124202773,2.400865205694087,2.7898409348309507,3.235621826626422,3.7806366619664384,4.473617056543451,5.280886462085095,6.140593482208622,7.064152677497152,8.081562225784525,9.228425620486275,10.547403113593793,12.094544131386618,13.945896579244705,16.19770122991564,18.957470445743166,22.301300884481034,26.058493274157485,29.80214605337834,33.17907448973302,36.086669530521824,38.660097278085324,41.064214841483015,43.33047125453999,45.405279221957585,47.25540932977869,48.88565920271035,50.33856159329079,51.452252217647235,52.41614628080547,53.29263918243401,54.126743189756475,54.96599363299213,55.821233199916,56.703277431340275],"y":[10.0,9.999999999957405,9.999999999691974,9.99999999889509,9.999999996720808,9.999999990689963,9.999999973372123,9.999999922112968,9.999999766719256,9.99999928594254,9.999997767431744,9.999992844048307,9.99997617647197,9.999912944361606,9.99966840256659,9.998882405150312,9.996794787489902,9.991880694102946,9.98109093854113,9.957798397961211,9.909118139153257,9.82474102674267,9.705824056691714,9.551958705633742,9.360321705227925,9.126331749449683,8.843321436213937,8.501149454892264,8.084629274861546,7.573474015659357,6.944451277739299,6.181309084908276,5.3241020428309405,4.471180109960886,3.703445689403183,3.0443530363914935,2.463565128915151,1.9245382498234131,1.4218124927633142,0.9700983515460946,0.581237906771666,0.2619134393566363,0.015351135753512296,-0.13359374576687266,-0.2283770867226418,-0.288628781374959,-0.32744305072509405,-0.35318672924312816,-0.3701277701910233,-0.3813969066909185],"marker":{},"line":{"shape":"spline"},"name":"Natrium"}];
+            var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":true,"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}},"xaxis":{"title":{"text":"Time"},"range":[0,62]},"yaxis":{"title":{"text":"Concentration"},"range":[0,10]}};
+            var config = {"responsive":true};
+            Plotly.newPlot('86f3f42d-d9ef-49b6-b5dd-29f91e06067b', data, layout, config);
+});
+            };
+            if ((typeof(requirejs) !==  typeof(Function)) || (typeof(requirejs.config) !== typeof(Function))) {
+                var script = document.createElement("script");
+                script.setAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
+                script.onload = function(){
+                    renderPlotly_86f3f42dd9ef49b6b5dd29f91e06067b();
+                };
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }
+            else {
+                renderPlotly_86f3f42dd9ef49b6b5dd29f91e06067b();
+            }
+</script>
+
+    
+</div>    
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Real-world-modelling">Real world modelling<a class="anchor-link" href="#Real-world-modelling">&#182;</a></h2><p>This final model represents the regulation model proposed in the motivation section. However, it still has some noticeable flaws. The salt stress response in <em>Chlamydomonas reinhardtii</em> consists not only of one protein, but multiple. Thus, it would be required to split the differential equations for the SSR protein into multiple differential equations which describe their individual productions. Furthermore, the values for beta, and gamma are just guesses and not the reaction rates that are found in the real world. Biological systems modelling should always be orientated on the experimental findings, thus a general rule is to always use the experimentally determined reaction rates and only start to guess reaction rates if you do not find any already measured ones. 
+It should also be noted that this blog post is just and introduction to modelling differential equations. It did not touch on repressor proteins, the constant protein production that most proteins have, autoregulation, and many more details. However, most of them play a role in salt stress reaction and need to be implemented as well. In case you want to model something yourself and don't know where to search for the missing pieces then <a href="http://be150.caltech.edu/2020/content/lessons/01_intro_to_circuit_design.html">try this resource</a> (the course is done in python but the mathematical models are identical).</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><p><a href="https://en.wikipedia.org/wiki/Euler_method">https://en.wikipedia.org/wiki/Euler_method</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Hill_equation_(biochemistry">https://en.wikipedia.org/wiki/Hill_equation_(biochemistry</a>)</p>
+<p><a href="http://be150.caltech.edu/2020/content/lessons/01_intro_to_circuit_design.html">http://be150.caltech.edu/2020/content/lessons/01_intro_to_circuit_design.html</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+        </div>
+        <footer class="footer is-dark">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB - Computational Systems Biology
+                  </h3>
+                </div>
+                <div class="block">
+                  <p>
+                    CSB is the department of 
+                    <a href="https://csb.bio.uni-kl.de/" class="footer-link">
+                      Prof. Dr. Timo Mühlhaus
+                    </a>
+                     at 
+                    <a href="https://rptu.de/" class="footer-link">
+                      RPTU Kaiserslauern.
+                    </a>
+                  </p>
+                </div>
+                <div class="block">
+                  <p>
+                    This website is mainly intended for internal purposes. It is maintained by members of the department.
+                  </p>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-code-branch"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/CSBlog">
+                      website source code
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="far fa-handshake"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/orgs/CSBiology/people">
+                      csb contributors
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology">
+                      the csb organisation on github
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/BioFSharp">
+                      BioFSharp - Computational Biology toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/ProteomIQon">
+                      ProteomIQon - Computational Protemics toolkit
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FsSpreadsheet">
+                      FsSpreadsheet - Multi-target Spreadsheet datamodel
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/DynamicObj">
+                      DynamicObj - System.Dynamic for F#
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/CSBiology/FSharpAux">
+                      FSharpAux - Auxiliary functions for F#
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    These projects are originally CSB projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/plotly/Plotly.NET">
+                      Plotly.NET - .NET graphing library
+                    </a>
+                  </div>
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <a class="footer-link" href="https://github.com/fslaborg/FSharp.Stats">
+                      FSharp.Stats - datascience in F#
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="block">
+                  <h3 class="subtitle is-white">
+                    Further reading and partner projects
+                  </h3>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-vial"></i>
+                    </span>
+                    <a class="footer-link" href="https://fslab.org">
+                      FsLab - the F# data science stack
+                    </a>
+                  </div>
+                </div>
+                <div class="block">
+                  <div class="is-white">
+                    <span class="icon">
+                      <i class="fas fa-graduation-cap"></i>
+                    </span>
+                    <a class="footer-link" href="https://csb.bio.uni-kl.de/#teaching">
+                      CSB teaching materials
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
