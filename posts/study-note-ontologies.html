@@ -281,21 +281,21 @@ is_a: GO:0019534 ! toxin transmembrane transporter activity</code></pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharp.Data"</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO, 2.0.0-preview.3"</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: Cyjs.NET, 0.0.4"</span><span class="w"></span>
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharp.Data"</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO, 2.0.0-preview.3"</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: Cyjs.NET, 0.0.4"</span>
 
-<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Data</span><span class="w">    </span><span class="c1">//required for data download </span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span><span class="w">   </span><span class="c1">//required for parsing</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">Cyjs.NET</span><span class="w">       </span><span class="c1">//required for visualization</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Data</span><span class="w">    </span><span class="c1">//required for data download </span>
+<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span><span class="w">   </span><span class="c1">//required for parsing</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Cyjs.NET</span><span class="w">       </span><span class="c1">//required for visualization</span>
 
 <span class="k">let</span><span class="w"> </span><span class="nv">getRawString</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="nn">Http</span><span class="p">.</span><span class="n">RequestString</span><span class="w"> </span><span class="n">url</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">'\n'</span><span class="w"></span>
+<span class="w">    </span><span class="nn">Http</span><span class="p">.</span><span class="n">RequestString</span><span class="w"> </span><span class="n">url</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">'\n'</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">goUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"http://current.geneontology.org/ontology/go.obo"</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">goUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"http://current.geneontology.org/ontology/go.obo"</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">goRawData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getRawString</span><span class="w"> </span><span class="n">goUrl</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">goRawData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getRawString</span><span class="w"> </span><span class="n">goUrl</span>
 </pre></div>
 
      </div>
@@ -355,7 +355,7 @@ is_a: GO:0019534 ! toxin transmembrane transporter activity</code></pre>
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
 <span class="w">    </span><span class="nn">BioFSharp</span><span class="p">.</span><span class="nn">IO</span><span class="p">.</span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span><span class="w"> </span><span class="k">false</span><span class="w"> </span><span class="n">goRawData</span><span class="w">  </span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toArray</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">toArray</span>
 </pre></div>
 
      </div>
@@ -386,26 +386,26 @@ is_a: GO:0019534 ! toxin transmembrane transporter activity</code></pre>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">getElements</span><span class="w"> </span><span class="o">(</span><span class="n">terms</span><span class="o">:</span><span class="nn">Obo</span><span class="p">.</span><span class="n">OboTerm</span><span class="bp">[]</span><span class="o">)</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="n">terms</span><span class="w"></span>
+<span class="w">    </span><span class="n">terms</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">filter</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">        </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">||</span><span class="w"></span>
-<span class="w">        </span><span class="nn">List</span><span class="p">.</span><span class="n">exists</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">rel</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">rel</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">id</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">||</span>
+<span class="w">        </span><span class="nn">List</span><span class="p">.</span><span class="n">exists</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">rel</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">rel</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">id</span><span class="o">)</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span>
+<span class="w">        </span><span class="o">)</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span><span class="w"></span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Name</span><span class="w"></span>
-<span class="w">        </span><span class="c1">//sometimes a relationship can be stored as dedicated relationship rather than a isA role</span><span class="w"></span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Relationships</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Id</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Name</span>
+<span class="w">        </span><span class="c1">//sometimes a relationship can be stored as dedicated relationship rather than a isA role</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IsA</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">Relationships</span>
 <span class="w">        </span><span class="n">target</span><span class="w"> </span>
 <span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">singleTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">' '</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">head</span><span class="w"></span>
-<span class="w">            </span><span class="n">label</span><span class="o">,</span><span class="n">source</span><span class="o">,</span><span class="w"> </span><span class="n">singleTarget</span><span class="w"></span>
-<span class="w">            </span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">concat</span><span class="w"></span>
+<span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">singleTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">Split</span><span class="w"> </span><span class="sc">' '</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">head</span>
+<span class="w">            </span><span class="n">label</span><span class="o">,</span><span class="n">source</span><span class="o">,</span><span class="w"> </span><span class="n">singleTarget</span>
+<span class="w">            </span><span class="o">)</span>
+<span class="w">        </span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">concat</span>
 
 <span class="k">let</span><span class="w"> </span><span class="nv">goElements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="s">"GO:0071704"</span><span class="w"> </span>
-<span class="n">goElements</span><span class="w"></span>
+<span class="n">goElements</span>
 </pre></div>
 
      </div>
@@ -491,24 +491,24 @@ table th {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">getCytoVertices</span><span class="w"> </span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="n">seq</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="n">input</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">collect</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="o">,</span><span class="n">s</span><span class="o">,</span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">s</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span><span class="w"></span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">t</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span><span class="w"></span>
-<span class="w">        </span><span class="o">[|</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">stylingSource</span><span class="o">;</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">stylingTarget</span><span class="o">|]</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span><span class="w"></span>
+<span class="w">    </span><span class="n">input</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">collect</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="o">,</span><span class="n">s</span><span class="o">,</span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">s</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">stylingTarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">"%s %s"</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="n">t</span><span class="o">);</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">24</span><span class="o">]</span>
+<span class="w">        </span><span class="o">[|</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">stylingSource</span><span class="o">;</span><span class="nn">Elements</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">stylingTarget</span><span class="o">|]</span>
+<span class="w">        </span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span>
 
 <span class="k">let</span><span class="w"> </span><span class="nv">getCytoEdges</span><span class="w"> </span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="n">seq</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)=</span><span class="w"> </span>
 <span class="w">    </span><span class="n">input</span><span class="w"> </span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">distinct</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">mapi</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">(</span><span class="n">l</span><span class="o">,</span><span class="n">s</span><span class="o">,</span><span class="n">t</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">styling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="o">]</span><span class="w"></span>
-<span class="w">        </span><span class="nn">Elements</span><span class="p">.</span><span class="n">edge</span><span class="w"> </span><span class="o">(</span><span class="s">"e"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">i</span><span class="o">)</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">styling</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">styling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nn">CyParam</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="mi">3</span><span class="o">]</span>
+<span class="w">        </span><span class="nn">Elements</span><span class="p">.</span><span class="n">edge</span><span class="w"> </span><span class="o">(</span><span class="s">"e"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">i</span><span class="o">)</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">styling</span>
+<span class="w">        </span><span class="o">)</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">goVertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="n">goElements</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">goEdges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="n">goElements</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">goVertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="n">goElements</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">goEdges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="n">goElements</span>
 </pre></div>
 
      </div>
@@ -543,26 +543,26 @@ table th {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">cytoGraph</span><span class="w"> </span><span class="n">vertices</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">initEmpty</span><span class="w"> </span><span class="bp">()</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">vertices</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">edges</span><span class="w"></span>
+<span class="w">    </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">initEmpty</span><span class="w"> </span><span class="bp">()</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">vertices</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withElements</span><span class="w"> </span><span class="n">edges</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withStyle</span><span class="w"> </span><span class="s">"node"</span><span class="w"> </span>
-<span class="w">        </span><span class="o">[</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"circle"</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=.</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Border</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#A00975"</span><span class="w"></span>
-<span class="w">        </span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"circle"</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=.</span><span class="w"> </span><span class="nn">CyParam</span><span class="p">.</span><span class="n">label</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Border</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#A00975"</span>
+<span class="w">        </span><span class="o">]</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withStyle</span><span class="w"> </span><span class="s">"edge"</span><span class="w"> </span>
-<span class="w">        </span><span class="o">[</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Line</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#3D1244"</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Curve</span><span class="p">.</span><span class="n">style</span><span class="w"> </span><span class="s">"bezier"</span><span class="w"></span>
-<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Target</span><span class="p">.</span><span class="nn">Arrow</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"triangle"</span><span class="w"></span>
-<span class="w">        </span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="o">[</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Line</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="s">"#3D1244"</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Curve</span><span class="p">.</span><span class="n">style</span><span class="w"> </span><span class="s">"bezier"</span>
+<span class="w">            </span><span class="nn">CyParam</span><span class="p">.</span><span class="nn">Target</span><span class="p">.</span><span class="nn">Arrow</span><span class="p">.</span><span class="n">shape</span><span class="w"> </span><span class="s">"triangle"</span>
+<span class="w">        </span><span class="o">]</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withLayout</span><span class="w"> </span><span class="o">(</span><span class="nn">Layout</span><span class="p">.</span><span class="n">initBreadthfirst</span><span class="w"> </span><span class="n">id</span><span class="o">)</span><span class="w">  </span>
 
-<span class="c1">// Send the cytograph to the browser</span><span class="w"></span>
-<span class="n">cytoGraph</span><span class="w"> </span><span class="n">goVertices</span><span class="w"> </span><span class="n">goEdges</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+<span class="c1">// Send the cytograph to the browser</span>
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">goVertices</span><span class="w"> </span><span class="n">goEdges</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
 </pre></div>
 
      </div>
@@ -646,8 +646,8 @@ table th {
 <span class="k">let</span><span class="w"> </span><span class="nv">msVertices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="n">msElements</span><span class="w">        </span>
 <span class="k">let</span><span class="w"> </span><span class="nv">msEdges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="n">msElements</span><span class="w">              </span>
 
-<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices</span><span class="w"> </span><span class="n">msEdges</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices</span><span class="w"> </span><span class="n">msEdges</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
 </pre></div>
 
      </div>
@@ -752,13 +752,13 @@ table th {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">msElements2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="s">"MS:1000121"</span><span class="w"></span>
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">msElements2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getElements</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="s">"MS:1000121"</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">msVertices2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">msEdges2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">msVertices2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoVertices</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">msEdges2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getCytoEdges</span><span class="w"> </span><span class="o">(</span><span class="nn">Seq</span><span class="p">.</span><span class="n">append</span><span class="w"> </span><span class="n">msElements</span><span class="w"> </span><span class="n">msElements2</span><span class="o">)</span>
 
-<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices2</span><span class="w"> </span><span class="n">msEdges2</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span><span class="w"></span>
+<span class="n">cytoGraph</span><span class="w"> </span><span class="n">msVertices2</span><span class="w"> </span><span class="n">msEdges2</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">CyGraph</span><span class="p">.</span><span class="n">withSize</span><span class="w"> </span><span class="o">(</span><span class="mi">1300</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
 </pre></div>
 
      </div>

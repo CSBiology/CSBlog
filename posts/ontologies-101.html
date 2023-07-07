@@ -280,40 +280,40 @@ Beneath a set of ontology-specific individual relations, there are some relation
 OWL uses different language implementations for its structure. Though there are several different ones, the most important ones are the XML and RDF implementations.</p>
 <p>Here is an example of an ontology only consisting of the class "Felis_catus", its instance "Garfield" which has the attribute "orange_fur" via a "has_a" relation:</p>
 <div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="nt">&lt;Ontology</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span>
-     <span class="na">xml:base=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span>
-     <span class="na">xmlns:rdf=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span>
-     <span class="na">xmlns:xml=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span>
-     <span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>
-     <span class="na">xmlns:rdfs=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span>
-     <span class="na">ontologyIRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2/&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;owl&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;rdf&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;xml&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;xsd&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Prefix</span> <span class="na">name=</span><span class="s">&quot;rdfs&quot;</span> <span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;Declaration&gt;</span>
-        <span class="nt">&lt;Class</span> <span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/Declaration&gt;</span>
-    <span class="nt">&lt;Declaration&gt;</span>
-        <span class="nt">&lt;ObjectProperty</span> <span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/Declaration&gt;</span>
-    <span class="nt">&lt;Declaration&gt;</span>
-        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/Declaration&gt;</span>
-    <span class="nt">&lt;Declaration&gt;</span>
-        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/Declaration&gt;</span>
-    <span class="nt">&lt;ClassAssertion&gt;</span>
-        <span class="nt">&lt;Class</span> <span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/ClassAssertion&gt;</span>
-    <span class="nt">&lt;ObjectPropertyAssertion&gt;</span>
-        <span class="nt">&lt;ObjectProperty</span> <span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;NamedIndividual</span> <span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/ObjectPropertyAssertion&gt;</span>
+<span class="nt">&lt;Ontology</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span>
+<span class="w">     </span><span class="na">xml:base=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span>
+<span class="w">     </span><span class="na">xmlns:rdf=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span>
+<span class="w">     </span><span class="na">xmlns:xml=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span>
+<span class="w">     </span><span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>
+<span class="w">     </span><span class="na">xmlns:rdfs=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span>
+<span class="w">     </span><span class="na">ontologyIRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.semanticweb.org/revil/ontologies/2023/1/untitled-ontology-2/&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;owl&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;rdf&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;xml&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/XML/1998/namespace&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;xsd&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Prefix</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;rdfs&quot;</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Declaration&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Class</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Declaration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Declaration&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ObjectProperty</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Declaration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Declaration&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NamedIndividual</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Declaration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Declaration&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NamedIndividual</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Declaration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ClassAssertion&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Class</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#Felis_catus&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NamedIndividual</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/ClassAssertion&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ObjectPropertyAssertion&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ObjectProperty</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#has_a&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NamedIndividual</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#Garfield&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;NamedIndividual</span><span class="w"> </span><span class="na">IRI=</span><span class="s">&quot;#orange_fur&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/ObjectPropertyAssertion&gt;</span>
 <span class="nt">&lt;/Ontology&gt;</span>
 </pre></div>
 <p>While the OWL format is very mighty and due to XML easily parsable, it is not that simple to read and understand (as a human). Due to this, based on OWL, OBO has been founded.</p>
@@ -329,24 +329,24 @@ OWL uses different language implementations for its structure. Though there are 
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="OBO">OBO<a class="anchor-link" href="#OBO">&#182;</a></h3><p>OBO is a format developed by the Open Biological and Biomedical Ontologies Foundry (OBOFoundry). While this file format is based on the principles of OWL, it uses a vastly different language implementation in a slightly YAML style syntax. The same minimalistic ontology as in the OWL example, this time in OBO (flat file) format:</p>
-<div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000000</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span><span class="w"></span>
-<span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OWL:0000000 ! Thing</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000000</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span>
+<span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OWL:0000000 ! Thing</span>
 
-<span class="p p-Indicator">[</span><span class="nv">Instance</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000001</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Garfield</span><span class="w"></span>
-<span class="nt">instance_of</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span><span class="w"></span>
-<span class="nt">property_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a orange_fur</span><span class="w"></span>
+<span class="p p-Indicator">[</span><span class="nv">Instance</span><span class="p p-Indicator">]</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000001</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Garfield</span>
+<span class="nt">instance_of</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Felis_catus</span>
+<span class="nt">property_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a orange_fur</span>
 
-<span class="p p-Indicator">[</span><span class="nv">Typedef</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000002</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a</span><span class="w"></span>
+<span class="p p-Indicator">[</span><span class="nv">Typedef</span><span class="p p-Indicator">]</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000002</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">has_a</span>
 
-<span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span><span class="w"></span>
-<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000003</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orange_fur</span><span class="w"></span>
+<span class="p p-Indicator">[</span><span class="nv">Term</span><span class="p p-Indicator">]</span>
+<span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GARFO:0000003</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orange_fur</span>
 </pre></div>
 <p>OBO is used as the primary format for ontologies in the DataPLANT consortium. OBO files have the extension .obo.</p>
 
@@ -386,15 +386,15 @@ OWL uses different language implementations for its structure. Though there are 
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp"</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO"</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharpAux"</span><span class="w"></span>
+<div class=" highlight hl-F#"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp"</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: BioFSharp.IO"</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">"nuget: FSharpAux"</span>
 
-<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux.IO</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">BioFSharp.IO</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux.IO</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">myTerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">createOboTerm</span><span class="w"> </span><span class="s">"ID:0001"</span><span class="w"> </span><span class="s">"myTerm"</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span><span class="w"></span>
-<span class="n">myterm</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">myTerm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">createOboTerm</span><span class="w"> </span><span class="s">"ID:0001"</span><span class="w"> </span><span class="s">"myTerm"</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="s">""</span>
+<span class="n">myterm</span>
 </pre></div>
 
      </div>
@@ -478,10 +478,10 @@ table th {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Users\revil\OneDrive\Desktop\garfield_ontology.obo"</span><span class="w"></span>
+<div class=" highlight hl-F#"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@"C:\Users\revil\OneDrive\Desktop\garfield_ontology.obo"</span>
 
-<span class="nn">Seq</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">fp</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span><span class="w"></span>
+<span class="nn">Seq</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">fp</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Obo</span><span class="p">.</span><span class="n">parseOboTerms</span>
 </pre></div>
 
      </div>

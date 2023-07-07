@@ -227,19 +227,19 @@
 <li><code>Dockerfile</code></li>
 </ul>
 <p>For this example I will use a devcontainer "designed" for an F# development environment. Let's start with a look at the devcontainer.json</p>
-<div class="highlight"><pre><span></span><span class="err">//</span><span class="w"> </span><span class="err">devco</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ner</span><span class="err">.jso</span><span class="kc">n</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FSharpCodeContainer&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../Dockerfile&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">Docker</span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">e</span><span class="kc">n</span><span class="err">viro</span><span class="kc">n</span><span class="err">me</span><span class="kc">nt</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;appPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8080</span><span class="p">],</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="c1">// devcontainer.json</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FSharpCodeContainer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dockerFile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;../Dockerfile&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Path to Dockerfile with environment</span>
+<span class="w">    </span><span class="nt">&quot;appPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">8080</span><span class="p">],</span>
 <span class="w">    </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
-<span class="w">        </span><span class="s2">&quot;ionide.ionide-fsharp&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">F#</span><span class="w"> </span><span class="err">ex</span><span class="kc">tens</span><span class="err">io</span><span class="kc">n</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;ms-vscode.csharp&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;editorconfig.editorconfig&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;ms-dotnettools.dotnet-interactive-vscode&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">allows</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">crea</span><span class="kc">te</span><span class="w"> </span><span class="err">juyp</span><span class="kc">ter</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">te</span><span class="err">books</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">.NET</span><span class="w"> </span><span class="err">ker</span><span class="kc">nel</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;cweijan.vscode-office&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">ca</span><span class="kc">n</span><span class="w"> </span><span class="err">display</span><span class="w"> </span><span class="err">.xlsx</span><span class="w"> </span><span class="kc">f</span><span class="err">iles</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">VS</span><span class="w"> </span><span class="err">Code</span><span class="w"></span>
-<span class="w">    </span><span class="p">],</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;ionide.ionide-fsharp&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// F# extension</span>
+<span class="w">        </span><span class="s2">&quot;ms-vscode.csharp&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;editorconfig.editorconfig&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;ms-dotnettools.dotnet-interactive-vscode&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// allows to create juypter notebooks with .NET kernel</span>
+<span class="w">        </span><span class="s2">&quot;cweijan.vscode-office&quot;</span><span class="w"> </span><span class="c1">// can display .xlsx files in VS Code</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="p">}</span>
 </pre></div>
 <p>Here we can specify, which extensions the VS Code Server instance in our docker container should be running. We also reference the dockerfile which should be used to build the container. There we specify that we for example want to use the .NET sdk 6.0.</p>
 <div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">mcr.microsoft.com/dotnet/sdk:6.0</span>
@@ -247,10 +247,10 @@
 
 <span class="c"># Copy endpoint specific user settings into container to specify</span>
 <span class="c"># .NET Core should be used as the runtime.</span>
-<span class="k">COPY</span><span class="w"> </span>.devcontainer/settings.vscode.json /root/.vscode-remote/data/Machine/settings.json
+<span class="k">COPY</span><span class="w"> </span>.devcontainer/settings.vscode.json<span class="w"> </span>/root/.vscode-remote/data/Machine/settings.json
 
 <span class="c"># Install git, process tools</span>
-<span class="k">RUN</span><span class="w"> </span>apt-get update <span class="o">&amp;&amp;</span> apt-get -y install git procps
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>procps
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspaces/FSharpCodespace/dependencies</span>
 </pre></div>
@@ -331,23 +331,23 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Dependencies">Dependencies<a class="anchor-link" href="#Dependencies">&#182;</a></h2><p>We start by importing all required nuget packages.</p>
-<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Deedle, 2.3.0&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET, 2.0.0-preview.16&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET.Interactive, 2.0.0-preview.16&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharp.Stats, 0.4.1&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharpAux&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: BIO-BTE-06-L-7_Aux, 0.0.9&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet, 0.4.0-preview.4&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.XLSX, 0.4.0-preview.4&quot;</span><span class="w"></span>
-<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.IO, 0.0.2&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Deedle, 2.3.0&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET, 2.0.0-preview.16&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: Plotly.NET.Interactive, 2.0.0-preview.16&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharp.Stats, 0.4.1&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: FSharpAux&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: BIO-BTE-06-L-7_Aux, 0.0.9&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet, 0.4.0-preview.4&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.XLSX, 0.4.0-preview.4&quot;</span>
+<span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">&quot;nuget: ISADotNet.IO, 0.0.2&quot;</span>
 
-<span class="k">open</span><span class="w"> </span><span class="nn">Deedle</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET.LayoutObjects</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Stats</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">System.IO</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">BIO_BTE_06_L_7_Aux.Deedle_Aux</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Deedle</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">Plotly.NET.LayoutObjects</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharp.Stats</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">System.IO</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">FSharpAux</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">BIO_BTE_06_L_7_Aux.Deedle_Aux</span>
 </pre></div>
 
 </div>
@@ -387,58 +387,58 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Data-analysis">Data analysis<a class="anchor-link" href="#Data-analysis">&#182;</a></h2><h3 id="Data-access">Data access<a class="anchor-link" href="#Data-access">&#182;</a></h3><p>We start by accessing our data and reading it into an <a href="https://fslab.org/packages.html">Deedle frame</a>.</p>
-<div class="highlight"><pre><span></span><span class="o">[&lt;</span><span class="n">Literal</span><span class="o">&gt;]</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">dataPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="o">[&lt;</span><span class="n">Literal</span><span class="o">&gt;]</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">dataPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/dataset/WCAnnotated_Ratio.txt&quot;</span>
 
-<span class="c1">// quality control, check dilution series. In this example mean should always increase by times 5.</span><span class="w"></span>
-<span class="k">type</span><span class="w"> </span><span class="nc">Qprot</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">CBB</span><span class="w"></span>
-<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">PS</span><span class="w"></span>
+<span class="c1">// quality control, check dilution series. In this example mean should always increase by times 5.</span>
+<span class="k">type</span><span class="w"> </span><span class="nc">Qprot</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">CBB</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">PS</span>
 
 <span class="k">type</span><span class="w"> </span><span class="nc">PeptideIon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="o">{</span><span class="w"></span>
+<span class="w">    </span><span class="o">{</span>
 <span class="w">        </span><span class="n">ProteinGroup</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w">  </span>
-<span class="w">        </span><span class="n">Synonym</span><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">        </span><span class="n">StringSequence</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">        </span><span class="n">PepSequenceID</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
-<span class="w">        </span><span class="n">Charge</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"></span>
-<span class="w">        </span><span class="n">QProt</span><span class="w">           </span><span class="o">:</span><span class="w"> </span><span class="n">Qprot</span><span class="w"></span>
-<span class="w">    </span><span class="o">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">Synonym</span><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">        </span><span class="n">StringSequence</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">        </span><span class="n">PepSequenceID</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
+<span class="w">        </span><span class="n">Charge</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
+<span class="w">        </span><span class="n">QProt</span><span class="w">           </span><span class="o">:</span><span class="w"> </span><span class="n">Qprot</span>
+<span class="w">    </span><span class="o">}</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">rowKeyColNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[|</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;StringSequence&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Charge&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Synonym&quot;</span><span class="o">|]</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">rowKeyColNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[|</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;StringSequence&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Charge&quot;</span><span class="o">;</span><span class="w"> </span><span class="s">&quot;Synonym&quot;</span><span class="o">|]</span>
 
-<span class="sd">/// Open .xlsx file and index rows with column information. Then drop those columns</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">readQuantAndProtFrame</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">frame</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">        </span><span class="nn">Frame</span><span class="p">.</span><span class="n">ReadCsv</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="k">true</span><span class="o">,</span><span class="n">separators</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">indexRowsUsing</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
+<span class="sd">/// Open .xlsx file and index rows with column information. Then drop those columns</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">readQuantAndProtFrame</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">frame</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="nn">Frame</span><span class="p">.</span><span class="n">ReadCsv</span><span class="w"> </span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="k">true</span><span class="o">,</span><span class="n">separators</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="o">)</span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">indexRowsUsing</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">pGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">                </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39;;&#39;</span><span class="w"></span>
-<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">sort</span><span class="w"></span>
-<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">concat</span><span class="w"> </span><span class="s">&quot;;&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="o">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">ProteinGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pGroup</span><span class="w"></span>
-<span class="w">                </span><span class="n">StringSequence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;StringSequence&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">                </span><span class="n">PepSequenceID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">                </span><span class="n">Charge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;Charge&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">                </span><span class="n">Synonym</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;Synonym&quot;</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;ProteinGroup&quot;</span><span class="o">)</span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39;;&#39;</span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">sort</span>
+<span class="w">                </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">concat</span><span class="w"> </span><span class="s">&quot;;&quot;</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">                </span><span class="n">ProteinGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pGroup</span>
+<span class="w">                </span><span class="n">StringSequence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;StringSequence&quot;</span><span class="o">)</span>
+<span class="w">                </span><span class="n">PepSequenceID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;PepSequenceID&quot;</span><span class="o">)</span>
+<span class="w">                </span><span class="n">Charge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;(</span><span class="s">&quot;Charge&quot;</span><span class="o">)</span>
+<span class="w">                </span><span class="n">Synonym</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">.</span><span class="n">GetAs</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;(</span><span class="s">&quot;Synonym&quot;</span><span class="o">)</span>
 <span class="w">                </span><span class="n">QProt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">                    </span><span class="k">match</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newCBB&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newPS&quot;</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
-<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="k">true</span><span class="o">,</span><span class="w"> </span><span class="k">false</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CBB</span><span class="w"></span>
+<span class="w">                    </span><span class="k">match</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newCBB&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">pGroup</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">contains</span><span class="w"> </span><span class="s">&quot;QProt_newPS&quot;</span><span class="w"> </span><span class="k">with</span>
+<span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="k">true</span><span class="o">,</span><span class="w"> </span><span class="k">false</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CBB</span>
 <span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="k">false</span><span class="o">,</span><span class="w"> </span><span class="k">true</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">PS</span><span class="w">  </span>
 <span class="w">                    </span><span class="o">|</span><span class="w"> </span><span class="n">anythingElse</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">failwith</span><span class="w"> </span><span class="o">$</span><span class="s">&quot;Error! unexpected input in cbb ps matching: {anythingElse}&quot;</span><span class="w"> </span>
-<span class="w">            </span><span class="o">}</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// The following works on a mutable frame, so we can drop all columns we don&#39;t need without forwarding the frame to the next column to drop.</span><span class="w"></span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">)</span>
+<span class="w">    </span><span class="sd">/// The following works on a mutable frame, so we can drop all columns we don&#39;t need without forwarding the frame to the next column to drop.</span>
 <span class="w">    </span><span class="n">rowKeyColNames</span><span class="w"> </span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="n">frame</span><span class="o">.</span><span class="n">DropColumn</span><span class="o">(</span><span class="n">name</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="w"></span>
-<span class="w">    </span><span class="n">frame</span><span class="w"></span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">frame</span><span class="o">.</span><span class="n">DropColumn</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
+<span class="w">    </span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+<span class="w">    </span><span class="n">frame</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readQuantAndProtFrame</span><span class="w"> </span><span class="n">dataPath</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readQuantAndProtFrame</span><span class="w"> </span><span class="n">dataPath</span>
 </pre></div>
 
 </div>
@@ -453,8 +453,8 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h4 id="Visualisation-1">Visualisation 1<a class="anchor-link" href="#Visualisation-1">&#182;</a></h4><p>Check the current state with:</p>
 <div class="highlight"><pre><span></span><span class="n">data</span><span class="w"> </span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">take</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">take</span><span class="w"> </span><span class="mi">10</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span>
 </pre></div>
 <details>
 <summary>Image of table data</summary>
@@ -473,25 +473,25 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h4 id="Visualisation-2">Visualisation 2<a class="anchor-link" href="#Visualisation-2">&#182;</a></h4><p>Display the same data as boxplot:</p>
-<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">createBoxPlot</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="n">f</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">x</span><span class="o">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">s</span><span class="w"></span>
-<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">createBoxPlot</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">f</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">x</span><span class="o">,</span><span class="n">y</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">s</span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span>
 <span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">                </span><span class="kt">string</span><span class="w"> </span><span class="n">k</span><span class="o">,</span><span class="w"> </span><span class="n">values</span><span class="w"></span>
-<span class="w">            </span><span class="o">)</span><span class="w"></span>
-<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip</span><span class="w"></span>
-<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">BoxPlot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="o">,</span><span class="w"> </span><span class="n">Orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">StyleParam</span><span class="p">.</span><span class="nn">Orientation</span><span class="p">.</span><span class="n">Vertical</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">MinMax</span><span class="o">=(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">100</span><span class="o">))</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withLegend</span><span class="o">(</span><span class="k">false</span><span class="o">)</span><span class="w"></span>
+<span class="w">                </span><span class="kt">string</span><span class="w"> </span><span class="n">k</span><span class="o">,</span><span class="w"> </span><span class="n">values</span>
+<span class="w">            </span><span class="o">)</span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip</span>
+<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">BoxPlot</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">y</span><span class="o">,</span><span class="w"> </span><span class="n">Orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">StyleParam</span><span class="p">.</span><span class="nn">Orientation</span><span class="p">.</span><span class="n">Vertical</span><span class="o">)</span>
+<span class="w">    </span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">MinMax</span><span class="o">=(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">100</span><span class="o">))</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withLegend</span><span class="o">(</span><span class="k">false</span><span class="o">)</span>
 
-<span class="n">createBoxPlot</span><span class="w"> </span><span class="n">data</span><span class="w"></span>
+<span class="n">createBoxPlot</span><span class="w"> </span><span class="n">data</span>
 </pre></div>
 <details>
 <summary>Image data as boxplot</summary>
@@ -513,43 +513,43 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Metadata-access">Metadata access<a class="anchor-link" href="#Metadata-access">&#182;</a></h3><p>Next we want to calculate the mean for all peptides over the biological replicates.</p>
 <p>We want to access the metadata from <code>assays\VP21_WC\isa.assay.xlsx</code>. We can traverse the annotation tables of the .xlsx file with the <a href="https://github.com/nfdi4plants/ISADotNet">ISADotNet</a> library.</p>
-<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">normalizeFileName</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">HasExtension</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">ChangeExtension</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;wiff&quot;</span><span class="o">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">normalizeFileName</span><span class="w"> </span><span class="o">(</span><span class="n">f</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">HasExtension</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nn">Path</span><span class="p">.</span><span class="n">ChangeExtension</span><span class="o">(</span><span class="n">f</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;wiff&quot;</span><span class="o">)</span>
 
-<span class="k">open</span><span class="w"> </span><span class="nn">ISADotNet</span><span class="w"></span>
-<span class="k">open</span><span class="w"> </span><span class="nn">arcIO.NET</span><span class="w"></span>
+<span class="k">open</span><span class="w"> </span><span class="nn">ISADotNet</span>
+<span class="k">open</span><span class="w"> </span><span class="nn">arcIO.NET</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">assayFilePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/isa.assay.xlsx&quot;</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">assayFilePath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">@&quot;../../assays/VP21_WC/isa.assay.xlsx&quot;</span>
 
-<span class="sd">/// Put these functions into a separate code block. Run them once and then work in a new block, </span><span class="w"></span>
-<span class="sd">/// to avoid getting an error when you have the .xlsx file open somewhere else</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">_</span><span class="o">,_,_,</span><span class="n">myAssayFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">XLSX</span><span class="p">.</span><span class="nn">AssayFile</span><span class="p">.</span><span class="nn">Assay</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">assayFilePath</span><span class="w"></span>
+<span class="sd">/// Put these functions into a separate code block. Run them once and then work in a new block, </span>
+<span class="sd">/// to avoid getting an error when you have the .xlsx file open somewhere else</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">_</span><span class="o">,_,_,</span><span class="n">myAssayFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">XLSX</span><span class="p">.</span><span class="nn">AssayFile</span><span class="p">.</span><span class="nn">Assay</span><span class="p">.</span><span class="n">fromFile</span><span class="w"> </span><span class="n">assayFilePath</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">inOutMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">createInOutMap</span><span class="w"> </span><span class="n">myAssayFile</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">inOutMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">createInOutMap</span><span class="w"> </span><span class="n">myAssayFile</span>
 </pre></div>
 <p>Because we know we have the sample names in the <code>isa.assay.xlsx</code> files as column headers we can use them to access related metadata information.</p>
-<div class="highlight"><pre><span></span><span class="sd">/// Get one specific value for an output column</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">getColumnParam</span><span class="w"> </span><span class="o">(</span><span class="n">sheetName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">paramName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">fileName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="sd">/// Get one specific value for an output column</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">getColumnParam</span><span class="w"> </span><span class="o">(</span><span class="n">sheetName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">paramName</span><span class="o">:</span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">fileName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span>
 <span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileName</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">normalizeFileName</span><span class="w"> </span>
-<span class="w">    </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">tryGetParameter</span><span class="w"> </span><span class="c1">// can only get Parameter [xxx]</span><span class="w"></span>
+<span class="w">    </span><span class="nn">ISADotNet</span><span class="p">.</span><span class="n">tryGetParameter</span><span class="w"> </span><span class="c1">// can only get Parameter [xxx]</span>
 <span class="w">        </span><span class="n">inOutMap</span><span class="w"> </span>
-<span class="w">        </span><span class="n">sheetName</span><span class="w"> </span><span class="c1">// Excel Sheet</span><span class="w"></span>
-<span class="w">        </span><span class="n">paramName</span><span class="w"> </span><span class="c1">// Excel column name in []</span><span class="w"></span>
-<span class="w">        </span><span class="n">fN</span><span class="w"> </span><span class="c1">// last &quot;Sample Name&quot; in assay file, without file extension</span><span class="w"></span>
-<span class="w">        </span><span class="n">myAssayFile</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Option</span><span class="p">.</span><span class="n">defaultValue</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">head</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">float</span><span class="w"></span>
+<span class="w">        </span><span class="n">sheetName</span><span class="w"> </span><span class="c1">// Excel Sheet</span>
+<span class="w">        </span><span class="n">paramName</span><span class="w"> </span><span class="c1">// Excel column name in []</span>
+<span class="w">        </span><span class="n">fN</span><span class="w"> </span><span class="c1">// last &quot;Sample Name&quot; in assay file, without file extension</span>
+<span class="w">        </span><span class="n">myAssayFile</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Option</span><span class="p">.</span><span class="n">defaultValue</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">head</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">float</span>
 
-<span class="sd">/// The column parameter names in isa.assay.xlsx</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">cbc_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Calvin-Benson cycle QconCAT mass #3&quot;</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">ps_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Photosynthesis QconCAT mass #4&quot;</span><span class="w"></span>
+<span class="sd">/// The column parameter names in isa.assay.xlsx</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">cbc_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Calvin-Benson cycle QconCAT mass #3&quot;</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">ps_qconcat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;15N Photosynthesis QconCAT mass #4&quot;</span>
 
-<span class="k">let</span><span class="w"> </span><span class="nv">getCBC_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"></span>
-<span class="k">let</span><span class="w"> </span><span class="nv">getPS_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">ps_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"></span>
+<span class="k">let</span><span class="w"> </span><span class="nv">getCBC_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="n">sampleName</span>
+<span class="k">let</span><span class="w"> </span><span class="nv">getPS_qconcat</span><span class="w"> </span><span class="n">sampleName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">ps_qconcat</span><span class="w"> </span><span class="n">sampleName</span>
 
-<span class="sd">/// example access</span><span class="w"></span>
-<span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="s">&quot;WCGr2_U1&quot;</span><span class="w"> </span><span class="c1">// 0.9</span><span class="w"></span>
+<span class="sd">/// example access</span>
+<span class="n">getColumnParam</span><span class="w"> </span><span class="s">&quot;Protein extraction&quot;</span><span class="w"> </span><span class="n">cbc_qconcat</span><span class="w"> </span><span class="s">&quot;WCGr2_U1&quot;</span><span class="w"> </span><span class="c1">// 0.9</span>
 </pre></div>
 
 </div>
@@ -563,19 +563,19 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Data-transformation">Data transformation<a class="anchor-link" href="#Data-transformation">&#182;</a></h3><p>Map over all samples to extract Q-Protein quantities and calculate the mean over all samples with the same quantities <em>(the biological replicates)</em>.</p>
-<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">cbc_ps_data</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">    </span><span class="n">data</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// col keys as row keys</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// Adjust keys to represent dilution series.</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">mapRowKeys</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">rk</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;cbc: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getCBC_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;ps: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getPS_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">rk</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// Calculate mean for all rows with the same value in cbc and ps q-protein quantity (aka. the biological replicates)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">applyLevel</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">cbc</span><span class="o">,</span><span class="n">ps</span><span class="o">,_)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="o">)</span><span class="w"> </span><span class="nn">Stats</span><span class="p">.</span><span class="n">mean</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// Swap rows keys back to column keys</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">cbc_ps_data</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">data</span>
+<span class="w">    </span><span class="sd">/// col keys as row keys</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span>
+<span class="w">    </span><span class="sd">/// Adjust keys to represent dilution series.</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">mapRowKeys</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">rk</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;cbc: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getCBC_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;ps: %A&quot;</span><span class="w"> </span><span class="o">(</span><span class="n">getPS_qconcat</span><span class="w"> </span><span class="n">rk</span><span class="o">),</span><span class="w"> </span><span class="n">rk</span><span class="o">)</span>
+<span class="w">    </span><span class="sd">/// Calculate mean for all rows with the same value in cbc and ps q-protein quantity (aka. the biological replicates)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">applyLevel</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">cbc</span><span class="o">,</span><span class="n">ps</span><span class="o">,_)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="o">)</span><span class="w"> </span><span class="nn">Stats</span><span class="p">.</span><span class="n">mean</span>
+<span class="w">    </span><span class="sd">/// Swap rows keys back to column keys</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span>
 
-<span class="n">cbc_ps_data</span><span class="w"></span>
-<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span><span class="w"></span>
+<span class="n">cbc_ps_data</span>
+<span class="o">|&gt;</span><span class="w"> </span><span class="n">formatAsTable</span><span class="w"> </span><span class="mi">500</span>
 </pre></div>
 <p>Image data mean as table</p>
 <p><img src="./../../img/5_devcontainer_arc/data_table_mean.png" alt="Image data mean as table"></p>
@@ -583,34 +583,34 @@ So to start the devcontainer with VS Code we need to open the exact parent folde
 <p><img src="./../../img/5_devcontainer_arc/data_boxplot_mean.png" alt="Image data mean as boxplot"></p>
 <p>Last we want to show only ratios for peptides related to a specific protein.</p>
 <div class="highlight"><pre><span></span><span class="k">let</span><span class="w"> </span><span class="nv">plotPeptidesOf</span><span class="w"> </span><span class="o">(</span><span class="n">ratios</span><span class="o">:</span><span class="w"> </span><span class="n">Frame</span><span class="o">&lt;</span><span class="n">PeptideIon</span><span class="o">,</span><span class="kt">string</span><span class="o">*</span><span class="kt">string</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">prot</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">    </span><span class="n">ratios</span><span class="w"></span>
-<span class="w">    </span><span class="sd">/// filter data to only show peptides of the given protein</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">filterRows</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">Synonym</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">ProteinGroup</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span><span class="w"></span>
+<span class="w">    </span><span class="n">ratios</span>
+<span class="w">    </span><span class="sd">/// filter data to only show peptides of the given protein</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">filterRows</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">Synonym</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">k</span><span class="o">.</span><span class="n">ProteinGroup</span><span class="o">.</span><span class="n">Contains</span><span class="w"> </span><span class="n">prot</span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">transpose</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Frame</span><span class="p">.</span><span class="n">getNumericCols</span>
 <span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">pep</span><span class="w"> </span><span class="o">(</span><span class="n">values</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">qprotAmounts</span><span class="o">,</span><span class="n">ratios</span><span class="o">,</span><span class="n">fileLabel</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
-<span class="w">            </span><span class="n">values</span><span class="w"></span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="nv">qprotAmounts</span><span class="o">,</span><span class="n">ratios</span><span class="o">,</span><span class="n">fileLabel</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">values</span>
 <span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">dataColumnName</span><span class="w"> </span><span class="n">ratio</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-<span class="w">                    </span><span class="k">let</span><span class="w"> </span><span class="nv">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataColumnName</span><span class="w"></span>
+<span class="w">                    </span><span class="k">let</span><span class="w"> </span><span class="nv">cbc</span><span class="o">,</span><span class="w"> </span><span class="n">ps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataColumnName</span>
 <span class="w">                    </span><span class="k">let</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">QProt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CBB</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">cbc</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">ps</span><span class="w"></span>
-<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="w"></span>
-<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">last</span><span class="w"></span>
-<span class="w">                    </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="n">ratio</span><span class="o">,</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
-<span class="w">            </span><span class="o">)</span><span class="w"></span>
-<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
-<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip3</span><span class="w"></span>
-<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">Point</span><span class="o">(</span><span class="n">qprotAmounts</span><span class="o">,</span><span class="w"> </span><span class="n">ratios</span><span class="o">,</span><span class="w"> </span><span class="n">MultiText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileLabel</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTraceName</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;S:%s_C:%i&quot;</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">StringSequence</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">Charge</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withXAxisStyle</span><span class="o">(</span><span class="s">&quot;qProt Amount&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTitle</span><span class="w"> </span><span class="o">(</span><span class="n">prot</span><span class="o">)</span><span class="w"></span>
-<span class="w">        </span><span class="o">)</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span><span class="w"></span>
-<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span><span class="w"></span>
+<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">QProt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CBB</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">cbc</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">ps</span>
+<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">String</span><span class="p">.</span><span class="n">split</span><span class="w"> </span><span class="sc">&#39; &#39;</span>
+<span class="w">                        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Array</span><span class="p">.</span><span class="n">last</span>
+<span class="w">                    </span><span class="n">name</span><span class="o">,</span><span class="w"> </span><span class="n">ratio</span><span class="o">,</span><span class="w"> </span><span class="n">name</span>
+<span class="w">            </span><span class="o">)</span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span>
+<span class="w">            </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Seq</span><span class="p">.</span><span class="n">unzip3</span>
+<span class="w">        </span><span class="nn">Chart</span><span class="p">.</span><span class="n">Point</span><span class="o">(</span><span class="n">qprotAmounts</span><span class="o">,</span><span class="w"> </span><span class="n">ratios</span><span class="o">,</span><span class="w"> </span><span class="n">MultiText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fileLabel</span><span class="o">)</span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTraceName</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;S:%s_C:%i&quot;</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">StringSequence</span><span class="w"> </span><span class="n">pep</span><span class="o">.</span><span class="n">Charge</span><span class="o">)</span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withXAxisStyle</span><span class="o">(</span><span class="s">&quot;qProt Amount&quot;</span><span class="o">)</span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withYAxisStyle</span><span class="o">(</span><span class="s">&quot;Ratio&quot;</span><span class="o">)</span>
+<span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">withTitle</span><span class="w"> </span><span class="o">(</span><span class="n">prot</span><span class="o">)</span>
+<span class="w">        </span><span class="o">)</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Series</span><span class="p">.</span><span class="n">values</span>
+<span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Chart</span><span class="p">.</span><span class="n">combine</span>
 
-<span class="n">plotPeptidesOf</span><span class="w"> </span><span class="n">cbc_ps_data</span><span class="w"> </span><span class="s">&quot;rbcL&quot;</span><span class="w"></span>
+<span class="n">plotPeptidesOf</span><span class="w"> </span><span class="n">cbc_ps_data</span><span class="w"> </span><span class="s">&quot;rbcL&quot;</span>
 </pre></div>
 <p><img src="./../../img/5_devcontainer_arc/data_rbcL.png" alt="Image: Measured ratios for all Q-Peptides related to rbcL"></p>
 <p>Thats it for a minimal example on how we can interopt VS Code remote containers and the ARC.</p>
